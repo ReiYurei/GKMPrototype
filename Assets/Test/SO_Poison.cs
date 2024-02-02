@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+[CreateAssetMenu(fileName = "Poison", menuName = "Status Ailment/Poison")]
+public class SO_Poison : BaseStatusEffect
+{
+    [SerializeField] private float duration;
+    [SerializeField] private float poisonPercentage;
+    private float time;
+    public override IEnumerator ApplyEffect(StatusEffectContainer container, BaseStatus status)
+    {
+        time = duration;
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            var x = status.SetHealth(status.GetHealth() - poisonPercentage / 100 * Time.deltaTime);
+            Debug.Log(Mathf.Round(x));
+            yield return null;
+
+        }
+        container.appliedStatuses.Remove(this);
+    }
+    }
