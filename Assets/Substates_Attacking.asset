@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0894135f18a82fa449396429010c085f, type: 3}
   m_Name: Substates_Attacking
   m_EditorClassIdentifier: 
+  power: 1
+  range: 1
   _clip: {fileID: 7400000, guid: 51688acd58789d641965be7456462035, type: 2}

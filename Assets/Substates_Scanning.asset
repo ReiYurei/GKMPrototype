@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d581254ace341c04ab3bd92f1addade6, type: 3}
   m_Name: Substates_Scanning
   m_EditorClassIdentifier: 
-  _name: Enemy_Scanning
+  _name: Enemy_Scan

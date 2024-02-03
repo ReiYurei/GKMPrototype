@@ -23,7 +23,7 @@ public abstract class BaseStatus : ScriptableObject
 
     public float _rawPower;
     public float _movementSpeed;
-    public float _power(float modifier)
+    public float Power(float modifier)
     {
         return _rawPower * modifier;
     }

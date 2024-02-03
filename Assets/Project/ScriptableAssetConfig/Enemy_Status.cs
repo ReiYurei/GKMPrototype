@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Enemy Status",menuName ="Enemy/Enemy Status")]
 public class Enemy_Status : BaseStatus
 {
+
+
     [Header("Enemy Threshold")]
     public float _stamina; // optional
     public float _rageThreshold;
@@ -30,4 +32,6 @@ public class Enemy_Status : BaseStatus
         base.OnSpawn();
         
     }
+
+
 }

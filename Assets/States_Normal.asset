@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _subStates:
   - {fileID: 11400000, guid: 17a1cba7d9947af49bb6748c5628eacd, type: 2}
-  - {fileID: 11400000, guid: e2983453cb4627044a55b2b0382c472a, type: 2}
   - {fileID: 11400000, guid: 439b3c76566d1f6448d073897bf6e870, type: 2}
   - {fileID: 11400000, guid: 17a1cba7d9947af49bb6748c5628eacd, type: 2}
   - {fileID: 11400000, guid: 439b3c76566d1f6448d073897bf6e870, type: 2}
