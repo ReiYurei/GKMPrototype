@@ -10,9 +10,14 @@ public class SO_Enemy_States : ScriptableObject
 {
     [InlineEditor]
     public List<SO_Enemy_Substate> _subStates;
-    public void UseState(int subState)
+    public void Execute(int subState)
     {
         _subStates[subState].Execute();
 
+    }
+    public string GetName(int subState)
+    {
+        Debug.Log(_subStates[subState].GetName());
+        return _subStates[subState].GetName();
     }
 }

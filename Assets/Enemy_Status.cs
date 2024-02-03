@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="Enemy Status",menuName ="Enemy/Enemy Status")]
@@ -20,5 +19,15 @@ public class Enemy_Status : BaseStatus
     public float _animationSpeed;
 
     [Header("Animation")]
-    public AnimatorController controller;
+    public string _animationName;
+
+    [Header("States")]
+    public SO_Enemy_States states;
+    public SO_Enemy_Substate substates;
+
+    public override void OnSpawn()
+    {
+        base.OnSpawn();
+        
+    }
 }

@@ -6,10 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Substates_Taunt",menuName = "Enemy/Enemy Behaviour/Enemy Substate/Taunt")]
 public class SO_Taunt : SO_Enemy_Substate
 {
-    public AnimationClip animation;
+    [SerializeField]private string _name = "Enemy_Taunt";
     public override void Execute()
     {
-        Debug.Log("Taunt");
+        Debug.Log("Taunting");
+    }
+    public override string GetName()
+    {
+        return _name;
     }
 }
 

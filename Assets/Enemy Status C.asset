@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc820466befb8484db17072a4b0a2bf9, type: 3}
-  m_Name: Enemy Status
+  m_Name: Enemy Status C
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _rawPower: 1
-  _movementSpeed: 2
+  _maxHealth: 0
+  _rawPower: 0
+  _movementSpeed: 0
   _stamina: 0
   _rageThreshold: 0
   _stunThreshold: 0

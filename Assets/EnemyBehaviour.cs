@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TriInspector;
@@ -7,8 +8,8 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] EnemyStates statePicker;
-    [SerializeField]private float waitTime;
-
+    [SerializeField] float waitTime;
+    [SerializeField] Enemy_Status status;
     private int subStateNum = 0;
 
     [InlineEditor]
@@ -19,14 +20,34 @@ public class EnemyBehaviour : MonoBehaviour
         StartCoroutine(Behave(waitTime, statePicker));
 
     }
-    public IEnumerator Behave(float time, EnemyStates currentState)
+    public IEnumerator Behave(float time, EnemyStates index)
     {
-        states[(int)currentState].UseState(subStateNum);
-        SwitchState();
+        var currenStates = states[(int)index];
+        currenStates.Execute(subStateNum);
+        SetState(index);
+        SetSubstate(index);
+        SetAnimationName(index);
         yield return new WaitForSeconds(time);
+        SwitchState();
         StartCoroutine(Behave(waitTime, statePicker));
     }
+    public void SetAnimationName(EnemyStates index)
+    {
+        var currenStates = states[(int)index];
+        status._animationName = currenStates.GetName(subStateNum);
+    }
+    public void SetState(EnemyStates index)
+    {
+        var currenStates = states[(int)index];
+        status.states = currenStates;
 
+    }
+    public void SetSubstate(EnemyStates index)
+    {
+        var currenStates = states[(int)index];
+        status.substates = currenStates._subStates[subStateNum];
+
+    }
     public void SwitchState()
     {
         var subStateCount = states[(int)statePicker]._subStates.Count - 1;
@@ -37,8 +58,5 @@ public class EnemyBehaviour : MonoBehaviour
         }
         subStateNum++;
     }
-    public void Update()
-    {
-        
-    }
+   
 }

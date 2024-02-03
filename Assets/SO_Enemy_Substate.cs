@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class SO_Enemy_Substate : ScriptableObject
 {
     public abstract void Execute();
+    public abstract string GetName();
 }

@@ -7,7 +7,7 @@ public abstract class BaseStatus : ScriptableObject
     [Header("General Status")]
     public float _maxHealth;
     private float currentHealth;
-    public void OnSpawn()
+    public virtual void OnSpawn()
     {
         currentHealth = _maxHealth;
     }
