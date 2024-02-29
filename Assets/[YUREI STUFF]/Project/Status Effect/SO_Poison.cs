@@ -14,10 +14,10 @@ public class SO_Poison : BaseStatusEffect
         {
             time -= Time.deltaTime;
             var x = status.SetHealth(status.GetHealth() - poisonPercentage / 100 * Time.deltaTime);
-            Debug.Log(Mathf.Round(x));
             yield return null;
 
         }
+        status.NotifyEndOfStatus(this);
         container.appliedStatuses.Remove(this);
     }
     }

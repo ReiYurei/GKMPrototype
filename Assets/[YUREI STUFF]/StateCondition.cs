@@ -6,19 +6,23 @@ using UnityEngine;
 [System.Serializable]
 public class StateCondition 
 {
-    [SerializeField] string name;
-    [SerializeField] bool isBoolean;
-    [ShowIf(nameof(isBoolean), false)] public ComparatorType condition;
-    [ShowIf(nameof(isBoolean),false)]public FloatVariable metric1;
-    [ShowIf(nameof(isBoolean), false)]public FloatVariable metric2;
+    [SerializeField] EnemyStates name;
+    public EnemyStates GetName()
+    {
+        return name;
+    }
 
-    [SerializeField] bool useConstant;
-    [ShowIf(nameof(isBoolean), true)] public BooleanComparatorType boolCondition;
-    [ShowIf(nameof(isBoolean), true)] public BooleanVariable boolMetric1;
-    [ShowIf(nameof(isBoolean), true)] public BooleanVariable boolMetric2;
-    public SO_Enemy_States state;
+   // [SerializeField] bool isBoolean;
+  //  [ShowIf(nameof(isBoolean), false)] public ComparatorType condition;
+  //  [ShowIf(nameof(isBoolean),false)]public FloatVariable metric1;
+  //  [ShowIf(nameof(isBoolean), false)]public float metric2;
+  //
+  //  [ShowIf(nameof(isBoolean), true)] public BooleanComparatorType boolCondition;
+  //  [ShowIf(nameof(isBoolean), true)] public BooleanVariable boolMetric1;
+  //  [ShowIf(nameof(isBoolean), true)] public bool boolMetric2;
+    [Required]public SO_Enemy_States state;
     
-    public bool CheckValue()
+  /*  public bool CheckValue()
     {
         if (isBoolean)
         {
@@ -35,14 +39,14 @@ public class StateCondition
         switch (boolCondition)
         {
             case BooleanComparatorType.Equal:
-                if (boolMetric1.value == boolMetric2.value)
+                if (boolMetric1.value == boolMetric2)
                 {
 
                     return true;
                 }
                 else return false;
             case BooleanComparatorType.Inequal:
-                if (boolMetric1.value != boolMetric2.value)
+                if (boolMetric1.value != boolMetric2)
                 {
 
                     return true;
@@ -57,42 +61,42 @@ public class StateCondition
            switch (condition)
            {
                case ComparatorType.Equal:
-                    if (metric1.value == metric2.value)
+                    if (metric1.value == metric2)
                     {
 
                         return true;
                     }
                     else return false;
                case ComparatorType.Inequal:
-                    if (metric1.value != metric2.value)
+                    if (metric1.value != metric2)
                     {
 
                         return true;
                     }
                     else return false;
                 case ComparatorType.GreaterThan:
-                    if (metric1.value > metric2.value)
+                    if (metric1.value > metric2)
                     {
 
                         return true;
                     }
                     else return false;
                 case ComparatorType.GreaterThanOrEqual:
-                    if (metric1.value >= metric2.value)
+                    if (metric1.value >= metric2)
                     {
 
                         return true;
                     }
                     else return false;
                 case ComparatorType.LessThan:
-                    if (metric1.value < metric2.value)
+                    if (metric1.value < metric2)
                     {
 
                         return true;
                     }
                     else return false;
                 case ComparatorType.LessThanOrEqual:
-                    if (metric1.value <= metric2.value)
+                    if (metric1.value <= metric2)
                     {
 
                         return true;
@@ -100,6 +104,6 @@ public class StateCondition
                     else return false;
                 default : return false;
            }
-    }
+    }*/
 }
 

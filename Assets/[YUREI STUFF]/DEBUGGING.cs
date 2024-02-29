@@ -13,10 +13,6 @@ public class DEBUGGING : MonoBehaviour
     public Enemy enemy;
     private void Start()
     {
-      //  enemyStatus.InitiateStun += OnStun;
-      //  enemyStatus.InitiateBreak += OnBreak;
-      //  enemyStatus.InitiateEnrage += OnRage;
-      //  enemyStatus.InitiatePoison += OnPoison;
         rageIcon.SetActive(false);
         poisonIcon.SetActive(false);
         stunIcon.SetActive(false);
@@ -26,10 +22,10 @@ public class DEBUGGING : MonoBehaviour
 
     private void Update()
     {
-        OnStun();
-        OnPoison();
-        OnRage();
-        OnBreak();
+       OnStun();
+       OnPoison();
+       OnRage();
+       OnBreak();
     }
     void OnStun()
     {

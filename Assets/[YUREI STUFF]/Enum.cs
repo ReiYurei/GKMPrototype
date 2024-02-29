@@ -1,6 +1,6 @@
 public enum EnemyStates
 {
-    Default, Normal, Rage, Tired
+    Default, Normal, Enraged ,Raging, Break, Stunned, Taunt,Flinched
 }
 public enum ComparatorType
 {

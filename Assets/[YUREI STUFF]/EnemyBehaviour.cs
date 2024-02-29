@@ -3,91 +3,157 @@ using System.Collections;
 using System.Collections.Generic;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] EnemyStates statePicker;
-    [SerializeField] float waitTime;
-    [SerializeField] Enemy_Status status;
+    [SerializeField] Enemy enemy;
+    Enemy_Status status;
+
     private int subStateNum = 0;
-
-
-    [InlineEditor]
-    public List<SO_Enemy_States> states;
     public List<StateCondition> _condition;
-
-
-
+    private void Start()
+    {
+       foreach(StateCondition condition in _condition)
+       {
+           if (condition.GetName() == EnemyStates.Normal)
+           {
+               status.SetState(condition.state, subStateNum);
+           }
+           else continue;
+       }
+    }
     void OnEnable()
     {
-        InvokeRepeating(nameof(CheckCondition), 0.25f,0.5f);
-        statePicker = 0;
+        if (status == null)
+        {
+            TryGetComponent<Enemy>(out Enemy component);
+            status = component._status;
+
+        }
         status.InitiateEnrage += OnEnrageInitiated;
         status.InitiateStun += OnStunInitiated;
-        StartCoroutine(Behave(waitTime, statePicker));
+        status.InitiateBreak += OnBreakInitiated;
+        status.StunEnd += OnStunEnd;
+        StartCoroutine(Behave(status.WaitTime));
 
     }
+    
     private void OnDisable()
     {
-        CancelInvoke();
+        StopAllCoroutines();
         status.InitiateEnrage -= OnEnrageInitiated;
         status.InitiateStun -= OnStunInitiated;
+        status.InitiateBreak -= OnBreakInitiated;
+        status.StunEnd -= OnStunEnd;
     }
-    public IEnumerator Behave(float time, EnemyStates index)
+ 
+    public IEnumerator Behave(float time)
     {
-        var currenStates = states[(int)index];
-        currenStates.Execute(subStateNum);
-        SetState(index);
-        SetSubstate(index);
-        SetAnimationName(index);
+        StateExecution();
+        SwitchSubstate();
         yield return new WaitForSeconds(time);
-        SwitchState();
-        Interrupt();
-        StartCoroutine(Behave(waitTime, statePicker));
+        StartCoroutine(Behave(status.WaitTime));
     }
-    void CheckCondition()
+
+    public void OnEnrageInitiated()
     {
-        foreach (StateCondition condition in _condition) 
-        { 
-            if (condition.CheckValue())
+        Interrupt();
+        subStateNum = 0;
+        foreach (StateCondition condition in _condition)
+        {
+
+            if (condition.GetName() == EnemyStates.Enraged)
             {
-                status.states = condition.state;
+
+                status.SetState(condition.state, subStateNum);
+                StateExecution();
+                StartCoroutine(TimedExecution(status.WaitTime));
+                return;
             }
         }
     }
-    public void OnEnrageInitiated()
-    {
-
-    }
     public void OnStunInitiated()
     {
+        status.SetPreviousState(status.GetState());
+        Interrupt();
+        subStateNum = 0;
+        foreach (StateCondition condition in _condition)
+        {
+            if (condition.GetName() == EnemyStates.Stunned)
+            {
+                status.SetState(condition.state, subStateNum);
+                StateExecution();
+                return;
+            }
+        }
+    }
+    public void OnBreakInitiated()
+    {
+        Interrupt();
+        subStateNum = 0;
 
+        foreach (StateCondition condition in _condition)
+        {
+            if (condition.GetName() == EnemyStates.Flinched)
+            {
+                status.SetState(condition.state, subStateNum);
+                StateExecution();
+                StartCoroutine(TimedExecution(2f));
+                return;
+            }
+
+        }
+    }
+    public void OnStunEnd()
+    {
+        BackToPreviousState();
+    }
+    public IEnumerator TimedExecution(float duration)
+    {
+        float time = duration;
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            yield return null;
+            Debug.Log(time);
+        }
+        BackToPreviousState();
+       
+    }
+
+
+    public void BackToPreviousState()
+    {
+        Debug.Log(subStateNum);
+        List<StateCondition> states = new List<StateCondition>();
+        foreach (StateCondition condition in _condition)
+        {
+            if (condition.GetName() != EnemyStates.Stunned || condition.GetName() != EnemyStates.Enraged)
+            {
+                states.Add(condition);
+            }
+        }
+        status.SetState(status.GetPreviousState(states),subStateNum);
+        StartCoroutine(Behave(status.WaitTime));
     }
     public void Interrupt()
     {
         StopAllCoroutines();
     }
-    public void SetAnimationName(EnemyStates index)
-    {
-        var currenStates = states[(int)index];
-        status._animationHash = currenStates.GetAnimation(subStateNum);
-    }
-    public void SetState(EnemyStates index)
-    {
-        var currenStates = states[(int)index];
-        status.states = currenStates;
 
-    }
-    public void SetSubstate(EnemyStates index)
+    public void StateExecution()
     {
-        var currenStates = states[(int)index];
-        status.substates = currenStates._subStates[subStateNum];
+        var currentState = status.GetState();
 
+        currentState.Execute(enemy,subStateNum);
+        status.SetState(currentState, subStateNum);
+        status.SetAnimationHash(status.GetAnimationHashFromSubstate());
     }
-    public void SwitchState()
+    public void SwitchSubstate()
     {
-        var subStateCount = states[(int)statePicker]._subStates.Count - 1;
+        var subStateCount = status.GetState()._subStates.Count - 1;
         if (subStateNum >= subStateCount)
         {
             subStateNum = 0;

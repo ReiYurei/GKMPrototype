@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SO_Enraged : SO_Enemy_Substate
 {
-    public override void Execute()
+    public override void Execute(Enemy enemy)
     {
         Debug.Log("Raging");
     }

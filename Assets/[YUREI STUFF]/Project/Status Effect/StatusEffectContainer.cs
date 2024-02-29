@@ -4,17 +4,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TriInspector;
 using NUnit.Framework.Internal.Commands;
+using System.ComponentModel;
 public class StatusEffectContainer : MonoBehaviour
 {
     [ShowInInspector] public HashSet<BaseStatusEffect> appliedStatuses;
-    public Enemy_Status status;
+    Enemy_Status status;
 
-    [InlineEditor]
     [Header("Enemy Self-inflicting Status")]
-    [Required][SerializeField] SO_Rage rage;
-    [Required][SerializeField] SO_Stun stun;
-    [Required][SerializeField] SO_Poison poison;
-    [Required][SerializeField] SO_Break breakStatus;
+    [InlineEditor][Required][SerializeField] SO_Rage rage;
+    [InlineEditor][Required][SerializeField] SO_Stun stun;
+    [InlineEditor][Required][SerializeField] SO_Poison poison;
+    [InlineEditor][Required][SerializeField] SO_Break breakStatus;
 
     private void Start()
     {
@@ -24,6 +24,12 @@ public class StatusEffectContainer : MonoBehaviour
 
     private void OnEnable()
     {
+        if (status == null)
+        {
+            TryGetComponent<Enemy>(out Enemy component);
+            status = component._status;
+
+        }
         status.InitiateEnrage += OnRage;
         status.InitiateBreak += OnBreak;
         status.InitiatePoison += OnPoison;
@@ -39,19 +45,22 @@ public class StatusEffectContainer : MonoBehaviour
 
     public void OnRage()
     {
+        if (rage == null) return;
         Inflict(rage);
     }
     public void OnStun()
     {
+        if (stun == null) return;
         Inflict(stun);
     }
     public void OnPoison()
     {
+        if (poison == null) return;
         Inflict(poison);
-
     }
     public void OnBreak()
     {
+        if (breakStatus == null) return;
         Inflict(breakStatus);
     }
     public void Inflict(BaseStatusEffect effect)

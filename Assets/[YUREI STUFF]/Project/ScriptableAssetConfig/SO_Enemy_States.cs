@@ -11,9 +11,9 @@ public class SO_Enemy_States : ScriptableObject
 {
     [InlineEditor]
     public List<SO_Enemy_Substate> _subStates;
-    public void Execute(int subState)
+    public void Execute(Enemy enemy ,int subState)
     {
-        _subStates[subState].Execute();
+        _subStates[subState].Execute(enemy);
 
     }
     public int GetAnimation(int subState)

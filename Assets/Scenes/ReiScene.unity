@@ -927,9 +927,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: ad0d5cfbaf48dc24eba7a5b75c088551, type: 2}
-  _enemyAnimator: {fileID: 0}
-  _enemyBehaviour: {fileID: 0}
-  _statusEffectContainer: {fileID: 0}
+  _enemyAnimator: {fileID: 458429153}
+  _enemyBehaviour: {fileID: 458429150}
+  _statusEffectContainer: {fileID: 458429152}
 --- !u!114 &458429150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,14 +942,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa42e43e05989a48b73b6ba1d47be3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statePicker: 0
-  waitTime: 2
-  status: {fileID: 11400000, guid: ad0d5cfbaf48dc24eba7a5b75c088551, type: 2}
-  states:
-  - {fileID: 11400000, guid: 1be4f0519237be94b979d1cc10634119, type: 2}
-  - {fileID: 11400000, guid: 4341059fe134c8049a08037afdf6459a, type: 2}
-  - {fileID: 11400000, guid: ede5760f141dc534599bf1fab7ec4309, type: 2}
-  _condition: []
+  enemy: {fileID: 0}
+  _condition:
+  - name: 2
+    state: {fileID: 11400000, guid: 4341059fe134c8049a08037afdf6459a, type: 2}
+  - name: 5
+    state: {fileID: 11400000, guid: ede5760f141dc534599bf1fab7ec4309, type: 2}
+  - name: 3
+    state: {fileID: 11400000, guid: c7a3e4839ca195b43bf311db4e29ec8f, type: 2}
+  - name: 1
+    state: {fileID: 11400000, guid: 1be4f0519237be94b979d1cc10634119, type: 2}
+  - name: 7
+    state: {fileID: 11400000, guid: 245f17cf39957e34cb067dcafd5a2342, type: 2}
 --- !u!95 &458429151
 Animator:
   serializedVersion: 4
@@ -982,7 +986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcbe1664d3df869488bb3a71d666ca9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 11400000, guid: ad0d5cfbaf48dc24eba7a5b75c088551, type: 2}
   rage: {fileID: 11400000, guid: 84d83b78633f71b4082967f40747a9a3, type: 2}
   stun: {fileID: 11400000, guid: c6e7a6a0d5abcf64dbb0aed2936d8ed4, type: 2}
   poison: {fileID: 11400000, guid: d0afb8c8255481040bb98ad084bf20f2, type: 2}
@@ -999,7 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53df722193427504cb230198dd7077aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 11400000, guid: ad0d5cfbaf48dc24eba7a5b75c088551, type: 2}
+  status: {fileID: 0}
   _animator: {fileID: 458429151}
 --- !u!114 &458429154
 MonoBehaviour:

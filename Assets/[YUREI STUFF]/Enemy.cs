@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TriInspector;
+using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
 {
     [InlineEditor]
-    public Enemy_Status _status;
+    [Required] public Enemy_Status _status;
     public EnemyAnimator _enemyAnimator;
     public EnemyBehaviour _enemyBehaviour;
     public StatusEffectContainer _statusEffectContainer;
@@ -32,5 +33,23 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
         _enemyAnimator = GetComponent<EnemyAnimator>();
         _enemyBehaviour = GetComponent<EnemyBehaviour>();
     }
+    [Button(ButtonSizes.Large)]
+    private void SetupComponent()
+    {
 
+        _statusEffectContainer ??= TryGetComponent<StatusEffectContainer>(out StatusEffectContainer statusComponent) ?
+        _statusEffectContainer = statusComponent : _statusEffectContainer = gameObject.AddComponent<StatusEffectContainer>();
+
+
+        _enemyAnimator ??= TryGetComponent<EnemyAnimator>(out EnemyAnimator enemyAnimatorComponent) ?
+        _enemyAnimator = enemyAnimatorComponent : _enemyAnimator = gameObject.AddComponent<EnemyAnimator>();
+
+
+        _enemyBehaviour ??= TryGetComponent<EnemyBehaviour>(out EnemyBehaviour behaviourComponent) ?
+        _enemyBehaviour = behaviourComponent : _enemyBehaviour = gameObject.AddComponent<EnemyBehaviour>();
+
+        TryGetComponent<Animator>(out Animator animatorComponent);
+        if(animatorComponent == null) { gameObject.AddComponent<Animator>(); }
+
+    }
 }

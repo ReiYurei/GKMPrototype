@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Substates_Idling", menuName = "Enemy/Enemy Behaviour/Enemy Substate/Idling")]
 public class SO_Idling : SO_Enemy_Substate
 {
-    public override void Execute()
+    public override void Execute(Enemy enemy)
     {
         Debug.Log("Idling");
     }

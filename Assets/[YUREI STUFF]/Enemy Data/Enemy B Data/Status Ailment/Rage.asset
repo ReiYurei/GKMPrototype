@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 559c7885d588a614a87a28d330827ebe, type: 3}
-  m_Name: Stun
+  m_Script: {fileID: 11500000, guid: 5b0be9cb34e5fb847aec7cd5630d4ea7, type: 3}
+  m_Name: Rage
   m_EditorClassIdentifier: 
-  duration: 10
+  rageModifier: 120
+  rageAnimSpeed: 200
+  rageWaitTime: 2

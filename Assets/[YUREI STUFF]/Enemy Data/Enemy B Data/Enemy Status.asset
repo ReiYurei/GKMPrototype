@@ -28,11 +28,10 @@ MonoBehaviour:
   _stamina: 100
   baseDamageModifier: 1
   baseWeakpointModifier: 1
-  baseWaitTime: 1
+  baseWaitTime: 3
   baseAnimationSpeed: 1
   _rageMeter: {fileID: 11400000, guid: f1a4175df6cb89641a128bb99cc4f73a, type: 2}
   _stunMeter: {fileID: 11400000, guid: f1352222af8961443891bf1ad2f788aa, type: 2}
   _poisonMeter: {fileID: 11400000, guid: 2e6b235dc913dc949b6ca87b4cb1a4d8, type: 2}
-  _animationHash: -1590988523
-  states: {fileID: 11400000, guid: 4341059fe134c8049a08037afdf6459a, type: 2}
-  substates: {fileID: 11400000, guid: 14088782ed9c60649ab7a576b6c66efd, type: 2}
+  states: {fileID: 11400000, guid: c7a3e4839ca195b43bf311db4e29ec8f, type: 2}
+  previousStates: {fileID: 11400000, guid: c7a3e4839ca195b43bf311db4e29ec8f, type: 2}

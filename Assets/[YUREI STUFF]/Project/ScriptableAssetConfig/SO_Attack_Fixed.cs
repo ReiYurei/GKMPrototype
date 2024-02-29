@@ -8,9 +8,9 @@ public class SO_Attack_Fixed : SO_Enemy_Substate
     public AttackPowerType power;
     public AttackRangeType range;
     public AnimationClip _clip;
-    public override void Execute()
+    public override void Execute(Enemy enemy)
     {
-        Debug.Log("Atacking");
+        Debug.Log("Attack");
     }
     public override int GetAnimation()
     {

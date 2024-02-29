@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breakModifier: 1
   breakAnimSpeed: 75
+  breakWaitTime: 5
   duration: 10

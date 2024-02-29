@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-
+[System.Serializable]
 public class AnimationHash 
 {
     public static readonly int Enemy_Idle = Animator.StringToHash("Enemy_Idle");
@@ -13,7 +13,9 @@ public class AnimationHash
     public static readonly int Enemy_Scan = Animator.StringToHash("Enemy_Scan");
     public static readonly int Enemy_Stunned = Animator.StringToHash("Enemy_Stunned");
     public static readonly int Enemy_Taunt = Animator.StringToHash("Enemy_Taunt");
-    public static readonly int Enemy_Raging = Animator.StringToHash("Enemy_Taunt");
+    public static readonly int Enemy_Raging = Animator.StringToHash("Enemy_Raging");
+    public static readonly int Enemy_Flinched = Animator.StringToHash("Enemy_Flinched");
+
 
 
     public static readonly int Enemy_Weak_Close_Attack = Animator.StringToHash("Enemy_Weak_Close_Attack");
