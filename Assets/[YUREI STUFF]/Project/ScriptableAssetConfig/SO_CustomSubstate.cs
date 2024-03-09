@@ -11,8 +11,9 @@ public class SO_CustomSubstate : SO_Enemy_Substate
     [SerializeField]private List<CustomType> data;
 
 
-    public override void Execute(Enemy enemy)
+    public override IEnumerator Execute(Enemy enemy)
     {
+        yield break;
     }
     public override int GetAnimation()
     {

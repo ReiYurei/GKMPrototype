@@ -13,9 +13,5 @@ MonoBehaviour:
   m_Name: States_Raging
   m_EditorClassIdentifier: 
   _subStates:
-  - {fileID: 11400000, guid: 14088782ed9c60649ab7a576b6c66efd, type: 2}
-  - {fileID: 11400000, guid: 14088782ed9c60649ab7a576b6c66efd, type: 2}
   - {fileID: 11400000, guid: 08a35c1f4ab21f74a817e0a20133b3bc, type: 2}
-  - {fileID: 11400000, guid: 14088782ed9c60649ab7a576b6c66efd, type: 2}
-  - {fileID: 11400000, guid: 14088782ed9c60649ab7a576b6c66efd, type: 2}
   - {fileID: 11400000, guid: 17a1cba7d9947af49bb6748c5628eacd, type: 2}

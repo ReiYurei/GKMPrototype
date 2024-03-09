@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,16 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class AnimationHash 
+public class AnimationHash
 {
     public static readonly int Enemy_Idle = Animator.StringToHash("Enemy_Idle");
     public static readonly int Enemy_Death = Animator.StringToHash("Enemy_Death");
-    public static readonly int Enemy_Move = Animator.StringToHash("Enemy_Move");
+    public static readonly int Enemy_Move_Forward = Animator.StringToHash("Enemy_Move_Forward");
+    public static readonly int Enemy_Move_F_Loop = Animator.StringToHash("Enemy_Move_F_Loop");
+    public static readonly int Enemy_Move_F_Stop = Animator.StringToHash("Enemy_Move_F_Stop");
+    public static readonly int Enemy_Move_Backward = Animator.StringToHash("Enemy_Move_Backward");
+    public static readonly int Enemy_Move_B_Loop = Animator.StringToHash("Enemy_Move_B_Loop");
+    public static readonly int Enemy_Move_B_Stop = Animator.StringToHash("Enemy_Move_B_Stop");
     public static readonly int Enemy_Scan = Animator.StringToHash("Enemy_Scan");
     public static readonly int Enemy_Stunned = Animator.StringToHash("Enemy_Stunned");
     public static readonly int Enemy_Taunt = Animator.StringToHash("Enemy_Taunt");
@@ -31,59 +37,49 @@ public class AnimationHash
     public static readonly int Enemy_Strong_Long_Attack = Animator.StringToHash("Enemy_Strong_Long_Attack");
 
 
+    public static Dictionary<int, int> enemyGeneralDict = new Dictionary<int, int>()
+    {
+        {(int)EnemyStates.Idle, Enemy_Idle},
+        {(int)EnemyStates.Default, Enemy_Idle},
+        {(int)EnemyStates.Taunt, Enemy_Taunt},
+        {(int)EnemyStates.Stunned, Enemy_Stunned},
+        {(int)EnemyStates.Break, Enemy_Flinched },
+        {(int)EnemyStates.Flinched, Enemy_Flinched },
+        {(int)EnemyStates.Enraged, Enemy_Raging },
+        {(int)EnemyStates.Death, Enemy_Death },
+
+    };
+    public static Dictionary<(int,int), int> attackDict = new Dictionary<(int, int), int>()
+    {
+        {( (int)AttackPowerType.Weak,(int)AttackRangeType.Close )       ,Enemy_Weak_Close_Attack},
+        {( (int)AttackPowerType.Weak,(int)AttackRangeType.Midrange)     ,Enemy_Weak_Midrange_Attack},
+        {( (int)AttackPowerType.Weak,(int)AttackRangeType.Long)         ,Enemy_Weak_Long_Attack},
+        {( (int)AttackPowerType.Medium,(int)AttackRangeType.Close)      ,Enemy_Medium_Close_Attack},
+        {( (int)AttackPowerType.Medium, (int)AttackRangeType.Midrange)  ,Enemy_Weak_Midrange_Attack},
+        {( (int)AttackPowerType.Medium,(int)AttackRangeType.Long)       ,Enemy_Medium_Long_Attack},
+        {( (int)AttackPowerType.Strong,(int)AttackRangeType.Close)      ,Enemy_Strong_Close_Attack},
+        {( (int)AttackPowerType.Strong, (int)AttackRangeType.Midrange)  ,Enemy_Strong_Midrange_Attack},
+        {( (int)AttackPowerType.Strong,(int)AttackRangeType.Long)       ,Enemy_Strong_Long_Attack},
+
+
+    };
+    public static int Enemy_General_Animation(int states)
+    {
+        if (enemyGeneralDict.ContainsKey(states))
+        {
+            return enemyGeneralDict[states];
+        }
+        else return Enemy_Idle;
+    }
     public static int Enemy_Attack(int power, int range)
     {
-        //WEAK
-        if (power == (int)AttackPowerType.Weak && range == (int)AttackRangeType.Close) 
+        if (attackDict.ContainsKey((power, range)))
         {
-            return Enemy_Weak_Close_Attack;
-        }
-        else if (power == (int)AttackPowerType.Weak && range == (int)AttackRangeType.Midrange)
-        {
-            return Enemy_Weak_Midrange_Attack;
-
-        }
-        else if (power == (int)AttackPowerType.Weak && range == (int)AttackRangeType.Long)
-        {
-            return Enemy_Weak_Long_Attack;
-
-        }
-        
-        //MEDIUM
-        if (power == (int)AttackPowerType.Medium && range == (int)AttackRangeType.Close)
-        {
-            return Enemy_Medium_Close_Attack;
-        }
-        else if (power == (int)AttackPowerType.Medium && range == (int)AttackRangeType.Midrange)
-        {
-            return Enemy_Medium_Midrange_Attack;
-
-        }
-        else if (power == (int)AttackPowerType.Medium && range == (int)AttackRangeType.Long)
-        {
-            return Enemy_Medium_Long_Attack;
-
+            return attackDict[(power, range)];
         }
 
-        //STRONG
-        if (power == (int)AttackPowerType.Strong && range == (int)AttackRangeType.Close)
-        {
-            return Enemy_Strong_Close_Attack;
-        }
-        else if (power == (int)AttackPowerType.Strong && range == (int)AttackRangeType.Midrange)
-        {
-            return Enemy_Strong_Midrange_Attack;
+        else return Enemy_Idle;
 
-        }
-        else if (power == (int)AttackPowerType.Strong && range == (int)AttackRangeType.Long)
-        {
-            return Enemy_Strong_Long_Attack;
-
-        }
-        else
-        {
-            return Enemy_Idle;
-        }
-        }
     }
+}
 

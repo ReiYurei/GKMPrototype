@@ -5,12 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Substates_Stunned", menuName = "Enemy/Enemy Behaviour/Enemy Substate/Stunned")]
 public class SO_Stunned : SO_Enemy_Substate
 {
-    public override void Execute(Enemy enemy)
+    [SerializeField]EnemyStates enemyStates = EnemyStates.Stunned;
+    public override IEnumerator Execute(Enemy enemy)
     {
-        Debug.Log("Stunned");
+        yield break;
     }
     public override int GetAnimation()
     {
-        return AnimationHash.Enemy_Stunned;
+        return AnimationHash.Enemy_General_Animation((int)enemyStates);
     }
 }

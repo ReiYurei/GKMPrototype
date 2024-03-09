@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-
+[System.Serializable]
 [CreateAssetMenu(fileName = "Boolean Variable", menuName = "Variable/Boolean")]
 public class BooleanVariable : ScriptableObject
 {
-    public bool value;
+    [SerializeField]public bool value;
 }

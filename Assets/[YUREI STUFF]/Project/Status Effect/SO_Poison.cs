@@ -13,7 +13,7 @@ public class SO_Poison : BaseStatusEffect
         while (time > 0)
         {
             time -= Time.deltaTime;
-            var x = status.SetHealth(status.GetHealth() - poisonPercentage / 100 * Time.deltaTime);
+            var x = status.SetHealth(status.GetHealth() - poisonPercentage  / 100 * Time.deltaTime);
             yield return null;
 
         }

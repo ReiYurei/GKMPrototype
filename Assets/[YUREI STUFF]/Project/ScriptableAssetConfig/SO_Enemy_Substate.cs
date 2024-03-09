@@ -4,7 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public abstract class SO_Enemy_Substate : ScriptableObject
 {
-    public abstract void Execute(Enemy enemy);
+    protected SubstateProgerss states;
+    public abstract IEnumerator Execute(Enemy enemy);
 
     public abstract int GetAnimation();
 }

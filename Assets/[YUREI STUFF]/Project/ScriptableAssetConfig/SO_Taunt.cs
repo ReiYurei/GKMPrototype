@@ -6,13 +6,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Substates_Taunt",menuName = "Enemy/Enemy Behaviour/Enemy Substate/Taunt")]
 public class SO_Taunt : SO_Enemy_Substate
 {
-    public override void Execute(Enemy enemy)
+    [SerializeField] EnemyStates enemyStates = EnemyStates.Taunt;
+    public override IEnumerator Execute(Enemy enemy)
     {
-        Debug.Log("Taunting");
+        float time = enemy._status.WaitTime;
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            yield return null;
+        }
+        yield break;
     }
     public override int GetAnimation()
     {
-        return AnimationHash.Enemy_Taunt;
+        return AnimationHash.Enemy_General_Animation((int)enemyStates);
     }
 }
 

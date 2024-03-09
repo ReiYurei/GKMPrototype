@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class SO_Flinched : SO_Enemy_Substate
 {
-    public override void Execute(Enemy enemy)
+    [SerializeField] EnemyStates enemyStates = EnemyStates.Flinched;
+    public override IEnumerator Execute(Enemy enemy)
     {
+        yield break;
     }
     public override int GetAnimation()
     {
-        return AnimationHash.Enemy_Flinched;
+        return AnimationHash.Enemy_General_Animation((int)enemyStates);
     }
 }

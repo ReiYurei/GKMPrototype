@@ -5,12 +5,20 @@ using UnityEngine;
 
 public class SO_Enraged : SO_Enemy_Substate
 {
-    public override void Execute(Enemy enemy)
+    [SerializeField] EnemyStates enemyStates = EnemyStates.Enraged;
+
+    public override IEnumerator Execute(Enemy enemy)
     {
-        Debug.Log("Raging");
+        float time = enemy._status.WaitTime;
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            yield return null;
+        }
+        yield break;
     }
     public override int GetAnimation()
     {
-        return AnimationHash.Enemy_Raging;
+        return AnimationHash.Enemy_General_Animation((int)enemyStates);
     }
 }

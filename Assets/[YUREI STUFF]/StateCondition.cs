@@ -20,7 +20,7 @@ public class StateCondition
   //  [ShowIf(nameof(isBoolean), true)] public BooleanComparatorType boolCondition;
   //  [ShowIf(nameof(isBoolean), true)] public BooleanVariable boolMetric1;
   //  [ShowIf(nameof(isBoolean), true)] public bool boolMetric2;
-    [Required]public SO_Enemy_States state;
+    [Required][InlineEditor]public SO_Enemy_States state;
     
   /*  public bool CheckValue()
     {

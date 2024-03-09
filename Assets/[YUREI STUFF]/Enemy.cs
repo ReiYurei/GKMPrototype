@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TriInspector;
-using Unity.VisualScripting;
 
+#if UNITY_EDITOR
+#endif
 public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
 {
     [InlineEditor]
@@ -11,8 +12,9 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     public EnemyAnimator _enemyAnimator;
     public EnemyBehaviour _enemyBehaviour;
     public StatusEffectContainer _statusEffectContainer;
+    public Rigidbody2D _rb;
 
-
+ 
     public void OnDamage(float damage)
     {
         _status.AffectRage(damage);
@@ -47,6 +49,10 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
 
         _enemyBehaviour ??= TryGetComponent<EnemyBehaviour>(out EnemyBehaviour behaviourComponent) ?
         _enemyBehaviour = behaviourComponent : _enemyBehaviour = gameObject.AddComponent<EnemyBehaviour>();
+
+        TryGetComponent<Rigidbody2D>(out Rigidbody2D rbComponent);
+        if(rbComponent == null) { _rb = gameObject.AddComponent<Rigidbody2D>(); }
+        else { _rb = rbComponent; }
 
         TryGetComponent<Animator>(out Animator animatorComponent);
         if(animatorComponent == null) { gameObject.AddComponent<Animator>(); }

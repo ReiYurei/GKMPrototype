@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using TriInspector;
 using UnityEngine;
-using UnityEngine.Events;
+
+using TriInspector;
+#if UNITY_EDITOR
+
+#endif
+
 [CreateAssetMenu(fileName ="Enemy Status",menuName ="Enemy/Enemy Status")]
 public class Enemy_Status : BaseStatus
 {
@@ -28,18 +31,18 @@ public class Enemy_Status : BaseStatus
     }
 
     [Header("Enemy Parameter")]
-    [Required][InlineEditor] public BooleanVariable _enraged;
-    [Required][InlineEditor] public BooleanVariable _stunned;
-    [Required][InlineEditor] public BooleanVariable _poisoned;
-    [Required][InlineEditor] public BooleanVariable _break;
-    [Required][InlineEditor] public BooleanVariable _statusBuildUp;
+    [Required]public BooleanVariable _enraged;
+    [Required]public BooleanVariable _stunned;
+    [Required]public BooleanVariable _poisoned;
+    [Required]public BooleanVariable _break;
+    [Required]public BooleanVariable _statusBuildUp;
 
     [Header("Enemy Base Threshold")]
-    [SerializeField]float baseStamina;
-    [SerializeField]float baseRageThreshold;
-    [SerializeField]float baseStunThreshold;
-    [SerializeField]float basePoisonThreshold;
-    public float _stamina;
+    [SerializeField]float baseStamina = 100f;
+    [SerializeField]float baseRageThreshold = 100f;
+    [SerializeField]float baseStunThreshold = 100f;
+    [SerializeField]float basePoisonThreshold = 100f;
+  //  public float _stamina = 100f;
     public void AffectRage(float damage)
     {
         if (_break.value == true) return;
@@ -103,13 +106,12 @@ public class Enemy_Status : BaseStatus
     [SerializeField]float baseAnimationSpeed;
     public float DamageModifier { get;private set; }
     public float WeakpointModifier { get; private set; }
-    public float WaitTime { get; private set; }
+    public float WaitTime { get; set; }
     public float AnimationSpeed { get; private set; }
-    public void Modifier(float damageModifier, float animationSpeed, float waitTime)
+    public void Modifier(float damageModifier, float animationSpeed)
     {
         DamageModifier = damageModifier / 100;
         AnimationSpeed = animationSpeed / 100;
-        WaitTime = waitTime; 
     }
     public void DefaultModifier()
     {
@@ -139,6 +141,7 @@ public class Enemy_Status : BaseStatus
     [ShowInInspector] int _animationHash;
     public delegate void OnAnimChange();
     public event OnAnimChange NotifyAnimChange;
+    public bool noFlip;
     public void SetAnimationHash(int hash)
     {
         _animationHash = hash;

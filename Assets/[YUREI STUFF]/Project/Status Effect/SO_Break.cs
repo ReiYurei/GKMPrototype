@@ -6,7 +6,6 @@ public class SO_Break : BaseStatusEffect
 {
     [SerializeField] private float breakModifier;
     [SerializeField] private float breakAnimSpeed;
-    [SerializeField] private float breakWaitTime;
     [SerializeField] private float duration;
     private float time;
     public override IEnumerator ApplyEffect(StatusEffectContainer container, Enemy_Status status)
@@ -16,7 +15,7 @@ public class SO_Break : BaseStatusEffect
         while (time > 0)
         {
             status._break.value = true;
-            status.Modifier(breakModifier, breakAnimSpeed, breakWaitTime);
+            status.Modifier(breakModifier, breakAnimSpeed);
             time -= Time.deltaTime;
             yield return null;
 

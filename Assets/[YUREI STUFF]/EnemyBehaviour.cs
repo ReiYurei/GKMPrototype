@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TriInspector;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 public class EnemyBehaviour : MonoBehaviour
@@ -36,10 +34,11 @@ public class EnemyBehaviour : MonoBehaviour
         status.InitiateStun += OnStunInitiated;
         status.InitiateBreak += OnBreakInitiated;
         status.StunEnd += OnStunEnd;
-        StartCoroutine(Behave(status.WaitTime));
+        StartCoroutine(Behave());
 
     }
-    
+
+
     private void OnDisable()
     {
         StopAllCoroutines();
@@ -49,13 +48,15 @@ public class EnemyBehaviour : MonoBehaviour
         status.StunEnd -= OnStunEnd;
     }
  
-    public IEnumerator Behave(float time)
+    public IEnumerator Behave()
     {
-        StateExecution();
+        StartCoroutine(SubstateExecution());
+        StartCoroutine(SetState());
+        yield return new WaitUntil(() => isFinished == true);
         SwitchSubstate();
-        yield return new WaitForSeconds(time);
-        StartCoroutine(Behave(status.WaitTime));
+        StartCoroutine(Behave());
     }
+
 
     public void OnEnrageInitiated()
     {
@@ -68,8 +69,9 @@ public class EnemyBehaviour : MonoBehaviour
             {
 
                 status.SetState(condition.state, subStateNum);
-                StateExecution();
+                StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(status.WaitTime));
+
                 return;
             }
         }
@@ -84,7 +86,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (condition.GetName() == EnemyStates.Stunned)
             {
                 status.SetState(condition.state, subStateNum);
-                StateExecution();
+                StartCoroutine(SubstateExecution());
                 return;
             }
         }
@@ -99,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (condition.GetName() == EnemyStates.Flinched)
             {
                 status.SetState(condition.state, subStateNum);
-                StateExecution();
+                StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));
                 return;
             }
@@ -117,7 +119,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             time -= Time.deltaTime;
             yield return null;
-            Debug.Log(time);
         }
         BackToPreviousState();
        
@@ -136,20 +137,28 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
         status.SetState(status.GetPreviousState(states),subStateNum);
-        StartCoroutine(Behave(status.WaitTime));
+        StartCoroutine(Behave());
     }
     public void Interrupt()
     {
         StopAllCoroutines();
     }
 
-    public void StateExecution()
+    bool isFinished;
+    public IEnumerator SubstateExecution()
+    {
+        isFinished = false;
+        var currentState = status.GetState();
+        yield return StartCoroutine(currentState.Execute(enemy, subStateNum));
+        isFinished = true;
+
+    }
+
+    public IEnumerator SetState()
     {
         var currentState = status.GetState();
-
-        currentState.Execute(enemy,subStateNum);
         status.SetState(currentState, subStateNum);
-        status.SetAnimationHash(status.GetAnimationHashFromSubstate());
+        yield break;
     }
     public void SwitchSubstate()
     {
