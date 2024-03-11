@@ -26,9 +26,6 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     {
 
     }
-    private void Update()
-    {
-    }
 
     public void Start()
     {

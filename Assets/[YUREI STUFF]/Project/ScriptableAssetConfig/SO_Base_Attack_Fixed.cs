@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TriInspector;
+
 #if UNITY_EDITOR
 using UnityEditor.Animations;
+using UnityEditor;
+
 #endif
 using UnityEngine;
 
@@ -12,21 +15,21 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
 #if UNITY_EDITOR
 
 
-    string clipName;
-    [ShowInInspector] public string ClipName => clipName;
 
 
+    [Header("Overridden Clip Info")]
     public AnimatorOverrideController controller;
     public AnimatorController baseController;
     AnimationClip overriddenClip;
-    [ShowInInspector] public AnimationClip OverriddenClip => overriddenClip; 
+    [ShowInInspector] public AnimationClip OverriddenClip => overriddenClip;
+    string clipName;
+    [ShowInInspector] public string ClipName => clipName;
 
     private void OnValidate()
     {
        
             overriddenClip = GetAnimationClipByHash(controller, AnimationHash.Enemy_Attack((int)power, (int)range));
             clipName = overriddenClip != null ? overriddenClip.name : "Animation Clip Not Found";
-      
     }
 
     private AnimationClip GetAnimationClipByHash(AnimatorOverrideController controller, int hash)
@@ -44,6 +47,8 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
         return null;
     }
 #endif
+    [Space(15)]
+    [Header("Main Properties")]
 
     public AttackPowerType power;
     public AttackRangeType range;
@@ -64,6 +69,8 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
     }
 }
 
+
+
 [CreateAssetMenu(fileName = "Moveset_Teleport", menuName = "Enemy/Moveset/Melee/Teleport")]
 public class SO_Melee_Attack_Teleport : SO_Base_Attack_Fixed
 {
@@ -72,7 +79,7 @@ public class SO_Melee_Attack_Teleport : SO_Base_Attack_Fixed
 
 
 
-[CreateAssetMenu(fileName = "Moveset_Pr_Standing", menuName = "Enemy/Moveset/Projectile/Stomp")]
+[CreateAssetMenu(fileName = "Moveset_Projectile_Standing", menuName = "Enemy/Moveset/Projectile/Stomp")]
 public class SO_Projectile_Attack_Standing : SO_Base_Attack_Fixed
 {
     public override IEnumerator Execute(Enemy enemy)

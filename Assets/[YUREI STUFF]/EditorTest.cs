@@ -65,7 +65,7 @@ public class DialogeMaker : EditorWindow
     }
     private void RefreshPath()
     {
-        path = AssetDatabase.GetAssetPath(Selection.activeObject.GetInstanceID());
+        path = AssetDatabase.GetAssetPath(Selection.activeObject);
     }
     private void CreateObjects()
     {

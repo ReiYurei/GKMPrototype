@@ -22,11 +22,11 @@ public class SO_Chain_Attack_Fixed_Container : SO_Enemy_Substate
         index = 0;
         for (int i = 0; i < chainMoveset.Count; i++)
         {
-            if (i == chainMoveset.Count - 1)
+            if (i == chainMoveset.Count)
             {
                 enemy._status._isAttacking = false;
                 enemy._status.SetAnimationHashAndNotify(GetAnimation());
-                Debug.Log(4);
+                enemy._status.NotifyAttacking(false);
                 break;
             }
             enemy._status.SetAnimationHashAndNotify(GetAnimation());

@@ -16,8 +16,9 @@ MonoBehaviour:
   currentHealth: 100
   _rawPower: 1
   _movementSpeed: 1
-  _isHalved: 0
-  _isAttacking: 0
+  cannotRage: 0
+  _isHalved: 1
+  _isAttacking: 1
   _isNextAttackReady: 0
   _isMoving: 0
   _enraged: {fileID: 11400000, guid: 2ae5270723dd37842a7c9d1dc8c0bb26, type: 2}

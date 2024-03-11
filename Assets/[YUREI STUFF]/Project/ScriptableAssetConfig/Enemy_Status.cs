@@ -46,10 +46,8 @@ public class Enemy_Status : BaseStatus
     }
     public void NotifyEndOfAnim(bool animEnd)
     {
-        Debug.Log(2);
         if (_isAttacking == true)
         {
-            Debug.Log(3);
             _isNextAttackReady = animEnd;
             return;
         }

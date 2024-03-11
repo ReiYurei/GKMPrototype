@@ -12,6 +12,8 @@ using System.Drawing;
 public class ProjectileBehaviour : MonoBehaviour
 {
     public List<Transform> transforms;
+    public Transform origin;
+    float3 originPos;
     public NativeArray<float3> projectilePos;
     public NativeArray<float3> directionPos;
     public NativeArray<float> projectDelayTime;
@@ -34,7 +36,8 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (isDisabled == false)
         {
-           if (totalLifeTime > 0)
+            job.originPos = (float3)origin.position;
+            if (totalLifeTime > 0)
             {
                 totalLifeTime -=Time.deltaTime;
                 
@@ -72,7 +75,7 @@ public class ProjectileBehaviour : MonoBehaviour
         totalLifeTime = numOfShot * delay + lifeTime[lifeTime.Length -1];
         job = new ProjectileJobSingle()
         {
-
+            originPos = originPos,
             position = projectilePos,
             direction = directionPos,
             delayTime = projectDelayTime,
@@ -120,6 +123,7 @@ public class ProjectileBehaviour : MonoBehaviour
 [BurstCompile(CompileSynchronously = false)]
 public struct ProjectileJobSingle : IJobParallelFor
 {
+    public float3 originPos;
     public NativeArray<float3> position;
     public NativeArray<float3> direction;
     public NativeArray<float> delayTime;
@@ -134,6 +138,7 @@ public struct ProjectileJobSingle : IJobParallelFor
         {
             delayTime[index] -= deltaTime;
             setActive[index] = false;
+            position[index] = originPos;
             return;
         }
         else if (lifeTime[index] > 0)
@@ -141,7 +146,7 @@ public struct ProjectileJobSingle : IJobParallelFor
             setActive[index] = true;
             lifeTime[index] -= deltaTime;
             float3 movement = math.normalize(direction[index]) * speed * deltaTime;
-            position[index] += movement;
+            position[index] +=  movement;
             return;
         }
 

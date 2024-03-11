@@ -33,7 +33,7 @@ public class ProjectileLauncher : MonoBehaviour
     public Transform container;
     public Transform projectile;
     [SerializeField] List<Transform> projectiles;
-  
+
     NativeArray<float3> positionArray;
     NativeArray<float3> directionArray;
     NativeArray<float>  projectileDelayedTime;
@@ -45,7 +45,6 @@ public class ProjectileLauncher : MonoBehaviour
     private void Start()
     {
         behaviour.OnJobEnd += DisposeAll;
-        container = Instantiate(container, this.transform);
         container.transform.localPosition = Vector3.zero;
         for (int i = 0; i < numberOfShoot; i++)
             for (int j = 0; j < numberOfSegments; j++)
@@ -125,7 +124,6 @@ public class ProjectileLauncher : MonoBehaviour
         projectileDelayedTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
         lifeTimeArray = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
         setActiveArray = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
-
         float delayedTime = delayBetweenShot;
         float lifeTimespan = projectileLifeTime;
 

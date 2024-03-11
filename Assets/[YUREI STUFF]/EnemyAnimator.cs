@@ -61,7 +61,6 @@ public class EnemyAnimator : MonoBehaviour
     }
     protected void OnEnded()
     {
-        Debug.Log(1);
 
         status.NotifyEndOfAnim(true);
     }
