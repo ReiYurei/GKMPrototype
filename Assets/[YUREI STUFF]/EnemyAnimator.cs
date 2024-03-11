@@ -10,11 +10,6 @@ public class EnemyAnimator : MonoBehaviour
     [SerializeField]Enemy_Status status;
     [SerializeField]SO_PlayerInfo playerInfo;
     public Animator _animator;
-    bool isFlipped;
-
-    private void Update()
-    {
-    }
 
     private void FlipAnimation()
     {
@@ -39,26 +34,41 @@ public class EnemyAnimator : MonoBehaviour
 
         }
         _animator = GetComponent<Animator>();
-        status.NotifyAnimChange += OnAnimChange;
+        status.NotifyAnimChange += OnStateChange;
         status.WaitTime = _animator.GetCurrentAnimatorStateInfo(0).length;
     }
     private void OnDisable()
     {
-        status.NotifyAnimChange -= OnAnimChange;
+        status.NotifyAnimChange -= OnStateChange;
     }
 
-    private void OnAnimChange()
+    private void OnStateChange()
     {
-        if (status.noFlip == false)
+        if (status._noFlip == false)
         {
             FlipAnimation();
         }
-        status.WaitTime = _animator.GetCurrentAnimatorStateInfo(0).length;
-        PlayAnim(status.GetAnimationHash(), status.AnimationSpeed);
+        PlayAnim(status.GetAnimationHashFromStatus(), status.AnimationSpeed);
+    }
+    protected void OnHalved()
+    {
+        if (status._isHalved == false)
+        {
+            return;
+        }
+        status.NotifyEndOfAnim(true);
+
+    }
+    protected void OnEnded()
+    {
+        Debug.Log(1);
+
+        status.NotifyEndOfAnim(true);
     }
 
-    public void PlayAnim(int animationName, float animSpeed)
+    private void PlayAnim(int animationName, float animSpeed)
     {
+        status.NotifyEndOfAnim(false);
         _animator.speed = animSpeed;
         _animator.Play(animationName, default,0f);
     }

@@ -9,13 +9,8 @@ public class SO_Idling : SO_Enemy_Substate
 
     public override IEnumerator Execute(Enemy enemy)
     {
-        float time = enemy._status.WaitTime;
-        while (time > 0)
-        {
-            time -= Time.deltaTime;
-            yield return null;
-        }
         yield break;
+
     }
     public override int GetAnimation()
     {

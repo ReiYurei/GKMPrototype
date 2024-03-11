@@ -27,6 +27,10 @@ public class EnemyBehaviour : MonoBehaviour
         if (status == null)
         {
             TryGetComponent<Enemy>(out Enemy component);
+            if (component == null)
+            {
+                return;
+            }
             status = component._status;
 
         }
@@ -34,11 +38,15 @@ public class EnemyBehaviour : MonoBehaviour
         status.InitiateStun += OnStunInitiated;
         status.InitiateBreak += OnBreakInitiated;
         status.StunEnd += OnStunEnd;
+        status.AnimEnd += IsAnimEnd;
         StartCoroutine(Behave());
 
     }
-
-
+    public void IsAnimEnd(bool animEnd)
+    {
+        isFinished = animEnd;
+    }
+    bool isFinished;
     private void OnDisable()
     {
         StopAllCoroutines();
@@ -47,12 +55,12 @@ public class EnemyBehaviour : MonoBehaviour
         status.InitiateBreak -= OnBreakInitiated;
         status.StunEnd -= OnStunEnd;
     }
- 
+    
     public IEnumerator Behave()
     {
         StartCoroutine(SubstateExecution());
         StartCoroutine(SetState());
-        yield return new WaitUntil(() => isFinished == true);
+        yield return new WaitUntil(() => isFinished ==true);
         SwitchSubstate();
         StartCoroutine(Behave());
     }
@@ -127,7 +135,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void BackToPreviousState()
     {
-        Debug.Log(subStateNum);
         List<StateCondition> states = new List<StateCondition>();
         foreach (StateCondition condition in _condition)
         {
@@ -144,13 +151,10 @@ public class EnemyBehaviour : MonoBehaviour
         StopAllCoroutines();
     }
 
-    bool isFinished;
     public IEnumerator SubstateExecution()
     {
-        isFinished = false;
         var currentState = status.GetState();
         yield return StartCoroutine(currentState.Execute(enemy, subStateNum));
-        isFinished = true;
 
     }
 

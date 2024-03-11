@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TriInspector;
+using System;
 
 #if UNITY_EDITOR
 #endif
@@ -13,7 +14,6 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     public EnemyBehaviour _enemyBehaviour;
     public StatusEffectContainer _statusEffectContainer;
     public Rigidbody2D _rb;
-
  
     public void OnDamage(float damage)
     {
@@ -26,15 +26,34 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     {
 
     }
-
+    private void Update()
+    {
+    }
 
     public void Start()
     {
         _status.OnSpawn();
+        _status.AttackEnd += OnAttackEnd;
         _statusEffectContainer = GetComponent<StatusEffectContainer>();
         _enemyAnimator = GetComponent<EnemyAnimator>();
         _enemyBehaviour = GetComponent<EnemyBehaviour>();
+        _rb = GetComponent<Rigidbody2D>();
     }
+
+    private void OnAttackEnd(bool isAnimEnd)
+    {
+        switch (isAnimEnd)
+        {
+            case false:
+                _rb.bodyType = RigidbodyType2D.Dynamic;
+                break;
+            case true:
+                _rb.bodyType = RigidbodyType2D.Kinematic;
+                break;
+  
+        }
+    }
+
     [Button(ButtonSizes.Large)]
     private void SetupComponent()
     {

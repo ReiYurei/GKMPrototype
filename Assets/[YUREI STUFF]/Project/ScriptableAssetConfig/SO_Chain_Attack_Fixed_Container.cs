@@ -7,21 +7,35 @@ public class SO_Chain_Attack_Fixed_Container : SO_Enemy_Substate
 {
     public List<SO_Base_Attack_Fixed> chainMoveset;
     int index = 0;
+    [SerializeField] bool isHalved;
+
     private void OnEnable()
     {
         index = 0;
     }
     public override IEnumerator Execute(Enemy enemy)
     {
+        if (isHalved == true)
+        {
+            enemy._status._isHalved = isHalved;
+        }
         index = 0;
         for (int i = 0; i < chainMoveset.Count; i++)
         {
-            enemy._status.SetAnimationHash(GetAnimation());
+            if (i == chainMoveset.Count - 1)
+            {
+                enemy._status._isAttacking = false;
+                enemy._status.SetAnimationHashAndNotify(GetAnimation());
+                Debug.Log(4);
+                break;
+            }
+            enemy._status.SetAnimationHashAndNotify(GetAnimation());
             yield return enemy._enemyBehaviour.StartCoroutine(chainMoveset[i].Execute(enemy));
             index++;
-
         }
+
         index = 0;
+        enemy._status._isHalved = false;
         yield break;
     }
 

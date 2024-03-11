@@ -24,17 +24,17 @@ public class AnimationHash
 
 
 
-    public static readonly int Enemy_Weak_Close_Attack = Animator.StringToHash("Enemy_Weak_Close_Attack");
-    public static readonly int Enemy_Weak_Midrange_Attack = Animator.StringToHash("Enemy_Weak_Midrange_Attack");
-    public static readonly int Enemy_Weak_Long_Attack = Animator.StringToHash("Enemy_Weak_Long_Attack");
+    public static readonly int Enemy_Weak_Close_Attack = Animator.StringToHash("Enemy_A_Weak_Close_Attack");
+    public static readonly int Enemy_Weak_Midrange_Attack = Animator.StringToHash("Enemy_A_Weak_Midrange_Attack");
+    public static readonly int Enemy_Weak_Long_Attack = Animator.StringToHash("Enemy_A_Weak_Long_Attack");
 
-    public static readonly int Enemy_Medium_Close_Attack = Animator.StringToHash("Enemy_Medium_Close_Attack");
-    public static readonly int Enemy_Medium_Midrange_Attack = Animator.StringToHash("Enemy_Medium_Midrange_Attack");
-    public static readonly int Enemy_Medium_Long_Attack = Animator.StringToHash("Enemy_Medium_Long_Attack");
+    public static readonly int Enemy_Medium_Close_Attack = Animator.StringToHash("Enemy_A_Medium_Close_Attack");
+    public static readonly int Enemy_Medium_Midrange_Attack = Animator.StringToHash("Enemy_A_Medium_Midrange_Attack");
+    public static readonly int Enemy_Medium_Long_Attack = Animator.StringToHash("Enemy_A_Medium_Long_Attack");
 
-    public static readonly int Enemy_Strong_Close_Attack = Animator.StringToHash("Enemy_Strong_Close_Attack");
-    public static readonly int Enemy_Strong_Midrange_Attack = Animator.StringToHash("Enemy_Strong_Midrange_Attack");
-    public static readonly int Enemy_Strong_Long_Attack = Animator.StringToHash("Enemy_Strong_Long_Attack");
+    public static readonly int Enemy_Strong_Close_Attack = Animator.StringToHash("Enemy_A_Strong_Close_Attack");
+    public static readonly int Enemy_Strong_Midrange_Attack = Animator.StringToHash("Enemy_A_Strong_Midrange_Attack");
+    public static readonly int Enemy_Strong_Long_Attack = Animator.StringToHash("Enemy_A_Strong_Long_Attack");
 
 
     public static Dictionary<int, int> enemyGeneralDict = new Dictionary<int, int>()

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chainMoveset:
   - {fileID: 11400000, guid: 0eab5f6b85715e7439bdf11583ea434b, type: 2}
+  - {fileID: 11400000, guid: 0eab5f6b85715e7439bdf11583ea434b, type: 2}
   - {fileID: 11400000, guid: efb7a3d233a872f4d8e9ee878f956982, type: 2}
-  - {fileID: 11400000, guid: e375a664c1c59b748a67f4473b9d3dbe, type: 2}
+  isHalved: 0

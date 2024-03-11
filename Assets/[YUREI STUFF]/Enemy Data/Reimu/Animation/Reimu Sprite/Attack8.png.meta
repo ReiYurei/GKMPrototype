@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bad6278792995794da67d40c1e07d127
+guid: 3d8c0d7d0bf71014a88dfeada4bdd93c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,133 +116,244 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stunned Loop_0
+      name: Attack8_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 220
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7bb738ccf4953a439cb5db470d33333
-      internalID: 1453882752
+      spriteID: 088aace5e888f3a41b36bcc2979c4855
+      internalID: 912753570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stunned Loop_1
+      name: Attack8_1
       rect:
         serializedVersion: 2
-        x: 257
+        x: 273
         y: 0
-        width: 256
-        height: 220
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af695f181b879b04cb1c54f2bf100905
-      internalID: 1980977188
+      spriteID: 325fe4b0b15108a4f94f056a7f492b81
+      internalID: 1462034400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stunned Loop_2
+      name: Attack8_2
       rect:
         serializedVersion: 2
-        x: 514
+        x: 546
         y: 0
-        width: 256
-        height: 220
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c94d0334e801bd479e7a4fefa1ec2c4
-      internalID: -1299664288
+      spriteID: 47b2c419f49508e459e91bb763a23512
+      internalID: 884610116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stunned Loop_3
+      name: Attack8_3
       rect:
         serializedVersion: 2
-        x: 771
+        x: 819
         y: 0
-        width: 256
-        height: 220
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 515152ac51621ef4195b789a954471d3
-      internalID: -86452424
+      spriteID: 8c435128a48770740bdb6eaed6fef857
+      internalID: 450232751
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stunned Loop_4
+      name: Attack8_4
       rect:
         serializedVersion: 2
-        x: 1028
+        x: 1092
         y: 0
-        width: 256
-        height: 220
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72528884821e96744a0b3bd8ff75beb6
-      internalID: 2058632840
+      spriteID: 40e61b5e323db8246b852ab3165a8425
+      internalID: 591837080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stunned Loop_5
+      name: Attack8_5
       rect:
         serializedVersion: 2
-        x: 1285
+        x: 1365
         y: 0
-        width: 256
-        height: 220
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7222cc6faa423184a81e76095bf81afd
-      internalID: 37462686
+      spriteID: b28f302e10e9e5740959a12bde851362
+      internalID: 1736517731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack8_6
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 0
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 095592002e370e149b17aee2c54edfeb
+      internalID: -229936181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack8_7
+      rect:
+        serializedVersion: 2
+        x: 1911
+        y: 0
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00c81c4222760f342bfc8b77521654d5
+      internalID: -244025011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack8_8
+      rect:
+        serializedVersion: 2
+        x: 2184
+        y: 0
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2918712467de414bb6f989506ad74d6
+      internalID: 730061831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack8_9
+      rect:
+        serializedVersion: 2
+        x: 2457
+        y: 0
+        width: 272
+        height: 191
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ddd3f2326b7efe429f3f85b03fcbf7b
+      internalID: -1554060432
       vertices: []
       indices: 
       edges: []
@@ -253,15 +369,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Stunned Loop_0: 1453882752
-      Stunned Loop_1: 1980977188
-      Stunned Loop_2: -1299664288
-      Stunned Loop_5: 37462686
-      Stunned Loop_3: -86452424
-      Stunned Loop_4: 2058632840
-  spritePackingTag: 
+      Attack8_0: 912753570
+      Attack8_1: 1462034400
+      Attack8_2: 884610116
+      Attack8_3: 450232751
+      Attack8_4: 591837080
+      Attack8_5: 1736517731
+      Attack8_6: -229936181
+      Attack8_7: -244025011
+      Attack8_8: 730061831
+      Attack8_9: -1554060432
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

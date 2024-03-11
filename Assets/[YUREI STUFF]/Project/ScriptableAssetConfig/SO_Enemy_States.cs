@@ -16,12 +16,12 @@ public class SO_Enemy_States : ScriptableObject
     public IEnumerator Execute(Enemy enemy ,int subState)
     {       
         SetAnimation(enemy._status, subState);
-        yield return enemy._enemyBehaviour.StartCoroutine(_subStates[subState].Execute(enemy)); ;
+        yield return enemy._enemyBehaviour.StartCoroutine(_subStates[subState].Execute(enemy));
 
     }
     public void SetAnimation(Enemy_Status status, int subState)
     {
-        status.SetAnimationHash(GetAnimation(subState));
+        status.SetAnimationHashAndNotify(GetAnimation(subState));
     }
     public int GetAnimation(int subState)
     {

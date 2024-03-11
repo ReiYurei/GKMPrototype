@@ -1,9 +1,82 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
 #if UNITY_EDITOR
 
 using UnityEngine;
 using UnityEditor;
+
+
+public class DialogeMaker : EditorWindow
+{
+    SerializedProperty m_eventName;
+    SerializedProperty m_dialogues;
+    SerializedObject serializedObject;
+    public string eventName;
+    public string path;
+
+
+    SO_Story_Dialogue obj;
+
+    private void OnEnable()
+    {
+        obj = ScriptableObject.CreateInstance<SO_Story_Dialogue>();
+        serializedObject = new UnityEditor.SerializedObject(obj);
+        m_dialogues = serializedObject.FindProperty("dialogue");
+        m_eventName = serializedObject.FindProperty("eventName");
+
+
+    }
+    [MenuItem("Tools/Dialogue Maker")]
+    public static void ShowWindow()
+    {
+        EditorWindow.GetWindow(typeof(DialogeMaker));
+    }
+    private void OnGUI()
+    {
+        GUILayout.Label("Dialogue Maker", EditorStyles.boldLabel);
+
+        EditorGUILayout.PropertyField(m_eventName, new GUIContent("Event Name"));
+        EditorGUILayout.PropertyField(m_dialogues, new GUIContent("Dialogues"));
+
+        path = EditorGUILayout.TextField("Objects Path", path);
+        serializedObject.ApplyModifiedProperties();
+
+
+        if (GUILayout.Button("Create Dialogue"))
+        {
+            CreateObjects();
+        }
+        if (GUILayout.Button("Refresh Path"))
+        {
+            RefreshPath();
+        }
+        if (GUILayout.Button("Clear All"))
+        {
+            ClearAll();
+        }
+    }
+    private void ClearAll()
+    {
+        m_eventName.stringValue = string.Empty;
+        m_dialogues.ClearArray();
+        serializedObject.ApplyModifiedProperties();
+    }
+    private void RefreshPath()
+    {
+        path = AssetDatabase.GetAssetPath(Selection.activeObject.GetInstanceID());
+    }
+    private void CreateObjects()
+    {
+        SO_Story_Dialogue newObject = ScriptableObject.CreateInstance<SO_Story_Dialogue>();
+        newObject.eventName = obj.eventName;
+        newObject.dialogue = obj.dialogue;
+        AssetDatabase.CreateAsset(newObject, $"{path}/{obj.eventName}.asset");
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+}
 
 public class BooleanMultiple : EditorWindow
 {
@@ -15,7 +88,7 @@ public class BooleanMultiple : EditorWindow
     {
         so_name = new string[numberOfObjects];
     }
-    [MenuItem("Assets/Create/Variable/Multiple Boolean")]
+    [MenuItem("Tools/Create/Variable/Multiple Boolean")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(BooleanMultiple));
@@ -70,7 +143,7 @@ public class FloatMultiple : EditorWindow
     {
         so_name = new string[numberOfObjects];
     }
-    [MenuItem("Assets/Create/Variable/Multiple Float")]
+    [MenuItem("Tools/Create/Variable/Multiple Float")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(FloatMultiple));

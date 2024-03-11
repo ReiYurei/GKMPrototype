@@ -13,10 +13,14 @@ public class SO_Walking : SO_Enemy_Substate
     int moveEndHash;
     Vector3 targetPosition;
     bool hasExecutedOnce = false;
+    float distance;
 
 
     public override IEnumerator Execute(Enemy enemy)
     {
+        hasExecutedOnce = false;
+        enemy._status._noFlip = false;
+        enemy._status._isMoving = true;
         if ((int)playerInfo.position.x < (int)enemy.transform.position.x)
         {
             travelDistance = Mathf.Abs(travelDistance) * -1; //Towards
@@ -28,21 +32,23 @@ public class SO_Walking : SO_Enemy_Substate
         }
         MoveDirection(enemy, isBackward);
 
-        while (enemy.transform.position != targetPosition )
+        while  (enemy._status._isMoving == true) 
         {
-            var distance = Vector3.Distance(enemy.transform.position,targetPosition );
-            if (distance / travelSpeed <= 0.5f && hasExecutedOnce == false)
+            distance = Vector3.Distance(enemy.transform.position,targetPosition );
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, targetPosition, travelSpeed * Time.deltaTime );
+            if (distance / travelSpeed <= 0.25f && hasExecutedOnce == false)
             {
-                enemy._status.noFlip = true;
-                enemy._status.SetAnimationHash(moveEndHash);
+                enemy._status._noFlip = true;
+                enemy._status._isMoving = false;
+                enemy._status.SetAnimationHashAndNotify(moveEndHash);
                 hasExecutedOnce = true;
                 yield return null;
             }
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, targetPosition, travelSpeed * Time.deltaTime);
             yield return null;
         }
-        enemy._status.noFlip = false;
-        hasExecutedOnce = false;
+        enemy._status._noFlip = false;
+        enemy._status._isMoving = false;
+
         yield break;
     }
 
@@ -52,12 +58,12 @@ public class SO_Walking : SO_Enemy_Substate
         {
             case false:
                 targetPosition = new Vector3(enemy.transform.position.x + travelDistance, enemy.transform.position.y, enemy.transform.position.z);
-                enemy._status.SetAnimationHash(AnimationHash.Enemy_Move_Forward);
+                enemy._status.SetAnimationHashAndNotify(AnimationHash.Enemy_Move_Forward);
                 moveEndHash = AnimationHash.Enemy_Move_F_Stop;
                 break;
             case true:
                 targetPosition = new Vector3(enemy.transform.position.x - travelDistance, enemy.transform.position.y, enemy.transform.position.z);
-                enemy._status.SetAnimationHash(AnimationHash.Enemy_Move_Backward);
+                enemy._status.SetAnimationHashAndNotify(AnimationHash.Enemy_Move_Backward);
                 moveEndHash = AnimationHash.Enemy_Move_B_Stop;
                 break;
 

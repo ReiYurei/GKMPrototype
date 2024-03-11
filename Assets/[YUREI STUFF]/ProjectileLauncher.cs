@@ -36,14 +36,15 @@ public class ProjectileLauncher : MonoBehaviour
   
     NativeArray<float3> positionArray;
     NativeArray<float3> directionArray;
-    NativeArray<float> projectileDelayedTime;
-    NativeArray<float> lifeTimeArray;
-    NativeArray<bool> setActiveArray;
+    NativeArray<float>  projectileDelayedTime;
+    NativeArray<float>  lifeTimeArray;
+    NativeArray<bool>   setActiveArray;
     public ProjectileBehaviour behaviour;
 
+ 
     private void Start()
     {
-
+        behaviour.OnJobEnd += DisposeAll;
         container = Instantiate(container, this.transform);
         container.transform.localPosition = Vector3.zero;
         for (int i = 0; i < numberOfShoot; i++)
@@ -53,8 +54,6 @@ public class ProjectileLauncher : MonoBehaviour
                 projectiles.Add(x);
                 x.gameObject.SetActive(false);
             }
-           InitializeData();
-
     }
 
     private void Update()
@@ -75,7 +74,7 @@ public class ProjectileLauncher : MonoBehaviour
     public void ShootNon()
     {
         StopAllCoroutines();
-        StartCoroutine(CoroutineAndJob());
+        InitiateJob();
     }
 #if UNITY_EDITOR
     void OnValidate()
@@ -99,12 +98,13 @@ public class ProjectileLauncher : MonoBehaviour
         }
 
     }
-#endif
+
 
     void OnDrawGizmos()
     {
         DivideAngle();
     }
+#endif
     public IEnumerator ChangeAngle()
     {
         while (isShooting == true)
@@ -115,19 +115,19 @@ public class ProjectileLauncher : MonoBehaviour
         targetAngle = 0;
         yield break;
     }
-     public void InitializeData()
-     {
-         float totalAngleRange = maxAngle - minAngle;
-         float angleIncrement = totalAngleRange / (numberOfSegments - 1);
+    public void InitializeData()
+    {
+        float totalAngleRange = maxAngle - minAngle;
+        float angleIncrement = totalAngleRange / (numberOfSegments - 1);
 
-         positionArray = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
-         directionArray = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
-         projectileDelayedTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
-         lifeTimeArray = new NativeArray<float>(projectiles.Count, Allocator.Persistent) ;
-         setActiveArray = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
+        positionArray = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
+        directionArray = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
+        projectileDelayedTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
+        lifeTimeArray = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
+        setActiveArray = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
 
         float delayedTime = delayBetweenShot;
-         float lifeTimespan = projectileLifeTime;
+        float lifeTimespan = projectileLifeTime;
 
         for (int i = 0; i < numberOfShoot; i++)
         {
@@ -147,19 +147,16 @@ public class ProjectileLauncher : MonoBehaviour
                      directionArray[i * numberOfSegments + j] = direction;
                      projectileDelayedTime[i * numberOfSegments + j] = delayedTime;
                      lifeTimeArray[i * numberOfSegments + j] = lifeTimespan;
-
-                  }
+                 }
             }
             delayedTime += delayBetweenShot;
-
-        }
+        }         
     }
 
     public IEnumerator ShootProjectile()
     {
         float totalAngleRange = maxAngle - minAngle;
         float angleIncrement = totalAngleRange / (numberOfSegments - 1);
-
 
         for (int i = 0; i < numberOfShoot; i++)
         {
@@ -184,23 +181,18 @@ public class ProjectileLauncher : MonoBehaviour
                         projectiles[i * numberOfSegments + j].gameObject.SetActive(true);
 
                         StartCoroutine(component.Launch(projectileSpeed / 100, projectileLifeTime, direction));
-
-
                     }
-
                 }
             }
-            yield return new WaitForSeconds(delayBetweenShot);
-
-           
+            yield return new WaitForSeconds(delayBetweenShot);        
         }
         isShooting = false;
         yield break;
 
-    }
+    } //deprecated
 
 
-    public IEnumerator CoroutineAndJob()
+    public void InitiateJob()
     {
 
         for (int i = 0; i < projectiles.Count; i++)
@@ -217,24 +209,29 @@ public class ProjectileLauncher : MonoBehaviour
         behaviour.numOfShot = numberOfShoot;
         behaviour.setActiveInfo = setActiveArray;
         behaviour.delay = delayBetweenShot;
-         for (int i = 0; i < numberOfShoot; i++)
-         {
-           for (int j = 0; j < numberOfSegments; j++)
-           {
-               
-               if (i * numberOfSegments + j < projectiles.Count)
-               {
-                   var projectileArray = projectiles[i * numberOfSegments + j];
-                   projectileArray.gameObject.SetActive(true);
+        for (int i = 0; i < numberOfShoot; i++)
+        {
+            for (int j = 0; j < numberOfSegments; j++)
+            {
+                
+                if (i * numberOfSegments + j < projectiles.Count)
+                {
+                    var projectileArray = projectiles[i * numberOfSegments + j];
+                    projectileArray.gameObject.SetActive(true);
 
-               }
-           }
+                }
+            }
         }
-        behaviour.JobStart();
-
+        behaviour.JobStart();    
         isShooting = false;
-        yield break;
-
+    }
+    void DisposeAll()
+    {
+       positionArray.Dispose();
+       directionArray.Dispose();
+       projectileDelayedTime.Dispose();
+       lifeTimeArray.Dispose();
+       setActiveArray.Dispose();
     }
     void DivideAngle()
        {
@@ -256,7 +253,6 @@ public class ProjectileLauncher : MonoBehaviour
                Gizmos.DrawLine(transform.position + start, transform.position + end);
            }
        }
-
    }
 
       

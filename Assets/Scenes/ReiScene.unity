@@ -714,10 +714,10 @@ MonoBehaviour:
   projectileSpeed: 4
   numberOfShoot: 100
   delayBetweenShot: 0.1
-  projectileLifeTime: 1
-  targetAngle: 25.7
+  projectileLifeTime: 2
+  targetAngle: 26.83
   rotation: 5
-  angleRange: -114.9
+  angleRange: 355.75
   container: {fileID: 3518457421381318826, guid: 69775bc64ba2e884ba2c761dbe8c3734, type: 3}
   projectile: {fileID: 14080505516170527, guid: 5e623149bd0d2aa498017b3ccf4e680c, type: 3}
   projectiles: []
@@ -924,9 +924,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1041765624}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DEBUGGING, PackageAssembly
-        m_MethodName: GainPoison
+        m_MethodName: 
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 8802ab853ec4fc04093784b3c6b5dc45, type: 2}
@@ -1442,6 +1442,8 @@ GameObject:
   - component: {fileID: 476242283}
   - component: {fileID: 476242281}
   - component: {fileID: 476242288}
+  - component: {fileID: 476242289}
+  - component: {fileID: 476242290}
   m_Layer: 0
   m_Name: Reimu (Enemy)
   m_TagString: Untagged
@@ -1541,7 +1543,7 @@ MonoBehaviour:
   _enemyAnimator: {fileID: 476242284}
   _enemyBehaviour: {fileID: 476242283}
   _statusEffectContainer: {fileID: 476242285}
-  _rb: {fileID: 0}
+  _rb: {fileID: 476242289}
 --- !u!4 &476242287
 Transform:
   m_ObjectHideFlags: 0
@@ -1609,6 +1611,78 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &476242289
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476242280}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 51f27b73ce674c04494a4d64ca5aee71, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &476242290
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476242280}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.010280669, y: 0.985}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 2.44, y: 2.5}
+    newSize: {x: 1.92, y: 1.97}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2082387, y: 1.97}
+  m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,6 +2302,7 @@ GameObject:
   - component: {fileID: 692433761}
   - component: {fileID: 692433760}
   - component: {fileID: 692433762}
+  - component: {fileID: 692433763}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -2295,7 +2370,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 692433759}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.37, z: 0}
+  m_LocalPosition: {x: 0, y: -2.616, z: 0}
   m_LocalScale: {x: 14.238, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2347,6 +2422,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &692433763
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692433759}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &794210763
 GameObject:
   m_ObjectHideFlags: 0

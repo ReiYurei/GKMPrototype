@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy_Strong_Close_Attack
+  m_Name: Enemy_A_Medium_Close_Attack
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

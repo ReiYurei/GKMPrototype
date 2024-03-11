@@ -19,6 +19,9 @@ public class ProjectileBehaviour : MonoBehaviour
     public NativeArray<float> lifeTime;
     public float speed;
 
+    public delegate void OnJobEndHandler(); 
+    public event OnJobEndHandler OnJobEnd;
+
     public float totalLifeTime;
     public int numOfShot;
     public int chunkSize;
@@ -43,15 +46,11 @@ public class ProjectileBehaviour : MonoBehaviour
                     transforms[i].position = (Vector3)projectilePos[i];
                     transforms[i].gameObject.SetActive((bool)setActiveInfo[i]);
                     Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
-
                 }
-   
-
                 return;
             }
             JobEnd();
         }
-
     }
     private void OnDrawGizmos()
     {
@@ -65,7 +64,6 @@ public class ProjectileBehaviour : MonoBehaviour
         for (int i = 0; i < transforms.Count; i++)
         {
             Gizmos.DrawWireSphere((Vector3)projectilePos[i], 0.15f);
-
         }
     }
 
@@ -87,13 +85,9 @@ public class ProjectileBehaviour : MonoBehaviour
     }
     void JobEnd()
     {
-        projectilePos.Dispose();
-        projectDelayTime.Dispose();
-        directionPos.Dispose();
-        setActiveInfo.Dispose();
-        lifeTime.Dispose();
+        isDisabled = true;
+        OnJobEnd?.Invoke();        
 
-    isDisabled = true;
         for (int i = 0; i < transforms.Count; i++)
         {
             transforms[i].gameObject.SetActive(false);
@@ -118,7 +112,7 @@ public class ProjectileBehaviour : MonoBehaviour
         }
         gameObject.SetActive(false);
         yield break;
-    }
+    } //deprecated
 }
 
 

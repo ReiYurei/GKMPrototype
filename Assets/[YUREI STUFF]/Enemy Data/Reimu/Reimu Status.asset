@@ -16,16 +16,18 @@ MonoBehaviour:
   currentHealth: 100
   _rawPower: 1
   _movementSpeed: 1
+  _isHalved: 0
+  _isAttacking: 0
+  _isNextAttackReady: 0
+  _isMoving: 0
   _enraged: {fileID: 11400000, guid: 2ae5270723dd37842a7c9d1dc8c0bb26, type: 2}
   _stunned: {fileID: 11400000, guid: 0daeb1cc3ab6cd144be5d29e07d6989c, type: 2}
   _poisoned: {fileID: 11400000, guid: 295ef9e195cae0b449ae07435f8be3f9, type: 2}
   _break: {fileID: 11400000, guid: 2d1234a524e720b4699a9a61495fa418, type: 2}
   _statusBuildUp: {fileID: 11400000, guid: aa0cca9acddbda146afef200f1124ca3, type: 2}
-  baseStamina: 100
   baseRageThreshold: 100
   baseStunThreshold: 100
   basePoisonThreshold: 100
-  _stamina: 100
   baseDamageModifier: 1
   baseWeakpointModifier: 1
   baseWaitTime: 3
@@ -33,5 +35,6 @@ MonoBehaviour:
   _rageMeter: {fileID: 11400000, guid: 1d11e92346cd21749af74f1e2904e025, type: 2}
   _stunMeter: {fileID: 11400000, guid: 59c0978f98afd8948aff7d6c8fd75863, type: 2}
   _poisonMeter: {fileID: 11400000, guid: 1b5537e5b87c2c54bb6be2b7bd42024e, type: 2}
+  _noFlip: 0
   states: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
   previousStates: {fileID: 0}

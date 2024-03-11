@@ -14,6 +14,13 @@ public class Enemy_Status : BaseStatus
     public event OnStatusStart InitiateEnrage, InitiateBreak, InitiateStun, InitiatePoison;
     public delegate void OnStatusEnd();
     public event OnStatusEnd EnrageEnd, BreakEnd, StunEnd, PoisonEnd;
+    public delegate void OnActionEnd(bool isAnimEnd);
+    public event OnActionEnd AnimEnd, AttackEnd;
+    [SerializeField] bool cannotRage;
+    public bool _isHalved;
+    public bool _isAttacking;
+    public bool _isNextAttackReady;
+    public bool _isMoving;
     public void NotifyEndOfStatus(BaseStatusEffect status)
     {
         switch (status)
@@ -29,7 +36,26 @@ public class Enemy_Status : BaseStatus
 
         }
     }
+    public void NotifyAttacking(bool isAttacking)
+    {
+        AttackEnd?.Invoke(isAttacking);
+        _isAttacking = isAttacking;
+        _isNextAttackReady = false;
+        if(isAttacking == false) { NotifyEndOfAnim(true); }
 
+    }
+    public void NotifyEndOfAnim(bool animEnd)
+    {
+        Debug.Log(2);
+        if (_isAttacking == true)
+        {
+            Debug.Log(3);
+            _isNextAttackReady = animEnd;
+            return;
+        }
+
+        AnimEnd?.Invoke(animEnd);
+    }
     [Header("Enemy Parameter")]
     [Required]public BooleanVariable _enraged;
     [Required]public BooleanVariable _stunned;
@@ -38,13 +64,14 @@ public class Enemy_Status : BaseStatus
     [Required]public BooleanVariable _statusBuildUp;
 
     [Header("Enemy Base Threshold")]
-    [SerializeField]float baseStamina = 100f;
+    //[SerializeField]float baseStamina = 100f;
     [SerializeField]float baseRageThreshold = 100f;
     [SerializeField]float baseStunThreshold = 100f;
     [SerializeField]float basePoisonThreshold = 100f;
   //  public float _stamina = 100f;
     public void AffectRage(float damage)
     {
+        if (cannotRage == true) return;
         if (_break.value == true) return;
         if (_enraged.value == true)
         {
@@ -122,6 +149,7 @@ public class Enemy_Status : BaseStatus
         _enraged.value = false;
         _break.value = false;
     }
+
     [Header("========DEBUG AREA========")]
     [Header("Enemy Rage")]
     [InlineEditor]
@@ -141,13 +169,13 @@ public class Enemy_Status : BaseStatus
     [ShowInInspector] int _animationHash;
     public delegate void OnAnimChange();
     public event OnAnimChange NotifyAnimChange;
-    public bool noFlip;
-    public void SetAnimationHash(int hash)
+    public bool _noFlip;
+    public void SetAnimationHashAndNotify(int hash)
     {
         _animationHash = hash;
         NotifyAnimChange?.Invoke();
     }
-    public int GetAnimationHash()
+    public int GetAnimationHashFromStatus()
     {
         return _animationHash;
     }
@@ -200,10 +228,14 @@ public class Enemy_Status : BaseStatus
         substates = state._subStates[index];
     }
 
+    [Button("Reset to Default")]
     public override void OnSpawn()
     {
         base.OnSpawn();
         DefaultModifier();
+        _isMoving = false;
+        _isAttacking = false;
+        _isNextAttackReady = false;
         _statusBuildUp.value = true;
         _stunned.value = false;
         _enraged.value = false;
@@ -212,6 +244,7 @@ public class Enemy_Status : BaseStatus
         _rageMeter.value = 0; 
         _stunMeter.value = 0; 
         _poisonMeter.value = 0;
+        _noFlip = false;
     }
 
 
