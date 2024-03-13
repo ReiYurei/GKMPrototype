@@ -17,10 +17,25 @@ public class Enemy_Status : BaseStatus
     public delegate void OnActionEnd(bool isAnimEnd);
     public event OnActionEnd AnimEnd, AttackEnd;
     [SerializeField] bool cannotRage;
-    public bool _isHalved;
-    public bool _isAttacking;
-    public bool _isNextAttackReady;
-    public bool _isMoving;
+    public bool _isHalved { get; private set; }
+    public void SetHalvedAnim(bool isHalved)
+    {
+        _isHalved = isHalved;
+    }
+
+    public bool _isAttacking { get; private set; }
+    public void SetAttacking(bool isAttacking)
+    {
+        _isAttacking = isAttacking;
+    }
+    public bool _isNextAttackReady { get; private set; }
+    public bool _isMoving { get; private set; }
+    public void SetIsMoving(bool isMoving)
+    {
+        _isMoving = isMoving;
+    }
+
+
     public void NotifyEndOfStatus(BaseStatusEffect status)
     {
         switch (status)
@@ -54,6 +69,9 @@ public class Enemy_Status : BaseStatus
 
         AnimEnd?.Invoke(animEnd);
     }
+
+
+
     [Header("Enemy Parameter")]
     [Required]public BooleanVariable _enraged;
     [Required]public BooleanVariable _stunned;
@@ -62,11 +80,14 @@ public class Enemy_Status : BaseStatus
     [Required]public BooleanVariable _statusBuildUp;
 
     [Header("Enemy Base Threshold")]
-    //[SerializeField]float baseStamina = 100f;
+    [SerializeField]float baseStamina = 100f;
     [SerializeField]float baseRageThreshold = 100f;
     [SerializeField]float baseStunThreshold = 100f;
     [SerializeField]float basePoisonThreshold = 100f;
-  //  public float _stamina = 100f;
+    public void ReduceStamina(float decrement)
+    {
+        _stamina.value -= decrement;
+    }
     public void AffectRage(float damage)
     {
         if (cannotRage == true) return;
@@ -131,24 +152,19 @@ public class Enemy_Status : BaseStatus
     [SerializeField]float baseAnimationSpeed;
     public float DamageModifier { get;private set; }
     public float WeakpointModifier { get; private set; }
-    public float WaitTime { get; set; }
     public float AnimationSpeed { get; private set; }
     public void Modifier(float damageModifier, float animationSpeed)
     {
         DamageModifier = damageModifier / 100;
         AnimationSpeed = animationSpeed / 100;
     }
-    public void DefaultModifier()
-    {
-        DamageModifier = baseDamageModifier;
-        WeakpointModifier = baseWeakpointModifier;
-        WaitTime = baseWaitTime;
-        AnimationSpeed = baseAnimationSpeed;
-        _enraged.value = false;
-        _break.value = false;
-    }
+  
 
     [Header("========DEBUG AREA========")]
+    [Header("Stamina Meter")]
+    [InlineEditor]
+    [Required] public FloatVariable _stamina;
+
     [Header("Enemy Rage")]
     [InlineEditor]
     [Required] public FloatVariable _rageMeter;
@@ -167,7 +183,11 @@ public class Enemy_Status : BaseStatus
     [ShowInInspector] int _animationHash;
     public delegate void OnAnimChange();
     public event OnAnimChange NotifyAnimChange;
-    public bool _noFlip;
+    public bool _noFlip { get; private set; }
+    public void SetNoFlip(bool noFlip)
+    {
+        _noFlip = noFlip;
+    }
     public void SetAnimationHashAndNotify(int hash)
     {
         _animationHash = hash;
@@ -239,12 +259,22 @@ public class Enemy_Status : BaseStatus
         _enraged.value = false;
         _break.value = false;
         _poisoned.value = false;
+        _stamina.value = baseStamina;
         _rageMeter.value = 0; 
         _stunMeter.value = 0; 
         _poisonMeter.value = 0;
         _noFlip = false;
+        _isHalved = false;
     }
 
-
+    public void DefaultModifier()
+    {
+        
+        DamageModifier = baseDamageModifier;
+        WeakpointModifier = baseWeakpointModifier;
+        AnimationSpeed = baseAnimationSpeed;
+        _enraged.value = false;
+        _break.value = false;
+    }
 }
 

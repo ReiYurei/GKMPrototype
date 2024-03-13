@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: Moveset_Melee_Dynamic
   m_EditorClassIdentifier: 
   potentialMove:
-  - attack: {fileID: 0}
-    conditions: []
+  - attack: {fileID: 11400000, guid: 0eab5f6b85715e7439bdf11583ea434b, type: 2}
+    conditions:
+    - comparatorType: 0
+      variable1: {fileID: 11400000, guid: d44821d58ae270a409ff7d9c40cae425, type: 2}
+      variable2: {fileID: 11400000, guid: 4a315790eabd7be40bb7b296cc09328f, type: 2}
+    - comparatorType: 0
+      variable1: {fileID: 11400000, guid: cb42a5c4b9f13ce4e8614f72a2b0fe87, type: 2}
+      variable2: {fileID: 11400000, guid: 4a315790eabd7be40bb7b296cc09328f, type: 2}

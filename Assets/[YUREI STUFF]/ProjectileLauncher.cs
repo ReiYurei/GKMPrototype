@@ -39,6 +39,8 @@ public class ProjectileLauncher : MonoBehaviour
     NativeArray<float>  projectileDelayedTime;
     NativeArray<float>  lifeTimeArray;
     NativeArray<bool>   setActiveArray;
+    NativeArray<bool>   hitPlayer;
+
     public ProjectileBehaviour behaviour;
 
  
@@ -124,6 +126,8 @@ public class ProjectileLauncher : MonoBehaviour
         projectileDelayedTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
         lifeTimeArray = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
         setActiveArray = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
+        hitPlayer = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
+
         float delayedTime = delayBetweenShot;
         float lifeTimespan = projectileLifeTime;
 
@@ -207,6 +211,7 @@ public class ProjectileLauncher : MonoBehaviour
         behaviour.numOfShot = numberOfShoot;
         behaviour.setActiveInfo = setActiveArray;
         behaviour.delay = delayBetweenShot;
+        behaviour.hitPlayer = hitPlayer;
         for (int i = 0; i < numberOfShoot; i++)
         {
             for (int j = 0; j < numberOfSegments; j++)

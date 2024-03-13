@@ -15,6 +15,6 @@ MonoBehaviour:
   controller: {fileID: 22100000, guid: 516adcbe9690f124e892ce2cd75cf09d, type: 2}
   baseController: {fileID: 9100000, guid: 55f70d92fca661344a754af6b14c5613, type: 2}
   power: 1
-  range: 1
+  range: 2
   motionValue: 0
   playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}

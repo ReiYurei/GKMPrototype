@@ -65,7 +65,7 @@ public class DialogeMaker : EditorWindow
     }
     private void RefreshPath()
     {
-        path = AssetDatabase.GetAssetPath(Selection.activeObject);
+        path = AssetDatabase.GetAssetPath(Selection.activeObject.GetInstanceID());
     }
     private void CreateObjects()
     {
@@ -81,7 +81,7 @@ public class DialogeMaker : EditorWindow
 public class BooleanMultiple : EditorWindow
 {
     private int numberOfObjects = 4;
-    private string path;
+    public string path;
     private string entityName;
     private string[] so_name;
     void OnEnable()
@@ -117,6 +117,14 @@ public class BooleanMultiple : EditorWindow
         {
             CreateObjects();
         }
+        if (GUILayout.Button("Refresh Path"))
+        {
+            RefreshPath();
+        }
+    }
+    private void RefreshPath()
+    {
+        path = AssetDatabase.GetAssetPath(Selection.activeObject.GetInstanceID());
     }
 
     private void CreateObjects()
@@ -137,7 +145,7 @@ public class FloatMultiple : EditorWindow
 
     private int numberOfObjects = 4;
     private string entityName;
-    private string path;
+    public string path;
     private string[] so_name;
     void OnEnable()
     {
@@ -148,6 +156,8 @@ public class FloatMultiple : EditorWindow
     {
         EditorWindow.GetWindow(typeof(FloatMultiple));
     }
+
+
 
     private void OnGUI()
     {
@@ -170,6 +180,10 @@ public class FloatMultiple : EditorWindow
         {
             CreateObjects();
         }
+        if (GUILayout.Button("Refresh Path"))
+        {
+            RefreshPath();
+        }
     }
 
     private void CreateObjects()
@@ -182,6 +196,10 @@ public class FloatMultiple : EditorWindow
             AssetDatabase.Refresh();
         }
 
+    }
+    private void RefreshPath()
+    {
+        path = AssetDatabase.GetAssetPath(Selection.activeObject.GetInstanceID());
     }
 }
 
@@ -208,8 +226,16 @@ public class BasicStatuses : EditorWindow
         {
             CreateObjects();
         }
+        if (GUILayout.Button("Refresh Path"))
+        {
+            RefreshPath();
+        }
     }
 
+    private void RefreshPath()
+    {
+        path = AssetDatabase.GetAssetPath(Selection.activeObject.GetInstanceID());
+    }
     private void CreateObjects()
     {
 

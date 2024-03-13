@@ -17,7 +17,7 @@ public class DEBUGGING : MonoBehaviour
     public Enemy_Status enemyStatus;
     public Enemy enemy;
     public bool limitFramerate;
-    public SO_Base_Attack_Fixed attack;
+    public SO_Melee_Attack_Dynamic attack;
     public int FrameRate;
 
     private void Awake()
@@ -105,30 +105,10 @@ public class DEBUGGING : MonoBehaviour
         }
 
     }
-    public AnimationCurve curve;
-    public float time = 1;
-    public Transform target;
-    public float travelDistance;
-    public void MovesetExecute(Transform movableObj)
+
+    public void MoveSet(Enemy enemy)
     {
-
-        StartCoroutine(Moveset(movableObj));
-    }
-    public IEnumerator Moveset(Transform movableObj)
-    {
-        if (target.position.x < movableObj.position.x)
-        {
-            travelDistance *= -1;
-        }
-        else travelDistance = Mathf.Abs(travelDistance);
-
-        Vector3 dashPosition = new Vector3(movableObj.position.x + travelDistance, movableObj.position.y, movableObj.position.z);
-        while (movableObj.position != dashPosition)
-        {
-            movableObj.position = Vector3.MoveTowards(movableObj.position, dashPosition, 1 * Time.deltaTime);
-            yield return null;
-        }
-
+        StartCoroutine(attack.Execute(enemy));
     }
     public void GainPoison(Enemy_Status status)
     {

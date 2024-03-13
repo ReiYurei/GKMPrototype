@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Moveset_Dash", menuName = "Enemy/Moveset/Melee/Dash")]
@@ -7,7 +6,7 @@ public class SO_Melee_Attack_Dash : SO_Base_Attack_Fixed
 {
     [SerializeField] float travelDistance;
     [SerializeField] float travelSpeed = 1;
-   
+    [SerializeField] float duration;
     public override IEnumerator Execute(Enemy enemy)
     {
         if (playerInfo.position.x < enemy.transform.position.x)
@@ -18,7 +17,7 @@ public class SO_Melee_Attack_Dash : SO_Base_Attack_Fixed
         {
             travelDistance = Mathf.Abs(travelDistance);
         }
-        float time = enemy._status.WaitTime;
+        float time = duration;
         Vector3 dashPosition = new Vector3(enemy.transform.position.x + travelDistance, enemy.transform.position.y, enemy.transform.position.z);
         while(time > 0)
         {

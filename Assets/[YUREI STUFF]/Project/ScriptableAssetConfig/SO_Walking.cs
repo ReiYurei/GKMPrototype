@@ -19,8 +19,8 @@ public class SO_Walking : SO_Enemy_Substate
     public override IEnumerator Execute(Enemy enemy)
     {
         hasExecutedOnce = false;
-        enemy._status._noFlip = false;
-        enemy._status._isMoving = true;
+        enemy._status.SetNoFlip(false);
+        enemy._status.SetIsMoving(true);
         if ((int)playerInfo.position.x < (int)enemy.transform.position.x)
         {
             travelDistance = Mathf.Abs(travelDistance) * -1; //Towards
@@ -38,17 +38,16 @@ public class SO_Walking : SO_Enemy_Substate
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, targetPosition, travelSpeed * Time.deltaTime );
             if (distance / travelSpeed <= 0.25f && hasExecutedOnce == false)
             {
-                enemy._status._noFlip = true;
-                enemy._status._isMoving = false;
+                enemy._status.SetNoFlip(true);
+                enemy._status.SetIsMoving(false);
                 enemy._status.SetAnimationHashAndNotify(moveEndHash);
                 hasExecutedOnce = true;
                 yield return null;
             }
             yield return null;
         }
-        enemy._status._noFlip = false;
-        enemy._status._isMoving = false;
-
+        enemy._status.SetNoFlip(false);
+        enemy._status.SetIsMoving(false);
         yield break;
     }
 

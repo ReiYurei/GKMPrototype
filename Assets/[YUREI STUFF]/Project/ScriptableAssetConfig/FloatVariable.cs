@@ -4,9 +4,14 @@ using UnityEngine;
 using TriInspector;
 
 [CreateAssetMenu(fileName = "Float Variable", menuName ="Variable/Float")]
-public class FloatVariable : CustomVariable
+public class FloatVariable : CustomVariable, INumericVariable
 {
     public new float value;
+
+    public float GetValue()
+    {
+        return value;
+    }
 }
 
 

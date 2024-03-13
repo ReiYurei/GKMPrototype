@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     public EnemyBehaviour _enemyBehaviour;
     public StatusEffectContainer _statusEffectContainer;
     public Rigidbody2D _rb;
+    Animator animator;
  
     public void OnDamage(float damage)
     {
@@ -26,6 +27,13 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     {
 
     }
+    public float speed;
+    void OnAnimatorMove()
+    {
+        _rb.velocity = new Vector3 (animator.deltaPosition.x / Time.deltaTime, animator.deltaPosition.y * speed / Time.deltaTime);
+
+
+    }
 
     public void Start()
     {
@@ -35,22 +43,36 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
         _enemyAnimator = GetComponent<EnemyAnimator>();
         _enemyBehaviour = GetComponent<EnemyBehaviour>();
         _rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        _rb.gravityScale = 10;
+
     }
 
     private void OnAttackEnd(bool isAnimEnd)
     {
-        switch (isAnimEnd)
-        {
-            case false:
-                _rb.bodyType = RigidbodyType2D.Dynamic;
-                break;
-            case true:
-                _rb.bodyType = RigidbodyType2D.Kinematic;
-                break;
-  
-        }
-    }
 
+      switch (isAnimEnd)
+      {
+          case false:
+                // _rb.bodyType = RigidbodyType2D.Dynamic;
+                _rb.gravityScale = 10;
+              break;
+          case true:
+                //  _rb.bodyType = RigidbodyType2D.Kinematic;
+                _rb.gravityScale = 1;
+                break;
+      
+      }
+    }
+    public void GravityDecrease(float value)
+    {
+        _rb.gravityScale = value;
+
+    }
+    public void GravityIncrease(float value)
+    {
+        _rb.gravityScale = value;
+    }
     [Button(ButtonSizes.Large)]
     private void SetupComponent()
     {

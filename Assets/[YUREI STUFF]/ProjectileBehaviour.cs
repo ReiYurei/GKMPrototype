@@ -5,7 +5,6 @@ using Unity.Jobs;
 using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Burst;
-using System.Drawing;
 
 [BurstCompile(CompileSynchronously = false)]
 
@@ -18,6 +17,7 @@ public class ProjectileBehaviour : MonoBehaviour
     public NativeArray<float3> directionPos;
     public NativeArray<float> projectDelayTime;
     public NativeArray<bool> setActiveInfo;
+    public NativeArray<bool> hitPlayer;
     public NativeArray<float> lifeTime;
     public float speed;
 
@@ -48,7 +48,16 @@ public class ProjectileBehaviour : MonoBehaviour
                 {
                     transforms[i].position = (Vector3)projectilePos[i];
                     transforms[i].gameObject.SetActive((bool)setActiveInfo[i]);
-                    Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
+                    if (setActiveInfo[i] == true)
+                    {
+                        var x = Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
+                        if (x != null && x.tag == "Player")
+                        {
+                            hitPlayer[i] = true;
+                            Debug.Log(x.gameObject.name);
+
+                        }
+                    }
                 }
                 return;
             }
@@ -76,6 +85,7 @@ public class ProjectileBehaviour : MonoBehaviour
         job = new ProjectileJobSingle()
         {
             originPos = originPos,
+            hitPlayer = hitPlayer,
             position = projectilePos,
             direction = directionPos,
             delayTime = projectDelayTime,
@@ -129,6 +139,8 @@ public struct ProjectileJobSingle : IJobParallelFor
     public NativeArray<float> delayTime;
     public NativeArray<float> lifeTime;
     public NativeArray<bool> setActive;
+    public NativeArray<bool> hitPlayer;
+
     public float speed;
     public float deltaTime;
 
@@ -141,7 +153,7 @@ public struct ProjectileJobSingle : IJobParallelFor
             position[index] = originPos;
             return;
         }
-        else if (lifeTime[index] > 0)
+        else if (lifeTime[index] > 0 && hitPlayer[index] == false)
         {
             setActive[index] = true;
             lifeTime[index] -= deltaTime;

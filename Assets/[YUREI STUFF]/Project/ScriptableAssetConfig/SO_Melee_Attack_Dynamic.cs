@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TriInspector;
@@ -11,10 +10,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Moveset_Melee_Dynamic", menuName = "Enemy/Moveset/Melee/Dynamic Attack")]
 public class SO_Melee_Attack_Dynamic : SO_Enemy_Substate
 {
-
     public List<DynamicAttack> potentialMove;
+    int[] priority;
     public override IEnumerator Execute(Enemy enemy)
     {
+        priority = new int[potentialMove.Count];
         for (int i = 0; i < potentialMove.Count; i++)
         {
             if (potentialMove[i].CheckCondition() == true) 
@@ -28,7 +28,15 @@ public class SO_Melee_Attack_Dynamic : SO_Enemy_Substate
 
     public override int GetAnimation()
     {
-        throw new NotImplementedException();
+        for (int i = 0; i < potentialMove.Count; i++)
+        {
+            if (potentialMove[i].CheckCondition() == true)
+            {
+                return potentialMove[i].attack.GetAnimation();
+            }
+        }
+        return AnimationHash.Enemy_Idle;
+
     }
 }
 
@@ -53,6 +61,7 @@ public class DynamicAttack
             {
                 return false; //Condition is not Met
             }
+
         }
         return true; //All Condition Met
 
@@ -71,7 +80,7 @@ public class DynamicAttack
             }
             if (conditions[i].variable1.GetType() != conditions[i].variable2.GetType())
             {
-                return TriValidationResult.Error("Types between two condition must be the SAME TYPE");
+                return TriValidationResult.Error("ERROR : Types between two condition must be the SAME TYPE");
             }
         }
         return TriValidationResult.Valid;
@@ -80,10 +89,10 @@ public class DynamicAttack
 [System.Serializable]
 public class AttackCondition<T, U> where T : CustomVariable where U : CustomVariable
 {
+    [ValidateInput(nameof(ValidateVariable))]
     public ComparatorType comparatorType;
     public T variable1;
     public U variable2;
-
     public bool CheckFullfilment()
     {
         return ConditionCheck(variable1, variable2);
@@ -93,56 +102,67 @@ public class AttackCondition<T, U> where T : CustomVariable where U : CustomVari
         switch (comparatorType)
         {
             case ComparatorType.Equal:
-                if (value1.value == value2.value)
+                if (value1 is IBoolVariable && value2 is IBoolVariable)
                 {
-                    return true;
+                    return ((IBoolVariable)value1).GetValue() == ((IBoolVariable)value2).GetValue();
                 }
-                else return false;
+                else if (value1 is INumericVariable && value2 is INumericVariable)
+                {
+                    return ((INumericVariable)value1).GetValue() == ((INumericVariable)value2).GetValue();
+                }
+                break;
             case ComparatorType.Inequal:
-                if (value1.value != value2.value)
+                if (value1 is IBoolVariable && value2 is IBoolVariable)
                 {
-
-                    return true;
+                    return ((IBoolVariable)value1).GetValue() != ((IBoolVariable)value2).GetValue();
                 }
-                else return false;
-            case ComparatorType.GreaterThan when value1 is FloatVariable && value2 is FloatVariable:
-                var value1Gthan = (FloatVariable)(object)value1;
-                var value2Gthan = (FloatVariable)(object)value2;
-                if (value1Gthan.value > value2Gthan.value)
+                else if (value1 is INumericVariable && value2 is INumericVariable)
                 {
-
-                    return true;
+                    return ((INumericVariable)value1).GetValue() != ((INumericVariable)value2).GetValue();
                 }
-                else return false;
-            case ComparatorType.GreaterThanOrEqual when value1 is FloatVariable && value2 is FloatVariable:
-                var value1GthanEq = (FloatVariable)(object)value1;
-                var value2GthanEq = (FloatVariable)(object)value2;
-                if (value1GthanEq.value >= value2GthanEq.value)
+                break;
+
+            case ComparatorType.GreaterThan:
+                if (value1 is INumericVariable && value2 is INumericVariable)
                 {
-
-                    return true;
+                    return ((INumericVariable)value1).GetValue() > ((INumericVariable)value2).GetValue();
                 }
-                else return false;
-
-            case ComparatorType.LessThan when value1 is FloatVariable && value2 is FloatVariable:
-                var value1Lthan = (FloatVariable)(object)value1;
-                var value2Lthan = (FloatVariable)(object)value2;
-                if (value1Lthan.value < value2Lthan.value)
+                break;
+            case ComparatorType.GreaterThanOrEqual:
+                if (value1 is INumericVariable && value2 is INumericVariable)
                 {
-
-                    return true;
+                    return ((INumericVariable)value1).GetValue() >= ((INumericVariable)value2).GetValue();
                 }
-                else return false;
-            case ComparatorType.LessThanOrEqual when value1 is FloatVariable && value2 is FloatVariable:
-                var value1LthanE = (FloatVariable)(object)value1;
-                var value2LthanE = (FloatVariable)(object)value2;
-                if (value1LthanE.value <= value2LthanE.value)
+                break;
+            case ComparatorType.LessThan:
+                if (value1 is INumericVariable && value2 is INumericVariable)
                 {
-
-                    return true;
+                    return ((INumericVariable)value1).GetValue() < ((INumericVariable)value2).GetValue();
                 }
-                else return false;
-            default: return false;
+                break;
+            case ComparatorType.LessThanOrEqual:
+                if (value1 is INumericVariable && value2 is INumericVariable)
+                {
+                    return ((INumericVariable)value1).GetValue() <= ((INumericVariable)value2).GetValue();
+                }
+                break;
         }
+        return false;
+
     }
+    TriValidationResult ValidateVariable()
+    {
+        if (variable1 is IBoolVariable && variable2 is IBoolVariable)
+        {
+            if (comparatorType == ComparatorType.Equal || comparatorType == ComparatorType.Inequal)
+            {
+                return TriValidationResult.Valid;
+            }
+            return TriValidationResult.Error("ERROR : Boolean Operation can only compared as EQUAL or INEQUAL");
+
+        }
+        return TriValidationResult.Valid;
+
+    }
+
 }

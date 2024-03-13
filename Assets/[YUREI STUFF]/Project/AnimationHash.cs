@@ -36,6 +36,26 @@ public class AnimationHash
     public static readonly int Enemy_Strong_Midrange_Attack = Animator.StringToHash("Enemy_A_Strong_Midrange_Attack");
     public static readonly int Enemy_Strong_Long_Attack = Animator.StringToHash("Enemy_A_Strong_Long_Attack");
 
+    public static readonly int Enemy_P_Projectile_1 = Animator.StringToHash("Enemy_P_Projectile_1");
+    public static readonly int Enemy_P_Projectile_2 = Animator.StringToHash("Enemy_P_Projectile_2");
+    public static readonly int Enemy_P_Projectile_3 = Animator.StringToHash("Enemy_P_Projectile_3");
+    public static readonly int Enemy_P_Projectile_4 = Animator.StringToHash("Enemy_P_Projectile_4");
+    public static readonly int Enemy_P_Projectile_5 = Animator.StringToHash("Enemy_P_Projectile_5");
+
+   // public static readonly int Enemy_P_Projectile_1_Loop = Animator.StringToHash("Enemy_P_Projectile_1_Loop");
+   // public static readonly int Enemy_P_Projectile_2_Loop = Animator.StringToHash("Enemy_P_Projectile_2_Loop");
+   // public static readonly int Enemy_P_Projectile_3_Loop = Animator.StringToHash("Enemy_P_Projectile_3_Loop");
+   // public static readonly int Enemy_P_Projectile_4_Loop = Animator.StringToHash("Enemy_P_Projectile_4_Loop");
+   // public static readonly int Enemy_P_Projectile_5_Loop = Animator.StringToHash("Enemy_P_Projectile_5_Loop");
+
+    public static Dictionary<int, int> enemyProjectileDict = new Dictionary<int, int>()
+    {
+        {(int)ProjectileSlot.Projectile_1, Enemy_P_Projectile_1},
+        {(int)ProjectileSlot.Projectile_2, Enemy_P_Projectile_2},
+        {(int)ProjectileSlot.Projectile_3, Enemy_P_Projectile_3},
+        {(int)ProjectileSlot.Projectile_4, Enemy_P_Projectile_4},
+        {(int)ProjectileSlot.Projectile_5, Enemy_P_Projectile_5},
+    };
 
     public static Dictionary<int, int> enemyGeneralDict = new Dictionary<int, int>()
     {
@@ -63,6 +83,15 @@ public class AnimationHash
 
 
     };
+
+    public static int Enemy_Projectile(int type)
+    {
+        if (enemyProjectileDict.ContainsKey(type))
+        {
+            return enemyProjectileDict[type];
+        }
+        else return Enemy_Idle;
+    }
     public static int Enemy_General_Animation(int states)
     {
         if (enemyGeneralDict.ContainsKey(states))

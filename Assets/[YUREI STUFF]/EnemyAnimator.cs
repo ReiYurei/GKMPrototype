@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TriInspector;
 using System;
-using Unity.VisualScripting;
 
 public class EnemyAnimator : MonoBehaviour
 {
@@ -11,19 +10,6 @@ public class EnemyAnimator : MonoBehaviour
     [SerializeField]SO_PlayerInfo playerInfo;
     public Animator _animator;
 
-    private void FlipAnimation()
-    {
-
-        if (playerInfo.position.x < transform.position.x)
-        {
-           transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-        else if (playerInfo.position.x > transform.position.x )
-        {
-           transform.eulerAngles = new Vector3(0, 180, 0);
-
-        }
-    }
 
     private void OnEnable()
     {
@@ -35,7 +21,6 @@ public class EnemyAnimator : MonoBehaviour
         }
         _animator = GetComponent<Animator>();
         status.NotifyAnimChange += OnStateChange;
-        status.WaitTime = _animator.GetCurrentAnimatorStateInfo(0).length;
     }
     private void OnDisable()
     {
@@ -64,12 +49,29 @@ public class EnemyAnimator : MonoBehaviour
 
         status.NotifyEndOfAnim(true);
     }
+    protected void OnProjectile()
+    {
 
+        status.NotifyEndOfAnim(true);
+    }
     private void PlayAnim(int animationName, float animSpeed)
     {
         status.NotifyEndOfAnim(false);
         _animator.speed = animSpeed;
         _animator.Play(animationName, default,0f);
+    }
+    private void FlipAnimation()
+    {
+
+        if (playerInfo.position.x < transform.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (playerInfo.position.x > transform.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+
+        }
     }
 
 }

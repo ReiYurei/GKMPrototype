@@ -11,17 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private int subStateNum = 0;
     public List<StateCondition> _condition;
-    private void Start()
-    {
-       foreach(StateCondition condition in _condition)
-       {
-           if (condition.GetName() == EnemyStates.Normal)
-           {
-               status.SetState(condition.state, subStateNum);
-           }
-           else continue;
-       }
-    }
+
     void OnEnable()
     {
         if (status == null)
@@ -34,6 +24,15 @@ public class EnemyBehaviour : MonoBehaviour
             status = component._status;
 
         }
+        foreach (StateCondition condition in _condition)
+        {
+            if (condition.GetName() == EnemyStates.Normal)
+            {
+                status.SetState(condition.state, subStateNum);
+            }
+            else continue;
+        }
+       
         status.InitiateEnrage += OnEnrageInitiated;
         status.InitiateStun += OnStunInitiated;
         status.InitiateBreak += OnBreakInitiated;
@@ -78,7 +77,7 @@ public class EnemyBehaviour : MonoBehaviour
 
                 status.SetState(condition.state, subStateNum);
                 StartCoroutine(SubstateExecution());
-                StartCoroutine(TimedExecution(status.WaitTime));
+                StartCoroutine(TimedExecution(2f));
 
                 return;
             }

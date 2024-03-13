@@ -47,7 +47,6 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
         return null;
     }
 #endif
-    [Space(15)]
     [Header("Main Properties")]
 
     public AttackPowerType power;
@@ -82,12 +81,16 @@ public class SO_Melee_Attack_Teleport : SO_Base_Attack_Fixed
 [CreateAssetMenu(fileName = "Moveset_Projectile_Standing", menuName = "Enemy/Moveset/Projectile/Stomp")]
 public class SO_Projectile_Attack_Standing : SO_Base_Attack_Fixed
 {
+    public ProjectileSlot projectile;
     public override IEnumerator Execute(Enemy enemy)
     {
         yield return base.Execute(enemy);
         
     }
 
-
+    public override int GetAnimation()
+    {
+        return AnimationHash.Enemy_Projectile((int)projectile);
+    }
 
 }
