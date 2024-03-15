@@ -16,6 +16,9 @@ public class Enemy_Status : BaseStatus
     public event OnStatusEnd EnrageEnd, BreakEnd, StunEnd, PoisonEnd;
     public delegate void OnActionEnd(bool isAnimEnd);
     public event OnActionEnd AnimEnd, AttackEnd;
+    public delegate void OnProjectile();
+    public event OnProjectile InitiateProjectile;
+
     [SerializeField] bool cannotRage;
     public bool _isHalved { get; private set; }
     public void SetHalvedAnim(bool isHalved)
@@ -35,7 +38,10 @@ public class Enemy_Status : BaseStatus
         _isMoving = isMoving;
     }
 
-
+    public void NotifyProjectile()
+    {
+        InitiateProjectile?.Invoke();
+    }
     public void NotifyEndOfStatus(BaseStatusEffect status)
     {
         switch (status)

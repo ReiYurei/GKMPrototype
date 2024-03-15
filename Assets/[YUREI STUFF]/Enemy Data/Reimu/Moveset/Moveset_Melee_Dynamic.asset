@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Moveset_Melee_Dynamic
   m_EditorClassIdentifier: 
   potentialMove:
-  - attack: {fileID: 11400000, guid: 0eab5f6b85715e7439bdf11583ea434b, type: 2}
+  - attack: {fileID: 11400000, guid: 6aace7c0e0cc8f24f92d115031595586, type: 2}
     conditions:
     - comparatorType: 0
       variable1: {fileID: 11400000, guid: d44821d58ae270a409ff7d9c40cae425, type: 2}

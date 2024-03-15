@@ -10,6 +10,10 @@ public class DEBUGGING : MonoBehaviour
     public TextMeshProUGUI textObj;
 
 
+    public void Destroy(GameObject obj)
+    {
+        Resources.UnloadUnusedAssets();
+    }
     public GameObject rageIcon;
     public GameObject poisonIcon;
     public GameObject stunIcon;
@@ -34,11 +38,11 @@ public class DEBUGGING : MonoBehaviour
 
     private void Start()
     {
-        rageIcon.SetActive(false);
-        poisonIcon.SetActive(false);
-        stunIcon.SetActive(false);
-        breakIcon.SetActive(false);
-
+  //      rageIcon.SetActive(false);
+  //      poisonIcon.SetActive(false);
+  //      stunIcon.SetActive(false);
+  //      breakIcon.SetActive(false);
+  //
     }
     int frameCount;
     float polling = 1f;
@@ -57,10 +61,10 @@ public class DEBUGGING : MonoBehaviour
         }
 
        
-       OnStun();
-       OnPoison();
-       OnRage();
-       OnBreak();
+      // OnStun();
+      // OnPoison();
+      // OnRage();
+      // OnBreak();
     }
     void OnStun()
     {

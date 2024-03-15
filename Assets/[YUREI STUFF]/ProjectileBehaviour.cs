@@ -6,11 +6,14 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Burst;
 
+
 [BurstCompile(CompileSynchronously = false)]
 
 public class ProjectileBehaviour : MonoBehaviour
 {
     public List<Transform> transforms;
+    public ParticleSystem ps;
+
     public Transform origin;
     float3 originPos;
     public NativeArray<float3> projectilePos;
@@ -19,11 +22,11 @@ public class ProjectileBehaviour : MonoBehaviour
     public NativeArray<bool> setActiveInfo;
     public NativeArray<bool> hitPlayer;
     public NativeArray<float> lifeTime;
-    public float speed;
 
-    public delegate void OnJobEndHandler(); 
+    public delegate void OnJobEndHandler(JobHandle handle); 
     public event OnJobEndHandler OnJobEnd;
 
+    public float speed;
     public float totalLifeTime;
     public int numOfShot;
     public int chunkSize;
@@ -31,39 +34,46 @@ public class ProjectileBehaviour : MonoBehaviour
     public bool isDisabled;
 
     ProjectileJobSingle job;
+    public JobHandle jobHandle;
 
-    private void LateUpdate()
+    private void Update()
     {
-        if (isDisabled == false)
-        {
-            job.originPos = (float3)origin.position;
+         if (isDisabled == false)
+         {
             if (totalLifeTime > 0)
             {
-                totalLifeTime -=Time.deltaTime;
-                
                 job.deltaTime = Time.deltaTime;
-                JobHandle jobHandle = job.Schedule(transforms.Count, 1000);
+                totalLifeTime -=Time.deltaTime;
+                job.originPos = (float3)origin.position;
+                jobHandle = job.Schedule(transforms.Count, 64);
                 jobHandle.Complete();
                 for (int i = 0; i < transforms.Count; i++)
                 {
                     transforms[i].position = (Vector3)projectilePos[i];
-                    transforms[i].gameObject.SetActive((bool)setActiveInfo[i]);
+                    if (lifeTime[i] <= 0)
+                    {
+                        transforms[i].gameObject.SetActive(false);
+                    }
+
                     if (setActiveInfo[i] == true)
                     {
                         var x = Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
-                        if (x != null && x.tag == "Player")
+                        if (x != null && (x.tag == "Player" || x.gameObject.layer == 7))
                         {
-                            hitPlayer[i] = true;
-                            Debug.Log(x.gameObject.name);
-
+                            transforms[i].gameObject.SetActive(false);
+                            hitPlayer[i] = true;     
+                            
+                            //launch particle at te position
                         }
                     }
                 }
                 return;
+
             }
             JobEnd();
         }
     }
+ 
     private void OnDrawGizmos()
     {
         if (isDisabled)
@@ -78,11 +88,10 @@ public class ProjectileBehaviour : MonoBehaviour
             Gizmos.DrawWireSphere((Vector3)projectilePos[i], 0.15f);
         }
     }
-
     public void JobStart()
     {
         totalLifeTime = numOfShot * delay + lifeTime[lifeTime.Length -1];
-        job = new ProjectileJobSingle()
+        job = new ProjectileJobSingle
         {
             originPos = originPos,
             hitPlayer = hitPlayer,
@@ -92,80 +101,33 @@ public class ProjectileBehaviour : MonoBehaviour
             setActive = setActiveInfo,
             speed = speed,
             lifeTime = lifeTime,
+            deltaTime = Time.deltaTime
         };
         isDisabled = false;
-
     }
+  
     void JobEnd()
     {
         isDisabled = true;
-        OnJobEnd?.Invoke();        
+
+        OnJobEnd?.Invoke(jobHandle);        
 
         for (int i = 0; i < transforms.Count; i++)
         {
             transforms[i].gameObject.SetActive(false);
         }
+
+    }
+    private void OnEnable()
+    {
+        isDisabled = true;
     }
     private void OnDisable()
     {
         isDisabled = true;
+        transforms.Clear(); 
     }
-    public IEnumerator Launch(float speed, float lifetime, Vector3 direction)
-    {
 
-        float elapsedTime = 0;
-
-        while (elapsedTime < lifetime)
-        {
-            Vector3 movement = direction.normalized * speed * Time.fixedDeltaTime;
-
-            transform.position += movement;
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        gameObject.SetActive(false);
-        yield break;
-    } //deprecated
 }
 
 
-
-[BurstCompile(CompileSynchronously = false)]
-public struct ProjectileJobSingle : IJobParallelFor
-{
-    public float3 originPos;
-    public NativeArray<float3> position;
-    public NativeArray<float3> direction;
-    public NativeArray<float> delayTime;
-    public NativeArray<float> lifeTime;
-    public NativeArray<bool> setActive;
-    public NativeArray<bool> hitPlayer;
-
-    public float speed;
-    public float deltaTime;
-
-    public void Execute(int index)
-    {
-        if (delayTime[index] > 0)
-        {
-            delayTime[index] -= deltaTime;
-            setActive[index] = false;
-            position[index] = originPos;
-            return;
-        }
-        else if (lifeTime[index] > 0 && hitPlayer[index] == false)
-        {
-            setActive[index] = true;
-            lifeTime[index] -= deltaTime;
-            float3 movement = math.normalize(direction[index]) * speed * deltaTime;
-            position[index] +=  movement;
-            return;
-        }
-
-        setActive[index] = false;
-        
-        
-        
-
-    }
-}

@@ -27,8 +27,15 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
 
     private void OnValidate()
     {
-       
-            overriddenClip = GetAnimationClipByHash(controller, AnimationHash.Enemy_Attack((int)power, (int)range));
+        if (this is SO_Projectile_Attack_Standing)
+        {
+            isProjectile = true;
+        }
+        else
+        {
+            isProjectile = false;
+        }
+        overriddenClip = GetAnimationClipByHash(controller, AnimationHash.Enemy_Attack((int)power, (int)range));
             clipName = overriddenClip != null ? overriddenClip.name : "Animation Clip Not Found";
     }
 
@@ -47,10 +54,12 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
         return null;
     }
 #endif
+    bool isProjectile;
+    [Space(15)]
     [Header("Main Properties")]
-
-    public AttackPowerType power;
-    public AttackRangeType range;
+    [ShowIf(nameof(isProjectile), true)] public ProjectileSlot projectile;
+    [HideIf(nameof(isProjectile), true)]public AttackPowerType power;
+    [HideIf(nameof(isProjectile), true)] public AttackRangeType range;
     protected Vector3 target;
     public int motionValue;
     protected int index = 0;
@@ -73,24 +82,5 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
 [CreateAssetMenu(fileName = "Moveset_Teleport", menuName = "Enemy/Moveset/Melee/Teleport")]
 public class SO_Melee_Attack_Teleport : SO_Base_Attack_Fixed
 {
-
-}
-
-
-
-[CreateAssetMenu(fileName = "Moveset_Projectile_Standing", menuName = "Enemy/Moveset/Projectile/Stomp")]
-public class SO_Projectile_Attack_Standing : SO_Base_Attack_Fixed
-{
-    public ProjectileSlot projectile;
-    public override IEnumerator Execute(Enemy enemy)
-    {
-        yield return base.Execute(enemy);
-        
-    }
-
-    public override int GetAnimation()
-    {
-        return AnimationHash.Enemy_Projectile((int)projectile);
-    }
 
 }

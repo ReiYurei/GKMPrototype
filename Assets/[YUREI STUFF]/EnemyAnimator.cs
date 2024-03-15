@@ -49,10 +49,9 @@ public class EnemyAnimator : MonoBehaviour
 
         status.NotifyEndOfAnim(true);
     }
-    protected void OnProjectile()
+    public void OnProjectile()
     {
-
-        status.NotifyEndOfAnim(true);
+        status.NotifyProjectile();
     }
     private void PlayAnim(int animationName, float animSpeed)
     {
