@@ -34,7 +34,7 @@ public class ProjectileLauncher : MonoBehaviour
     public Transform particleContainer;
     public int particlePoolCount;
 
-[SerializeField] List<GameObject> _particles;
+    [SerializeField] List<GameObject> _particles;
 
     public Transform origin;
 
@@ -103,8 +103,8 @@ public class ProjectileLauncher : MonoBehaviour
     private void LateUpdate()
     {
        
-     //   jobHandle.Complete();
-     //   if (isDisabled == false && totalLifeTime > 0)
+     //   _jobHandle.Complete();
+     //   if (isShooting == false && totalLifeTime > 0)
      //   {
      //       JobUpdate();
      //
@@ -119,7 +119,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     public void Dispose()
     {
-        //DisposeAll(behaviour.jobHandle);
+        //DisposeAll(behaviour._jobHandle);
         Debug.Log(_projectilePos.IsCreated);
 
     }
@@ -136,7 +136,7 @@ public class ProjectileLauncher : MonoBehaviour
         // Calculate the angle increment for each segment
 
 
-        // Ensure minAngle is less than maxAngle
+        // Ensure _minAngle is less than _maxAngle
         if (_minAngle > _maxAngle)
         {
             float temp = _minAngle;
@@ -231,8 +231,8 @@ public class ProjectileLauncher : MonoBehaviour
     public void DisposeAll()
     {
 #if UNITY_EDITOR
-    //    Debug.Log(projectilePos.IsCreated);
-    //    Debug.Log(directionPos.IsCreated);
+    //    Debug.Log(_projectilePos.IsCreated);
+    //    Debug.Log(_directionPos.IsCreated);
     //    Debug.Log(_projectDelayTime.IsCreated);
     //    Debug.Log(_lifeTime.IsCreated);
     //    Debug.Log(_setActiveInfo.IsCreated);

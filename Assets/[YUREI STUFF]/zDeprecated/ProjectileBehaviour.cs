@@ -38,18 +38,18 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void LateUpdate()
     {
-       //  if (isDisabled == false)
+       //  if (isShooting == false)
        //  {
        //     if (totalLifeTime > 0)
        //     {
-       //         job.deltaTime = Time.deltaTime;
+       //         _job.deltaTime = Time.deltaTime;
        //         totalLifeTime -=Time.deltaTime;
-       //         job.originPos = (float3)origin.position;
-       //         jobHandle = job.Schedule(transforms.Count, 64);
-       //         jobHandle.Complete();
+       //         _job._originPos = (float3)origin.position;
+       //         _jobHandle = _job.Schedule(transforms.Count, 64);
+       //         _jobHandle.Complete();
        //         for (int i = 0; i < transforms.Count; i++)
        //         {
-       //             transforms[i].position = (Vector3)projectilePos[i];
+       //             transforms[i].position = (Vector3)_projectilePos[i];
        //             if (_lifeTime[i] <= 0)
        //             {
        //                 transforms[i].gameObject.SetActive(false);
@@ -57,7 +57,7 @@ public class ProjectileBehaviour : MonoBehaviour
        //
        //             if (_setActiveInfo[i] == true && _hitPlayer[i] == false)
        //             {
-       //                // Collider2D x = Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
+       //                // Collider2D x = Physics2D.OverlapCircle((Vector3)_projectilePos[i], 0.15f);
        //               //  if (x != null && (x.tag == "Player" || x.gameObject.layer == 7))
        //               //  {
        //               //      _setActiveInfo[i] = false;

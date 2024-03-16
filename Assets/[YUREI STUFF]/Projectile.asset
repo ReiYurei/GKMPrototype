@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b20359d12110e504db465771573cde09, type: 3}
-  m_Name: Projectile Data
+  m_Name: Projectile
   m_EditorClassIdentifier: 
-  numberOfSegments: 10
-  projectileSpeed: 10
-  numberOfShoot: 100
-  delayBetweenShot: 0.1
-  projectileLifeTime: 2
+  numberOfSegments: 12
+  projectileSpeed: 2.9
+  numberOfShoot: 0
+  delayBetweenShot: 0
+  projectileLifeTime: 0

@@ -12,7 +12,7 @@ public class SO_Projectile_Attack_Standing : SO_Base_Attack_Fixed
     public bool triggerShot;
     public override IEnumerator Execute(Enemy enemy)
     {
-        yield return null;
+        yield return new WaitForSeconds(5f) ;
     }
 
     public override int GetAnimation()

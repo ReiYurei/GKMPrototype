@@ -4,7 +4,8 @@ using Unity.Collections;
 using Unity.Burst;
 
 [BurstCompile]
-public struct ProjectileJobSingle : IJobParallelFor
+public struct ProjectileJobSingle
+    : IJobParallelFor
 {
     [ReadOnly] public float3 originPos;
     public NativeArray<float3> position;
