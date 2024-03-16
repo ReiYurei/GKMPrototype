@@ -2,63 +2,72 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TriInspector;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] Enemy enemy;
-    Enemy_Status status;
-
-    private int subStateNum = 0;
-    public List<StateCondition> _condition;
+    [Header("Ignore if Enemy component exist in object")]
+    [ReadOnly] public Enemy _enemy;
+    [SerializeField] public Enemy_Status _status;
+    private int _subStateNum = 0;
+    public List<StateCondition> condition;
 
     void OnEnable()
     {
-        if (status == null)
+        if (_status == null)
         {
             TryGetComponent<Enemy>(out Enemy component);
             if (component == null)
             {
+                Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
+                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(Enemy_Status)}");
                 return;
             }
-            status = component._status;
-
+            _enemy = component;
+            _status = _enemy.status;
         }
-        foreach (StateCondition condition in _condition)
+        foreach (StateCondition condition in condition)
         {
             if (condition.GetName() == EnemyStates.Normal)
             {
-                status.SetState(condition.state, subStateNum);
+                _status.SetState(condition.state, _subStateNum);
+                break;
             }
             else continue;
         }
        
-        status.InitiateEnrage += OnEnrageInitiated;
-        status.InitiateStun += OnStunInitiated;
-        status.InitiateBreak += OnBreakInitiated;
-        status.StunEnd += OnStunEnd;
-        status.AnimEnd += IsAnimEnd;
+        _status.InitiateEnrage += OnEnrageInitiated;
+        _status.InitiateStun += OnStunInitiated;
+        _status.InitiateBreak += OnBreakInitiated;
+        _status.StunEnd += OnStunEnd;
+        _status.AnimEnd += OnAnimEnd;
         StartCoroutine(Behave());
+        //Debug.Log("Initiate Behave");
 
     }
-    public void IsAnimEnd(bool animEnd)
+    public void OnAnimEnd(bool animEnd)
     {
+        //Debug.Log("end 3, " + animEnd);
         isFinished = animEnd;
     }
     bool isFinished;
     private void OnDisable()
     {
         StopAllCoroutines();
-        status.InitiateEnrage -= OnEnrageInitiated;
-        status.InitiateStun -= OnStunInitiated;
-        status.InitiateBreak -= OnBreakInitiated;
-        status.StunEnd -= OnStunEnd;
+        _status.InitiateEnrage -= OnEnrageInitiated;
+        _status.InitiateStun -= OnStunInitiated;
+        _status.InitiateBreak -= OnBreakInitiated;
+        _status.StunEnd -= OnStunEnd;
+        _status.AnimEnd -= OnAnimEnd;
+
     }
-    
+
     public IEnumerator Behave()
     {
+        //Debug.Log("Behave");
         StartCoroutine(SubstateExecution());
         StartCoroutine(SetState());
+        //Debug.Log("Now Wait");
         yield return new WaitUntil(() => isFinished ==true);
         SwitchSubstate();
         StartCoroutine(Behave());
@@ -68,14 +77,14 @@ public class EnemyBehaviour : MonoBehaviour
     public void OnEnrageInitiated()
     {
         Interrupt();
-        subStateNum = 0;
-        foreach (StateCondition condition in _condition)
+        _subStateNum = 0;
+        foreach (StateCondition condition in condition)
         {
 
             if (condition.GetName() == EnemyStates.Enraged)
             {
 
-                status.SetState(condition.state, subStateNum);
+                _status.SetState(condition.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));
 
@@ -85,14 +94,14 @@ public class EnemyBehaviour : MonoBehaviour
     }
     public void OnStunInitiated()
     {
-        status.SetPreviousState(status.GetState());
+        _status.SetPreviousState(_status.GetState());
         Interrupt();
-        subStateNum = 0;
-        foreach (StateCondition condition in _condition)
+        _subStateNum = 0;
+        foreach (StateCondition condition in condition)
         {
             if (condition.GetName() == EnemyStates.Stunned)
             {
-                status.SetState(condition.state, subStateNum);
+                _status.SetState(condition.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 return;
             }
@@ -101,13 +110,13 @@ public class EnemyBehaviour : MonoBehaviour
     public void OnBreakInitiated()
     {
         Interrupt();
-        subStateNum = 0;
+        _subStateNum = 0;
 
-        foreach (StateCondition condition in _condition)
+        foreach (StateCondition condition in condition)
         {
             if (condition.GetName() == EnemyStates.Flinched)
             {
-                status.SetState(condition.state, subStateNum);
+                _status.SetState(condition.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));
                 return;
@@ -135,14 +144,14 @@ public class EnemyBehaviour : MonoBehaviour
     public void BackToPreviousState()
     {
         List<StateCondition> states = new List<StateCondition>();
-        foreach (StateCondition condition in _condition)
+        foreach (StateCondition condition in condition)
         {
             if (condition.GetName() != EnemyStates.Stunned || condition.GetName() != EnemyStates.Enraged)
             {
                 states.Add(condition);
             }
         }
-        status.SetState(status.GetPreviousState(states),subStateNum);
+        _status.SetState(_status.GetPreviousState(states),_subStateNum);
         StartCoroutine(Behave());
     }
     public void Interrupt()
@@ -152,26 +161,26 @@ public class EnemyBehaviour : MonoBehaviour
 
     public IEnumerator SubstateExecution()
     {
-        var currentState = status.GetState();
-        yield return StartCoroutine(currentState.Execute(enemy, subStateNum));
+        var currentState = _status.GetState();
+        yield return StartCoroutine(currentState.Execute(_enemy, _subStateNum));
 
     }
 
     public IEnumerator SetState()
     {
-        var currentState = status.GetState();
-        status.SetState(currentState, subStateNum);
+        var currentState = _status.GetState();
+        _status.SetState(currentState, _subStateNum);
         yield break;
     }
     public void SwitchSubstate()
     {
-        var subStateCount = status.GetState()._subStates.Count - 1;
-        if (subStateNum >= subStateCount)
+        var subStateCount = _status.GetState()._subStates.Count - 1;
+        if (_subStateNum >= subStateCount)
         {
-            subStateNum = 0;
+            _subStateNum = 0;
             return;
         }
-        subStateNum++;
+        _subStateNum++;
     }
    
 }

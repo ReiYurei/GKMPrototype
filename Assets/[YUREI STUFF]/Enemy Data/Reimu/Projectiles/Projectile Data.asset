@@ -15,5 +15,5 @@ MonoBehaviour:
   numberOfSegments: 90
   projectileSpeed: 10
   numberOfShoot: 100
-  delayBetweenShot: 0.01
+  delayBetweenShot: 0.1
   projectileLifeTime: 1

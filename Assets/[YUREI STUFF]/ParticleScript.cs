@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class ParticleScript : MonoBehaviour
 {
-    [SerializeField]ParticleSystem particleSystems;
+    ParticleSystem ps;
     private void Start()
     {
-        particleSystems = GetComponent<ParticleSystem>();
-        var main = particleSystems.main;
-        main.stopAction = ParticleSystemStopAction.Callback;
-    }
-    void OnParticleSystemStopped()
-    {
-        gameObject.SetActive(false);
+        ps = GetComponent<ParticleSystem>();
+        var main = ps.main;
+        main.stopAction = ParticleSystemStopAction.Disable;
     }
 
 }

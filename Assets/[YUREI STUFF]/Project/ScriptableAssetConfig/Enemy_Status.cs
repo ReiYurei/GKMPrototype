@@ -20,22 +20,22 @@ public class Enemy_Status : BaseStatus
     public event OnProjectile InitiateProjectile;
 
     [SerializeField] bool cannotRage;
-    public bool _isHalved { get; private set; }
+    [ShowInInspector]public bool isHalved { get; private set; }
     public void SetHalvedAnim(bool isHalved)
     {
-        _isHalved = isHalved;
+        this.isHalved = isHalved;
     }
 
-    public bool _isAttacking { get; private set; }
+    [ShowInInspector]public bool isAttacking { get; private set; }
     public void SetAttacking(bool isAttacking)
     {
-        _isAttacking = isAttacking;
+        this.isAttacking = isAttacking;
     }
-    public bool _isNextAttackReady { get; private set; }
-    public bool _isMoving { get; private set; }
+    [ShowInInspector]public bool isNextAttackReady { get; private set; }
+    [ShowInInspector]public bool isMoving { get; private set; }
     public void SetIsMoving(bool isMoving)
     {
-        _isMoving = isMoving;
+        this.isMoving = isMoving;
     }
 
     public void NotifyProjectile()
@@ -60,30 +60,29 @@ public class Enemy_Status : BaseStatus
     public void NotifyAttacking(bool isAttacking)
     {
         AttackEnd?.Invoke(isAttacking);
-        _isAttacking = isAttacking;
-        _isNextAttackReady = false;
+        this.isAttacking = isAttacking;
+        isNextAttackReady = false;
         if(isAttacking == false) { NotifyEndOfAnim(true); }
 
     }
     public void NotifyEndOfAnim(bool animEnd)
     {
-        if (_isAttacking == true)
+        if (isAttacking == true)
         {
-            _isNextAttackReady = animEnd;
+            isNextAttackReady = animEnd;
             return;
         }
-
         AnimEnd?.Invoke(animEnd);
     }
 
 
 
     [Header("Enemy Parameter")]
-    [Required]public BooleanVariable _enraged;
-    [Required]public BooleanVariable _stunned;
-    [Required]public BooleanVariable _poisoned;
-    [Required]public BooleanVariable _break;
-    [Required]public BooleanVariable _statusBuildUp;
+    [Required]public BooleanVariable b_Enraged;
+    [Required]public BooleanVariable b_Stunned;
+    [Required]public BooleanVariable b_Poisoned;
+    [Required]public BooleanVariable b_Break;
+    [Required]public BooleanVariable b_StatusBuildUp;
 
     [Header("Enemy Base Threshold")]
     [SerializeField]float baseStamina = 100f;
@@ -92,30 +91,30 @@ public class Enemy_Status : BaseStatus
     [SerializeField]float basePoisonThreshold = 100f;
     public void ReduceStamina(float decrement)
     {
-        _stamina.value -= decrement;
+        f_Stamina.value -= decrement;
     }
     public void AffectRage(float damage)
     {
         if (cannotRage == true) return;
-        if (_break.value == true) return;
-        if (_enraged.value == true)
+        if (b_Break.value == true) return;
+        if (b_Enraged.value == true)
         {
-            _rageMeter.value -= damage * 0.2f;
-            if (_rageMeter.value <= 0 && _statusBuildUp.value == true)
+            f_RageMeter.value -= damage * 0.2f;
+            if (f_RageMeter.value <= 0 && b_StatusBuildUp.value == true)
             {
-                _enraged.value = false;
-                _rageMeter.value = 0;
+                b_Enraged.value = false;
+                f_RageMeter.value = 0;
                 InitiateBreak?.Invoke();
             }
             return;
         }
-        if (_enraged.value == false)
+        if (b_Enraged.value == false)
         {
-            _rageMeter.value += damage * 0.15f;
-            if (_rageMeter.value >= baseRageThreshold && _statusBuildUp.value == true)
+            f_RageMeter.value += damage * 0.15f;
+            if (f_RageMeter.value >= baseRageThreshold && b_StatusBuildUp.value == true)
             {
-                _rageMeter.value = baseRageThreshold;
-                _enraged.value = true;
+                f_RageMeter.value = baseRageThreshold;
+                b_Enraged.value = true;
                 InitiateEnrage?.Invoke();
                 
             }
@@ -126,26 +125,26 @@ public class Enemy_Status : BaseStatus
     }
     public void AffectStun(float stunValue)
     {
-        if (_statusBuildUp.value == false) return;
-        if (_stunned.value == true) return;
+        if (b_StatusBuildUp.value == false) return;
+        if (b_Stunned.value == true) return;
 
-        _stunMeter.value += stunValue;
-        if (_stunMeter.value >= baseStunThreshold)
+        f_StunMeter.value += stunValue;
+        if (f_StunMeter.value >= baseStunThreshold)
         {
             InitiateStun?.Invoke();
-            _stunMeter.value = 0;
+            f_StunMeter.value = 0;
         }
     
     }
     public void AffectPoison(float poisonValue)
     {
-        if (_poisoned.value != false) return;
+        if (b_Poisoned.value != false) return;
 
-        _poisonMeter.value += poisonValue;
-        if (_poisonMeter.value >= basePoisonThreshold)
+        f_PoisonMeter.value += poisonValue;
+        if (f_PoisonMeter.value >= basePoisonThreshold)
         {
             InitiatePoison?.Invoke();
-            _poisonMeter.value = 0;
+            f_PoisonMeter.value = 0;
         }
 
     }
@@ -169,30 +168,30 @@ public class Enemy_Status : BaseStatus
     [Header("========DEBUG AREA========")]
     [Header("Stamina Meter")]
     [InlineEditor]
-    [Required] public FloatVariable _stamina;
+    [Required] public FloatVariable f_Stamina;
 
     [Header("Enemy Rage")]
     [InlineEditor]
-    [Required] public FloatVariable _rageMeter;
+    [Required] public FloatVariable f_RageMeter;
 
     [Header("Enemy Stun")]
 
     [InlineEditor]
-    [Required] public FloatVariable _stunMeter;
+    [Required] public FloatVariable f_StunMeter;
 
 
     [Header("Enemy Poison")]
     [InlineEditor]
-    [Required]public FloatVariable _poisonMeter;
+    [Required]public FloatVariable f_PoisonMeter;
 
     [Header("Animation")]
-    [ShowInInspector] int _animationHash;
+    [ShowInInspector][ReadOnly]public int _animationHash;
     public delegate void OnAnimChange();
     public event OnAnimChange NotifyAnimChange;
-    public bool _noFlip { get; private set; }
+    public bool noFlip { get; private set; }
     public void SetNoFlip(bool noFlip)
     {
-        _noFlip = noFlip;
+        this.noFlip = noFlip;
     }
     public void SetAnimationHashAndNotify(int hash)
     {
@@ -205,30 +204,29 @@ public class Enemy_Status : BaseStatus
     }
     public int GetAnimationHashFromSubstate()
     {
-        return substates.GetAnimation();
+        return _substates.GetAnimation();
     }
-
     [Header("States")]
-    [SerializeField] SO_Enemy_States states;
-    SO_Enemy_Substate substates;
-    [SerializeField] SO_Enemy_States previousStates;
+    [ReadOnly] public SO_Enemy_States _states;
+    [ReadOnly] public SO_Enemy_Substate _substates;
+    [ReadOnly] public SO_Enemy_States _previousStates;
 
     public void SetPreviousState(SO_Enemy_States state)
     {
-        previousStates = state;
+        _previousStates = state;
     }
     public SO_Enemy_States GetPreviousState(List<StateCondition> states) 
     {  
-        if(_enraged.value == true) 
+        if(b_Enraged.value == true) 
         {
             foreach (StateCondition condition in states)
             {
                 if (condition.GetName() == EnemyStates.Raging)
                 {
-                    previousStates = condition.state;
+                    _previousStates = condition.state;
                 }
             }
-            return previousStates;
+            return _previousStates;
         }
         else
         {
@@ -236,20 +234,20 @@ public class Enemy_Status : BaseStatus
             {
                 if (condition.GetName() == EnemyStates.Normal)
                 {
-                    previousStates = condition.state;
+                    _previousStates = condition.state;
                 }
             }
-            return previousStates;
+            return _previousStates;
         }
     }
     public SO_Enemy_States GetState()
     {
-        return states;
+        return _states;
     }
     public void SetState(SO_Enemy_States state, int index)
     {
-        states = state;
-        substates = state._subStates[index];
+        _states = state;
+        _substates = state._subStates[index];
     }
 
     [Button("Reset to Default")]
@@ -257,20 +255,20 @@ public class Enemy_Status : BaseStatus
     {
         base.OnSpawn();
         DefaultModifier();
-        _isMoving = false;
-        _isAttacking = false;
-        _isNextAttackReady = false;
-        _statusBuildUp.value = true;
-        _stunned.value = false;
-        _enraged.value = false;
-        _break.value = false;
-        _poisoned.value = false;
-        _stamina.value = baseStamina;
-        _rageMeter.value = 0; 
-        _stunMeter.value = 0; 
-        _poisonMeter.value = 0;
-        _noFlip = false;
-        _isHalved = false;
+        isMoving = false;
+        isAttacking = false;
+        isNextAttackReady = false;
+        b_StatusBuildUp.value = true;
+        b_Stunned.value = false;
+        b_Enraged.value = false;
+        b_Break.value = false;
+        b_Poisoned.value = false;
+        f_Stamina.value = baseStamina;
+        f_RageMeter.value = 0; 
+        f_StunMeter.value = 0; 
+        f_PoisonMeter.value = 0;
+        noFlip = false;
+        isHalved = false;
     }
 
     public void DefaultModifier()
@@ -279,8 +277,8 @@ public class Enemy_Status : BaseStatus
         DamageModifier = baseDamageModifier;
         WeakpointModifier = baseWeakpointModifier;
         AnimationSpeed = baseAnimationSpeed;
-        _enraged.value = false;
-        _break.value = false;
+        b_Enraged.value = false;
+        b_Break.value = false;
     }
 }
 

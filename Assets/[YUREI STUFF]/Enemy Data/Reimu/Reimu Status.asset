@@ -17,11 +17,11 @@ MonoBehaviour:
   _rawPower: 1
   _movementSpeed: 1
   cannotRage: 0
-  _enraged: {fileID: 11400000, guid: 2ae5270723dd37842a7c9d1dc8c0bb26, type: 2}
-  _stunned: {fileID: 11400000, guid: 0daeb1cc3ab6cd144be5d29e07d6989c, type: 2}
-  _poisoned: {fileID: 11400000, guid: 295ef9e195cae0b449ae07435f8be3f9, type: 2}
-  _break: {fileID: 11400000, guid: 2d1234a524e720b4699a9a61495fa418, type: 2}
-  _statusBuildUp: {fileID: 11400000, guid: aa0cca9acddbda146afef200f1124ca3, type: 2}
+  b_Enraged: {fileID: 11400000, guid: 2ae5270723dd37842a7c9d1dc8c0bb26, type: 2}
+  b_Stunned: {fileID: 11400000, guid: 0daeb1cc3ab6cd144be5d29e07d6989c, type: 2}
+  b_Poisoned: {fileID: 11400000, guid: 295ef9e195cae0b449ae07435f8be3f9, type: 2}
+  b_Break: {fileID: 11400000, guid: 2d1234a524e720b4699a9a61495fa418, type: 2}
+  b_StatusBuildUp: {fileID: 11400000, guid: aa0cca9acddbda146afef200f1124ca3, type: 2}
   baseStamina: 100
   baseRageThreshold: 100
   baseStunThreshold: 100
@@ -30,9 +30,11 @@ MonoBehaviour:
   baseWeakpointModifier: 1
   baseWaitTime: 3
   baseAnimationSpeed: 1
-  _stamina: {fileID: 11400000, guid: 284998d81aa00b54488705c2a52c6d49, type: 2}
-  _rageMeter: {fileID: 11400000, guid: 1d11e92346cd21749af74f1e2904e025, type: 2}
-  _stunMeter: {fileID: 11400000, guid: 59c0978f98afd8948aff7d6c8fd75863, type: 2}
-  _poisonMeter: {fileID: 11400000, guid: 1b5537e5b87c2c54bb6be2b7bd42024e, type: 2}
-  states: {fileID: 11400000, guid: 55fc7f87bf2158f49abee55b178ddabe, type: 2}
-  previousStates: {fileID: 0}
+  f_Stamina: {fileID: 11400000, guid: 284998d81aa00b54488705c2a52c6d49, type: 2}
+  f_RageMeter: {fileID: 11400000, guid: 1d11e92346cd21749af74f1e2904e025, type: 2}
+  f_StunMeter: {fileID: 11400000, guid: 59c0978f98afd8948aff7d6c8fd75863, type: 2}
+  f_PoisonMeter: {fileID: 11400000, guid: 1b5537e5b87c2c54bb6be2b7bd42024e, type: 2}
+  _animationHash: -1225868166
+  _states: {fileID: 0}
+  _substates: {fileID: 0}
+  _previousStates: {fileID: 0}

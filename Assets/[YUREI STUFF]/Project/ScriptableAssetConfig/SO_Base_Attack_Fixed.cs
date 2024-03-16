@@ -70,9 +70,9 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
     }
     public override IEnumerator Execute(Enemy enemy)
     {
-        enemy._status.NotifyAttacking(true);
-        yield return new WaitUntil(() => enemy._status._isNextAttackReady == true);
-        enemy._status.NotifyAttacking(false);
+        enemy.status.NotifyAttacking(true);
+        yield return new WaitUntil(() => enemy.status.isNextAttackReady == true);
+        enemy.status.NotifyAttacking(false);
 
     }
 }

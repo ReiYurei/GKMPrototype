@@ -68,7 +68,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnStun()
     {
-        if (enemy._statusEffectContainer.appliedStatuses.Any(status => status is SO_Stun))
+        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Stun))
         {
             stunIcon.SetActive(true);
 
@@ -78,7 +78,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnPoison()
     {
-        if (enemy._statusEffectContainer.appliedStatuses.Any(status => status is SO_Poison))
+        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Poison))
         {
             poisonIcon.SetActive(true);
 
@@ -87,7 +87,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnRage()
     {
-        if (enemy._statusEffectContainer.appliedStatuses.Any(status => status is SO_Rage))
+        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Rage))
         {
             rageIcon.SetActive(true);
         }
@@ -99,7 +99,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnBreak()
     {
-        if (enemy._statusEffectContainer.appliedStatuses.Any(status => status is SO_Break))
+        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Break))
         {
             breakIcon.SetActive(true);
         }

@@ -58,10 +58,10 @@ public class ProjectileLauncherTest : MonoBehaviour
         totalLifeTime -= Time.deltaTime;
      //   projectilePos = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
      //   directionPos = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
-     //   projectDelayTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
-     //   lifeTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
-     //   setActiveInfo = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
-     //   hitPlayer = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
+     //   _projectDelayTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
+     //   _lifeTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
+     //   _setActiveInfo = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
+     //   _hitPlayer = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
     }
     JobHandle jobHandle;
     private void Update()
@@ -225,43 +225,5 @@ public class ProjectileLauncherTest : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position + start, transform.position + end);
         }
-    }
-}
-
-[BurstCompile]
-public struct ProjectileJobSingle : IJobParallelFor
-{
-    public float3 originPos;
-    public NativeArray<float3> position;
-    public NativeArray<float3> direction;
-    public NativeArray<float> delayTime;
-    public NativeArray<float> lifeTime;
-    public NativeArray<bool> setActive;
-    public NativeArray<bool> hitPlayer;
-    public float speed;
-    public float deltaTime;
-
-    public void Execute(int index)
-    {
-        setActive[index] = true;
-        hitPlayer[index] = false;
-        if (delayTime[index] >= 0)
-        {
-            delayTime[index] -= deltaTime;
-            setActive[index] = false;
-            position[index] = originPos;
-            return;
-        }
-        else if (lifeTime[index] >= 0 && hitPlayer[index] == false)
-        {
-            setActive[index] = true;
-            lifeTime[index] -= deltaTime;
-            float3 movement = math.normalize(direction[index]) * speed * deltaTime;
-            position[index] += movement;
-            return;
-        }
-
-        setActive[index] = false;
-
     }
 }

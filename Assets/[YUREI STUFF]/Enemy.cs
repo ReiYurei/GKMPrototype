@@ -9,17 +9,17 @@ using System;
 public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
 {
     [InlineEditor]
-    [Required] public Enemy_Status _status;
-    public EnemyAnimator _enemyAnimator;
-    public EnemyBehaviour _enemyBehaviour;
-    public StatusEffectContainer _statusEffectContainer;
-    public Rigidbody2D _rb;
-    Animator animator;
+    [Required] public Enemy_Status status;
+    public EnemyAnimator enemyAnimator;
+    public EnemyBehaviour enemyBehaviour;
+    public StatusEffectContainer statusEffectContainer;
+    public Rigidbody2D rb;
+    private Animator _animator;
  
     public void OnDamage(float damage)
     {
-        _status.AffectRage(damage);
-        _status.SetHealth(_status.GetHealth() - damage);
+        status.AffectRage(damage);
+        status.SetHealth(status.GetHealth() - damage);
     }
 
 
@@ -30,21 +30,21 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     public float speed;
     void OnAnimatorMove()
     {
-        _rb.velocity = new Vector3 (animator.deltaPosition.x / Time.deltaTime, animator.deltaPosition.y * speed / Time.deltaTime);
+        rb.velocity = new Vector3 (_animator.deltaPosition.x / Time.deltaTime, _animator.deltaPosition.y * speed / Time.deltaTime);
 
 
     }
 
     public void Start()
     {
-        _status.OnSpawn();
-        _status.AttackEnd += OnAttackEnd;
-        _statusEffectContainer = GetComponent<StatusEffectContainer>();
-        _enemyAnimator = GetComponent<EnemyAnimator>();
-        _enemyBehaviour = GetComponent<EnemyBehaviour>();
-        _rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        _rb.gravityScale = 10;
+        status.OnSpawn();
+        status.AttackEnd += OnAttackEnd;
+        statusEffectContainer = GetComponent<StatusEffectContainer>();
+        enemyAnimator = GetComponent<EnemyAnimator>();
+        enemyBehaviour = GetComponent<EnemyBehaviour>();
+        rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        rb.gravityScale = 10;
 
     }
 
@@ -54,43 +54,43 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
       switch (isAnimEnd)
       {
           case false:
-                // _rb.bodyType = RigidbodyType2D.Dynamic;
-                _rb.gravityScale = 10;
+                // rb.bodyType = RigidbodyType2D.Dynamic;
+                rb.gravityScale = 10;
               break;
           case true:
-                //  _rb.bodyType = RigidbodyType2D.Kinematic;
-                _rb.gravityScale = 1;
+                //  rb.bodyType = RigidbodyType2D.Kinematic;
+                rb.gravityScale = 1;
                 break;
       
       }
     }
     public void GravityDecrease(float value)
     {
-        _rb.gravityScale = value;
+        rb.gravityScale = value;
 
     }
     public void GravityIncrease(float value)
     {
-        _rb.gravityScale = value;
+        rb.gravityScale = value;
     }
     [Button(ButtonSizes.Large)]
     private void SetupComponent()
     {
 
-        _statusEffectContainer ??= TryGetComponent<StatusEffectContainer>(out StatusEffectContainer statusComponent) ?
-        _statusEffectContainer = statusComponent : _statusEffectContainer = gameObject.AddComponent<StatusEffectContainer>();
+        statusEffectContainer ??= TryGetComponent<StatusEffectContainer>(out StatusEffectContainer statusComponent) ?
+        statusEffectContainer = statusComponent : statusEffectContainer = gameObject.AddComponent<StatusEffectContainer>();
 
 
-        _enemyAnimator ??= TryGetComponent<EnemyAnimator>(out EnemyAnimator enemyAnimatorComponent) ?
-        _enemyAnimator = enemyAnimatorComponent : _enemyAnimator = gameObject.AddComponent<EnemyAnimator>();
+        enemyAnimator ??= TryGetComponent<EnemyAnimator>(out EnemyAnimator enemyAnimatorComponent) ?
+        enemyAnimator = enemyAnimatorComponent : enemyAnimator = gameObject.AddComponent<EnemyAnimator>();
 
 
-        _enemyBehaviour ??= TryGetComponent<EnemyBehaviour>(out EnemyBehaviour behaviourComponent) ?
-        _enemyBehaviour = behaviourComponent : _enemyBehaviour = gameObject.AddComponent<EnemyBehaviour>();
+        enemyBehaviour ??= TryGetComponent<EnemyBehaviour>(out EnemyBehaviour behaviourComponent) ?
+        enemyBehaviour = behaviourComponent : enemyBehaviour = gameObject.AddComponent<EnemyBehaviour>();
 
         TryGetComponent<Rigidbody2D>(out Rigidbody2D rbComponent);
-        if(rbComponent == null) { _rb = gameObject.AddComponent<Rigidbody2D>(); }
-        else { _rb = rbComponent; }
+        if(rbComponent == null) { rb = gameObject.AddComponent<Rigidbody2D>(); }
+        else { rb = rbComponent; }
 
         TryGetComponent<Animator>(out Animator animatorComponent);
         if(animatorComponent == null) { gameObject.AddComponent<Animator>(); }

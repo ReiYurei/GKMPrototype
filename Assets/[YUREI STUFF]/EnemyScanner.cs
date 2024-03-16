@@ -16,7 +16,7 @@ public class EnemyScanner : MonoBehaviour
             {
                 return;
             }
-            status = component._status;
+            status = component.status;
 
         }
     }

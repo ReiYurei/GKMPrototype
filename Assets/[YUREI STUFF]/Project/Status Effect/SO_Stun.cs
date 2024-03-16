@@ -13,14 +13,14 @@ public class SO_Stun : BaseStatusEffect
         time -= Time.deltaTime;
         while (time > 0)
         {
-            status._stunned.value = true;
-            status._statusBuildUp.value = false;
+            status.b_Stunned.value = true;
+            status.b_StatusBuildUp.value = false;
             time -= Time.deltaTime;
             yield return null;
 
         }
-        status._statusBuildUp.value = true;
-        status._stunned.value = false;
+        status.b_StatusBuildUp.value = true;
+        status.b_Stunned.value = false;
         status.NotifyEndOfStatus(this);
         container.appliedStatuses.Remove(this);
 

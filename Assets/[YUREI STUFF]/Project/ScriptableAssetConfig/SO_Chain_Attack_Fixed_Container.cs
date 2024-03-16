@@ -17,25 +17,25 @@ public class SO_Chain_Attack_Fixed_Container : SO_Enemy_Substate
     {
         if (isHalved == true)
         {
-            enemy._status.SetHalvedAnim(isHalved);
+            enemy.status.SetHalvedAnim(isHalved);
         }
         index = 0;
         for (int i = 0; i < chainMoveset.Count; i++)
         {
             if (i == chainMoveset.Count)
             {
-                enemy._status.SetHalvedAnim(false);
-                enemy._status.SetAnimationHashAndNotify(GetAnimation());
-                enemy._status.NotifyAttacking(false);
+                enemy.status.SetHalvedAnim(false);
+                enemy.status.SetAnimationHashAndNotify(GetAnimation());
+                enemy.status.NotifyAttacking(false);
                 break;
             }
-            enemy._status.SetAnimationHashAndNotify(GetAnimation());
-            yield return enemy._enemyBehaviour.StartCoroutine(chainMoveset[i].Execute(enemy));
+            enemy.status.SetAnimationHashAndNotify(GetAnimation());
+            yield return enemy.enemyBehaviour.StartCoroutine(chainMoveset[i].Execute(enemy));
             index++;
         }
 
         index = 0;
-        enemy._status.SetHalvedAnim(false);
+        enemy.status.SetHalvedAnim(false);
         yield break;
     }
 

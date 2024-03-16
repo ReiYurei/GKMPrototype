@@ -20,28 +20,31 @@ using UnityEditor;
 public class ProjectileLauncher : MonoBehaviour
 {
     [SerializeField][InlineEditor]public SO_Projectile_Data data;
-    float minAngle = -90f;
-    float maxAngle = 90f;
+    float _minAngle = -90f;
+    float _maxAngle = 90f;
     public float targetAngle = 0f;
     public float rotation = 0f;
     public float angleRange = 90f;
-    bool isShooting = false;
+    bool _isShooting = false;
     public Transform projectile;
     public Transform container;
-    [SerializeField] List<Transform> projectiles;
+    [SerializeField] List<Transform> _projectiles;
     [Space(15)]
-   // public GameObject particle;
-   // public Transform particleContainer;
-   // [SerializeField] List<GameObject> particles;
+    public GameObject particle;
+    public Transform particleContainer;
+    public int particlePoolCount;
+
+[SerializeField] List<GameObject> _particles;
 
     public Transform origin;
 
-    NativeArray<float3> projectilePos;
-    NativeArray<float3> directionPos;
-    NativeArray<float>  projectDelayTime;
-    NativeArray<float>  lifeTime;
-    NativeArray<bool>   setActiveInfo;
-    NativeArray<bool>   hitPlayer;
+    NativeArray<float3> _projectilePos;
+    NativeArray<float3> _directionPos;
+    NativeArray<float>  _projectDelayTime;
+    NativeArray<float>  _lifeTime;
+    NativeArray<bool>   _setActiveInfo;
+    NativeArray<bool>   _hitPlayer;
+
 
     public bool isDisabled;
     public ProjectileBehaviour behaviour;
@@ -52,20 +55,30 @@ public class ProjectileLauncher : MonoBehaviour
         behaviour.OnJobEnd += DisposeAll;
         container.transform.localPosition = Vector3.zero;
         for (int i = 0; i < data.numberOfShoot; i++)
+        {
             for (int j = 0; j < data.numberOfSegments; j++)
             {
                 var x = Instantiate(projectile, container.transform);
-               // var y = Instantiate(particle, particleContainer.transform);
-
-                projectiles.Add(x);
-             //   particles.Add(y);
+                _projectiles.Add(x);
                 x.gameObject.SetActive(false);
-            //    y.gameObject.SetActive(false);
+
             }
+        }
+             
+        for (int i = 0; i < particlePoolCount; i++)
+        {
+            var y = Instantiate(particle, particleContainer.transform);
+            _particles.Add(y);
+            y.gameObject.SetActive(false);
+        }
+
+           
     }
     private void OnDisable()
     {
-        projectiles.Clear();
+        _projectiles.Clear();
+        _particles.Clear();
+        DisposeAll();
         behaviour.OnJobEnd -= DisposeAll;
 
 
@@ -74,14 +87,14 @@ public class ProjectileLauncher : MonoBehaviour
     {
         float halfAngleRange = angleRange / 2f;
 
-        minAngle = targetAngle - halfAngleRange;
-        maxAngle = targetAngle + halfAngleRange;
+        _minAngle = targetAngle - halfAngleRange;
+        _maxAngle = targetAngle + halfAngleRange;
 
-        if (minAngle > maxAngle)
+        if (_minAngle > _maxAngle)
         {
-            float temp = minAngle;
-            minAngle = maxAngle;
-            maxAngle = temp;
+            float temp = _minAngle;
+            _minAngle = _maxAngle;
+            _maxAngle = temp;
         }
 
 
@@ -100,31 +113,14 @@ public class ProjectileLauncher : MonoBehaviour
     }
     public void Shoot()
     {
-        // InitializeData();
-        //
-        // for (int i = 0; i < data.numberOfShoot; i++)
-        // {
-        //     for (int j = 0; j < data.numberOfSegments; j++)
-        //     {
-        //
-        //         if (i * data.numberOfSegments + j < projectiles.Count)
-        //         {
-        //             var projectileArray = projectiles[i * data.numberOfSegments + j];
-        //             projectileArray.gameObject.SetActive(true);
-        //         }
-        //     }
-        // }
-        // isDisabled = false;
-        // TotalLifeTime();
-       // DisposeAll(behaviour.jobHandle);
         InitiateJob();
-        isShooting = true;
+        _isShooting = true;
     }
 
     public void Dispose()
     {
-        DisposeAll(behaviour.jobHandle);
-
+        //DisposeAll(behaviour.jobHandle);
+        Debug.Log(_projectilePos.IsCreated);
 
     }
 #if UNITY_EDITOR
@@ -134,18 +130,18 @@ public class ProjectileLauncher : MonoBehaviour
         float halfAngleRange = angleRange / 2f;
 
         // Adjust the min and max angles based on the target angle and half angle range
-        minAngle = targetAngle - halfAngleRange;
-        maxAngle = targetAngle + halfAngleRange;
+        _minAngle = targetAngle - halfAngleRange;
+        _maxAngle = targetAngle + halfAngleRange;
 
         // Calculate the angle increment for each segment
 
 
         // Ensure minAngle is less than maxAngle
-        if (minAngle > maxAngle)
+        if (_minAngle > _maxAngle)
         {
-            float temp = minAngle;
-            minAngle = maxAngle;
-            maxAngle = temp;
+            float temp = _minAngle;
+            _minAngle = _maxAngle;
+            _maxAngle = temp;
         }
     }
 
@@ -158,7 +154,7 @@ public class ProjectileLauncher : MonoBehaviour
 #endif
     public IEnumerator ChangeAngle()
     {
-        while (isShooting == true)
+        while (_isShooting == true)
         {
             targetAngle += rotation * Time.fixedDeltaTime;
             yield return null;
@@ -168,7 +164,7 @@ public class ProjectileLauncher : MonoBehaviour
     }
     public void InitializeData()
     {
-        float totalAngleRange = maxAngle - minAngle;
+        float totalAngleRange = _maxAngle - _minAngle;
         float angleIncrement = totalAngleRange / (data.numberOfSegments - 1);
  
         float delayedTime = 0f;
@@ -178,19 +174,19 @@ public class ProjectileLauncher : MonoBehaviour
         {
             for (int j = 0; j < data.numberOfSegments; j++)
             {
-                 float angle = minAngle + j * angleIncrement;
+                 float angle = _minAngle + j * angleIncrement;
                  if (data.numberOfSegments == 1)
                  {
-                     targetAngle = (minAngle + maxAngle) / 2f;
+                     targetAngle = (_minAngle + _maxAngle) / 2f;
                      angle = targetAngle;
                  }
                  Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.right;
-                 if ( i * data.numberOfSegments + j < projectiles.Count)
+                 if ( i * data.numberOfSegments + j < _projectiles.Count)
                  {
-                    projectilePos[i * data.numberOfSegments + j] = origin.position;
-                    directionPos[i * data.numberOfSegments + j] = direction;
-                    projectDelayTime[i * data.numberOfSegments + j] = delayedTime;
-                    lifeTime[i * data.numberOfSegments + j] = lifeTimespan;
+                    _projectilePos[i * data.numberOfSegments + j] = origin.position;
+                    _directionPos[i * data.numberOfSegments + j] = direction;
+                    _projectDelayTime[i * data.numberOfSegments + j] = delayedTime;
+                    _lifeTime[i * data.numberOfSegments + j] = lifeTimespan;
                  }
             }
             delayedTime += data.delayBetweenShot;
@@ -201,90 +197,79 @@ public class ProjectileLauncher : MonoBehaviour
 
     public void InitiateJob()
     {
-        if (isShooting) return;
-        for (int i = 0; i < projectiles.Count; i++)
+        if (_isShooting) return;
+        for (int i = 0; i < _projectiles.Count; i++)
         {
-            projectiles[i].transform.position = origin.position;
+            _projectiles[i].transform.position = origin.position;
         }
-        projectilePos = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
-        directionPos = new NativeArray<float3>(projectiles.Count, Allocator.Persistent);
-        projectDelayTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
-        lifeTime = new NativeArray<float>(projectiles.Count, Allocator.Persistent);
-        setActiveInfo = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
-        hitPlayer = new NativeArray<bool>(projectiles.Count, Allocator.Persistent);
+        _projectilePos = new NativeArray<float3>(_projectiles.Count, Allocator.Persistent);
+        _directionPos = new NativeArray<float3>(_projectiles.Count, Allocator.Persistent);
+        _projectDelayTime = new NativeArray<float>(_projectiles.Count, Allocator.Persistent);
+        _lifeTime = new NativeArray<float>(_projectiles.Count, Allocator.Persistent);
+        _setActiveInfo = new NativeArray<bool>(_projectiles.Count, Allocator.Persistent);
+        _hitPlayer = new NativeArray<bool>(_projectiles.Count, Allocator.Persistent);
         InitializeData();
         JobAssign();
         behaviour.JobStart();
-        for (int i = 0; i < data.numberOfShoot; i++)
-        {
-            for (int j = 0; j < data.numberOfSegments; j++)
-            {
-                
-                if (i * data.numberOfSegments + j < projectiles.Count)
-                {
-                    var projectileArray = projectiles[i * data.numberOfSegments + j];
-                    projectileArray.gameObject.SetActive(true);
-                }
-            }
-        }
+
         isDisabled = false;
     }
     private void JobAssign()
     {
-        behaviour.transforms = projectiles;
-       // behaviour.particle = particles;
-        behaviour.projectilePos = projectilePos;
-        behaviour.directionPos = directionPos;
-        behaviour.projectDelayTime = projectDelayTime;
+        behaviour.transforms = _projectiles;
+        behaviour.ps = _particles;
+        behaviour.projectilePos = _projectilePos;
+        behaviour.directionPos = _directionPos;
+        behaviour.projectDelayTime = _projectDelayTime;
         behaviour.speed = data.projectileSpeed;
-        behaviour.lifeTime = lifeTime;
+        behaviour.lifeTime = _lifeTime;
         behaviour.numOfShot = data.numberOfShoot;
-        behaviour.setActiveInfo = setActiveInfo;
+        behaviour.setActiveInfo = _setActiveInfo;
         behaviour.delay = data.delayBetweenShot;
-        behaviour.hitPlayer = hitPlayer;
+        behaviour.hitPlayer = _hitPlayer;
     }
-    public void DisposeAll(JobHandle handle)
+    public void DisposeAll()
     {
-        if (projectilePos.IsCreated == false || directionPos.IsCreated == false || projectDelayTime.IsCreated == false ||
-             lifeTime.IsCreated == false || setActiveInfo.IsCreated == false || hitPlayer.IsCreated == false) return;
-        unsafe
-        {
-            void* projectilePtr = projectilePos.GetUnsafePtr();
-            void* directionPtr = directionPos.GetUnsafePtr();
-            void* projectDelayPtr = projectDelayTime.GetUnsafePtr();
-            void* lifePtr = lifeTime.GetUnsafePtr();
-            void* setActiveInfoPtr = setActiveInfo.GetUnsafePtr();
-            void* hitPtr = hitPlayer.GetUnsafePtr();
-            UnsafeUtility.Free(projectilePtr, Allocator.Persistent);
-            UnsafeUtility.Free(directionPtr, Allocator.Persistent);
-            UnsafeUtility.Free(projectDelayPtr, Allocator.Persistent);
-            UnsafeUtility.Free(lifePtr, Allocator.Persistent);
-            UnsafeUtility.Free(setActiveInfoPtr, Allocator.Persistent);
-            UnsafeUtility.Free(hitPtr, Allocator.Persistent);
-            Debug.Log("Freed Memory");
-      
-        }
+#if UNITY_EDITOR
+    //    Debug.Log(projectilePos.IsCreated);
+    //    Debug.Log(directionPos.IsCreated);
+    //    Debug.Log(_projectDelayTime.IsCreated);
+    //    Debug.Log(_lifeTime.IsCreated);
+    //    Debug.Log(_setActiveInfo.IsCreated);
+    //    Debug.Log(_hitPlayer.IsCreated);
+#endif
 
-        isShooting = false;
-     // projectilePos.Dispose();
-     // directionPos.Dispose();
-     // projectDelayTime.Dispose();
-     // lifeTime.Dispose();
-     // setActiveInfo.Dispose();
-     // hitPlayer.Dispose();
-        
+        if (_projectilePos.IsCreated != true || _directionPos.IsCreated != true || _projectDelayTime.IsCreated != true ||
+             _lifeTime.IsCreated != true || _setActiveInfo.IsCreated != true || _hitPlayer.IsCreated != true) return;
+
+        _isShooting = false;
+        _projectilePos.Dispose();
+        _directionPos.Dispose();
+        _projectDelayTime.Dispose();
+        _lifeTime.Dispose();
+        _setActiveInfo.Dispose();
+        _hitPlayer.Dispose();
+        _projectilePos = default;
+        _directionPos = default;
+        _projectDelayTime = default;
+        _lifeTime = default;
+        _setActiveInfo = default;
+        _hitPlayer = default;
+#if UNITY_EDITOR
         Debug.Log("Disposed");
+
+#endif
     }
     void DivideAngle()
     {
-           float totalAngleRange = maxAngle - minAngle;
+           float totalAngleRange = _maxAngle - _minAngle;
            float angleIncrement = totalAngleRange / (data.numberOfSegments - 1);
            for (int i = 0; i < data.numberOfSegments; i++)
            {
-               float angle = minAngle + i * angleIncrement;
+               float angle = _minAngle + i * angleIncrement;
                if (data.numberOfSegments == 1)
                {
-                   targetAngle = (minAngle + maxAngle) / 2f;
+                   targetAngle = (_minAngle + _maxAngle) / 2f;
                    angle = targetAngle;
                }
                Vector3 start = Quaternion.Euler(0, 0, angle) * Vector3.right * 2f;

@@ -12,18 +12,18 @@ using Unity.Burst;
 public class ProjectileBehaviour : MonoBehaviour
 {
     public List<Transform> transforms;
-    public ParticleSystem ps;
+    public List<GameObject> ps;
 
     public Transform origin;
     float3 originPos;
     public NativeArray<float3> projectilePos;
     public NativeArray<float3> directionPos;
-    public NativeArray<float> projectDelayTime;
-    public NativeArray<bool> setActiveInfo;
-    public NativeArray<bool> hitPlayer;
-    public NativeArray<float> lifeTime;
+    public NativeArray<float>  projectDelayTime;
+    public NativeArray<bool>   setActiveInfo;
+    public NativeArray<bool>   hitPlayer;
+    public NativeArray<float>  lifeTime;
 
-    public delegate void OnJobEndHandler(JobHandle handle); 
+    public delegate void OnJobEndHandler(); 
     public event OnJobEndHandler OnJobEnd;
 
     public float speed;
@@ -36,44 +36,50 @@ public class ProjectileBehaviour : MonoBehaviour
     ProjectileJobSingle job;
     public JobHandle jobHandle;
 
-    private void Update()
+    private void LateUpdate()
     {
-         if (isDisabled == false)
-         {
-            if (totalLifeTime > 0)
-            {
-                job.deltaTime = Time.deltaTime;
-                totalLifeTime -=Time.deltaTime;
-                job.originPos = (float3)origin.position;
-                jobHandle = job.Schedule(transforms.Count, 64);
-                jobHandle.Complete();
-                for (int i = 0; i < transforms.Count; i++)
-                {
-                    transforms[i].position = (Vector3)projectilePos[i];
-                    if (lifeTime[i] <= 0)
-                    {
-                        transforms[i].gameObject.SetActive(false);
-                    }
-
-                    if (setActiveInfo[i] == true)
-                    {
-                        var x = Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
-                        if (x != null && (x.tag == "Player" || x.gameObject.layer == 7))
-                        {
-                            transforms[i].gameObject.SetActive(false);
-                            hitPlayer[i] = true;     
-                            
-                            //launch particle at te position
-                        }
-                    }
-                }
-                return;
-
-            }
-            JobEnd();
-        }
+       //  if (isDisabled == false)
+       //  {
+       //     if (totalLifeTime > 0)
+       //     {
+       //         job.deltaTime = Time.deltaTime;
+       //         totalLifeTime -=Time.deltaTime;
+       //         job.originPos = (float3)origin.position;
+       //         jobHandle = job.Schedule(transforms.Count, 64);
+       //         jobHandle.Complete();
+       //         for (int i = 0; i < transforms.Count; i++)
+       //         {
+       //             transforms[i].position = (Vector3)projectilePos[i];
+       //             if (_lifeTime[i] <= 0)
+       //             {
+       //                 transforms[i].gameObject.SetActive(false);
+       //             }
+       //
+       //             if (_setActiveInfo[i] == true && _hitPlayer[i] == false)
+       //             {
+       //                // Collider2D x = Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
+       //               //  if (x != null && (x.tag == "Player" || x.gameObject.layer == 7))
+       //               //  {
+       //               //      _setActiveInfo[i] = false;
+       //               //      _hitPlayer[i] = true;
+       //               //      transforms[i].gameObject.SetActive(false);
+       //               //      ParticlePool(i);
+       //               //      continue;
+       //               //      //launch particle at te position
+       //               //  }
+       //             }
+       //         }
+       //         return;
+       //     }
+       //     JobEnd();
+       // }
     }
- 
+   
+    public void Dispose()
+    {
+        Debug.Log(jobHandle.IsCompleted) ;
+
+    }
     private void OnDrawGizmos()
     {
         if (isDisabled)
@@ -104,13 +110,13 @@ public class ProjectileBehaviour : MonoBehaviour
             deltaTime = Time.deltaTime
         };
         isDisabled = false;
+        StartCoroutine(JobCoroutine());
     }
-  
     void JobEnd()
     {
         isDisabled = true;
 
-        OnJobEnd?.Invoke(jobHandle);        
+        OnJobEnd?.Invoke();
 
         for (int i = 0; i < transforms.Count; i++)
         {
@@ -118,6 +124,56 @@ public class ProjectileBehaviour : MonoBehaviour
         }
 
     }
+    IEnumerator JobCoroutine()
+    {
+        while (isDisabled == false)
+        {
+            if (totalLifeTime <= 0) break;
+            job.deltaTime = Time.deltaTime;
+            totalLifeTime -= Time.deltaTime;
+            job.originPos = (float3)origin.position;
+            jobHandle = job.Schedule(transforms.Count, 64);
+            jobHandle.Complete();
+            for (int i = 0; i < transforms.Count; i++)
+            {
+                if (setActiveInfo[i] == false) continue;
+                if (hitPlayer[i] == true) continue;
+                if (lifeTime[i] <= 0)
+                {
+                    setActiveInfo[i] = false;
+                    transforms[i].gameObject.SetActive(false);
+                    continue;
+                }
+                transforms[i].gameObject.SetActive(setActiveInfo[i]);
+                transforms[i].position = (Vector3)projectilePos[i];
+                Collider2D x = Physics2D.OverlapCircle((Vector3)projectilePos[i], 0.15f);
+                if (x != null && (x.CompareTag("Player") || x.gameObject.layer == 7))
+                {
+                   setActiveInfo[i] = false;
+                   hitPlayer[i] = true;
+                   transforms[i].gameObject.SetActive(false);
+                   ParticlePool(i);
+                   continue;
+                }
+            }
+            yield return null;
+        }
+        JobEnd();
+    yield break;
+    }
+    void ParticlePool(int index)
+    {
+        foreach (GameObject obj in ps)
+        {
+            if (!obj.activeInHierarchy)
+            {
+                obj.transform.position = (Vector3)(projectilePos[index]);
+                obj.SetActive(true);
+                return;
+            }
+        }
+    }
+
     private void OnEnable()
     {
         isDisabled = true;

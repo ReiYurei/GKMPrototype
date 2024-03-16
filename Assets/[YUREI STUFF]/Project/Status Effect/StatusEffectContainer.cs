@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using TriInspector;
-using NUnit.Framework.Internal.Commands;
-using System.ComponentModel;
 public class StatusEffectContainer : MonoBehaviour
 {
     [ShowInInspector] public HashSet<BaseStatusEffect> appliedStatuses;
-    Enemy_Status status;
-
+    [Header("Ignore if Enemy component exist in object")]
+    [ReadOnly] public Enemy _enemy;
+    [SerializeField] public Enemy_Status _status;
+    [Header("Main Field")]
     [Header("Enemy Self-inflicting Status")]
-    [InlineEditor][Required][SerializeField] SO_Rage rage;
-    [InlineEditor][Required][SerializeField] SO_Stun stun;
-    [InlineEditor][Required][SerializeField] SO_Poison poison;
-    [InlineEditor][Required][SerializeField] SO_Break breakStatus;
+    [InlineEditor][Required][SerializeField] SO_Rage _rage;
+    [InlineEditor][Required][SerializeField] SO_Stun _stun;
+    [InlineEditor][Required][SerializeField] SO_Poison _poison;
+    [InlineEditor][Required][SerializeField] SO_Break _breakStatus;
 
     private void Start()
     {
@@ -24,44 +23,50 @@ public class StatusEffectContainer : MonoBehaviour
 
     private void OnEnable()
     {
-        if (status == null)
+        if (_status == null)
         {
             TryGetComponent<Enemy>(out Enemy component);
-            status = component._status;
-
+            if (component == null)
+            {
+                Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
+                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(Enemy_Status)}");
+                return;
+            }
+            _enemy = component;
+            _status = _enemy.status;
         }
-        status.InitiateEnrage += OnRage;
-        status.InitiateBreak += OnBreak;
-        status.InitiatePoison += OnPoison;
-        status.InitiateStun += OnStun;
+        _status.InitiateEnrage += OnRage;
+        _status.InitiateBreak += OnBreak;
+        _status.InitiatePoison += OnPoison;
+        _status.InitiateStun += OnStun;
     }
     private void OnDisable()
     {
-        status.InitiateEnrage -= OnRage;
-        status.InitiateBreak -= OnBreak;
-        status.InitiatePoison -= OnPoison;
-        status.InitiateStun -= OnStun;
+        _status.InitiateEnrage -= OnRage;
+        _status.InitiateBreak -= OnBreak;
+        _status.InitiatePoison -= OnPoison;
+        _status.InitiateStun -= OnStun;
     }
 
     public void OnRage()
     {
-        if (rage == null) return;
-        Inflict(rage);
+        if (_rage == null) return;
+        Inflict(_rage);
     }
     public void OnStun()
     {
-        if (stun == null) return;
-        Inflict(stun);
+        if (_stun == null) return;
+        Inflict(_stun);
     }
     public void OnPoison()
     {
-        if (poison == null) return;
-        Inflict(poison);
+        if (_poison == null) return;
+        Inflict(_poison);
     }
     public void OnBreak()
     {
-        if (breakStatus == null) return;
-        Inflict(breakStatus);
+        if (_breakStatus == null) return;
+        Inflict(_breakStatus);
     }
     public void Inflict(BaseStatusEffect effect)
     {
@@ -70,7 +75,7 @@ public class StatusEffectContainer : MonoBehaviour
             return;
         }
         appliedStatuses.Add(effect);
-        StartCoroutine(effect.ApplyEffect(this, status));
+        StartCoroutine(effect.ApplyEffect(this, _status));
     }
     public void NullifyAll()
     {

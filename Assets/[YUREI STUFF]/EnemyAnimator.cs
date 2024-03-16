@@ -6,67 +6,75 @@ using System;
 
 public class EnemyAnimator : MonoBehaviour
 {
-    [SerializeField]Enemy_Status status;
-    [SerializeField]SO_PlayerInfo playerInfo;
-    public Animator _animator;
+    [Header("Ignore if Enemy component exist in object")]
+    [ReadOnly]      public Enemy _enemy;
+    [SerializeField]public Enemy_Status _status;
+    [Header("Main Field")]
+    [SerializeField] SO_PlayerInfo _playerInfo;
+    public Animator animator;
 
 
     private void OnEnable()
     {
-        if (status == null)
+        if (_status == null)
         {
             TryGetComponent<Enemy>(out Enemy component);
-            status = component._status;
-
+            if (component == null)
+            {
+                Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
+                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(Enemy_Status)}");
+                return;
+            }
+            _enemy = component;
+            _status = _enemy.status;
         }
-        _animator = GetComponent<Animator>();
-        status.NotifyAnimChange += OnStateChange;
+        animator = GetComponent<Animator>();
+        _status.NotifyAnimChange += OnStateChange;
     }
     private void OnDisable()
     {
-        status.NotifyAnimChange -= OnStateChange;
+        _status.NotifyAnimChange -= OnStateChange;
     }
 
     private void OnStateChange()
     {
-        if (status._noFlip == false)
+        if (_status.noFlip == false)
         {
             FlipAnimation();
         }
-        PlayAnim(status.GetAnimationHashFromStatus(), status.AnimationSpeed);
+        PlayAnim(_status.GetAnimationHashFromStatus(), _status.AnimationSpeed);
     }
     protected void OnHalved()
     {
-        if (status._isHalved == false)
+        if (_status.isHalved == false)
         {
             return;
         }
-        status.NotifyEndOfAnim(true);
+        _status.NotifyEndOfAnim(true);
 
     }
     protected void OnEnded()
     {
-
-        status.NotifyEndOfAnim(true);
+        _status.NotifyEndOfAnim(true);
     }
     public void OnProjectile()
     {
-        status.NotifyProjectile();
+        _status.NotifyProjectile();
     }
     private void PlayAnim(int animationName, float animSpeed)
     {
-        status.NotifyEndOfAnim(false);
-        _animator.speed = animSpeed;
-        _animator.Play(animationName, default,0f);
+        _status.NotifyEndOfAnim(false);
+        animator.speed = animSpeed;
+        animator.Play(animationName, default,0f);
     }
     private void FlipAnimation()
     {
 
-        if (playerInfo.position.x < transform.position.x)
+        if (_playerInfo.position.x < transform.position.x)
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        else if (playerInfo.position.x > transform.position.x)
+        else if (_playerInfo.position.x > transform.position.x)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
 
