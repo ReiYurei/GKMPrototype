@@ -30,7 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (condition.GetName() == EnemyStates.Normal)
             {
-                _status.SetState(condition.state, _subStateNum);
+                _status.SetStateAndSubstate(condition.state, _subStateNum);
                 break;
             }
             else continue;
@@ -66,7 +66,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         //Debug.Log("Behave");
         StartCoroutine(SubstateExecution());
-        StartCoroutine(SetState());
+        StartCoroutine(ChangeState());
         //Debug.Log("Now Wait");
         yield return new WaitUntil(() => isFinished ==true);
         SwitchSubstate();
@@ -84,7 +84,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (condition.GetName() == EnemyStates.Enraged)
             {
 
-                _status.SetState(condition.state, _subStateNum);
+                _status.SetStateAndSubstate(condition.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));
 
@@ -101,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (condition.GetName() == EnemyStates.Stunned)
             {
-                _status.SetState(condition.state, _subStateNum);
+                _status.SetStateAndSubstate(condition.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 return;
             }
@@ -116,7 +116,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (condition.GetName() == EnemyStates.Flinched)
             {
-                _status.SetState(condition.state, _subStateNum);
+                _status.SetStateAndSubstate(condition.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));
                 return;
@@ -151,7 +151,7 @@ public class EnemyBehaviour : MonoBehaviour
                 states.Add(condition);
             }
         }
-        _status.SetState(_status.GetPreviousState(states),_subStateNum);
+        _status.SetStateAndSubstate(_status.GetPreviousState(states),_subStateNum);
         StartCoroutine(Behave());
     }
     public void Interrupt()
@@ -166,10 +166,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-    public IEnumerator SetState()
+    public IEnumerator ChangeState()
     {
         var currentState = _status.GetState();
-        _status.SetState(currentState, _subStateNum);
+        _status.SetStateAndSubstate(currentState, _subStateNum);
         yield break;
     }
     public void SwitchSubstate()

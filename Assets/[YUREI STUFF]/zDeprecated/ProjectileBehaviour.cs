@@ -38,15 +38,15 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void LateUpdate()
     {
-       //  if (isShooting == false)
+       //  if (_isShooting == false)
        //  {
-       //     if (totalLifeTime > 0)
+       //     if (_totalLifeTime > 0)
        //     {
-       //         _job.deltaTime = Time.deltaTime;
-       //         totalLifeTime -=Time.deltaTime;
-       //         _job._originPos = (float3)origin.position;
-       //         _jobHandle = _job.Schedule(transforms.Count, 64);
-       //         _jobHandle.Complete();
+       //         _jobProjectile.deltaTime = Time.deltaTime;
+       //         _totalLifeTime -=Time.deltaTime;
+       //         _jobProjectile._originPos = (float3)origin.position;
+       //         _jobHandleProjectile = _jobProjectile.Schedule(transforms.Count, 64);
+       //         _jobHandleProjectile.Complete();
        //         for (int i = 0; i < transforms.Count; i++)
        //         {
        //             transforms[i].position = (Vector3)_projectilePos[i];
@@ -102,7 +102,7 @@ public class ProjectileBehaviour : MonoBehaviour
             originPos = originPos,
             hitPlayer = hitPlayer,
             position = projectilePos,
-            direction = directionPos,
+            directionPos = directionPos,
             delayTime = projectDelayTime,
             setActive = setActiveInfo,
             speed = speed,

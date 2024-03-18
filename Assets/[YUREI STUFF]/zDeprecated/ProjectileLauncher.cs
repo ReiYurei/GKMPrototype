@@ -103,8 +103,8 @@ public class ProjectileLauncher : MonoBehaviour
     private void LateUpdate()
     {
        
-     //   _jobHandle.Complete();
-     //   if (isShooting == false && totalLifeTime > 0)
+     //   _jobHandleProjectile.Complete();
+     //   if (_isShooting == false && _totalLifeTime > 0)
      //   {
      //       JobUpdate();
      //
@@ -119,7 +119,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     public void Dispose()
     {
-        //DisposeAll(behaviour._jobHandle);
+        //DisposeAll(behaviour._jobHandleProjectile);
         Debug.Log(_projectilePos.IsCreated);
 
     }

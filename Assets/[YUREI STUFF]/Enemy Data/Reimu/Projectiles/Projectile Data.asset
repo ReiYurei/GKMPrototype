@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20359d12110e504db465771573cde09, type: 3}
   m_Name: Projectile Data
   m_EditorClassIdentifier: 
-  numberOfSegments: 10
+  types: 0
+  numberOfSegments: 4
   projectileSpeed: 10
-  numberOfShoot: 100
+  numberOfShoot: 200
   delayBetweenShot: 0.1
   projectileLifeTime: 2

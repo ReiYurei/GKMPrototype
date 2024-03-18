@@ -4,45 +4,95 @@ using Unity.Mathematics;
 using Unity.Jobs;
 using Unity.Collections;
 using TriInspector;
-using Unity.Burst;
 using System.Collections;
 #if UNITY_EDITOR
 #endif
+
+public enum PatternTypes
+{
+    Spread,
+}
+
 public class ProjectileEngine : MonoBehaviour
 {
     [SerializeField][InlineEditor] public SO_Projectile_Data data;
     float _minAngle = -90f;
     float _maxAngle = 90f;
-    public float targetAngle = 0f;
-    public float rotation = 0f;
-    public float angleRange = 90f;
-    public float totalLifeTime;
-    public bool isShooting;
+    float _defaultTargetAngle;
+    public float targetAngle;
+    [Header("Rotation Properties")]
+    public bool enableAutoRotation;
+    [ShowIf(nameof(enableAutoRotation),true)]public float rotationDegree = 0f;
+    [ShowIf(nameof(enableAutoRotation),true)]public float rotationSpeed = 0f;
+    [ShowIf(nameof(enableAutoRotation), true)] public float rotationDuration = 0f;
+    [ShowIf(nameof(enableAutoRotation), true)] public float maxRotationChange = 0f;
+    [ShowIf(nameof(enableAutoRotation), true)] public float minRotationChange = 0f;
+    [ShowIf(nameof(enableAutoRotation), true)] public bool canReverseRotation;
+
+
+    [Header("Angle Properties")]
+    public bool enableAutoAngle;
+    [ShowIf(nameof(enableAutoAngle), true)] public float angleDegree = 0f;
+    [ShowIf(nameof(enableAutoAngle), true)] public float angleChangeSpeed = 0f;
+    [ShowIf(nameof(enableAutoAngle), true)] public float angleChangeDuration = 0f;
+    [ShowIf(nameof(enableAutoAngle), true)] public float maxAngleChange = 0f;
+    [ShowIf(nameof(enableAutoAngle), true)] public float minAngleChange = 0f;
+    [ShowIf(nameof(enableAutoAngle), true)] public bool canReverseAngle;
+
+    float _defaultAngleRange;
+    public float angleRange;
+    [Space(15)]
+    float _totalLifeTime;
+    bool _isShooting;
+    public bool canAim;
+    [ShowIf(nameof(canAim),true)]public SO_PlayerInfo playerInfo;
+    [ShowIf(nameof(canAim), true)]public Vector2 offset;
+    public List<Transform> trajectory;
+
     public Transform projectile;
-    public Transform container;
+    GameObject container;
     [SerializeField] List<Transform> _projectiles;
     [Space(15)]
 
     public Transform origin;
 
     public GameObject particle;
-    public Transform particleContainer;
+    GameObject particleContainer;
     public int particlePoolCount;
     [SerializeField] List<GameObject> _particles;
 
 
-    ProjectileJobSingle _job;
-    JobHandle _jobHandle;
+    ProjectileJobSingle _jobProjectile;
+    JobHandle _jobHandleProjectile;
+
+    RotationJob _jobRotation;
+    JobHandle _jobHandleRotation;
+    NativeArray<float> _rotationResult;
+    NativeArray<float> _rotationDuration;
+    NativeArray<bool> _reversingRotation;
+
+    ChangeAngleRangeJob _jobAngleRange;
+    JobHandle _jobHandleAngleRange;
+    NativeArray<float> _angleRangeResult;
+    NativeArray<float> _angleChangeDuration;
+    NativeArray<bool> _reversingAngle;
+
     float3 _originPos;
     NativeArray<float3> _projectilePos;
     NativeArray<float3> _directionPos;
     NativeArray<float> _projectDelayTime;
+    float[] _angle;
     NativeArray<bool> _setActiveInfo;
     NativeArray<bool> _hitPlayer;
     NativeArray<float> _lifeTime;
+    NativeArray<float3> _direction;
 
     private void Awake()
     {
+        _defaultTargetAngle = targetAngle;
+        _defaultAngleRange = angleRange;
+        particleContainer = new GameObject("Particle Pool");
+        container = new GameObject("Projectile Container");
         container.transform.localPosition = Vector3.zero;
         for (int i = 0; i < data.numberOfShoot; i++)
         {
@@ -51,7 +101,6 @@ public class ProjectileEngine : MonoBehaviour
                 var x = Instantiate(projectile, container.transform);
                 _projectiles.Add(x);
                 x.gameObject.SetActive(false);
-
             }
         }
              
@@ -60,46 +109,107 @@ public class ProjectileEngine : MonoBehaviour
             var y = Instantiate(particle, particleContainer.transform);
             _particles.Add(y);
             y.gameObject.SetActive(false);
-        }
-
-           
+        }         
     }
     IEnumerator JobCoroutine()
     {
-        while (isShooting == true)
+        while (_isShooting == true)
         {
-            if (totalLifeTime <= 0) break;
-            _job.deltaTime = Time.deltaTime;
-            totalLifeTime -= Time.deltaTime;
-            _job.originPos = (float3)origin.position;
-            _jobHandle = _job.Schedule(_projectiles.Count, 64);
-            _jobHandle.Complete();
-            for (int i = 0; i < _projectiles.Count; i++)
-            {
-                if (_setActiveInfo[i] == false) continue;
-                if (_hitPlayer[i] == true) continue;
-                if (_lifeTime[i] <= 0)
-                {
-                    _setActiveInfo[i] = false;
-                    _projectiles[i].gameObject.SetActive(false);
-                    continue;
-                }
-                _projectiles[i].gameObject.SetActive(_setActiveInfo[i]);
-                _projectiles[i].position = (Vector3)_projectilePos[i];
-                Collider2D x = Physics2D.OverlapCircle((Vector3)_projectilePos[i], 0.15f);
-                if (x != null && (x.CompareTag("Player") || x.gameObject.layer == 7))
-                {
-                    _setActiveInfo[i] = false;
-                    _hitPlayer[i] = true;
-                    _projectiles[i].gameObject.SetActive(false);
-                    ParticlePool(i);
-                    continue;
-                }
-            }
+            if (_totalLifeTime <= 0) break;
+            _jobProjectile.deltaTime = Time.deltaTime;
+            _totalLifeTime -= Time.deltaTime;
+            _jobProjectile.originPos = (float3)origin.position;
+            BulletAngle();
+            BulletRotation();
+            BulletDirection();
+            _jobHandleProjectile = _jobProjectile.Schedule(_projectiles.Count, 64);
+            _jobHandleProjectile.Complete();
+            BulletPattern();
             yield return null;
         }
+        ResetToDefault(); 
         JobEnd();
         yield break;
+    }
+
+    void ResetToDefault()
+    {
+        targetAngle = _defaultTargetAngle;
+        angleRange = _defaultAngleRange;
+    }
+
+    void BulletRotation()
+    {
+        if (!enableAutoRotation)
+        {
+            return;
+        }
+        _jobRotation.deltaTime = Time.deltaTime * 0.5f;
+        _jobHandleRotation = _jobRotation.Schedule();
+        _jobHandleRotation.Complete();
+        targetAngle = _rotationResult[0];
+    }
+    void BulletAngle()
+    {
+        if (!enableAutoAngle)
+        {
+            return;
+        }
+        _jobAngleRange.deltaTime = Time.deltaTime * 0.5f;
+        _jobHandleAngleRange = _jobAngleRange.Schedule();
+        _jobHandleAngleRange.Complete();
+        angleRange = _angleRangeResult[0];
+
+    }
+    void BulletDirection()
+    {
+
+        float totalAngleRange = _maxAngle - _minAngle;
+        float angleIncrement = totalAngleRange / (data.numberOfSegments - 1);
+        for (int j = 0; j < data.numberOfSegments; j++)
+        {
+            float angle = _minAngle + j * angleIncrement;
+            if (data.numberOfSegments == 1)
+            {
+                targetAngle = (_minAngle + _maxAngle) / 2f;
+                angle = targetAngle;
+            }
+            if (canAim)
+            {
+                angle += Mathf.Atan2(playerInfo.position.y-origin.position.y + offset.y, playerInfo.position.x - origin.position.x + offset.x) * Mathf.Rad2Deg;
+            }
+            float3 direction = Quaternion.Euler(0, 0, angle) * Vector3.right;
+            _jobProjectile.direction[j] = direction;
+          
+        }
+    }
+    bool BulletPattern()
+    {
+        for (int i = 0; i < _projectiles.Count; i++)
+        {
+            if (_setActiveInfo[i] == false) continue;
+            if (_hitPlayer[i] == true) continue;
+            if (_lifeTime[i] <= 0)
+            {
+                _setActiveInfo[i] = false;
+                _projectiles[i].gameObject.SetActive(false);
+                continue;
+            }
+            _projectiles[i].gameObject.SetActive(_setActiveInfo[i]);
+            _projectiles[i].position = (Vector3)_projectilePos[i];
+            _projectiles[i].rotation = Quaternion.Euler(0f, 0f, _angle[i]);
+
+            Collider2D x = Physics2D.OverlapCircle((Vector3)_projectilePos[i], 0.15f);
+            if (x != null && (x.CompareTag("Player") || x.gameObject.layer == 7))
+            {
+                _setActiveInfo[i] = false;
+                _hitPlayer[i] = true;
+                _projectiles[i].gameObject.SetActive(false);
+                ParticlePool(i);
+                continue;
+            }
+        }
+        return true;
     }
     void ParticlePool(int index)
     {
@@ -115,36 +225,59 @@ public class ProjectileEngine : MonoBehaviour
     }
     void JobEnd()
     {
-        isShooting = false;
+        _isShooting = false;
         DisposeAll();
         for (int i = 0; i < _projectiles.Count; i++)
         {
             _projectiles[i].gameObject.SetActive(false);
         }
     }
+
     public void DisposeAll()
     {
+        if (enableAutoRotation)
+        {
+            _rotationResult.Dispose();
+            _rotationDuration.Dispose();
+            _reversingRotation.Dispose();
+            _rotationResult = default;
+            _rotationDuration = default;
+            _reversingRotation = default;
+            Debug.Log("AutoRotationDisposed");
+        }
+        if (enableAutoAngle)
+        {
+            _angleRangeResult.Dispose();
+            _angleChangeDuration.Dispose();
+            _reversingAngle.Dispose();
+            _angleRangeResult = default;
+            _angleChangeDuration = default;
+            _reversingAngle = default;
+            Debug.Log("AutoAngleDisposed");
 
-        if (_projectilePos.IsCreated != true || _directionPos.IsCreated != true || _projectDelayTime.IsCreated != true ||
-             _lifeTime.IsCreated != true || _setActiveInfo.IsCreated != true || _hitPlayer.IsCreated != true) return;
+        }
+        if (_projectilePos.IsCreated != true || _directionPos.IsCreated != true || _projectDelayTime.IsCreated != true 
+            || _lifeTime.IsCreated != true || _setActiveInfo.IsCreated != true || _hitPlayer.IsCreated != true || _direction.IsCreated != true
+            ) return;
 
-        isShooting = false;
+        _isShooting = false;
         _projectilePos.Dispose();
         _directionPos.Dispose();
         _projectDelayTime.Dispose();
         _lifeTime.Dispose();
         _setActiveInfo.Dispose();
         _hitPlayer.Dispose();
+        _direction.Dispose();
         _projectilePos = default;
         _directionPos = default;
         _projectDelayTime = default;
         _lifeTime = default;
         _setActiveInfo = default;
         _hitPlayer = default;
-#if UNITY_EDITOR
+        _direction = default;
         Debug.Log("Disposed");
 
-#endif
+
     }
     public void InitializeData()
     {
@@ -164,6 +297,7 @@ public class ProjectileEngine : MonoBehaviour
                     targetAngle = (_minAngle + _maxAngle) / 2f;
                     angle = targetAngle;
                 }
+                _angle[i * data.numberOfSegments + j] = angle;
                 Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.right;
                 if (i * data.numberOfSegments + j < _projectiles.Count)
                 {
@@ -179,7 +313,7 @@ public class ProjectileEngine : MonoBehaviour
 
     public void Shoot()
     {
-        if (isShooting) return;
+        if (_isShooting) return;
         for (int i = 0; i < _projectiles.Count; i++)
         {
             _projectiles[i].transform.position = origin.position;
@@ -190,30 +324,92 @@ public class ProjectileEngine : MonoBehaviour
         _lifeTime = new NativeArray<float>(_projectiles.Count, Allocator.Persistent);
         _setActiveInfo = new NativeArray<bool>(_projectiles.Count, Allocator.Persistent);
         _hitPlayer = new NativeArray<bool>(_projectiles.Count, Allocator.Persistent);
+        _direction = new NativeArray<float3>(data.numberOfSegments, Allocator.Persistent);
+        _angle = new float[_projectiles.Count];
         InitializeData();
-
-        _job = new ProjectileJobSingle
+        if(enableAutoRotation)
+        {
+            _rotationResult = new NativeArray<float>(1, Allocator.Persistent);
+            _rotationDuration = new NativeArray<float>(1, Allocator.Persistent);
+            _reversingRotation = new NativeArray<bool>(1, Allocator.Persistent);
+            _rotationDuration[0] = rotationDuration;
+            _jobRotation = new RotationJob()
+            {
+                targetAngle = targetAngle,
+                rotationSpeed = rotationSpeed,
+                rotationDegree = rotationDegree,
+                reversingRotation = _reversingRotation,
+                rotationDuration = _rotationDuration,
+                targetAngleResult = _rotationResult,
+                minRotationChange = minRotationChange,
+                maxRotationChange = maxRotationChange,
+                canReverseRotation = canReverseRotation,
+            };
+        }
+        if (enableAutoAngle)
+        {
+      
+            _angleRangeResult = new NativeArray<float>(1, Allocator.Persistent);
+            _reversingAngle = new NativeArray<bool>(1, Allocator.Persistent);
+            _angleChangeDuration = new NativeArray<float>(1, Allocator.Persistent);
+            _angleChangeDuration[0] = angleChangeDuration;
+            _jobAngleRange = new ChangeAngleRangeJob()
+            {
+                angleRange = angleRange,
+                angleDegree = angleDegree,
+                angleChangeSpeed = angleChangeSpeed,
+                angleChangeDuration = _angleChangeDuration,
+                angleRangeResult = _angleRangeResult,
+                maxAngleChange = maxAngleChange,
+                minAngleChange = minAngleChange,
+                canReverseAngle = canReverseAngle,
+                reversingAngle =_reversingAngle
+            };
+        }
+        _jobProjectile = new ProjectileJobSingle
         {
             originPos = _originPos,
+            direction = _direction,
             hitPlayer = _hitPlayer,
             position = _projectilePos,
-            direction = _directionPos,
+            directionPos = _directionPos,
             delayTime = _projectDelayTime,
             setActive = _setActiveInfo,
             speed = data.projectileSpeed,
             lifeTime = _lifeTime,
-            deltaTime = Time.deltaTime
+            segment = data.numberOfSegments,
         };
-        totalLifeTime = data.numberOfShoot * data.delayBetweenShot + data.projectileLifeTime;
-        isShooting = true;
+        _totalLifeTime = data.numberOfShoot * data.delayBetweenShot + data.projectileLifeTime;
+        _isShooting = true;
         StartCoroutine(JobCoroutine());
     }
 
 
 
-#if UNITY_EDITOR
-    void OnValidate()
+   #if UNITY_EDITOR
+       void OnValidate()
+       {
+           // Calculate the half angle range from the target angle
+           float halfAngleRange = angleRange / 2f;
+   
+           // Adjust the min and max angles based on the target angle and half angle range
+           _minAngle = targetAngle - halfAngleRange;
+           _maxAngle = targetAngle + halfAngleRange;
+   
+           // Calculate the angle increment for each segment
+   
+           // Ensure _minAngle is less than _maxAngle
+           if (_minAngle > _maxAngle)
+           {
+               float temp = _minAngle;
+               _minAngle = _maxAngle;
+               _maxAngle = temp;
+           }
+   
+       }
+    private void Update()
     {
+        if (!_isShooting) return;
         // Calculate the half angle range from the target angle
         float halfAngleRange = angleRange / 2f;
 
@@ -232,7 +428,10 @@ public class ProjectileEngine : MonoBehaviour
         }
 
     }
-
+    private void OnDisable()
+    {
+        DisposeAll();
+    }
 
     void OnDrawGizmos()
     {
@@ -241,6 +440,7 @@ public class ProjectileEngine : MonoBehaviour
 #endif
     void DivideAngle()
     {
+ 
         float totalAngleRange = _maxAngle - _minAngle;
         float angleIncrement = totalAngleRange / (data.numberOfSegments - 1);
         for (int i = 0; i < data.numberOfSegments; i++)
@@ -256,6 +456,17 @@ public class ProjectileEngine : MonoBehaviour
 
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position + start, transform.position + end);
+        }
+        if (!_isShooting)
+        {
+            return;
+        }
+        UnityEngine.Color color = UnityEngine.Color.blue;
+        Gizmos.color = color;
+
+        for (int i = 0; i < _projectiles.Count; i++)
+        {
+            Gizmos.DrawWireSphere((Vector3)_projectilePos[i], 0.15f);
         }
     }
 }

@@ -244,7 +244,7 @@ public class Enemy_Status : BaseStatus
     {
         return _states;
     }
-    public void SetState(SO_Enemy_States state, int index)
+    public void SetStateAndSubstate(SO_Enemy_States state, int index)
     {
         _states = state;
         _substates = state._subStates[index];

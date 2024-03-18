@@ -32,7 +32,7 @@ public class DEBUGGING : MonoBehaviour
         }
         else
         {
-            Application.targetFrameRate = 0;
+            Application.targetFrameRate = -1;
         }
     }
 
