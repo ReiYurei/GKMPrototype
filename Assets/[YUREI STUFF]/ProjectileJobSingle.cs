@@ -15,6 +15,7 @@ public struct RotationJob : IJob
     [ReadOnly] public float minRotationChange;
     [ReadOnly]public bool canReverseRotation;
     [ReadOnly]public float deltaTime;
+    [ReadOnly] public float fixedDeltaTime;
     public void Execute()
     {
         if (rotationDuration[0] <= 0)
@@ -34,12 +35,12 @@ public struct RotationJob : IJob
             }
             if (reversingRotation[0])
             {
-                targetAngleResult[0] -= rotationSpeed * rotationDegree * deltaTime;
+                targetAngleResult[0] -= rotationSpeed * rotationDegree * deltaTime * 0.55f;
                 return;
             }
             else
             {
-                targetAngleResult[0] += rotationSpeed * rotationDegree * deltaTime;
+                targetAngleResult[0] += rotationSpeed * rotationDegree * deltaTime * 0.55f;
                 return;
             }
 
@@ -48,7 +49,7 @@ public struct RotationJob : IJob
         {
             targetAngleResult[0] = 0;
         }
-        targetAngleResult[0] += rotationSpeed * rotationDegree * deltaTime;
+        targetAngleResult[0] += rotationSpeed * rotationDegree * deltaTime * 0.55f;
     }
 }
 [BurstCompile]
@@ -64,6 +65,7 @@ public struct ChangeAngleRangeJob : IJob
     public NativeArray<float> angleChangeDuration;
     public NativeArray<bool> reversingAngle;
     [ReadOnly] public float deltaTime;
+    [ReadOnly] public float fixedDeltaTime;
     public void Execute()
     {
         if (angleChangeDuration[0] <= 0)
@@ -83,27 +85,21 @@ public struct ChangeAngleRangeJob : IJob
             }
             if (reversingAngle[0]) 
             {
-                angleRangeResult[0] -= angleChangeSpeed * angleDegree * deltaTime;
+                angleRangeResult[0] -= angleChangeSpeed * angleDegree * deltaTime * 0.55f;
                 return;
             }
             else
             {
-                angleRangeResult[0] += angleChangeSpeed * angleDegree * deltaTime;
+                angleRangeResult[0] += angleChangeSpeed * angleDegree * deltaTime * 0.55f;
                 return;
             }
 
-        }
-     //
+        }    
        if (angleRangeResult[0] > maxAngleChange)
        {
            angleRangeResult[0] = 0;
        }
-     //   else if (angleRangeResult[0] < minAngleChange)
-     //   {
-     //       angleRangeResult[0] = 0;
-     //   }
-
-        angleRangeResult[0] += angleChangeSpeed * angleDegree * deltaTime;
+       angleRangeResult[0] += angleChangeSpeed * angleDegree * deltaTime * 0.55f;
     }
 }
 [BurstCompile]
@@ -117,11 +113,55 @@ public struct ProjectileJobSingle : IJobParallelFor
     public NativeArray<float> lifeTime;
     public NativeArray<bool> setActive;
     public NativeArray<bool> hitPlayer;
+
+    public float duration;
+    public float defaultDelayTime;
+    public float defaultLifeTime;
+    public bool isLooping;
     public float speed;
     public int segment;
     [ReadOnly]public float deltaTime;
+    [ReadOnly]public float fixedDeltaTime;
+
     public void Execute(int index)
     {
+        if (isLooping)
+        {    
+            if (delayTime[index] > 0)
+            {
+                delayTime[index] -= deltaTime;
+                setActive[index] = false;
+                position[index] = originPos;
+                directionPos[index] = direction[index % segment];
+                return;
+            }
+            if (lifeTime[index] >= duration)
+            {
+                setActive[index] = false;
+                return;
+            }
+            if (lifeTime[index] >= 0 && hitPlayer[index] == false && lifeTime[index] <= duration)
+            {
+                setActive[index] = true;
+                lifeTime[index] -= deltaTime;
+                float3 movement = math.normalize(directionPos[index]) * speed * deltaTime * 0.55f;
+                position[index] += movement;
+                return;
+            }
+            if (lifeTime[index] >= 0)
+            {
+                lifeTime[index] -= deltaTime;
+                return;
+            }
+          
+            position[index] = originPos;
+            delayTime[index] = 0;
+            lifeTime[index] = defaultLifeTime;
+            hitPlayer[index] = false;
+            directionPos[index] = direction[index % segment];
+            setActive[index] = true;
+            return;
+        }
         if (delayTime[index] > 0)
         {
             delayTime[index] -= deltaTime;

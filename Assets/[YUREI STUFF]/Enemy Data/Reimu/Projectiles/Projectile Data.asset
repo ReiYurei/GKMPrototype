@@ -13,8 +13,24 @@ MonoBehaviour:
   m_Name: Projectile Data
   m_EditorClassIdentifier: 
   types: 0
-  numberOfSegments: 4
+  isLooping: 1
+  loopDuration: 10
+  numberOfSegments: 16
+  numberOfShoot: 20
   projectileSpeed: 10
-  numberOfShoot: 200
   delayBetweenShot: 0.1
   projectileLifeTime: 2
+  enableAutoRotation: 1
+  rotationDegree: 10
+  rotationSpeed: 5
+  rotationDuration: 10
+  maxRotationChange: 90
+  minRotationChange: 0
+  canReverseRotation: 0
+  enableAutoAngle: 0
+  angleDegree: 0
+  angleChangeSpeed: 0
+  angleChangeDuration: 0
+  maxAngleChange: 0
+  minAngleChange: 0
+  canReverseAngle: 0
