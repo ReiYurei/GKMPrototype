@@ -6,21 +6,21 @@ using TriInspector;
 public abstract class BaseStatus : ScriptableObject
 {
     [Header("General Status")]
-    public float _maxHealth;
+    [SerializeField] float _maxHealth;
 
-    [SerializeField][GUIColor(1f, 1f, 0f)] private float currentHealth;
+    [SerializeField][GUIColor(1f, 1f, 0f)] public FloatVariable currentHealth;
     public virtual void OnSpawn()
     {
-        currentHealth = _maxHealth;
+        currentHealth.value = _maxHealth;
     }
     
     public float GetHealth()
     {
-        return currentHealth;
+        return currentHealth.value;
     }
     public float SetHealth(float health)
     {
-        return currentHealth = health;
+        return currentHealth.value = health;
     }
 
     public float _rawPower;

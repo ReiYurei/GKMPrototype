@@ -44,6 +44,7 @@ public class ProjectileEngine : MonoBehaviour
     public int particlePoolCount;
     [SerializeField] List<GameObject> _particles;
 
+    public bool endOfJob;
 
     ProjectileJobSingle _jobProjectile;
     JobHandle _jobHandleProjectile;
@@ -123,6 +124,10 @@ public class ProjectileEngine : MonoBehaviour
             _jobHandleProjectile = _jobProjectile.Schedule(_projectiles.Count, 64);
             _jobHandleProjectile.Complete();
             BulletPattern();
+            if (_loopDuration < data.loopDuration * data.delayBetweenShot)
+            {
+                endOfJob = true;
+            }
             yield return null;
         }
         ResetToDefault();
@@ -190,7 +195,7 @@ public class ProjectileEngine : MonoBehaviour
             if (_lifeTime[i] <= 0 || _lifeTime[i] > _loopDuration)                                  
             {                                                       
                 _setActiveInfo[i] = false;                          
-                _projectiles[i].gameObject.SetActive(false);        
+                _projectiles[i].gameObject.SetActive(false);
                 continue;                                           
             }                                                       
             _projectiles[i].gameObject.SetActive(_setActiveInfo[i]);
@@ -231,6 +236,7 @@ public class ProjectileEngine : MonoBehaviour
         }
     }
 
+    
     public void DisposeAll()
     {
         if (data.enableAutoRotation)
@@ -310,9 +316,10 @@ public class ProjectileEngine : MonoBehaviour
     }
 
     
-    public void Shoot()
+    public IEnumerator Shoot()
     {
-        if (_isShooting) return;
+        endOfJob = false;
+        if (_isShooting) yield break;
         for (int i = 0; i < _projectiles.Count; i++)
         {
             _projectiles[i].transform.position = origin.position;
@@ -332,6 +339,7 @@ public class ProjectileEngine : MonoBehaviour
             _rotationDuration = new NativeArray<float>(1, Allocator.Persistent);
             _reversingRotation = new NativeArray<bool>(1, Allocator.Persistent);
             _rotationDuration[0] = data.rotationDuration;
+            _rotationResult[0] = targetAngle;
             _jobRotation = new RotationJob()
             {
                 targetAngle = targetAngle,
@@ -391,7 +399,7 @@ public class ProjectileEngine : MonoBehaviour
         _totalLifeTime = data.numberOfShoot * data.delayBetweenShot + data.projectileLifeTime;
         _loopDuration = data.loopDuration;
         _isShooting = true;
-        StartCoroutine(JobCoroutine());
+        yield return StartCoroutine(JobCoroutine());
     }
 
 

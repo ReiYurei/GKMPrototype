@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyScanner : MonoBehaviour
 {
     [SerializeField] Enemy enemy;
-    Enemy_Status status;
+    EnemyStatus status;
 
     private void OnEnable()
     {

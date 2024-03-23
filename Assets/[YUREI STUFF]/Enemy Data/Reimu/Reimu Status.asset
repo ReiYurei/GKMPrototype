@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Reimu Status
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  currentHealth: 100
+  currentHealth: {fileID: 11400000, guid: b1efe98cc10385b44b1499fe8eb2b403, type: 2}
   _rawPower: 1
   _movementSpeed: 1
   cannotRage: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   f_RageMeter: {fileID: 11400000, guid: 1d11e92346cd21749af74f1e2904e025, type: 2}
   f_StunMeter: {fileID: 11400000, guid: 59c0978f98afd8948aff7d6c8fd75863, type: 2}
   f_PoisonMeter: {fileID: 11400000, guid: 1b5537e5b87c2c54bb6be2b7bd42024e, type: 2}
-  _animationHash: -1225868166
-  _states: {fileID: 0}
-  _substates: {fileID: 0}
-  _previousStates: {fileID: 0}
+  _animationHash: -51309510
+  _states: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
+  _substates: {fileID: 11400000, guid: e375a664c1c59b748a67f4473b9d3dbe, type: 2}
+  _previousStates: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}

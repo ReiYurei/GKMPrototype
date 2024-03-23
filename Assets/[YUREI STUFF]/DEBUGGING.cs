@@ -8,8 +8,6 @@ using TMPro;
 public class DEBUGGING : MonoBehaviour
 {
     public TextMeshProUGUI textObj;
-
-
     public void Destroy(GameObject obj)
     {
         Resources.UnloadUnusedAssets();
@@ -18,7 +16,7 @@ public class DEBUGGING : MonoBehaviour
     public GameObject poisonIcon;
     public GameObject stunIcon;
     public GameObject breakIcon;
-    public Enemy_Status enemyStatus;
+    public EnemyStatus enemyStatus;
     public Enemy enemy;
     public bool limitFramerate;
     public SO_Melee_Attack_Dynamic attack;
@@ -38,11 +36,11 @@ public class DEBUGGING : MonoBehaviour
 
     private void Start()
     {
-  //      rageIcon.SetActive(false);
-  //      poisonIcon.SetActive(false);
-  //      stunIcon.SetActive(false);
-  //      breakIcon.SetActive(false);
-  //
+       rageIcon.SetActive(false);
+       poisonIcon.SetActive(false);
+       stunIcon.SetActive(false);
+       breakIcon.SetActive(false);
+  
     }
     int frameCount;
     float polling = 1f;
@@ -61,10 +59,10 @@ public class DEBUGGING : MonoBehaviour
         }
 
        
-      // OnStun();
-      // OnPoison();
-      // OnRage();
-      // OnBreak();
+       OnStun();
+       OnPoison();
+       OnRage();
+       OnBreak();
     }
     void OnStun()
     {
@@ -114,15 +112,15 @@ public class DEBUGGING : MonoBehaviour
     {
         StartCoroutine(attack.Execute(enemy));
     }
-    public void GainPoison(Enemy_Status status)
+    public void GainPoison(EnemyStatus status)
     {
         status.AffectPoison(20f);
     }
-    public void GainStun(Enemy_Status status)
+    public void GainStun(EnemyStatus status)
     {
         status.AffectStun(20f);
     }
-    public void GainRage(Enemy_Status status)
+    public void GainRage(EnemyStatus status)
     {
         status.AffectRage(100f);
     }

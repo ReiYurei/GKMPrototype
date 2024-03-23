@@ -12,7 +12,9 @@ public class SO_Projectile_Attack_Standing : SO_Base_Attack_Fixed
     public bool triggerShot;
     public override IEnumerator Execute(Enemy enemy)
     {
-        yield return new WaitForSeconds(5f) ;
+        enemy.status.NotifyAttacking(true);
+        yield return new WaitUntil(() => enemy.status.isNextAttackReady == true);
+        //Notify Attack false at Super Projectile Engine
     }
 
     public override int GetAnimation()

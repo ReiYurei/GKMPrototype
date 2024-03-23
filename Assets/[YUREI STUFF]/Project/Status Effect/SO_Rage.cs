@@ -6,7 +6,7 @@ public class SO_Rage : BaseStatusEffect
 {
     [SerializeField] private float rageModifier;
     [SerializeField] private float rageAnimSpeed;
-    public override IEnumerator ApplyEffect(StatusEffectContainer container, Enemy_Status status)
+    public override IEnumerator ApplyEffect(StatusEffectContainer container, EnemyStatus status)
     {
         while (status.b_Enraged.value == true)
         {

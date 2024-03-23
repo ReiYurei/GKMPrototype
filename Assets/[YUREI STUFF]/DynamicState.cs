@@ -1,50 +1,27 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TriInspector;
-#if UNITY_EDITOR
-
-#endif
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Moveset_Melee_Dynamic", menuName = "Enemy/Moveset/Melee/Dynamic Attack")]
-public class SO_Melee_Attack_Dynamic : SO_Enemy_Substate
+[System.Serializable]
+public class FixedState 
 {
-    public List<DynamicAttack> potentialMove;
-    int[] priority;
-    public override IEnumerator Execute(Enemy enemy)
+    [SerializeField] EnemyStates name;
+    public EnemyStates GetName()
     {
-        priority = new int[potentialMove.Count];
-        for (int i = 0; i < potentialMove.Count; i++)
-        {
-            if (potentialMove[i].CheckCondition() == true) 
-            {
-                yield return potentialMove[i].attack.Execute(enemy);
-                break;
-            }
-        }
-        yield break;
+        return name;
     }
 
-    public override int GetAnimation()
-    {
-        for (int i = 0; i < potentialMove.Count; i++)
-        {
-            if (potentialMove[i].CheckCondition() == true)
-            {
-                return potentialMove[i].attack.GetAnimation();
-            }
-        }
-        return AnimationHash.Enemy_Idle;
-
-    }
+    [Required][InlineEditor]public SO_Enemy_States state;
+    
 }
 
 [System.Serializable]
-public class DynamicAttack
+[CreateAssetMenu(fileName = "Dynamic State", menuName = "Enemy/Enemy Behaviour/Enemy Dynamic State")]
+public class DynamicState : ScriptableObject
 {
-
-    [InlineEditor] public SO_Base_Attack_Fixed attack;
+    public GameplayType gameplayType;
+    [InlineEditor] public SO_Enemy_States states;
     [ValidateInput(nameof(ValidateVariable))]
     public List<Condition<CustomVariable, CustomVariable>> conditions;
     bool[] isFulfilled;
@@ -66,11 +43,13 @@ public class DynamicAttack
         return true; //All Condition Met
 
     }
-
+    public void Execute(Enemy enemy,int subStateIndex)
+    {
+        states._subStates[subStateIndex].Execute(enemy);
+    }
     TriValidationResult ValidateVariable()
     {
         if (conditions == null) return TriValidationResult.Valid;
-
 
         for (int i = 0; i < conditions.Count; i++)
         {
@@ -85,4 +64,8 @@ public class DynamicAttack
         }
         return TriValidationResult.Valid;
     }
+}
+public enum GameplayType
+{
+    Side_Scroll,Bullet_Hell
 }

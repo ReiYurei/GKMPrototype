@@ -16,6 +16,7 @@ public struct RotationJob : IJob
     [ReadOnly]public bool canReverseRotation;
     [ReadOnly]public float deltaTime;
     [ReadOnly] public float fixedDeltaTime;
+    
     public void Execute()
     {
         if (rotationDuration[0] <= 0)
@@ -35,6 +36,7 @@ public struct RotationJob : IJob
             }
             if (reversingRotation[0])
             {
+
                 targetAngleResult[0] -= rotationSpeed * rotationDegree * deltaTime * 0.55f;
                 return;
             }
@@ -126,7 +128,12 @@ public struct ProjectileJobSingle : IJobParallelFor
     public void Execute(int index)
     {
         if (isLooping)
-        {    
+        {
+            if (lifeTime[index] >= duration)
+            {
+                setActive[index] = false;
+                return;
+            }
             if (delayTime[index] > 0)
             {
                 delayTime[index] -= deltaTime;
@@ -135,16 +142,12 @@ public struct ProjectileJobSingle : IJobParallelFor
                 directionPos[index] = direction[index % segment];
                 return;
             }
-            if (lifeTime[index] >= duration)
-            {
-                setActive[index] = false;
-                return;
-            }
-            if (lifeTime[index] >= 0 && hitPlayer[index] == false && lifeTime[index] <= duration)
+      
+            if (lifeTime[index] >= 0 && hitPlayer[index] == false && lifeTime[index] < duration)
             {
                 setActive[index] = true;
                 lifeTime[index] -= deltaTime;
-                float3 movement = math.normalize(directionPos[index]) * speed * deltaTime * 0.55f;
+                float3 movement = math.normalize(directionPos[index]) * speed * deltaTime * 0.4999f;
                 position[index] += movement;
                 return;
             }
@@ -157,8 +160,8 @@ public struct ProjectileJobSingle : IJobParallelFor
             position[index] = originPos;
             delayTime[index] = 0;
             lifeTime[index] = defaultLifeTime;
-            hitPlayer[index] = false;
             directionPos[index] = direction[index % segment];
+            hitPlayer[index] = false;
             setActive[index] = true;
             return;
         }
@@ -174,7 +177,7 @@ public struct ProjectileJobSingle : IJobParallelFor
         {
             setActive[index] = true;
             lifeTime[index] -= deltaTime;
-            float3 movement = math.normalize(directionPos[index])  * speed * deltaTime;
+            float3 movement = math.normalize(directionPos[index]) * speed * deltaTime * 0.4999f;
             position[index] += movement;
             return;
         }

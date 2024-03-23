@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using TriInspector;
+using ReiYurei;
 #if UNITY_EDITOR
 
 #endif
 
 [CreateAssetMenu(fileName ="Enemy Status",menuName ="Enemy/Enemy Status")]
-public class Enemy_Status : BaseStatus
+public class EnemyStatus : BaseStatus
 {
     public delegate void OnStatusStart();
     public event OnStatusStart InitiateEnrage, InitiateBreak, InitiateStun, InitiatePoison;
@@ -19,30 +20,32 @@ public class Enemy_Status : BaseStatus
     public delegate void OnProjectile();
     public event OnProjectile InitiateProjectile;
 
+
+
     [SerializeField] bool cannotRage;
     [ShowInInspector]public bool isHalved { get; private set; }
-    public void SetHalvedAnim(bool isHalved)
+    public void SetHalvedAnim(bool isHalved) //Call from Substates (Attacking)
     {
         this.isHalved = isHalved;
     }
 
     [ShowInInspector]public bool isAttacking { get; private set; }
-    public void SetAttacking(bool isAttacking)
+    public void SetAttacking(bool isAttacking) //Call from Substates (Attacking)
     {
         this.isAttacking = isAttacking;
     }
     [ShowInInspector]public bool isNextAttackReady { get; private set; }
     [ShowInInspector]public bool isMoving { get; private set; }
-    public void SetIsMoving(bool isMoving)
+    public void SetIsMoving(bool isMoving) //Call from Substates (Moving)
     {
         this.isMoving = isMoving;
     }
 
-    public void NotifyProjectile()
+    public void NotifyProjectile() //Call from Animator???
     {
         InitiateProjectile?.Invoke();
     }
-    public void NotifyEndOfStatus(BaseStatusEffect status)
+    public void NotifyEndOfStatus(BaseStatusEffect status)//Call from Effect Statuses
     {
         switch (status)
         {         
@@ -57,7 +60,7 @@ public class Enemy_Status : BaseStatus
 
         }
     }
-    public void NotifyAttacking(bool isAttacking)
+    public void NotifyAttacking(bool isAttacking) //Call from Substates (Attack Type Substate)
     {
         AttackEnd?.Invoke(isAttacking);
         this.isAttacking = isAttacking;
@@ -65,7 +68,7 @@ public class Enemy_Status : BaseStatus
         if(isAttacking == false) { NotifyEndOfAnim(true); }
 
     }
-    public void NotifyEndOfAnim(bool animEnd)
+    public void NotifyEndOfAnim(bool animEnd) //Call from Animator
     {
         if (isAttacking == true)
         {
@@ -77,7 +80,7 @@ public class Enemy_Status : BaseStatus
 
 
 
-    [Header("Enemy Parameter")]
+    [Header("Enemy Parameter")] //Boolean variable
     [Required]public BooleanVariable b_Enraged;
     [Required]public BooleanVariable b_Stunned;
     [Required]public BooleanVariable b_Poisoned;
@@ -158,15 +161,15 @@ public class Enemy_Status : BaseStatus
     public float DamageModifier { get;private set; }
     public float WeakpointModifier { get; private set; }
     public float AnimationSpeed { get; private set; }
-    public void Modifier(float damageModifier, float animationSpeed)
+    public void Modifier(float damageModifier, float animationSpeed) //Used for Effect Statuses
     {
         DamageModifier = damageModifier / 100;
         AnimationSpeed = animationSpeed / 100;
     }
   
 
-    [Header("========DEBUG AREA========")]
-    [Header("Stamina Meter")]
+    [Header("========DEBUG AREA========")] //Float variable
+    [Header("Stamina Meter")] 
     [InlineEditor]
     [Required] public FloatVariable f_Stamina;
 
@@ -184,21 +187,21 @@ public class Enemy_Status : BaseStatus
     [InlineEditor]
     [Required]public FloatVariable f_PoisonMeter;
 
-    [Header("Animation")]
+    [Header("Animation")] //Animator needs
     [ShowInInspector][ReadOnly]public int _animationHash;
     public delegate void OnAnimChange();
     public event OnAnimChange NotifyAnimChange;
     public bool noFlip { get; private set; }
-    public void SetNoFlip(bool noFlip)
+    public void SetNoFlip(bool noFlip) //Used for Substates or Animator Only
     {
         this.noFlip = noFlip;
     }
-    public void SetAnimationHashAndNotify(int hash)
+    public void SetAnimationHashAndNotify(int hash) //Used for States, Substates or Animator Only
     {
         _animationHash = hash;
         NotifyAnimChange?.Invoke();
     }
-    public int GetAnimationHashFromStatus()
+    public int GetAnimationHashFromStatus() //Used for Animator Only
     {
         return _animationHash;
     }
@@ -206,20 +209,20 @@ public class Enemy_Status : BaseStatus
     {
         return _substates.GetAnimation();
     }
-    [Header("States")]
+    [Header("States")] //Enemy Behaviour needs
     [ReadOnly] public SO_Enemy_States _states;
     [ReadOnly] public SO_Enemy_Substate _substates;
     [ReadOnly] public SO_Enemy_States _previousStates;
 
-    public void SetPreviousState(SO_Enemy_States state)
+    public void SetPreviousState(SO_Enemy_States state) //Used for Behaviour Only
     {
         _previousStates = state;
     }
-    public SO_Enemy_States GetPreviousState(List<StateCondition> states) 
+    public SO_Enemy_States GetPreviousState(List<FixedState> states) //Used for Behaviour Only 
     {  
         if(b_Enraged.value == true) 
         {
-            foreach (StateCondition condition in states)
+            foreach (FixedState condition in states)
             {
                 if (condition.GetName() == EnemyStates.Raging)
                 {
@@ -230,7 +233,7 @@ public class Enemy_Status : BaseStatus
         }
         else
         {
-            foreach (StateCondition condition in states)
+            foreach (FixedState condition in states)
             {
                 if (condition.GetName() == EnemyStates.Normal)
                 {
@@ -240,18 +243,18 @@ public class Enemy_Status : BaseStatus
             return _previousStates;
         }
     }
-    public SO_Enemy_States GetState()
+    public SO_Enemy_States GetState() //Used for Behaviour Only
     {
         return _states;
     }
-    public void SetStateAndSubstate(SO_Enemy_States state, int index)
+    public void SetStateAndSubstate(SO_Enemy_States state, int index) //Used for Behaviour Only
     {
         _states = state;
         _substates = state._subStates[index];
     }
 
     [Button("Reset to Default")]
-    public override void OnSpawn()
+    public override void OnSpawn() //Initialization
     {
         base.OnSpawn();
         DefaultModifier();

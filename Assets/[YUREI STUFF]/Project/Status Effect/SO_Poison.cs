@@ -7,7 +7,7 @@ public class SO_Poison : BaseStatusEffect
     [SerializeField] private float duration;
     [SerializeField] private float poisonPercentage;
     private float time;
-    public override IEnumerator ApplyEffect(StatusEffectContainer container, Enemy_Status status)
+    public override IEnumerator ApplyEffect(StatusEffectContainer container, EnemyStatus status)
     {
         time = duration;
         while (time > 0)

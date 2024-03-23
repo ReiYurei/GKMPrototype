@@ -8,21 +8,33 @@ public class EnemyAnimator : MonoBehaviour
 {
     [Header("Ignore if Enemy component exist in object")]
     [ReadOnly]      public Enemy _enemy;
-    [SerializeField]public Enemy_Status _status;
+    [SerializeField]public EnemyStatus _status;
     [Header("Main Field")]
     [SerializeField] SO_PlayerInfo _playerInfo;
+    [SerializeField] public List<KeyGameEvent> projectileEvent;
+    Dictionary<string, GameEvent> projectileDict;
     public Animator animator;
 
+    private void Awake()
+    {
+        projectileDict = new Dictionary<string, GameEvent>();
+    }
 
     private void OnEnable()
     {
+
+        for(int i = 0; i < projectileEvent.Count; i++)
+        {
+            if (projectileEvent[i] == null) continue;
+            projectileDict.Add(projectileEvent[i].key, projectileEvent[i].gameEvent);
+        }
         if (_status == null)
         {
             TryGetComponent<Enemy>(out Enemy component);
             if (component == null)
             {
                 Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
-                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(Enemy_Status)}");
+                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(EnemyStatus)}");
                 return;
             }
             _enemy = component;
@@ -57,9 +69,14 @@ public class EnemyAnimator : MonoBehaviour
     {
         _status.NotifyEndOfAnim(true);
     }
-    public void OnProjectile()
+    public void OnProjectile(string key)
     {
-        _status.NotifyProjectile();
+        //_status.NotifyProjectile();
+        //projectileEvent[index].Raise();
+        projectileDict.TryGetValue(key, out GameEvent gameEvent);
+        if (gameEvent == null) return;
+        gameEvent.Raise();
+        Debug.Log("Raising Event");
     }
     private void PlayAnim(int animationName, float animSpeed)
     {

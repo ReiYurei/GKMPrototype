@@ -13,13 +13,15 @@ public class SO_Enemy_States : ScriptableObject
 {
     [InlineEditor]
     public List<SO_Enemy_Substate> _subStates;
+    int[] priority;
+
     public IEnumerator Execute(Enemy enemy ,int subState)
     {       
         SetAnimation(enemy.status, subState);
         yield return enemy.enemyBehaviour.StartCoroutine(_subStates[subState].Execute(enemy));
 
     }
-    public void SetAnimation(Enemy_Status status, int subState)
+    public void SetAnimation(EnemyStatus status, int subState)
     {
         status.SetAnimationHashAndNotify(GetAnimation(subState));
     }

@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b20359d12110e504db465771573cde09, type: 3}
-  m_Name: Projectile Data
+  m_Name: Projectile Data 2
   m_EditorClassIdentifier: 
   types: 0
   isLooping: 1
-  loopDuration: 10
-  numberOfSegments: 16
+  loopDuration: 15
+  numberOfSegments: 5
   numberOfShoot: 20
   projectileSpeed: 10
-  delayBetweenShot: 0.1
-  projectileLifeTime: 2
+  delayBetweenShot: 0.15
+  projectileLifeTime: 3
   enableAutoRotation: 1
-  rotationDegree: 10
-  rotationSpeed: 5
-  rotationDuration: 10
-  maxRotationChange: 90
+  rotationDegree: -2
+  rotationSpeed: 20
+  rotationDuration: 20
+  maxRotationChange: 0
   minRotationChange: 0
   canReverseRotation: 0
   enableAutoAngle: 0

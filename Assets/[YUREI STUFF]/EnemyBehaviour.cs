@@ -8,9 +8,10 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [Header("Ignore if Enemy component exist in object")]
     [ReadOnly] public Enemy _enemy;
-    [SerializeField] public Enemy_Status _status;
+    [SerializeField] public EnemyStatus _status;
     private int _subStateNum = 0;
-    public List<StateCondition> condition;
+    [InlineEditor]public List<DynamicState> dynamicStates;
+    public List<FixedState> fixedStates;
 
     void OnEnable()
     {
@@ -20,30 +21,48 @@ public class EnemyBehaviour : MonoBehaviour
             if (component == null)
             {
                 Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
-                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(Enemy_Status)}");
+                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(EnemyStatus)}");
                 return;
             }
             _enemy = component;
             _status = _enemy.status;
         }
-        foreach (StateCondition condition in condition)
-        {
-            if (condition.GetName() == EnemyStates.Normal)
-            {
-                _status.SetStateAndSubstate(condition.state, _subStateNum);
-                break;
-            }
-            else continue;
-        }
+       // foreach (FixedState condition in condition)
+       // {
+       //     if (condition.GetName() == EnemyStates.Normal)
+       //     {
+       //         _status.SetStateAndSubstate(condition.dynamicState, _subStateNum);
+       //         break;
+       //     }
+       //     else continue;
+       // }
        
         _status.InitiateEnrage += OnEnrageInitiated;
         _status.InitiateStun += OnStunInitiated;
         _status.InitiateBreak += OnBreakInitiated;
         _status.StunEnd += OnStunEnd;
         _status.AnimEnd += OnAnimEnd;
+        OnValueChange();
         StartCoroutine(Behave());
         //Debug.Log("Initiate Behave");
 
+    }
+    public void OnValueChange()
+    {
+        _subStateNum = 0;
+        Debug.Log("Behaviour Event Raised");
+        foreach (DynamicState dynamicState in dynamicStates)
+        {
+            if (dynamicState.CheckCondition())
+            {
+                Debug.Log(dynamicState.states.name);
+                if (_status._states == dynamicState.states) continue;
+                Interrupt();
+                _status.SetStateAndSubstate(dynamicState.states,_subStateNum);
+                _subStateNum = 0;
+                return;
+            }           
+        }
     }
     public void OnAnimEnd(bool animEnd)
     {
@@ -78,16 +97,16 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Interrupt();
         _subStateNum = 0;
-        foreach (StateCondition condition in condition)
+        foreach (FixedState fixedState in fixedStates)
         {
-
-            if (condition.GetName() == EnemyStates.Enraged)
+        
+            if (fixedState.GetName() == EnemyStates.Enraged)
             {
-
-                _status.SetStateAndSubstate(condition.state, _subStateNum);
+        
+                _status.SetStateAndSubstate(fixedState.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));
-
+        
                 return;
             }
         }
@@ -97,11 +116,11 @@ public class EnemyBehaviour : MonoBehaviour
         _status.SetPreviousState(_status.GetState());
         Interrupt();
         _subStateNum = 0;
-        foreach (StateCondition condition in condition)
+        foreach (FixedState state in fixedStates)
         {
-            if (condition.GetName() == EnemyStates.Stunned)
+            if (state.GetName() == EnemyStates.Stunned)
             {
-                _status.SetStateAndSubstate(condition.state, _subStateNum);
+                _status.SetStateAndSubstate(state.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 return;
             }
@@ -112,16 +131,16 @@ public class EnemyBehaviour : MonoBehaviour
         Interrupt();
         _subStateNum = 0;
 
-        foreach (StateCondition condition in condition)
+        foreach (FixedState fixedState in fixedStates)
         {
-            if (condition.GetName() == EnemyStates.Flinched)
+            if (fixedState.GetName() == EnemyStates.Flinched)
             {
-                _status.SetStateAndSubstate(condition.state, _subStateNum);
+                _status.SetStateAndSubstate(fixedState.state, _subStateNum);
                 StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));
                 return;
             }
-
+       
         }
     }
     public void OnStunEnd()
@@ -143,15 +162,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void BackToPreviousState()
     {
-        List<StateCondition> states = new List<StateCondition>();
-        foreach (StateCondition condition in condition)
+        List<DynamicState> states = new List<DynamicState>();
+        foreach (DynamicState dynamicState in dynamicStates)
         {
-            if (condition.GetName() != EnemyStates.Stunned || condition.GetName() != EnemyStates.Enraged)
-            {
-                states.Add(condition);
-            }
+
         }
-        _status.SetStateAndSubstate(_status.GetPreviousState(states),_subStateNum);
+        //_status.SetStateAndSubstate(_status.GetPreviousState(states),_subStateNum);
         StartCoroutine(Behave());
     }
     public void Interrupt()

@@ -7,7 +7,7 @@ public class SO_Stun : BaseStatusEffect
     [SerializeField] private float duration;
     private float time;
 
-    public override IEnumerator ApplyEffect(StatusEffectContainer container, Enemy_Status status)
+    public override IEnumerator ApplyEffect(StatusEffectContainer container, EnemyStatus status)
     { 
         time = duration;
         time -= Time.deltaTime;
