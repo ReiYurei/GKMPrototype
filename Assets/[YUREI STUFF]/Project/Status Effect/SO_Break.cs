@@ -14,13 +14,13 @@ public class SO_Break : BaseStatusEffect
         time -= Time.deltaTime;
         while (time > 0)
         {
-            status.b_Break.value = true;
+            status.B_Break.value = true;
             status.Modifier(breakModifier, breakAnimSpeed);
             time -= Time.deltaTime;
             yield return null;
 
         }
-        status.b_Break.value = false;
+        status.B_Break.value = false;
         status.DefaultModifier();
         container.appliedStatuses.Remove(this);
     }

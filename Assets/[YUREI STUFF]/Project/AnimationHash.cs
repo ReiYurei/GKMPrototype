@@ -42,11 +42,11 @@ public class AnimationHash
     public static readonly int Enemy_P_Projectile_4 = Animator.StringToHash("Enemy_P_Projectile_4");
     public static readonly int Enemy_P_Projectile_5 = Animator.StringToHash("Enemy_P_Projectile_5");
 
-   // public static readonly int Enemy_P_Projectile_1_Loop = Animator.StringToHash("Enemy_P_Projectile_1_Loop");
-   // public static readonly int Enemy_P_Projectile_2_Loop = Animator.StringToHash("Enemy_P_Projectile_2_Loop");
-   // public static readonly int Enemy_P_Projectile_3_Loop = Animator.StringToHash("Enemy_P_Projectile_3_Loop");
-   // public static readonly int Enemy_P_Projectile_4_Loop = Animator.StringToHash("Enemy_P_Projectile_4_Loop");
-   // public static readonly int Enemy_P_Projectile_5_Loop = Animator.StringToHash("Enemy_P_Projectile_5_Loop");
+   // public static readonly int Enemy_P_Projectile_1_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_1_Loop");
+   // public static readonly int Enemy_P_Projectile_2_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_2_Loop");
+   // public static readonly int Enemy_P_Projectile_3_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_3_Loop");
+   // public static readonly int Enemy_P_Projectile_4_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_4_Loop");
+   // public static readonly int Enemy_P_Projectile_5_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_5_Loop");
 
     public static Dictionary<int, int> enemyProjectileDict = new Dictionary<int, int>()
     {

@@ -12,8 +12,8 @@ public class SO_Projectile_Attack_Standing : SO_Base_Attack_Fixed
     public bool triggerShot;
     public override IEnumerator Execute(Enemy enemy)
     {
-        enemy.status.NotifyAttacking(true);
-        yield return new WaitUntil(() => enemy.status.isNextAttackReady == true);
+        enemy.StatusData.NotifyShooting(true);
+        yield return new WaitUntil(() => enemy.StatusData.IsShooting == false);
         //Notify Attack false at Super Projectile Engine
     }
 

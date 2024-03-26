@@ -4,17 +4,20 @@ using UnityEngine;
 using TriInspector;
 public class StatusEffectContainer : MonoBehaviour
 {
-    [ShowInInspector] public HashSet<BaseStatusEffect> appliedStatuses;
-    [Header("Ignore if Enemy component exist in object")]
-    [ReadOnly] public Enemy _enemy;
-    [SerializeField] public EnemyStatus _status;
+    public HashSet<BaseStatusEffect> appliedStatuses { get;private set; }
+    [Header("READ ONLY PROPERTIES")]
+    [SerializeField] private Enemy _enemy;
+    [SerializeField] private EnemyStatus _status;
+
     [Header("Main Field")]
     [Header("Enemy Self-inflicting Status")]
-    [InlineEditor][Required][SerializeField] SO_Rage _rage;
-    [InlineEditor][Required][SerializeField] SO_Stun _stun;
-    [InlineEditor][Required][SerializeField] SO_Poison _poison;
-    [InlineEditor][Required][SerializeField] SO_Break _breakStatus;
-    public EventListener eventListener;
+    [InlineEditor][Required][SerializeField]private SO_Rage _rage;
+    [InlineEditor][Required][SerializeField]private SO_Stun _stun;
+    [InlineEditor][Required][SerializeField]private SO_Poison _poison;
+    [InlineEditor][Required][SerializeField]private SO_Break _breakStatus;
+
+    [Header("Event Listener")]
+    [SerializeField]private List<EventListener> _eventListener;
 
     private void Start()
     {
@@ -26,7 +29,7 @@ public class StatusEffectContainer : MonoBehaviour
     {
         if (_status == null)
         {
-            TryGetComponent<Enemy>(out Enemy component);
+            TryGetComponent(out Enemy component);
             if (component == null)
             {
                 Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
@@ -34,7 +37,7 @@ public class StatusEffectContainer : MonoBehaviour
                 return;
             }
             _enemy = component;
-            _status = _enemy.status;
+            _status = _enemy.StatusData;
         }
         _status.InitiateEnrage += OnRage;
         _status.InitiateBreak += OnBreak;

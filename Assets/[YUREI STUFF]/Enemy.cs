@@ -8,19 +8,18 @@ using System;
 #endif
 public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
 {
-    [InlineEditor]
-    [Required] public EnemyStatus status;
-    public EnemyAnimator enemyAnimator;
-    public EnemyBehaviour enemyBehaviour;
-    public StatusEffectContainer statusEffectContainer;
-    public EventListenerComponent eventListener;
-    public Rigidbody2D rb;
-    private Animator _animator;
- 
+    [field: SerializeField][InlineEditor][Required]public EnemyStatus StatusData { get; private set; }
+    [field: SerializeField] public EnemyAnimator EnemyAnimatorComponent { get; private set; }
+    [field: SerializeField] public EnemyBehaviour EnemyBehaviourComponent { get; private set; }
+    [field: SerializeField] public StatusEffectContainer StatusEffectContainerComponent { get; private set; }
+    [field: SerializeField] public EventListenerComponent EventListenerComponent { get; private set; }
+    [field: SerializeField] public Rigidbody2D RigidbodyComponent { get; private set; }
+    [field: SerializeField] public Animator AnimatorComponent { get; private set; }
+
     public void OnDamage(float damage)
     {
-        status.AffectRage(damage);
-        status.SetHealth(status.GetHealth() - damage);
+        StatusData.AffectRage(damage);
+        StatusData.SetHealth(StatusData.GetHealth() - damage);
     }
 
 
@@ -32,74 +31,89 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable
     public float acceleration;
     void OnAnimatorMove()
     {
-        rb.velocity = new Vector3 (_animator.deltaPosition.x / Time.deltaTime, _animator.deltaPosition.y * speed  / Time.deltaTime);
+        RigidbodyComponent.velocity = new Vector3 (AnimatorComponent.deltaPosition.x / Time.deltaTime, AnimatorComponent.deltaPosition.y * speed  / Time.deltaTime);
 
 
     }
 
     public void Start()
     {
-        status.OnSpawn();
-        status.AttackEnd += OnAttackEnd;
-        statusEffectContainer = GetComponent<StatusEffectContainer>();
-        enemyAnimator = GetComponent<EnemyAnimator>();
-        enemyBehaviour = GetComponent<EnemyBehaviour>();
-        rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-        eventListener = GetComponent<EventListenerComponent>();
-        //rb.gravityScale = 10;
+        StatusData.OnSpawn();
+        StatusData.AttackEnd += OnAttackEnd;
+        StatusData.ShootEnd += OnShootEnd;
+
+        StatusEffectContainerComponent = GetComponent<StatusEffectContainer>();
+        EnemyAnimatorComponent = GetComponent<EnemyAnimator>();
+        EnemyBehaviourComponent = GetComponent<EnemyBehaviour>();
+        RigidbodyComponent = GetComponent<Rigidbody2D>();
+        AnimatorComponent = GetComponent<Animator>();
+        EventListenerComponent = GetComponent<EventListenerComponent>();
+        //RigidbodyComponent.gravityScale = 10;
 
     }
 
     private void OnAttackEnd(bool isAnimEnd)
     {
 
-      switch (isAnimEnd)
+        switch (isAnimEnd)
       {
           case false:
-                // rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.gravityScale = 40;
+                RigidbodyComponent.gravityScale = 40;
               break;
           case true:
-                //  rb.bodyType = RigidbodyType2D.Kinematic;
-                rb.gravityScale = 0;
-                break;
-      
+                RigidbodyComponent.gravityScale = 0;
+                break;    
       }
     }
+    private void OnShootEnd(bool isAnimEnd)
+    {
+        switch (isAnimEnd)
+        {
+            case false:
+                RigidbodyComponent.gravityScale = 40;
+                break;
+            case true:
+                RigidbodyComponent.gravityScale = 0;
+                break;
+
+        }
+    }
+    //Used by Animation Event
     public void GravityDecrease(float value)
     {
-        rb.gravityScale = value;
+        RigidbodyComponent.gravityScale = value;
 
     }
+    //Used by Animation Event
     public void GravityIncrease(float value)
     {
-        rb.gravityScale = value;
+        RigidbodyComponent.gravityScale = value;
     }
     [Button(ButtonSizes.Large)]
     private void SetupComponent()
     {
 
-        statusEffectContainer ??= TryGetComponent<StatusEffectContainer>(out StatusEffectContainer statusComponent) ?
-        statusEffectContainer = statusComponent : statusEffectContainer = gameObject.AddComponent<StatusEffectContainer>();
+        StatusEffectContainerComponent ??= TryGetComponent<StatusEffectContainer>(out StatusEffectContainer statusComponent) ?
+        StatusEffectContainerComponent = statusComponent : StatusEffectContainerComponent = gameObject.AddComponent<StatusEffectContainer>();
 
 
-        enemyAnimator ??= TryGetComponent<EnemyAnimator>(out EnemyAnimator enemyAnimatorComponent) ?
-        enemyAnimator = enemyAnimatorComponent : enemyAnimator = gameObject.AddComponent<EnemyAnimator>();
+        EnemyAnimatorComponent ??= TryGetComponent<EnemyAnimator>(out EnemyAnimator enemyAnimatorComponent) ?
+        EnemyAnimatorComponent = enemyAnimatorComponent : EnemyAnimatorComponent = gameObject.AddComponent<EnemyAnimator>();
 
 
-        enemyBehaviour ??= TryGetComponent<EnemyBehaviour>(out EnemyBehaviour behaviourComponent) ?
-        enemyBehaviour = behaviourComponent : enemyBehaviour = gameObject.AddComponent<EnemyBehaviour>();
+        EnemyBehaviourComponent ??= TryGetComponent<EnemyBehaviour>(out EnemyBehaviour behaviourComponent) ?
+        EnemyBehaviourComponent = behaviourComponent : EnemyBehaviourComponent = gameObject.AddComponent<EnemyBehaviour>();
 
-        eventListener ??= TryGetComponent<EventListenerComponent>(out EventListenerComponent listenerComponent) ?
-        eventListener = listenerComponent : eventListener = gameObject.AddComponent<EventListenerComponent>();
+        EventListenerComponent ??= TryGetComponent<EventListenerComponent>(out EventListenerComponent listenerComponent) ?
+        EventListenerComponent = listenerComponent : EventListenerComponent = gameObject.AddComponent<EventListenerComponent>();
 
         TryGetComponent<Rigidbody2D>(out Rigidbody2D rbComponent);
-        if(rbComponent == null) { rb = gameObject.AddComponent<Rigidbody2D>(); }
-        else { rb = rbComponent; }
+        if(rbComponent == null) { RigidbodyComponent = gameObject.AddComponent<Rigidbody2D>(); }
+        else { RigidbodyComponent = rbComponent; }
 
         TryGetComponent<Animator>(out Animator animatorComponent);
         if(animatorComponent == null) { gameObject.AddComponent<Animator>(); }
+        else { AnimatorComponent = animatorComponent; }
 
     }
 }

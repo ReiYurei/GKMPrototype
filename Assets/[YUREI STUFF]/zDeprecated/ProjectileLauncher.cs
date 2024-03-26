@@ -126,10 +126,10 @@ public class ProjectileLauncher : MonoBehaviour
 #if UNITY_EDITOR
     void OnValidate()
     {
-        // Calculate the half angle range from the target angle
+        // Calculate the half angle range from the _target angle
         float halfAngleRange = angleRange / 2f;
 
-        // Adjust the min and max angles based on the target angle and half angle range
+        // Adjust the min and max angles based on the _target angle and half angle range
         _minAngle = targetAngle - halfAngleRange;
         _maxAngle = targetAngle + halfAngleRange;
 

@@ -19,7 +19,6 @@ public class DEBUGGING : MonoBehaviour
     public EnemyStatus enemyStatus;
     public Enemy enemy;
     public bool limitFramerate;
-    public SO_Melee_Attack_Dynamic attack;
     public int FrameRate;
 
     private void Awake()
@@ -66,7 +65,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnStun()
     {
-        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Stun))
+        if (enemy.StatusEffectContainerComponent.appliedStatuses.Any(status => status is SO_Stun))
         {
             stunIcon.SetActive(true);
 
@@ -76,7 +75,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnPoison()
     {
-        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Poison))
+        if (enemy.StatusEffectContainerComponent.appliedStatuses.Any(status => status is SO_Poison))
         {
             poisonIcon.SetActive(true);
 
@@ -85,7 +84,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnRage()
     {
-        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Rage))
+        if (enemy.StatusEffectContainerComponent.appliedStatuses.Any(status => status is SO_Rage))
         {
             rageIcon.SetActive(true);
         }
@@ -97,7 +96,7 @@ public class DEBUGGING : MonoBehaviour
     }
     void OnBreak()
     {
-        if (enemy.statusEffectContainer.appliedStatuses.Any(status => status is SO_Break))
+        if (enemy.StatusEffectContainerComponent.appliedStatuses.Any(status => status is SO_Break))
         {
             breakIcon.SetActive(true);
         }
@@ -108,10 +107,6 @@ public class DEBUGGING : MonoBehaviour
 
     }
 
-    public void MoveSet(Enemy enemy)
-    {
-        StartCoroutine(attack.Execute(enemy));
-    }
     public void GainPoison(EnemyStatus status)
     {
         status.AffectPoison(20f);

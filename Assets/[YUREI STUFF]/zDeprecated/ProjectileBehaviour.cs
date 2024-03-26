@@ -44,7 +44,7 @@ public class ProjectileBehaviour : MonoBehaviour
        //     {
        //         _jobProjectile.deltaTime = Time.deltaTime;
        //         _totalLifeTime -=Time.deltaTime;
-       //         _jobProjectile._originPos = (float3)origin.position;
+       //         _jobProjectile._originPos = (float3)_origin.position;
        //         _jobHandleProjectile = _jobProjectile.Schedule(transforms.Count, 64);
        //         _jobHandleProjectile.Complete();
        //         for (int i = 0; i < transforms.Count; i++)
@@ -65,7 +65,7 @@ public class ProjectileBehaviour : MonoBehaviour
        //               //      transforms[i].gameObject.SetActive(false);
        //               //      ParticlePool(i);
        //               //      continue;
-       //               //      //launch particle at te position
+       //               //      //launch _particle at te position
        //               //  }
        //             }
        //         }

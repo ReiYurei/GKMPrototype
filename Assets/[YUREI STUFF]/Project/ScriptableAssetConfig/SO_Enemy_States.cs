@@ -17,8 +17,8 @@ public class SO_Enemy_States : ScriptableObject
 
     public IEnumerator Execute(Enemy enemy ,int subState)
     {       
-        SetAnimation(enemy.status, subState);
-        yield return enemy.enemyBehaviour.StartCoroutine(_subStates[subState].Execute(enemy));
+        SetAnimation(enemy.StatusData, subState);
+        yield return enemy.EnemyBehaviourComponent.StartCoroutine(_subStates[subState].Execute(enemy));
 
     }
     public void SetAnimation(EnemyStatus status, int subState)

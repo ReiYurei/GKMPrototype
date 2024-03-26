@@ -4,20 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using TriInspector;
 
+
+//- EnemyBehaviourComponent:
+//- Manages the behavior of an _enemy using State Machine.
+//- Controls dynamic and fixed state changes.
+//- Utilizes coroutines for state execution and timed actions.
 public class EnemyBehaviour : MonoBehaviour
 {
-    [Header("Ignore if Enemy component exist in object")]
-    [ReadOnly] public Enemy _enemy;
-    [SerializeField] public EnemyStatus _status;
+    [Header("READ ONLY PROPERTIES")]
+    [SerializeField] private Enemy _enemy;
+    [SerializeField] private EnemyStatus _status;
     private int _subStateNum = 0;
-    [InlineEditor]public List<DynamicState> dynamicStates;
-    public List<FixedState> fixedStates;
+    [SerializeField][InlineEditor] private List<DynamicState> _dynamicStates;
+    [SerializeField] private List<FixedState> _fixedStates;
 
     void OnEnable()
     {
         if (_status == null)
         {
-            TryGetComponent<Enemy>(out Enemy component);
+            TryGetComponent(out Enemy component);
             if (component == null)
             {
                 Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
@@ -25,18 +30,8 @@ public class EnemyBehaviour : MonoBehaviour
                 return;
             }
             _enemy = component;
-            _status = _enemy.status;
-        }
-       // foreach (FixedState condition in condition)
-       // {
-       //     if (condition.GetName() == EnemyStates.Normal)
-       //     {
-       //         _status.SetStateAndSubstate(condition.dynamicState, _subStateNum);
-       //         break;
-       //     }
-       //     else continue;
-       // }
-       
+            _status = _enemy.StatusData;
+        }     
         _status.InitiateEnrage += OnEnrageInitiated;
         _status.InitiateStun += OnStunInitiated;
         _status.InitiateBreak += OnBreakInitiated;
@@ -51,12 +46,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         _subStateNum = 0;
         Debug.Log("Behaviour Event Raised");
-        foreach (DynamicState dynamicState in dynamicStates)
+        foreach (DynamicState dynamicState in _dynamicStates)
         {
             if (dynamicState.CheckCondition())
             {
                 Debug.Log(dynamicState.states.name);
-                if (_status._states == dynamicState.states) continue;
+                if (_status.States == dynamicState.states) continue;
                 Interrupt();
                 _status.SetStateAndSubstate(dynamicState.states,_subStateNum);
                 _subStateNum = 0;
@@ -97,7 +92,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Interrupt();
         _subStateNum = 0;
-        foreach (FixedState fixedState in fixedStates)
+        foreach (FixedState fixedState in _fixedStates)
         {
         
             if (fixedState.GetName() == EnemyStates.Enraged)
@@ -116,7 +111,7 @@ public class EnemyBehaviour : MonoBehaviour
         _status.SetPreviousState(_status.GetState());
         Interrupt();
         _subStateNum = 0;
-        foreach (FixedState state in fixedStates)
+        foreach (FixedState state in _fixedStates)
         {
             if (state.GetName() == EnemyStates.Stunned)
             {
@@ -131,7 +126,7 @@ public class EnemyBehaviour : MonoBehaviour
         Interrupt();
         _subStateNum = 0;
 
-        foreach (FixedState fixedState in fixedStates)
+        foreach (FixedState fixedState in _fixedStates)
         {
             if (fixedState.GetName() == EnemyStates.Flinched)
             {
@@ -163,7 +158,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void BackToPreviousState()
     {
         List<DynamicState> states = new List<DynamicState>();
-        foreach (DynamicState dynamicState in dynamicStates)
+        foreach (DynamicState dynamicState in _dynamicStates)
         {
 
         }

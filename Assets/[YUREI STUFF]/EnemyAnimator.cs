@@ -4,33 +4,44 @@ using UnityEngine;
 using TriInspector;
 using System;
 
+// Summary:
+// Manages the animation behavior of an _enemy character in the game.
+// It controls the _enemy's animation states, flipping animations based on player position,
+// and triggering _projectileObj-related events.
 public class EnemyAnimator : MonoBehaviour
 {
-    [Header("Ignore if Enemy component exist in object")]
-    [ReadOnly]      public Enemy _enemy;
-    [SerializeField]public EnemyStatus _status;
-    [Header("Main Field")]
-    [SerializeField] SO_PlayerInfo _playerInfo;
-    [SerializeField] public List<KeyGameEvent> projectileEvent;
-    Dictionary<string, GameEvent> projectileDict;
-    public Animator animator;
+    [Header("READ ONLY PROPERTIES")]
+    [SerializeField]private Enemy _enemy;
+    [SerializeField]private EnemyStatus _status;
 
+    [Header("Main Field")]
+    [Tooltip("Player related information")]
+    [SerializeField]private SO_PlayerInfo _playerInfo;
+
+    [Tooltip("Key and Event to store Game Event in dictionary")]
+    [SerializeField]private List<KeyGameEvent> _projectileEvent;
+    private Dictionary<string, GameEvent> _projectileDict;
+
+    private Animator _animator;
+
+    //Initialize the _projectileObj dictionary
     private void Awake()
     {
-        projectileDict = new Dictionary<string, GameEvent>();
+        _projectileDict = new Dictionary<string, GameEvent>();
     }
 
+    // Subscribes to events and populates the _projectileObj dictionary and initialize the required component
     private void OnEnable()
     {
 
-        for(int i = 0; i < projectileEvent.Count; i++)
+        for(int i = 0; i < _projectileEvent.Count; i++)
         {
-            if (projectileEvent[i] == null) continue;
-            projectileDict.Add(projectileEvent[i].key, projectileEvent[i].gameEvent);
+            if (_projectileEvent[i] == null) continue;
+            _projectileDict.Add(_projectileEvent[i].key, _projectileEvent[i].gameEvent);
         }
         if (_status == null)
         {
-            TryGetComponent<Enemy>(out Enemy component);
+            TryGetComponent(out Enemy component);
             if (component == null)
             {
                 Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
@@ -38,52 +49,63 @@ public class EnemyAnimator : MonoBehaviour
                 return;
             }
             _enemy = component;
-            _status = _enemy.status;
+            _status = _enemy.StatusData;
         }
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _status.NotifyAnimChange += OnStateChange;
     }
+
+    //Unsubscribes from events
     private void OnDisable()
     {
         _status.NotifyAnimChange -= OnStateChange;
     }
 
+    //Flip the animation and then play the animation
     private void OnStateChange()
     {
-        if (_status.noFlip == false)
+        if (_status.NoFlip == false)
         {
             FlipAnimation();
         }
         PlayAnim(_status.GetAnimationHashFromStatus(), _status.AnimationSpeed);
     }
+
+    //Used for Animation Event function to notify the current attack reached its last frame within halved duration
     protected void OnHalved()
     {
-        if (_status.isHalved == false)
+        if (_status.IsHalved == false)
         {
             return;
         }
         _status.NotifyEndOfAnim(true);
 
     }
+
+    //Used for Animation Event function to notify the current attack reached its last frame
     protected void OnEnded()
     {
         _status.NotifyEndOfAnim(true);
     }
+
+    //Used for Animation Event function to notify _projectileObj engine, supposedly to start the engine
     public void OnProjectile(string key)
     {
-        //_status.NotifyProjectile();
-        //projectileEvent[index].Raise();
-        projectileDict.TryGetValue(key, out GameEvent gameEvent);
+        _projectileDict.TryGetValue(key, out GameEvent gameEvent);
         if (gameEvent == null) return;
         gameEvent.Raise();
         Debug.Log("Raising Event");
     }
+
+    //Play Animation by Animation Hash
     private void PlayAnim(int animationName, float animSpeed)
     {
         _status.NotifyEndOfAnim(false);
-        animator.speed = animSpeed;
-        animator.Play(animationName, default,0f);
+        _animator.speed = animSpeed;
+        _animator.Play(animationName, default,0f);
     }
+
+    //Flip Object
     private void FlipAnimation()
     {
 

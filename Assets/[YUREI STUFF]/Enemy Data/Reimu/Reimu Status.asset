@@ -17,24 +17,39 @@ MonoBehaviour:
   _rawPower: 1
   _movementSpeed: 1
   cannotRage: 0
-  b_Enraged: {fileID: 11400000, guid: 2ae5270723dd37842a7c9d1dc8c0bb26, type: 2}
-  b_Stunned: {fileID: 11400000, guid: 0daeb1cc3ab6cd144be5d29e07d6989c, type: 2}
-  b_Poisoned: {fileID: 11400000, guid: 295ef9e195cae0b449ae07435f8be3f9, type: 2}
-  b_Break: {fileID: 11400000, guid: 2d1234a524e720b4699a9a61495fa418, type: 2}
-  b_StatusBuildUp: {fileID: 11400000, guid: aa0cca9acddbda146afef200f1124ca3, type: 2}
+  <IsHalved>k__BackingField: 0
+  <IsAttacking>k__BackingField: 1
+  <IsNextAttackReady>k__BackingField: 0
+  <IsMoving>k__BackingField: 0
+  <B_Enraged>k__BackingField: {fileID: 11400000, guid: 2ae5270723dd37842a7c9d1dc8c0bb26, type: 2}
+  <B_Stunned>k__BackingField: {fileID: 11400000, guid: 0daeb1cc3ab6cd144be5d29e07d6989c, type: 2}
+  <B_Poisoned>k__BackingField: {fileID: 11400000, guid: 295ef9e195cae0b449ae07435f8be3f9, type: 2}
+  <B_Break>k__BackingField: {fileID: 11400000, guid: 2d1234a524e720b4699a9a61495fa418, type: 2}
+  <B_StatusBuildUp>k__BackingField: {fileID: 11400000, guid: aa0cca9acddbda146afef200f1124ca3, type: 2}
+  _enraged: 0
+  _poisoned: 0
+  _stunned: 0
+  _break: 0
   baseStamina: 100
   baseRageThreshold: 100
   baseStunThreshold: 100
   basePoisonThreshold: 100
-  baseDamageModifier: 1
-  baseWeakpointModifier: 1
-  baseWaitTime: 3
-  baseAnimationSpeed: 1
-  f_Stamina: {fileID: 11400000, guid: 284998d81aa00b54488705c2a52c6d49, type: 2}
-  f_RageMeter: {fileID: 11400000, guid: 1d11e92346cd21749af74f1e2904e025, type: 2}
-  f_StunMeter: {fileID: 11400000, guid: 59c0978f98afd8948aff7d6c8fd75863, type: 2}
-  f_PoisonMeter: {fileID: 11400000, guid: 1b5537e5b87c2c54bb6be2b7bd42024e, type: 2}
-  _animationHash: -51309510
-  _states: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
-  _substates: {fileID: 11400000, guid: e375a664c1c59b748a67f4473b9d3dbe, type: 2}
-  _previousStates: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
+  <BaseDamageModifier>k__BackingField: 1
+  <BaseWeakpointModifier>k__BackingField: 1
+  <BaseAnimationSpeed>k__BackingField: 1
+  <DamageModifier>k__BackingField: 1
+  <WeakpointModifier>k__BackingField: 1
+  <AnimationSpeed>k__BackingField: 1
+  <F_Stamina>k__BackingField: {fileID: 11400000, guid: 284998d81aa00b54488705c2a52c6d49, type: 2}
+  <F_RageMeter>k__BackingField: {fileID: 11400000, guid: 1d11e92346cd21749af74f1e2904e025, type: 2}
+  <F_StunMeter>k__BackingField: {fileID: 11400000, guid: 59c0978f98afd8948aff7d6c8fd75863, type: 2}
+  <F_PoisonMeter>k__BackingField: {fileID: 11400000, guid: 1b5537e5b87c2c54bb6be2b7bd42024e, type: 2}
+  _statusBuildUp: 1
+  _staminaMeter: 100
+  _rageMeter: 0
+  _stunMeter: 0
+  _poisonMeter: 0
+  _animationHash: 1535168080
+  <States>k__BackingField: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
+  <Substate>k__BackingField: {fileID: 11400000, guid: 6aace7c0e0cc8f24f92d115031595586, type: 2}
+  <PreviousState>k__BackingField: {fileID: 0}

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   types: 0
   isLooping: 1
-  loopDuration: 15
-  numberOfSegments: 5
+  loopDuration: 10
+  numberOfSegments: 10
   numberOfShoot: 20
   projectileSpeed: 10
   delayBetweenShot: 0.15
