@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{fce6281c-4208-4854-96f0-ca64d01b392b}">
+		<property name="name">
+			<value>SFX_Reimu_Event</value>
+		</property>
+		<relationship name="folder">
+			<destination>{de38aa51-e0d8-462f-aafc-ed61e73ac571}</destination>
+		</relationship>
+	</object>
+</objects>

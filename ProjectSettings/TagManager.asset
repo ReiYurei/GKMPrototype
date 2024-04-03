@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Optimize
+  - Hitbox
+  - Hurtbox
+  - Parrybox
   layers:
   - Default
   - TransparentFX

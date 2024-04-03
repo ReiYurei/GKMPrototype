@@ -1,0 +1,258 @@
+fileFormatVersion: 2
+guid: 1c0f995fb50a7cb4bb3e36e28167a4b2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis
+        Portraits_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2333
+        width: 737
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 167b99803d398654cbd5ae73d952237c
+      internalID: -1986865969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis
+        Portraits_1
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 2333
+        width: 737
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ebfc99e961b2a64bb7abd9beab894a5
+      internalID: -2034579475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis
+        Portraits_2
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 2333
+        width: 737
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cd4c1e7e69cb024596b808f1e640b57
+      internalID: 84910175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis
+        Portraits_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1650
+        width: 713
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f4794d9591269646a99f1100515ed7e
+      internalID: -2138987108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis
+        Portraits_4
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 1650
+        width: 713
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889a5e94bf261674588bf5c6981c5439
+      internalID: 1246291139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis
+        Portraits_5
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 1650
+        width: 711
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1760a1f6ae24ed1478ec2c53220e5bbf
+      internalID: -491289634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_0: -1986865969
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_1: -2034579475
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_10: -628376504
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_11: -1474953239
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_2: 84910175
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_3: -2138987108
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_4: 1246291139
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_5: -491289634
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_6: 1914235672
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_7: -146632543
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_8: -298152365
+      PC Computer - Touhou Hyouibana Antinomy of Common Flowers - Reimu Hakureis Portraits_9: -360909701
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class BaseStatusEffect : ScriptableObject
 {
-    public abstract IEnumerator ApplyEffect(StatusEffectContainer container, EnemyStatus status);
+    public abstract IEnumerator ApplyEffect(StatusEffectContainer container, SO_EnemyStatus status);
 
 }

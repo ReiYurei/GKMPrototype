@@ -7,7 +7,7 @@ public class StatusEffectContainer : MonoBehaviour
     public HashSet<BaseStatusEffect> appliedStatuses { get;private set; }
     [Header("READ ONLY PROPERTIES")]
     [SerializeField] private Enemy _enemy;
-    [SerializeField] private EnemyStatus _status;
+    [SerializeField] private SO_EnemyStatus _status;
 
     [Header("Main Field")]
     [Header("Enemy Self-inflicting Status")]
@@ -16,8 +16,6 @@ public class StatusEffectContainer : MonoBehaviour
     [InlineEditor][Required][SerializeField]private SO_Poison _poison;
     [InlineEditor][Required][SerializeField]private SO_Break _breakStatus;
 
-    [Header("Event Listener")]
-    [SerializeField]private List<EventListener> _eventListener;
 
     private void Start()
     {
@@ -33,7 +31,7 @@ public class StatusEffectContainer : MonoBehaviour
             if (component == null)
             {
                 Debug.LogError($"{this.GetType()} : Component type of {typeof(Enemy)} not found! " +
-                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(EnemyStatus)}");
+                    $"Please atleast provide a component type of  {typeof(Enemy)} or fill the status data with {typeof(SO_EnemyStatus)}");
                 return;
             }
             _enemy = component;

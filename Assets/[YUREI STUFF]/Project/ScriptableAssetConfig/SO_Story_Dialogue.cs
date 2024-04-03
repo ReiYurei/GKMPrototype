@@ -8,11 +8,9 @@ public class SO_Story_Dialogue : ScriptableObject
 {
     public string eventName;
     public List<Dialogue> dialogue = new List<Dialogue>();
-
-    public SO_Story_Dialogue(string name, List<Dialogue> dialogues) 
-    { 
-        eventName = name;
-        dialogue = dialogues;
+    public SO_Story_Dialogue(string eventName, List<Dialogue> dialogue) 
+    {
+        this.eventName = eventName;
+        this.dialogue = dialogue;
     }
-    
 }

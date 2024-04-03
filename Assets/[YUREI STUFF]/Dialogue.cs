@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Dialogue
+public class Dialogue 
 {
-    public CharacterID _characterID;
-    public ExpressionID _expressionID;
-    [Space(15)]
+    [field: Header("Left Talker")]
+    [field: SerializeField]public CharacterID CharacterLeft { get; private set; }
+    [field: SerializeField] public ExpressionID InitialExpressionLeft { get; private set; }
 
-    public string _speakerName;
-    [TextArea(3, 10)] public string _speechText;
-    
+    [field: Header("Right Talker")]
+    [field: SerializeField] public CharacterID CharacterRight { get; private set; }
+    [field: SerializeField] public ExpressionID InitialExpressionRight { get; private set; }
 
-    public Dialogue(string speakerName, string speechText, CharacterID characterID, ExpressionID expressionID)
+    [field: Header("Active Talker")]
+    [field: SerializeField] public ActiveTalker ActiveSpeaker { get; private set; }
+
+    [field: SerializeField][field: Space(15)] public string SpeakerName { get; private set; }
+    [field: SerializeField][field: TextArea(3, 15)] public string SpeechText { get; private set; }
+
+
+
+    public void SetDialogue(CharacterID charLeft, ExpressionID expressionLeft, CharacterID charRight, ExpressionID expressionRight,ActiveTalker activeSpeaker, string name, string speech)
     {
-        _speakerName = speakerName;
-        _speechText = speechText;
-        _characterID = characterID;
-        _expressionID = expressionID;
+        CharacterLeft = charLeft; 
+        CharacterRight = charRight;
+        InitialExpressionLeft = expressionLeft;
+        InitialExpressionRight = expressionRight;
+        ActiveSpeaker = activeSpeaker;
+        SpeakerName = name;
+        SpeechText = speech;
     }
 }
 
@@ -27,13 +38,23 @@ public static class ResourcePath
 {
     public static string GetSpritePath(CharacterID character, ExpressionID expression)
     {
+        if (character == CharacterID.None)
+        {
+            string defaultPath = $"Sprite/Potrait/Default/Default";
+            return defaultPath;
+        }
         string path = $"Sprite/Potrait/{character.ToString()}/{character.ToString()}_{expression.ToString()}";
         return path;
     }
     public static Sprite GetSprite(string path)
     {
         var sprite = Resources.Load<Sprite>(path);
-        return sprite;
+        if (sprite != null)
+        {
+            return sprite;
+        }
+        Debug.LogWarning("SPRITE NOT FOUND");
+        return null;
     }
 }
 

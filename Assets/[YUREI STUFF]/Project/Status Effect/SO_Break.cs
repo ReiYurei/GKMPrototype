@@ -8,7 +8,7 @@ public class SO_Break : BaseStatusEffect
     [SerializeField] private float breakAnimSpeed;
     [SerializeField] private float duration;
     private float time;
-    public override IEnumerator ApplyEffect(StatusEffectContainer container, EnemyStatus status)
+    public override IEnumerator ApplyEffect(StatusEffectContainer container, SO_EnemyStatus status)
     {
         time = duration;
         time -= Time.deltaTime;

@@ -1332,6 +1332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StatusData>k__BackingField: {fileID: 0}
+  <EnemyAudioCollection>k__BackingField: {fileID: 0}
   <EnemyAnimatorComponent>k__BackingField: {fileID: 0}
   <EnemyBehaviourComponent>k__BackingField: {fileID: 0}
   <StatusEffectContainerComponent>k__BackingField: {fileID: 0}
@@ -1395,7 +1396,6 @@ MonoBehaviour:
   _stun: {fileID: 0}
   _poison: {fileID: 0}
   _breakStatus: {fileID: 0}
-  _eventListener: []
 --- !u!114 &458429153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1586,9 +1586,9 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
-  - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1596,14 +1596,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &519420029
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
 --- !u!114 &519420030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1680,7 +1672,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 34
   orthographic: 1
   orthographic size: 5.25
@@ -1729,6 +1721,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 519420031}
   camBox: {fileID: 182348814}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 519420028}
 --- !u!1 &650095003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,7 +2173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listeners: []
+  _listeners: []
 --- !u!61 &692433763
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8911,6 +8916,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1483101798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1483101799}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1483101799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483101798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.2043662, y: 1.8003, z: -0.016218154}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1664435196
 GameObject:
   m_ObjectHideFlags: 0
@@ -10108,6 +10144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StatusData>k__BackingField: {fileID: 11400000, guid: 8802ab853ec4fc04093784b3c6b5dc45, type: 2}
+  <EnemyAudioCollection>k__BackingField: {fileID: 11400000, guid: 695e55bdaecd89e4dbdfece614b736e2, type: 2}
   <EnemyAnimatorComponent>k__BackingField: {fileID: 9106067401345247721}
   <EnemyBehaviourComponent>k__BackingField: {fileID: 4892977269222937264}
   <StatusEffectContainerComponent>k__BackingField: {fileID: 7990694096294616053}
@@ -10548,7 +10585,7 @@ GameObject:
   - component: {fileID: 1919375769194749499}
   m_Layer: 0
   m_Name: Hurtbox
-  m_TagString: Untagged
+  m_TagString: Hurtbox
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10684,7 +10721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listeners:
+  _listeners:
   - gameEvent: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
     response:
       m_PersistentCalls:
@@ -11247,7 +11284,7 @@ GameObject:
   - component: {fileID: 8946310008040835879}
   m_Layer: 0
   m_Name: Parrybox
-  m_TagString: Untagged
+  m_TagString: Parrybox
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11646,7 +11683,6 @@ MonoBehaviour:
   _stun: {fileID: 11400000, guid: 6103718d4ca891b4aa0fe5f74b05c6c7, type: 2}
   _poison: {fileID: 11400000, guid: 24e5ee195c6367545b57686cd7b722a9, type: 2}
   _breakStatus: {fileID: 11400000, guid: 64499b1fcea88d446927510c0c03f93d, type: 2}
-  _eventListener: []
 --- !u!61 &8012897158616195442
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11926,8 +11962,8 @@ MonoBehaviour:
   _status: {fileID: 0}
   _playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
   _projectileEvent:
-  - key: Seal Spread
-    gameEvent: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
+  - <Key>k__BackingField: Seal Spread
+    <GameEvent>k__BackingField: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -11943,3 +11979,4 @@ SceneRoots:
   - {fileID: 692433761}
   - {fileID: 1435860866}
   - {fileID: 822868961}
+  - {fileID: 1483101799}

@@ -21,7 +21,7 @@ public class SO_Enemy_States : ScriptableObject
         yield return enemy.EnemyBehaviourComponent.StartCoroutine(_subStates[subState].Execute(enemy));
 
     }
-    public void SetAnimation(EnemyStatus status, int subState)
+    public void SetAnimation(SO_EnemyStatus status, int subState)
     {
         status.SetAnimationHashAndNotify(GetAnimation(subState));
     }

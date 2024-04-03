@@ -16,7 +16,7 @@ public class DEBUGGING : MonoBehaviour
     public GameObject poisonIcon;
     public GameObject stunIcon;
     public GameObject breakIcon;
-    public EnemyStatus enemyStatus;
+    public SO_EnemyStatus enemyStatus;
     public Enemy enemy;
     public bool limitFramerate;
     public int FrameRate;
@@ -107,19 +107,36 @@ public class DEBUGGING : MonoBehaviour
 
     }
 
-    public void GainPoison(EnemyStatus status)
+    public void GainPoison(SO_EnemyStatus status)
     {
         status.AffectPoison(20f);
     }
-    public void GainStun(EnemyStatus status)
+    public void GainStun(SO_EnemyStatus status)
     {
         status.AffectStun(20f);
     }
-    public void GainRage(EnemyStatus status)
+    public void GainRage(SO_EnemyStatus status)
     {
         status.AffectRage(100f);
     }
- 
-    
+
+
+    public SO_QuestData data;
+    [ContextMenu("Quest Test")]
+    public void Test()
+    {
+        Debug.Log(data.quest.questName);
+        Debug.Log(data.quest.questDesc);
+        Debug.Log(data.rewards.Count);
+        //for(int i = 0; i < data.rewards.Count; i++)
+        //{
+        //    if (data.rewards[i] is MoneyReward)
+        //    {
+        //        var x = (MoneyReward)data.rewards[i];
+        //        Debug.Log(x.amount);
+        //    }
+        //}
+        //wqow
+    }
 }
 

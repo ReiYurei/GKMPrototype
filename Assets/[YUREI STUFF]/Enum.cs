@@ -24,13 +24,22 @@ public enum ProjectileSlot
 {
     Default, Projectile_1, Projectile_2, Projectile_3, Projectile_4, Projectile_5,
 }
-
-
+public enum GameState
+{
+    Overworld, Gameplay, Cutscene
+}
+[System.Serializable]
 public enum CharacterID
 {
-    Default,
+    None, MC, Dummy1, Dummy2
 }
+[System.Serializable]
 public enum ExpressionID
 {
-    Default, Neutral
+    Default, Neutral, Happy, Laugh, Smile ,Angry, Despised, Sad, Pensive, Shocked, Confused
+}
+[System.Serializable]
+public enum ActiveTalker
+{
+    None,Left,Right,Both
 }

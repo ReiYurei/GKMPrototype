@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MasterTagFolder" id="{b08bf122-1f7c-4b2b-ba9e-1c8b996d64c9}">
+		<property name="name">
+			<value>Master</value>
+		</property>
+		<relationship name="items">
+			<destination>{8b18520b-7fae-4a77-918b-8e6810c24541}</destination>
+		</relationship>
+	</object>
+	<object class="Tag" id="{8b18520b-7fae-4a77-918b-8e6810c24541}">
+		<property name="name">
+			<value>ReimuSFX</value>
+		</property>
+	</object>
+</objects>
