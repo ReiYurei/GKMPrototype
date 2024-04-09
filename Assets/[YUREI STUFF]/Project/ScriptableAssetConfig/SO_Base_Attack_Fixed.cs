@@ -23,11 +23,11 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
     {
         if (this is SO_Projectile_Attack_Standing)
         {
-            isProjectile = true;
+            _isProjectile = true;
         }
         else
         {
-            isProjectile = false;
+            _isProjectile = false;
         }
         overriddenClip = GetAnimationClipByHash(controller, AnimationHash.Enemy_Attack((int)power, (int)range));
             clipName = overriddenClip != null ? overriddenClip.name : "Animation Clip Not Found";
@@ -48,12 +48,12 @@ public abstract class SO_Base_Attack_Fixed : SO_Enemy_Substate
         return null;
     }
 #endif
-    bool isProjectile;
+    bool _isProjectile;
     [Space(15)]
     [Header("Main Properties")]
-    [ShowIf(nameof(isProjectile), true)] public ProjectileSlot projectile;
-    [HideIf(nameof(isProjectile), true)]public AttackPowerType power;
-    [HideIf(nameof(isProjectile), true)] public AttackRangeType range;
+    [ShowIf(nameof(_isProjectile), true)] public ProjectileSlot projectile;
+    [HideIf(nameof(_isProjectile), true)] public AttackPowerType power;
+    [HideIf(nameof(_isProjectile), true)] public AttackRangeType range;
     protected Vector3 target;
     public int motionValue;
     protected int index = 0;

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using System;
 using Unity.EditorCoroutines.Editor;
+using UnityEditor.Rendering;
+using UnityEngine.UIElements;
+
+
 #if UNITY_EDITOR
 
 using UnityEngine;
@@ -41,6 +45,7 @@ public class DialogueEditor : EditorWindow
     Rect editorNameSection;
     Rect editorSpeechTextSection;
     Rect editorActiveTalkerSection;
+    Rect editorEventSection;
 
     Rect buttonOffset;
     Rect buttonNextSection;
@@ -64,11 +69,19 @@ public class DialogueEditor : EditorWindow
 
     ActiveTalker activeTalker = ActiveTalker.Left;
 
-    List<Dialogue> localDialogues = new(1);
+    string keyVoid;
+    SO_VoidGameEvent voidEvent;
+
+    string keyParam;
+    SO_ParameterGameEvent paramEvent;
+
+    VoidGameEventWithKey<string> voidEventKey;
+    ParameterGameEventWithKey<string> paramEventKey;
+    List<Dialogue> localDialogues;
     string eventName;
     string speakerName;
     string speechText;
-
+    bool autoSkipAtEnd;
     string tmText;
     float speed;
     string previewText;
@@ -76,6 +89,7 @@ public class DialogueEditor : EditorWindow
     int subCounter;
     int visibleCounter;
 
+    static bool autoLoadSO = false;
     static bool autoSaveToLocal = true;
     int index = 0;
 
@@ -84,19 +98,21 @@ public class DialogueEditor : EditorWindow
 
 
     TextMeshProUGUI tmp;
-    static SO_Story_Dialogue dialogueData;
+    SO_StoryDialogue dialogueData;
 
     [MenuItem("Tools/Dialogue Editor")]
     static void OpenWindow()
     {
         DialogueEditor window = (DialogueEditor)GetWindow(typeof(DialogueEditor));
-        window.minSize = new Vector2(650, 800);
+        window.minSize = new Vector2(650, 900);
         window.Show();
     }
     private void OnEnable()
     {
         index = 0;
+        localDialogues = new(1);
         InitTexture();
+        InitProperty();
     }
 
     private void OnGUI()
@@ -104,8 +120,10 @@ public class DialogueEditor : EditorWindow
         InitTextureFromSprite();      
         DrawLayout();
         EditorLayout();
+        EventLayout();
         ButtonLayout();
-        ConfigButton();
+        ConfigButtonLayout();
+        AutoloadSO();
     }
 
     private void InitTexture()
@@ -140,7 +158,10 @@ public class DialogueEditor : EditorWindow
     }
     private void InitProperty()
     {
+        voidEventKey = new VoidGameEventWithKey<string>();
+        paramEventKey = new ParameterGameEventWithKey<string>();
 
+        
     }
     private void DrawLayout()
     {
@@ -163,10 +184,58 @@ public class DialogueEditor : EditorWindow
         EditorActiveTalkerLayout();
         GUILayout.EndArea();
     }
+    private void EventLayout()
+    {
+        editorEventSection.x = 0;
+        editorEventSection.y = 595;
+        editorEventSection.width = Screen.width;
+        editorEventSection.height = 45;
+
+        var customStyle2 = new GUIStyle(EditorStyles.label);
+        customStyle2.alignment = TextAnchor.UpperLeft;
+
+        GUILayoutOption[] customLayout = new GUILayoutOption[]
+        {
+            GUILayout.Width(35),
+        };
+        GUILayoutOption[] customLayout2 = new GUILayoutOption[]
+        {
+              GUILayout.Width(50),
+        };
+        GUILayoutOption[] customLayout3 = new GUILayoutOption[]
+     {
+              GUILayout.Width(150),
+     };
+        GUILayout.BeginArea(editorEventSection);
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("Void Game Event", customStyle2);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Key", customLayout);
+        keyVoid = EditorGUILayout.TextField(keyVoid, customLayout2);
+        voidEvent = (SO_VoidGameEvent)EditorGUILayout.ObjectField(voidEvent, typeof(SO_VoidGameEvent), true, customLayout3);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("Param Game Event", customStyle2);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Key", customLayout);
+        keyParam = EditorGUILayout.TextField(keyParam, customLayout2);
+        paramEvent = (SO_ParameterGameEvent)EditorGUILayout.ObjectField(paramEvent, typeof(SO_ParameterGameEvent), true, customLayout3);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
+        GUILayout.EndArea();
+    }
+
     private void ButtonLayout()
     {
         buttonOffset.x = 0;
-        buttonOffset.y = 600;
+        buttonOffset.y = editorEventSection.y + editorEventSection.height;
         buttonOffset.width = Screen.width;
         buttonOffset.height = 50;
         //GUI.DrawTexture(buttonOffset, headerDebugTex);
@@ -177,19 +246,28 @@ public class DialogueEditor : EditorWindow
 
 
     }
-    private void ConfigButton()
+    private void ConfigButtonLayout()
     {
         configButtonSection.x = 0;
         configButtonSection.y = buttonOffset.y + buttonOffset.height;
         configButtonSection.width = Screen.width;
         configButtonSection.height = 265;
+
+
         GUILayout.BeginArea(configButtonSection);
+
+ 
         //tmp = (TextMeshProUGUI)EditorGUILayout.ObjectField(tmp, typeof(TextMeshProUGUI), true);
-        dialogueData = (SO_Story_Dialogue)EditorGUILayout.ObjectField(dialogueData, typeof(SO_Story_Dialogue), true);
+        dialogueData = (SO_StoryDialogue)EditorGUILayout.ObjectField(dialogueData, typeof(SO_StoryDialogue), true);
         eventName = EditorGUILayout.TextField("Event Name", eventName);
         path = EditorGUILayout.TextField("Objects Path", path);
-        autoSaveToLocal = EditorGUILayout.Toggle("Autosave to Local", autoSaveToLocal);
-       //if (GUILayout.Button("Read Dialogue")) { Read(); GUI.FocusControl(null); }
+
+        GUILayout.BeginHorizontal();
+        autoSaveToLocal = EditorGUILayout.Toggle("Auto-Save Local data", autoSaveToLocal);
+        //autoLoadSO = EditorGUILayout.Toggle("Auto-Load SO data", autoLoadSO);
+        GUILayout.EndHorizontal();
+
+        //if (GUILayout.Button("Read Dialogue")) { Read(); GUI.FocusControl(null); }
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Save Changes to SO")) { SaveEditToSO(); GUI.FocusControl(null); }
         if (GUILayout.Button("Save Changes to Local")) { SaveLocalEdit(); GUI.FocusControl(null); }
@@ -396,7 +474,10 @@ public class DialogueEditor : EditorWindow
     private void SaveLocalEdit()
     {
         if (localDialogues.Count <= 0) return;
-        var data = localDialogues[index];
+      
+        var data = localDialogues[index];       
+        data.VoidGameEvent.SetValue(keyVoid, voidEvent);
+        data.ParameterGameEvent.SetValue(keyParam, paramEvent);
         var info1 = characterLeft;
         var info2 = characterRight;
         var info3 = expressionLeft;
@@ -404,11 +485,14 @@ public class DialogueEditor : EditorWindow
         var info5 = speakerName;
         var info6 = speechText;
         var info7 = activeTalker;
-        data.SetDialogue(info1, info3, info2, info4, info7, info5, info6);
+        var info8 = autoSkipAtEnd;
+        var info9 = voidEventKey;
+        var info10 = paramEventKey;
+        data.SetDialogue(info1, info3, info2, info4, info7, info5, info6,info8,info9,info10);
     }
     private void ShowData()
     {
-        if (localDialogues.Count <= 0) return;
+        if (localDialogues.Count <= 1) return;
         var data = localDialogues[index];
         characterLeft = data.CharacterLeft; 
         characterRight = data.CharacterRight;
@@ -417,6 +501,16 @@ public class DialogueEditor : EditorWindow
         activeTalker = data.ActiveSpeaker;
         speakerName = data.SpeakerName;
         speechText = data.SpeechText;
+        autoSkipAtEnd = data.AutoSkipAtEnd;
+
+        voidEventKey = data.VoidGameEvent;
+        keyVoid = voidEventKey.Key;
+        voidEvent = voidEventKey.GameEvent;
+
+        paramEventKey = data.ParameterGameEvent;
+        keyParam = paramEventKey.Key;
+        paramEvent = paramEventKey.GameEvent;
+
         InitTextureFromSprite();
         if (dialogueData == null) return;
         eventName = dialogueData.eventName;
@@ -425,7 +519,10 @@ public class DialogueEditor : EditorWindow
     {
         if (autoSaveToLocal) SaveLocalEdit();
         localDialogues.Add(new Dialogue());
+        voidEventKey = new();
+        paramEventKey = new();
         index = localDialogues.Count-1;
+        
         ShowData();
     }
     private void InsertPage()
@@ -460,10 +557,19 @@ public class DialogueEditor : EditorWindow
             var info5 = data[i].SpeakerName;
             var info6 = data[i].SpeechText;
             var info7 = data[i].ActiveSpeaker;
-            localDialogues[i].SetDialogue(info1, info3,info2,info4,info7,info5,info6);
+            var info8 = data[i].AutoSkipAtEnd;
+            var info9 = data[i].VoidGameEvent;
+            var info10 = data[i].ParameterGameEvent;
+            localDialogues[i].SetDialogue(info1, info3,info2,info4,info7,info5,info6, info8,info9,info10);
         }
         ShowData();
 
+    }
+    private void AutoloadSO()
+    {
+        if(!autoLoadSO) return;
+        if(dialogueData != null) return;
+        LoadData();
     }
     private void SaveEditToSO()
     {
@@ -498,14 +604,20 @@ public class DialogueEditor : EditorWindow
             var info5 = localDialogues[i].SpeakerName;
             var info6 = localDialogues[i].SpeechText;
             var info7 = localDialogues[i].ActiveSpeaker;
-            data[i].SetDialogue(info1, info3, info2, info4, info7, info5, info6);
+            var info8 = localDialogues[i].AutoSkipAtEnd;
+            var info9 = localDialogues[i].VoidGameEvent;
+            var info10 = localDialogues[i].ParameterGameEvent;
+            data[i].SetDialogue(info1, info3, info2, info4, info7, info5, info6, info8, info9, info10);
         }
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
         ShowData();
         
     }
     private void CreateNew()
     {
-        SO_Story_Dialogue newObject = ScriptableObject.CreateInstance<SO_Story_Dialogue>();
+        SO_StoryDialogue newObject = ScriptableObject.CreateInstance<SO_StoryDialogue>();
         newObject.eventName = new string(eventName);
         newObject.dialogue = new List<Dialogue>(localDialogues);
         AssetDatabase.CreateAsset(newObject, $"{path}/{eventName}.asset");
@@ -524,10 +636,16 @@ public class DialogueEditor : EditorWindow
         pageAreaSection.y = 0;
         pageAreaSection.width = 100;
         pageAreaSection.height = 35;
-
+        var customStyle = new GUIStyle(EditorStyles.label);
+        customStyle.richText = true;
         //GUI.DrawTexture(pageAreaSection, charPreviewTex);
         GUILayout.BeginArea(pageAreaSection);
         EditorGUILayout.LabelField("Page");
+        if (localDialogues.Count <= 0)
+        {
+            //EditorGUILayout.LabelField($"<color=yellow>{tabIndex} / {localDialogues.Count}</color>", customStyle);
+            localDialogues.Add(new Dialogue());
+        }
         EditorGUILayout.LabelField($"{index + 1} / {localDialogues.Count}");
 
         GUILayout.EndArea();
@@ -615,16 +733,17 @@ public class DialogueEditor : EditorWindow
         editorCharacterRightSection.width = editorCharacterLeftSection.width;
         editorCharacterRightSection.height = editorCharacterLeftSection.height;
         //GUI.DrawTexture(editorCharacterRightSection, previewDebugTex);
-
+        var customStyle = new GUIStyle(EditorStyles.label);
+        customStyle.alignment = TextAnchor.UpperCenter;
         GUILayout.BeginArea(editorCharacterLeftSection);
-        EditorGUILayout.LabelField("Character");
+        EditorGUILayout.LabelField("Character", customStyle);
         characterLeft = (CharacterID)EditorGUILayout.EnumPopup(characterLeft);
         EditorExpressionLeftLayout();
         GUILayout.EndArea();
 
 
         GUILayout.BeginArea(editorCharacterRightSection);
-        EditorGUILayout.LabelField("Character");
+        EditorGUILayout.LabelField("Character", customStyle);
         characterRight = (CharacterID)EditorGUILayout.EnumPopup(characterRight);
         EditorExpressionRightLayout();
         GUILayout.EndArea();
@@ -636,9 +755,10 @@ public class DialogueEditor : EditorWindow
         expressionLeftSection.width = editorCharacterLeftSection.width;
         expressionLeftSection.height = editorCharacterLeftSection.height / 2;
         //GUI.DrawTexture(expressionLeftSection, speechTextDebugTex);
-    
+        var customStyle = new GUIStyle(EditorStyles.label);
+        customStyle.alignment = TextAnchor.UpperCenter;
         GUILayout.BeginArea(expressionLeftSection);
-        EditorGUILayout.LabelField("Expression");
+        EditorGUILayout.LabelField("Initial Expression", customStyle);
         expressionLeft = (ExpressionID)EditorGUILayout.EnumPopup(expressionLeft);
         GUILayout.EndArea();
 
@@ -651,9 +771,10 @@ public class DialogueEditor : EditorWindow
         expressionRightSection.width = editorCharacterRightSection.width;
         expressionRightSection.height = editorCharacterRightSection.height/2;
         //GUI.DrawTexture(expressionRightSection, speechTextDebugTex);
-
+        var customStyle = new GUIStyle(EditorStyles.label);
+        customStyle.alignment = TextAnchor.UpperCenter;
         GUILayout.BeginArea(expressionLeftSection);
-        EditorGUILayout.LabelField("Expression");
+        EditorGUILayout.LabelField("Initial Expression", customStyle);
         expressionRight = (ExpressionID)EditorGUILayout.EnumPopup( expressionRight);
         GUILayout.EndArea();
 
@@ -673,8 +794,20 @@ public class DialogueEditor : EditorWindow
             GUILayout.Width(150),
         };
         GUILayout.BeginArea(editorNameSection);
+
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("Name");
-        speakerName = EditorGUILayout.TextField(speakerName, customStyle,layout);
+        speakerName = EditorGUILayout.TextField(speakerName, customStyle, layout);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("Auto-skip line");
+        autoSkipAtEnd = EditorGUILayout.Toggle(autoSkipAtEnd);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
         GUILayout.EndArea();
 
 
@@ -695,6 +828,7 @@ public class DialogueEditor : EditorWindow
         EditorGUILayout.LabelField("Speech Text");
         speechText = EditorGUI.TextArea(rect,speechText, customStyle);
         previewText = TrimTag();
+
         GUILayout.EndArea();
     }
     private void EditorActiveTalkerLayout()
@@ -750,35 +884,38 @@ public class DialogueEditor : EditorWindow
         //GUI.Label(rect, "PREVIEW AREA", customStyleBold);
         GUILayout.EndArea();
     }
-
     private void ActiveSpeaker()
     {
         Rect rectLeft = new Rect(15, previewSection.y, 300, 200);
-        Rect rectRight = new Rect(Screen.width - 330, previewSection.y,300,200);   
+        Rect rectRight = new Rect(Screen.width - 330, previewSection.y,300,200);
+        var customStyle = new GUIStyle(EditorStyles.label);
+        customStyle.alignment = TextAnchor.UpperRight;
+        var customStyle2 = new GUIStyle(EditorStyles.label);
+        customStyle2.alignment = TextAnchor.UpperLeft;
         switch (activeTalker)
         {
             case ActiveTalker.None:
                 if (charLeftTex != null)
                 {
                     GUI.DrawTexture(rectLeft, charInactiveTex);
-                    EditorGUI.LabelField(rectLeft, "Inactive");
+                    EditorGUI.LabelField(rectLeft, "Inactive", customStyle2);
 
                 }
                 if (charRightTex != null)
                 {
                     GUI.DrawTexture(rectRight, charInactiveTex);
-                    EditorGUI.LabelField(rectRight, "Inactive");
+                    EditorGUI.LabelField(rectRight, "Inactive", customStyle);
                 }
                 break;
             case ActiveTalker.Left:
                 if (charLeftTex != null)
                 {
-                    EditorGUI.LabelField(rectLeft, "Active");
+                    EditorGUI.LabelField(rectLeft, "Active", customStyle2);
                 }
                 if (charRightTex != null)
                 {
                     GUI.DrawTexture(rectRight, charInactiveTex);
-                    EditorGUI.LabelField(rectRight, "Inactive");
+                    EditorGUI.LabelField(rectRight, "Inactive", customStyle);
 
                 }
                 break;
@@ -786,27 +923,26 @@ public class DialogueEditor : EditorWindow
                 if (charLeftTex != null)
                 {
                     GUI.DrawTexture(rectLeft, charInactiveTex);
-                    EditorGUI.LabelField(rectLeft, "Inactive");
+                    EditorGUI.LabelField(rectLeft, "Inactive", customStyle2);
 
                 }
                 if (charRightTex != null)
                 {
-                    EditorGUI.LabelField(rectRight, "Active");
+                    EditorGUI.LabelField(rectRight, "Active", customStyle);
                 }
                 break;
             case ActiveTalker.Both:
                 if (charLeftTex != null)
                 {
-                    EditorGUI.LabelField(rectLeft, "Active");
+                    EditorGUI.LabelField(rectLeft, "Active", customStyle2);
                 }
                 if (charRightTex != null)
                 {
-                    EditorGUI.LabelField(rectRight, "Active");
+                    EditorGUI.LabelField(rectRight, "Active", customStyle);
                 }
                 break;
         }
     }
-
     private void CharacterLeftLayout()
     {
 
@@ -931,11 +1067,11 @@ public class DialogeMaker : EditorWindow
     public string path;
 
 
-    SO_Story_Dialogue obj;
+    SO_StoryDialogue obj;
 
     private void OnEnable()
     {
-        obj = ScriptableObject.CreateInstance<SO_Story_Dialogue>();
+        obj = ScriptableObject.CreateInstance<SO_StoryDialogue>();
         serializedObject = new SerializedObject(obj);
         m_dialogues = serializedObject.FindProperty("dialogue");
         m_eventName = serializedObject.FindProperty("eventName");
@@ -987,7 +1123,7 @@ public class DialogeMaker : EditorWindow
     }
     private void CreateObjects()
     {
-        SO_Story_Dialogue newObject = ScriptableObject.CreateInstance<SO_Story_Dialogue>();
+        SO_StoryDialogue newObject = ScriptableObject.CreateInstance<SO_StoryDialogue>();
         newObject.eventName = obj.eventName;
         newObject.dialogue = obj.dialogue;
         AssetDatabase.CreateAsset(newObject, $"{path}/{obj.eventName}.asset");

@@ -13,25 +13,44 @@ MonoBehaviour:
   m_Name: Enemy Status
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  currentHealth: 100
+  currentHealth: {fileID: 11400000, guid: b1efe98cc10385b44b1499fe8eb2b403, type: 2}
   _rawPower: 1
   _movementSpeed: 2
-  _enraged: {fileID: 11400000, guid: 3114648f34aa31a42af8714811751a6a, type: 2}
-  _stunned: {fileID: 11400000, guid: 032b460e4e415c64583c8d5febfe2ad3, type: 2}
-  _poisoned: {fileID: 11400000, guid: 7cdf13ded67bbe34f9a8b0d1cd3b8e3c, type: 2}
-  _break: {fileID: 11400000, guid: 939b5583fcb57854cbc2247ac9feaee7, type: 2}
-  _statusBuildUp: {fileID: 11400000, guid: 5f3320ff74af44e4f88af9a0185c832d, type: 2}
+  cannotRage: 0
+  <IsHalved>k__BackingField: 0
+  <IsAttacking>k__BackingField: 0
+  <IsShooting>k__BackingField: 0
+  <IsNextAttackReady>k__BackingField: 0
+  <IsMoving>k__BackingField: 0
+  <B_Enraged>k__BackingField: {fileID: 11400000, guid: 2ae5270723dd37842a7c9d1dc8c0bb26, type: 2}
+  <B_Stunned>k__BackingField: {fileID: 0}
+  <B_Poisoned>k__BackingField: {fileID: 0}
+  <B_Break>k__BackingField: {fileID: 0}
+  <B_StatusBuildUp>k__BackingField: {fileID: 0}
+  _enraged: 0
+  _poisoned: 0
+  _stunned: 0
+  _break: 0
+  _statusBuildUp: 0
   baseStamina: 100
   baseRageThreshold: 100
   baseStunThreshold: 100
   basePoisonThreshold: 100
-  _stamina: 100
-  baseDamageModifier: 1
-  baseWeakpointModifier: 1
-  baseWaitTime: 3
-  baseAnimationSpeed: 1
-  _rageMeter: {fileID: 11400000, guid: f1a4175df6cb89641a128bb99cc4f73a, type: 2}
-  _stunMeter: {fileID: 11400000, guid: f1352222af8961443891bf1ad2f788aa, type: 2}
-  _poisonMeter: {fileID: 11400000, guid: 2e6b235dc913dc949b6ca87b4cb1a4d8, type: 2}
-  states: {fileID: 11400000, guid: c7a3e4839ca195b43bf311db4e29ec8f, type: 2}
-  previousStates: {fileID: 11400000, guid: c7a3e4839ca195b43bf311db4e29ec8f, type: 2}
+  <BaseDamageModifier>k__BackingField: 0
+  <BaseWeakpointModifier>k__BackingField: 0
+  <BaseAnimationSpeed>k__BackingField: 0
+  <DamageModifier>k__BackingField: 0
+  <WeakpointModifier>k__BackingField: 0
+  <AnimationSpeed>k__BackingField: 0
+  <F_Stamina>k__BackingField: {fileID: 0}
+  <F_RageMeter>k__BackingField: {fileID: 0}
+  <F_StunMeter>k__BackingField: {fileID: 0}
+  <F_PoisonMeter>k__BackingField: {fileID: 0}
+  _staminaMeter: 0
+  _rageMeter: 0
+  _stunMeter: 0
+  _poisonMeter: 0
+  _animationHash: 0
+  <States>k__BackingField: {fileID: 0}
+  <Substate>k__BackingField: {fileID: 0}
+  <PreviousState>k__BackingField: {fileID: 0}

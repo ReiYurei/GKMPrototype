@@ -21,7 +21,7 @@ public class EnemyAnimator : MonoBehaviour
     [SerializeField]private SO_PlayerInfo _playerInfo;
 
     [Tooltip("Key and Event to store Game Event in dictionary")]
-    [SerializeField]private List<KeyGameEvent<string>> _projectileEvent;
+    [SerializeField]private List<VoidGameEventWithKey<string>> _projectileEvent;
     private Dictionary<string, SO_VoidGameEvent> _projectileDict;
 
     private Animator _animator;

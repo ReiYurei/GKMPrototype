@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 732be0253d70f6f49adc12e888f067aa, type: 3}
+  m_Name: Mission Data
+  m_EditorClassIdentifier: 
+  <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
+  <RequirementsToBeListed>k__BackingField: []
+  <MissionName>k__BackingField: Touhou - Exterminate
+  <AstralEntity>k__BackingField: {fileID: 4652478206531035968, guid: fdb1849febe9ff041868f32bcd73346b, type: 3}
+  <StageInfo>k__BackingField:
+    <Name>k__BackingField: Hill
+    <Description>k__BackingField: Bruh
+  <Rewards>k__BackingField:
+  - {fileID: 11400000, guid: 81e866f40048cce429b4098bdf21d2c5, type: 2}
+  _minimumRequirement: 0
+  _minCompleted: 0

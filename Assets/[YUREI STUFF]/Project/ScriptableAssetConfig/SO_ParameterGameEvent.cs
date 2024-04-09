@@ -7,7 +7,7 @@ public class SO_ParameterGameEvent : ScriptableObject
 {
     [SerializeField] private bool debug;
 
-    [SerializeField]private ScriptableObject _parameterType;
+    [field : SerializeField]public ScriptableObject ParameterType { get; private set; }
     [SerializeField]private List<PassParameterEventListener> _gameEvent = new List<PassParameterEventListener>();
     [Button("Raise Event")]
     public void Raise(GameObject parameter)
@@ -24,12 +24,12 @@ public class SO_ParameterGameEvent : ScriptableObject
         {
             for (int i = _gameEvent.Count - 1; i >= 0; i--)
             {
-                _gameEvent[i].OnEventRaised(_parameterType);
+                _gameEvent[i].OnEventRaised(ParameterType);
             }
             return;
         }
-        if (parameter == null && debug == false) return;
-        if (parameter.GetType() != _parameterType.GetType() && !debug) return;
+        if (parameter == null && !debug) return;
+        if (parameter.GetType() != ParameterType.GetType() && !debug) return;
        
         for (int i = _gameEvent.Count - 1; i >= 0; i--)
         {

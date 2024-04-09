@@ -120,23 +120,5 @@ public class DEBUGGING : MonoBehaviour
         status.AffectRage(100f);
     }
 
-
-    public SO_QuestData data;
-    [ContextMenu("Quest Test")]
-    public void Test()
-    {
-        Debug.Log(data.quest.questName);
-        Debug.Log(data.quest.questDesc);
-        Debug.Log(data.rewards.Count);
-        //for(int i = 0; i < data.rewards.Count; i++)
-        //{
-        //    if (data.rewards[i] is MoneyReward)
-        //    {
-        //        var x = (MoneyReward)data.rewards[i];
-        //        Debug.Log(x.amount);
-        //    }
-        //}
-        //wqow
-    }
 }
 

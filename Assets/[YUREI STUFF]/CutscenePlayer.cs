@@ -46,7 +46,7 @@ public class CutscenePlayer : MonoBehaviour
         }
     }
 }
-[TrackBindingType(typeof(SO_Story_Dialogue))]
+[TrackBindingType(typeof(SO_StoryDialogue))]
 [TrackClipType(typeof(DialogueClip))]
 public class DialogueTrack : TrackAsset
 {
@@ -67,7 +67,7 @@ public class DialogueMixer : PlayableBehaviour
     }
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
-        SO_Story_Dialogue data = playerData as SO_Story_Dialogue;
+        SO_StoryDialogue data = playerData as SO_StoryDialogue;
         for (int i = 0; i < inputCount; i++)
         {
             ScriptPlayable<DialogueBehaviour> inputPlayable = (ScriptPlayable<DialogueBehaviour>)playable.GetInput(i);

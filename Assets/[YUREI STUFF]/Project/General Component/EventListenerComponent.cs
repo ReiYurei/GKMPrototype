@@ -49,7 +49,9 @@ public class PassParameterEventListener
     TriValidationResult ValidateVariable()
     {
         if (gameEvent == null) return TriValidationResult.Info("GameEvent is currently null");
-        return TriValidationResult.Valid;
+        if(gameEvent.ParameterType == null) return TriValidationResult.Warning("Event has no Passing Parameter!");
+        var type = gameEvent.ParameterType.GetType().ToString();
+        return TriValidationResult.Info($"Passed Parameter : {type}");
     }
 
 }

@@ -25,9 +25,25 @@ public class SO_VoidGameEvent : ScriptableObject
     }
 }
 [System.Serializable]
-public class KeyGameEvent<T>
+public class VoidGameEventWithKey<T>
 {
     [field: SerializeField]public T Key { get; private set; }
     [field: SerializeField]public SO_VoidGameEvent GameEvent {  get; private set; }
+    public void SetValue(T key, SO_VoidGameEvent gameEvent)
+    {
+        Key = key;
+        GameEvent = gameEvent;
+    }
+}
+[System.Serializable]
+public class ParameterGameEventWithKey<T>
+{
+    [field: SerializeField] public T Key { get; private set; }
+    [field: SerializeField] public SO_ParameterGameEvent GameEvent { get; private set; }
 
+    public void SetValue(T key, SO_ParameterGameEvent gameEvent)
+    {
+        Key = key;
+        GameEvent = gameEvent;
+    }
 }

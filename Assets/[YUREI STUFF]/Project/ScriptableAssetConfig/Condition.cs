@@ -1,9 +1,6 @@
 ﻿using TriInspector;
-#if UNITY_EDITOR
-
-#endif
 [System.Serializable]
-public class Condition<T, U> where T : CustomVariable where U : CustomVariable
+public class Condition<T, U> where T : CustomVariable where U : CustomVariable //Used for statemachine
 {
     [ValidateInput(nameof(ValidateVariable))]
     public ComparatorType comparatorType;

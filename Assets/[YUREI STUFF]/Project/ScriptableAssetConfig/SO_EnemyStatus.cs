@@ -295,15 +295,15 @@ public class SO_EnemyStatus : BaseStatus
 #if UNITY_EDITOR //On Validate
     private void OnValidate()
     {
-        _enraged = B_Enraged.value;
-        _poisoned = B_Poisoned.value;
-        _stunned = B_Stunned.value;
-        _break = B_Break.value;
-        _statusBuildUp = B_StatusBuildUp.value;
-        _staminaMeter = F_Stamina.value;
-        _rageMeter = F_RageMeter.value;
-        _stunMeter = F_StunMeter.value;
-        _poisonMeter = F_PoisonMeter.value;
+        if(B_Enraged! != null) _enraged  = B_Enraged.value;
+        if (B_Poisoned! != null) _poisoned = B_Poisoned.value;
+        if (B_Stunned! != null) _stunned = B_Stunned.value;
+        if (B_Break! != null) _break = B_Break.value;
+        if (B_StatusBuildUp! != null)  _statusBuildUp = B_StatusBuildUp.value;
+        if (F_Stamina! != null) _staminaMeter = F_Stamina.value;
+        if (F_RageMeter! != null) _rageMeter = F_RageMeter.value;
+        if (F_StunMeter! != null)_stunMeter = F_StunMeter.value;
+        if (F_PoisonMeter! != null) _poisonMeter = F_PoisonMeter.value;
 
     }
 #endif

@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using TriInspector;
+using UnityEngine;
+#if UNITY_EDITOR
+
+#endif
+
+[System.Serializable]
+public class Requirement //Used for event type of data (i.e mission, _quest, Story)
+{
+    [field: SerializeField] public RequirementType Type { get;private set; }
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Quest)] private SO_QuestData _quest;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Mission)] private SO_MissionData mission;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Item)] private SO_QuestItem _item;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Item)] private SO_Inventory _inventory;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Story)] private SO_StoryData _story;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Fact)] private IntVariable _factVariable; 
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Fact)] private int _requiredAmount;
+    
+    public bool CheckRequirement(SO_CompletionObserver observer)
+    {
+        switch(Type)
+        {
+            case RequirementType.Quest:
+                return (observer.CheckQuestCompletion(_quest));
+            case RequirementType.Mission:
+                return (observer.CheckMissionCompletion(mission));
+            case RequirementType.Item:
+                return (_inventory.CheckQuestItem(_item));
+            case RequirementType.Story:
+                return(observer.CheckStoryCompletion(_story));
+            case RequirementType.Fact:
+                return (_factVariable.value >= _requiredAmount);
+        }
+        return false;
+    }
+    //Required for Observer to Contain a Certain Data
+    //Data can be a _quest, mission, BaseItem, or Integer of certain stuff as been met
+    //_quest and mission access Observer Completion data, and check whether or not it's contain this quest/mission
+    //BaseItem access Inventory and check whether or not it contain this BaseItem
+    //Integer check between 2 value whether or not the condition has been met, such as 3 times of doing x
+}
+public enum RequirementType
+{
+    Quest,Mission,Item,Story,Fact
+}

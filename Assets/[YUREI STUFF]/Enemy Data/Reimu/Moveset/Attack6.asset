@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 22100000, guid: 516adcbe9690f124e892ce2cd75cf09d, type: 2}
   baseController: {fileID: 9100000, guid: 55f70d92fca661344a754af6b14c5613, type: 2}
+  projectile: 0
   power: 2
   range: 3
   motionValue: 0

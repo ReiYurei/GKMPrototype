@@ -20,20 +20,72 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 2
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: Reimu
-    <SpeechText>k__BackingField: <speed=30><emotion=Neutral>Huh, As I thought. <pause=0.75>
-      <speed=20><color="red"><emotion=Happy>You</color> can't touch me
+    <SpeechText>k__BackingField: <speed=30><emotion=Neutral>Huh, As I thought.<pause=0.75>
+      <speed=20><color="red">Yo<emotion=Happy>u</color> are really a naive one!
+    <AutoSkipAtEnd>k__BackingField: 0
+    <VoidGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    <ParameterGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 1
+    <InitialExpressionLeft>k__BackingField: 2
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 9
     <ActiveSpeaker>k__BackingField: 2
     <SpeakerName>k__BackingField: Other Reimu
-    <SpeechText>k__BackingField: <speed=30>The <pause=0.5><b><size=26><emotion=Despised>FUCK</b></size>
+    <SpeechText>k__BackingField: The<pause=0.5><b><size=26>FU<emotion=Despised>CK</size></b>
       <pause=0.25>did <color=yellow>you </color>say?!
-  - <CharacterLeft>k__BackingField: 0
-    <InitialExpressionLeft>k__BackingField: 0
+    <AutoSkipAtEnd>k__BackingField: 0
+    <VoidGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    <ParameterGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 0
+    <InitialExpressionRight>k__BackingField: 6
+    <ActiveSpeaker>k__BackingField: 1
+    <SpeakerName>k__BackingField: Reimu
+    <SpeechText>k__BackingField: Oh, nothing.<pause=0.5><speed=75> Honestly, I just
+      wanted to know whether or not you're able to handle insult from a person that's
+      clearly better than y-
+    <AutoSkipAtEnd>k__BackingField: 1
+    <VoidGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    <ParameterGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 9
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 6
     <ActiveSpeaker>k__BackingField: 2
     <SpeakerName>k__BackingField: Other Reimu
-    <SpeechText>k__BackingField: Love blablabla
+    <SpeechText>k__BackingField: <b><size=40>SHUT UP!!</size></b>
+    <AutoSkipAtEnd>k__BackingField: 0
+    <VoidGameEvent>k__BackingField:
+      <Key>k__BackingField: test
+      <GameEvent>k__BackingField: {fileID: 11400000, guid: ce366284564e48f4eb1cfc537c45d3bf, type: 2}
+    <ParameterGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 9
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 2
+    <SpeakerName>k__BackingField: Other Reimu
+    <SpeechText>k__BackingField: <speed=20>Enough talking,<pause=0.4> Le<emotion=Smile>t's
+      just fight!
+    <AutoSkipAtEnd>k__BackingField: 0
+    <VoidGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    <ParameterGameEvent>k__BackingField:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}

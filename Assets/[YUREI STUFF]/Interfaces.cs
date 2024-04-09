@@ -22,3 +22,8 @@ public interface IStatusInflictable
     void OnStatusInflicted(float value, BaseStatusEffect effect);
 
 }
+
+public interface IInteractable
+{
+    public void OnInteract();
+}

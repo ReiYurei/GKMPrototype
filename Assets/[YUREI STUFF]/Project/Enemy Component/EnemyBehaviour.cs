@@ -8,7 +8,7 @@ using TriInspector;
 //- EnemyBehaviourComponent:
 //- Manages the behavior of an _enemy using State Machine.
 //- Controls dynamic and fixed state changes.
-//- Utilizes coroutines for state execution and timed actions.
+//- Utilizes coroutines for state execution and timed _actions.
 public class EnemyBehaviour : MonoBehaviour
 {
     [Header("READ ONLY PROPERTIES")]

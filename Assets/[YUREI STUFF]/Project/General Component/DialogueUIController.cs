@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+[RequireComponent(typeof(EventListenerComponent))]
 public class DialogueUIController : MonoBehaviour
 {
     public GameState gameState; //CHANGE TO SOMETHING LIKE SINGLETON
-    [field: SerializeField]public SO_Story_Dialogue DialogueData { get;private set; }
+    [field: SerializeField]public SO_StoryDialogue DialogueData { get;private set; }
     [field: SerializeField]public GameObject DialogueCanvas { get; private set; }
 
     [field: SerializeField]public Image LeftCharacter { get; private set; }
@@ -15,6 +16,8 @@ public class DialogueUIController : MonoBehaviour
 
     [field: SerializeField]public TMPro.TextMeshProUGUI SpeechText { get; private set; }
     [field: SerializeField]public TMPro.TextMeshProUGUI NameText { get; private set; }
+    [field: SerializeField]public SO_VoidGameEvent DialogueEndEvent { get; private set; }
+    [field: SerializeField] public float TextSpeed { get; private set; }
 
     private float speed = 20;
     private string tmText;
@@ -25,15 +28,15 @@ public class DialogueUIController : MonoBehaviour
 
     public void ReadText()
     {
-        textRevealed = false;
-        skippable = false;
+        speed = TextSpeed;
         tmText = "";
-        string[] subText = DialogueData.dialogue[dialogueIndex].SpeechText.Split('<', '>');
+        var data = DialogueData.dialogue[dialogueIndex];
+        string[] subText = data.SpeechText.Split('<', '>');
 #if UNITY_EDITOR //Foreach Debug
-        foreach (string sub in subText)
-        {
-            Debug.Log($"<color=yellow>{sub}</color> , <color=magenta>{sub.Length}</color>");
-        }
+       // foreach (string sub in subText)
+       // {
+       //     Debug.Log($"<color=yellow>{sub}</color> , <color=magenta>{sub.Length}</color>");
+       // }
 #endif
         
         for (int i = 0; i < subText.Length; i++)
@@ -49,7 +52,8 @@ public class DialogueUIController : MonoBehaviour
         }
         bool isCustomTag(string tag)
         {
-            return tag.StartsWith("speed=") || tag.StartsWith("pause=") || tag.StartsWith("emotion=") || tag.StartsWith("concurrent");
+            return tag.StartsWith("speed=") || tag.StartsWith("pause=") || tag.StartsWith("emotion=") || tag.StartsWith("concurrent") 
+                || tag.StartsWith("shake") || tag.StartsWith("event=");
         }
         SpeechText.text = tmText;
         SpeechText.maxVisibleCharacters = 0;
@@ -57,12 +61,13 @@ public class DialogueUIController : MonoBehaviour
    
         IEnumerator Read()
         {
-            skippable = true;
             int subCounter = 0;
             int visibleCounter = 0;
+
             while (subCounter < subText.Length)
             {
-                // if 
+
+
                 if (subCounter % 2 == 1)
                 {
                     yield return EvaluateTag(subText[subCounter].Replace(" ", ""));
@@ -81,11 +86,25 @@ public class DialogueUIController : MonoBehaviour
                     visibleCounter = 0;
                 }
                 subCounter++;
+                if (!data.AutoSkipAtEnd)
+                {
+                    skippable = true;
+                }
                 yield return null;
+
             }
-            skippable = true;
+            if (data.AutoSkipAtEnd)
+            {
+
+                textRevealed = true;
+                ForceSkipText();
+                yield break;
+
+            }
             textRevealed = true;
             ConfirmIcon.gameObject.SetActive(true);
+
+
             //Text End
             WaitForSeconds EvaluateTag(string tag)
             {
@@ -101,11 +120,27 @@ public class DialogueUIController : MonoBehaviour
                     }
                     else if (tag.StartsWith("emotion="))
                     {
-                        ShowPotrait((ExpressionID)Enum.Parse(typeof(ExpressionID), tag.Split('=')[1]));
+                        //Example <emotion=happy>
+                        var lowercase = tag.Split('=')[1].Substring(1, tag.Split('=')[1].Length -1).ToLower(); // return appy
+                        var uppercase = tag.Split('=')[1].Substring(0,1).ToUpper(); //return H
+                        var value = uppercase + lowercase; //H+appy
+                        ShowPotrait((ExpressionID)Enum.Parse(typeof(ExpressionID), value));
                         return null;
                     }
                     else if (tag.StartsWith("concurrent"))
                     {
+                        return null;
+                    }
+                    else if (tag.StartsWith("shake"))
+                    {
+                        //Invoke Camera Shake Event
+                        return null;
+                    }
+                    else if (tag.StartsWith("event="))
+                    {
+                        var lowercase = tag.Split('=')[1].Substring(1, tag.Split('=')[1].Length - 1).ToLower(); // return appy
+                        var uppercase = tag.Split('=')[1].Substring(0, 1).ToUpper(); //return H
+                        var value = uppercase + lowercase; //H+appy
                         return null;
                     }
                 }
@@ -115,9 +150,10 @@ public class DialogueUIController : MonoBehaviour
         }
         
     }
-    private void CutsceneEnd()
+    private void DialogueEnd()
     {
         gameState = GameState.Gameplay;
+        DialogueEndEvent.Raise();
         DialogueCanvas.SetActive(false);
     }
     private void ResetProperty()
@@ -128,13 +164,14 @@ public class DialogueUIController : MonoBehaviour
     {
         if (dialogueIndex >= DialogueData.dialogue.Count - 1)
         {
-            CutsceneEnd();
+            DialogueEnd();
             ResetProperty();
             //Invoke Cutscene End, change Gamestate
             return;
 
         }
         dialogueIndex++;
+        ShowPotrait();
         ReadText();
         ShowName();
         ActiveSpeaker();
@@ -182,50 +219,72 @@ public class DialogueUIController : MonoBehaviour
                 break;
         }
     }
-    private void ShowPotrait(ExpressionID expressionLeft, ExpressionID expressionRight)
-    {
-        var data = DialogueData.dialogue[dialogueIndex];
-        var pathLeft = ResourcePath.GetSpritePath(data.CharacterLeft, expressionLeft);
-        var pathRight = ResourcePath.GetSpritePath(data.CharacterRight, expressionRight);
-        var defaultPath = ResourcePath.GetSpritePath(CharacterID.None, ExpressionID.Default);
-
-        switch (data.ActiveSpeaker)
-        {
-            case ActiveTalker.None:
-                LeftCharacter.overrideSprite = ResourcePath.GetSprite(defaultPath);
-                RightCharacter.overrideSprite = ResourcePath.GetSprite(defaultPath);
-                break;
-            case ActiveTalker.Left:
-                LeftCharacter.overrideSprite = ResourcePath.GetSprite(pathLeft);
-                break;
-            case ActiveTalker.Right:
-                RightCharacter.overrideSprite = ResourcePath.GetSprite(pathRight);
-                break;
-            case ActiveTalker.Both:
-                LeftCharacter.overrideSprite = ResourcePath.GetSprite(pathLeft);
-                RightCharacter.overrideSprite = ResourcePath.GetSprite(pathRight);
-                break;
-        }
-    }
     private void ActiveSpeaker()
     {
         var data = DialogueData.dialogue[dialogueIndex];
-        switch(data.ActiveSpeaker)
+        var gray = new Color(0.5f,0.5f,0.5f,1f);
+        var white = Color.white;
+        ///switch(data.activeTalker)
+        ///{
+        ///    case ActiveTalker.None:
+        ///        while (LeftCharacter.color == gray || RightCharacter.color == gray)
+        ///        {
+        ///            LeftCharacter.color = Vector4.Lerp(LeftCharacter.color, gray, lerpValue * Time.deltaTime);
+        ///            RightCharacter.color = Vector4.Lerp(RightCharacter.color, gray, lerpValue * Time.deltaTime);
+        ///            yield return null;
+        ///        }
+        ///        yield break;
+        ///    case ActiveTalker.Left:
+        ///        while (LeftCharacter.color == white || RightCharacter.color == gray)
+        ///        {
+        ///            LeftCharacter.color = Vector4.Lerp(LeftCharacter.color, white, lerpValue * Time.deltaTime);
+        ///            RightCharacter.color = Vector4.Lerp(RightCharacter.color, gray, lerpValue * Time.deltaTime);
+        ///            yield return null;
+        ///        }
+        ///
+        ///        yield break;
+        ///    case ActiveTalker.Right:
+        ///        while (LeftCharacter.color == gray || RightCharacter.color == white)
+        ///        {
+        ///            LeftCharacter.color = Vector4.Lerp(LeftCharacter.color, gray, lerpValue * Time.deltaTime);
+        ///            RightCharacter.color = Vector4.Lerp(RightCharacter.color, white, lerpValue * Time.deltaTime);
+        ///            yield return null;
+        ///        }
+        ///
+        ///        yield break;
+        ///    case ActiveTalker.Both:
+        ///        while (LeftCharacter.color == white || RightCharacter.color == white)
+        ///        {
+        ///            LeftCharacter.color = Vector4.Lerp(LeftCharacter.color, white, lerpValue * Time.deltaTime);
+        ///            RightCharacter.color = Vector4.Lerp(RightCharacter.color, white, lerpValue * Time.deltaTime);
+        ///            yield return null;
+        ///        }
+        ///
+        ///        yield break;
+        ///}
+        switch (data.ActiveSpeaker)
         {
-            case ActiveTalker.None: 
+            case ActiveTalker.None:
+                LeftCharacter.color = gray;
+                RightCharacter.color =gray;
                 break;
             case ActiveTalker.Left:
+                LeftCharacter.color = white;
+                RightCharacter.color = gray;
                 break;
             case ActiveTalker.Right:
+                LeftCharacter.color = gray;
+                RightCharacter.color = white;
                 break;
             case ActiveTalker.Both:
+                LeftCharacter.color = white;
+                RightCharacter.color = white;
                 break;
         }
     }
-
     public void OnCutsceneStart(ScriptableObject data)
     {
-        var dialogueData = data as SO_Story_Dialogue;
+        var dialogueData = data as SO_StoryDialogue;
         gameState = GameState.Cutscene;//For Debugging
         DialogueCanvas.SetActive(true);
         ConfirmIcon.gameObject.SetActive(false);
@@ -236,7 +295,6 @@ public class DialogueUIController : MonoBehaviour
         ShowPotrait();
         ActiveSpeaker();
     }
-
     public void OnSkipText()
     {
         if (gameState != GameState.Cutscene) return;
@@ -245,7 +303,8 @@ public class DialogueUIController : MonoBehaviour
         {
             CheckIndex();
             ConfirmIcon.gameObject.SetActive(false);
-
+            skippable = false;
+            textRevealed = false;
             //Next Line
             return;
         }
@@ -253,5 +312,15 @@ public class DialogueUIController : MonoBehaviour
         ConfirmIcon.gameObject.SetActive(true);
         SpeechText.maxVisibleCharacters = SpeechText.text.Length;
         textRevealed = true;
+        StopAllCoroutines();
+    }
+    public void ForceSkipText()
+    {
+        CheckIndex();
+        ConfirmIcon.gameObject.SetActive(false);
+        skippable = false;
+        textRevealed = false;
+        //Next Line
+
     }
 }
