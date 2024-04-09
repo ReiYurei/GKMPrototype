@@ -153,8 +153,9 @@ public class DialogueUIController : MonoBehaviour
     private void DialogueEnd()
     {
         gameState = GameState.Gameplay;
-        DialogueEndEvent.Raise();
         DialogueCanvas.SetActive(false);
+        if (!DialogueData.triggerEventAtEnd) return;
+        DialogueEndEvent.Raise();
     }
     private void ResetProperty()
     {
@@ -284,6 +285,7 @@ public class DialogueUIController : MonoBehaviour
     }
     public void OnCutsceneStart(ScriptableObject data)
     {
+        Debug.Log("Cutscene Start");
         var dialogueData = data as SO_StoryDialogue;
         gameState = GameState.Cutscene;//For Debugging
         DialogueCanvas.SetActive(true);

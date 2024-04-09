@@ -16,4 +16,4 @@ MonoBehaviour:
   <MissionObserver>k__BackingField: {fileID: 11400000, guid: 879f4b493644dd84693541d023c60a0d, type: 2}
   <StoryObserver>k__BackingField: {fileID: 11400000, guid: 4caa3daea97de9a4288c7f0847863110, type: 2}
   <AssignedQuest>k__BackingField: {fileID: 0}
-  <AssignedMission>k__BackingField: {fileID: 0}
+  <AssignedMission>k__BackingField: {fileID: 11400000, guid: 86d0656c957040c4b890b75a08ab41b8, type: 2}

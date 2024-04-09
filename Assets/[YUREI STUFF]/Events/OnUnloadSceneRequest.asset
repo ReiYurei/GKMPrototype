@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6abca78a7e3ecea44a13368bc056fd3b, type: 3}
-  m_Name: Assigned Quest
+  m_Script: {fileID: 11500000, guid: b0642e64bb72a1748bf74846d0b50b9b, type: 3}
+  m_Name: OnUnloadSceneRequest
   m_EditorClassIdentifier: 
-  <AssignedData>k__BackingField: {fileID: 0}
+  debug: 0
+  <ParameterType>k__BackingField: {fileID: 11400000, guid: cd6b44de7eb16b540bc27c4292be60f9, type: 2}
+  _gameEvent: []

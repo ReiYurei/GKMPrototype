@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ReiScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/UI_Listing.unity
+    guid: 094856249121d1b41aa2892b1fd67c10
+  - enabled: 1
+    path: Assets/Scenes/Scene_Manager.unity
+    guid: cee898427e94ce94e9bc99c372eb499b
+  - enabled: 1
+    path: Assets/Scenes/UI_Dialogue.unity
+    guid: cdf27d14383f5f949875075e61738fde
+  - enabled: 1
+    path: Assets/Scenes/Hub_Scene.unity
+    guid: 374a3be301f43b14bbf145f55eefeae3
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 20c7510b408249d4bb23e67beb343c3d, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: a5765c9888abe404b9eff9b3b13a4639, type: 2}

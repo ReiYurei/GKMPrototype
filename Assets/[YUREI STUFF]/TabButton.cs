@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 public enum TabType
 {
     Quest,Mission, Other
@@ -13,24 +14,44 @@ public class CustomTabButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
     [field: SerializeField] public TabType TabType { get; private set; }
     [SerializeField] private TabGroup tabGroup;
     [SerializeField] private Image clickArea;
-    [SerializeField] private Color defaultColor;
+    public Color defaultColor = Color.white;
+    public Color hoverColor = Color.white;
+    public Color activeColor = Color.white;
     [SerializeField] private int tabIndex;
+    [SerializeField] private UnityEvent ClickEvent;
     public void OnPointerClick(PointerEventData eventData)
     {
-        tabGroup.OnTabSelected(this);
+        if (tabGroup != null)
+        {
+            tabGroup.OnTabSelected(this);
+            return;
+        }
+        clickArea.color = activeColor;
+        ClickEvent?.Invoke();
 
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tabGroup.OnTabEnter(this);
+        if (tabGroup != null)
+        {
+            tabGroup.OnTabEnter(this);
+            return;
+        } 
+        clickArea.color = hoverColor;
 
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tabGroup.OnTabExit(this);
+        if (tabGroup != null)
+        {
+            tabGroup.OnTabExit(this);
+            return;
+
+        }
+        clickArea.color = defaultColor;
 
     }
     public void SetColor()
@@ -41,10 +62,15 @@ public class CustomTabButton : MonoBehaviour, IPointerEnterHandler, IPointerClic
     {
         clickArea.color = color;
     }
-    private void Start()
+    private void Awake()
     {
         clickArea = GetComponent<Image>();
         clickArea.color = defaultColor;
-        tabGroup.Subscribe(this);
+        if(tabGroup != null)
+        {
+            tabGroup.Subscribe(this);
+        }
     }
+
+
 }

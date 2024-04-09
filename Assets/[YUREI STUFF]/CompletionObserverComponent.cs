@@ -13,6 +13,7 @@ public class CompletionObserverComponent : MonoBehaviour
         Observer.QuestObserver.ClearData();
         Observer.StoryObserver.ClearData();
         Observer.MissionObserver.ClearData();
+        Observer.ResetAllValue();
     }
     public void OnEmbark()
     {
@@ -32,4 +33,5 @@ public class CompletionObserverComponent : MonoBehaviour
     {
         Observer.AssignedMissionFailed();
     }
+
 }

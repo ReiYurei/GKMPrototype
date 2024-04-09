@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 [System.Serializable]
@@ -6,4 +7,8 @@ using UnityEngine;
 public class SO_QuestListing : ScriptableObject
 {
     [field: SerializeField] public List<SO_QuestData> Quests {get;private set;}
+    public void ResetValue()
+    {
+        Quests.Clear();
+    }
 }

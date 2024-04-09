@@ -58,4 +58,9 @@ public class SO_CompletionObserver : ScriptableObject
         AssignedMission = null;
 
     }
+    public void ResetAllValue()
+    {
+        AssignedQuest = null;
+        AssignedMission = null;
+    }
 }

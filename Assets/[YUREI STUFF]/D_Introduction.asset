@@ -23,10 +23,10 @@ MonoBehaviour:
     <SpeechText>k__BackingField: <speed=30><emotion=Neutral>Huh, As I thought.<pause=0.75>
       <speed=20><color="red">Yo<emotion=Happy>u</color> are really a naive one!
     <AutoSkipAtEnd>k__BackingField: 0
-    <VoidGameEvent>k__BackingField:
+    _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
-    <ParameterGameEvent>k__BackingField:
+    _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
@@ -38,10 +38,10 @@ MonoBehaviour:
     <SpeechText>k__BackingField: The<pause=0.5><b><size=26>FU<emotion=Despised>CK</size></b>
       <pause=0.25>did <color=yellow>you </color>say?!
     <AutoSkipAtEnd>k__BackingField: 0
-    <VoidGameEvent>k__BackingField:
+    _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
-    <ParameterGameEvent>k__BackingField:
+    _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
@@ -54,10 +54,10 @@ MonoBehaviour:
       wanted to know whether or not you're able to handle insult from a person that's
       clearly better than y-
     <AutoSkipAtEnd>k__BackingField: 1
-    <VoidGameEvent>k__BackingField:
+    _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
-    <ParameterGameEvent>k__BackingField:
+    _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
@@ -68,10 +68,10 @@ MonoBehaviour:
     <SpeakerName>k__BackingField: Other Reimu
     <SpeechText>k__BackingField: <b><size=40>SHUT UP!!</size></b>
     <AutoSkipAtEnd>k__BackingField: 0
-    <VoidGameEvent>k__BackingField:
-      <Key>k__BackingField: test
-      <GameEvent>k__BackingField: {fileID: 11400000, guid: ce366284564e48f4eb1cfc537c45d3bf, type: 2}
-    <ParameterGameEvent>k__BackingField:
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
@@ -83,9 +83,10 @@ MonoBehaviour:
     <SpeechText>k__BackingField: <speed=20>Enough talking,<pause=0.4> Le<emotion=Smile>t's
       just fight!
     <AutoSkipAtEnd>k__BackingField: 0
-    <VoidGameEvent>k__BackingField:
+    _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
-    <ParameterGameEvent>k__BackingField:
+    _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+  triggerEventAtEnd: 1

@@ -8,4 +8,5 @@ public class SO_StoryDialogue : ScriptableObject
 {
     public string eventName;
     public List<Dialogue> dialogue = new List<Dialogue>();
+    public bool triggerEventAtEnd = true;
 }

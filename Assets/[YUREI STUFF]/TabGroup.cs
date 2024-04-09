@@ -58,11 +58,8 @@ public class TabGroup : MonoBehaviour
     }
     public void Subscribe( CustomTabButton button)
     {
-        if (Buttons == null)
-        {
-            Buttons = new List<CustomTabButton>();
-        }
-        Buttons.Insert(0,button);    
+        if (Buttons == null) Buttons = new List<CustomTabButton>();
+        Buttons.Add(button);    
     }
     public void OnTabEnter(CustomTabButton button) 
     {

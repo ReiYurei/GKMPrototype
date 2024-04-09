@@ -16,24 +16,39 @@ public class HubCounterComponent : MonoBehaviour, IInteractable
     [field: SerializeField] public SO_VoidGameEvent OpenListingEvent { get; private set; }
     [field: SerializeField] private Queue<SO_StoryData> _storyQueue;
 
+    public void OnDisable()
+    {
+        AvailableQuest.ResetValue();
+        AvailableMissions.ResetValue();
+    }
     private void Start()
     {
         _storyQueue = new Queue<SO_StoryData>();
     }
     public void OnHubEnter()
     {
-        foreach(SO_MissionData mission in AllMission.Missions)
+        CheckMissionListing();
+        CheckQuestLising();
+        EnqueueEvents();
+        PlayEvents();
+    }
+
+    private void CheckMissionListing()
+    {
+        foreach (SO_MissionData mission in AllMission.Missions)
         {
-            if(mission.CheckRequirement() && !AvailableMissions.Missions.Contains(mission))
+            if (mission.CheckRequirement() && !AvailableMissions.Missions.Contains(mission))
                 AvailableMissions.Missions.Add(mission);
         }
+    }
+
+    private void CheckQuestLising()
+    {
         foreach (SO_QuestData quest in AllQuest.Quests)
         {
             if (quest.CheckRequirement() && !AvailableQuest.Quests.Contains(quest))
                 AllQuest.Quests.Add(quest);
         }
-        EnqueueEvents();
-        PlayEvents();
     }
 
     private void PlayEvents()

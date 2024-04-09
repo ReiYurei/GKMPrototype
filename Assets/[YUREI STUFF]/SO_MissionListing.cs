@@ -6,4 +6,8 @@ using UnityEngine;
 public class SO_MissionListing : ScriptableObject
 {
     [field: SerializeField] public List<SO_MissionData> Missions { get; private set; }
+    public void ResetValue()
+    {
+        Missions.Clear();
+    }
 }
