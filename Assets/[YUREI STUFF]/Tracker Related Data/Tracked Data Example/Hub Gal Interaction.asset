@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c591631a57dd0e4c9b1b29e8c1c7840, type: 3}
-  m_Name: Hub_Goodbye
+  m_Name: Hub Gal Interaction
   m_EditorClassIdentifier: 
-  eventName: See ya!
+  eventName: Hub Gal Interact
   dialogue:
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 2
@@ -20,7 +20,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 0
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: See ya!
+    <SpeechText>k__BackingField: Take a look at the mission!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -28,4 +28,5 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
-  triggerEventAtEnd: 0
+  endEventBehaviour: 3
+  CustomEndEvent: {fileID: 11400000, guid: 1891c7bae9caf4f4f8d5af9677588f8e, type: 2}

@@ -2,7 +2,7 @@
 using TriInspector;
 using UnityEngine;
 using FMODUnity;
-[CreateAssetMenu(fileName = "Audio Event References", menuName = "Event/Audio Event References")]
+[CreateAssetMenu(fileName = "Audio Event References", menuName = "Miscellaneous/Audio Event References")]
 public class SO_AudioFMODEventCollection : ScriptableObject
 {
     [SerializeField] private List<AudioFMODEvent<string>> _audioEvents;

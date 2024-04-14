@@ -4,19 +4,21 @@ using UnityEngine;
 using TriInspector;
 using System;
 
-[CreateAssetMenu(fileName = "Quest Data", menuName = "Hub/Quest Data")]
+[CreateAssetMenu(fileName = "Quest Data", menuName = "Miscellaneous/Quest/Quest Data")]
 public class SO_QuestData : ScriptableObject
 {
     [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }
     [field: SerializeField] public List<Requirement> RequirementsToBeListed { get; private set; }
 
     public Quest QuestInfo;
+    [Tooltip("Leave null for none Interaction after completing the quest")]
+    [field: SerializeField] public SO_StoryData CompletionInteraction { get; private set; }
     [field: SerializeField] public List<BaseQuestReward> Rewards { get; private set; }
     [SerializeField] private bool _minimumRequirement;
     [SerializeField][ShowIf(nameof(_minimumRequirement), true)] private int _minCompleted;
     private bool[] fulfilledRequirement;
     private int completedCount;
-    public bool CheckRequirement()
+    public bool RequirementFulfilled()
     {
         completedCount = 0;
         if (RequirementsToBeListed.Count <= 0)

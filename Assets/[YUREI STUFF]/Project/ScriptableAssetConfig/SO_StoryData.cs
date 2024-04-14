@@ -3,13 +3,13 @@ using UnityEngine;
 using TriInspector;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "Story Data", menuName = "Hub/Story Data")]
+[CreateAssetMenu(fileName = "Story Data", menuName = "Miscellaneous/Story Data")]
 public class SO_StoryData : ScriptableObject
 {
     [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }
     [field: SerializeField] public List<Requirement> Requirements { get; private set; }
-    [field: SerializeField] public bool Repeatable { get; private set; }
-    [field: SerializeField] public SO_StoryDialogue DialogueEvent { get; private set; }
+    [field: SerializeField] public Replayability Replayability { get; private set; }
+    [field: SerializeField] public SO_Dialogue DialogueEvent { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent RaiseCutscene { get; private set; }
     [field: SerializeField] public bool MinimumRequirement { get; private set; }
     [SerializeField][ShowIf(nameof(MinimumRequirement), true)] private int MinCompleted;
@@ -35,12 +35,12 @@ public class SO_StoryData : ScriptableObject
         }
         return (completedCount >= MinCompleted && MinimumRequirement);
     }
-    public bool HasSeen()
+    public bool HasSeen() //Seen for the entire progress
     {
         if (Observer.StoryObserver.Completion.Contains(this)) return true;
         return false;
     }
-    public bool TempSeen()
+    public bool TempSeen()//Seen for every once entering the hub each time, one time
     {
         if (Observer.StoryObserver.TempCompletion.Contains(this)) return true;
         return false;
@@ -48,14 +48,28 @@ public class SO_StoryData : ScriptableObject
     public void StartStoryDialogue()
     {
         if (!CheckRequirement()) return;
-        if (Repeatable) 
+        Debug.Log(DialogueEvent.eventName);
+        switch (Replayability)
         {
-            RaiseCutscene.Raise(DialogueEvent);
-            Observer.StoryObserver.AddToTemp(this);
-            return; 
+            case Replayability.Once:
+                Debug.Log("Once");
+                RaiseCutscene.Raise(DialogueEvent);
+                Observer.StoryObserver.AddToCompletion(this);
+                return;
+            case Replayability.OncePerSession:
+                Debug.Log("OncePerSession");
+                RaiseCutscene.Raise(DialogueEvent);
+                Observer.StoryObserver.AddToTemp(this);
+                return;
+            case Replayability.Repeatable:
+                Debug.Log("Repeatable");
+                RaiseCutscene.Raise(DialogueEvent);
+                return;
         }
 
-        RaiseCutscene.Raise(DialogueEvent);
-        Observer.StoryObserver.AddToCompletion(this);
     }
+}
+public enum Replayability
+{
+    Once, OncePerSession, Repeatable
 }

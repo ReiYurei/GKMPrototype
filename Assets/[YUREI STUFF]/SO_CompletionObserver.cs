@@ -9,23 +9,24 @@ public class SO_CompletionObserver : ScriptableObject
     [field: SerializeField] public SO_StoryCompletionObserver StoryObserver { get; private set; }
     [field: SerializeField] public SO_QuestData AssignedQuest { get; private set; }
     [field: SerializeField] public SO_MissionData AssignedMission { get; private set; }
-    public bool CheckStoryCompletion(SO_StoryData story)
+    public bool CheckStoryReqCompletion(SO_StoryData story)//Used by Requirement
     {
         return (StoryObserver != null && StoryObserver.Completion.Contains(story));
     }
-    public bool CheckMissionCompletion(SO_MissionData mission)
+    public bool CheckMissionReqCompletion(SO_MissionData mission)//Used by Requirement
     {
         return (MissionObserver != null && MissionObserver.Completion.Contains(mission));
     }
-    public bool CheckQuestCompletion(SO_QuestData quest)
+    public bool CheckQuesReqCompletion(SO_QuestData quest) //Used by Requirement
     {
         return(QuestObserver != null && QuestObserver.Completion.Contains(quest));
     }
-    public void AssignQuest(SO_QuestData quest)
+
+    public void AssignQuest(SO_QuestData quest) //Used by Mission Listing
     {
         AssignedQuest = quest;
     }
-    public void AssignMission(SO_MissionData mission)
+    public void AssignMission(SO_MissionData mission) //Used by Mission Listing
     {
         AssignedMission = mission;
     }
@@ -34,9 +35,11 @@ public class SO_CompletionObserver : ScriptableObject
         if (AssignedQuest == null) return;
         if (QuestObserver.Completion.Contains(AssignedQuest) || AssignedQuest.QuestInfo.Repeateable)
         {
+            AssignedQuest.ClaimReward();
             AssignedQuest = null;
             return;
         }
+        AssignedQuest.ClaimReward();
         QuestObserver.AddToCompletion(AssignedQuest);
         AssignedQuest = null;
     }

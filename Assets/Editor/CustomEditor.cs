@@ -5,6 +5,8 @@ using System;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor.Rendering;
 using UnityEngine.UIElements;
+using static Codice.Client.Common.Connection.AskCredentialsToUser;
+
 
 
 #if UNITY_EDITOR
@@ -82,6 +84,9 @@ public class DialogueEditor : EditorWindow
     string speakerName;
     string speechText;
     bool autoSkipAtEnd;
+    EndEventBehaviour endEventBehaviour;
+    SO_VoidGameEvent endEvent;
+
     string tmText;
     float speed;
     string previewText;
@@ -98,7 +103,7 @@ public class DialogueEditor : EditorWindow
 
 
     TextMeshProUGUI tmp;
-    SO_StoryDialogue dialogueData;
+    SO_Dialogue dialogueData;
 
     [MenuItem("Tools/Dialogue Editor")]
     static void OpenWindow()
@@ -258,7 +263,7 @@ public class DialogueEditor : EditorWindow
 
  
         //tmp = (TextMeshProUGUI)EditorGUILayout.ObjectField(tmp, typeof(TextMeshProUGUI), true);
-        dialogueData = (SO_StoryDialogue)EditorGUILayout.ObjectField(dialogueData, typeof(SO_StoryDialogue), true);
+        dialogueData = (SO_Dialogue)EditorGUILayout.ObjectField(dialogueData, typeof(SO_Dialogue), true);
         eventName = EditorGUILayout.TextField("Event Name", eventName);
         path = EditorGUILayout.TextField("Objects Path", path);
 
@@ -492,7 +497,7 @@ public class DialogueEditor : EditorWindow
     }
     private void ShowData()
     {
-        if (localDialogues.Count <= 1) return;
+        if (localDialogues.Count < 1) return;
         var data = localDialogues[index];
         characterLeft = data.CharacterLeft; 
         characterRight = data.CharacterRight;
@@ -502,6 +507,8 @@ public class DialogueEditor : EditorWindow
         speakerName = data.SpeakerName;
         speechText = data.SpeechText;
         autoSkipAtEnd = data.AutoSkipAtEnd;
+
+
 
         voidEventKey = data.VoidGameEvent;
         keyVoid = voidEventKey.Key;
@@ -562,6 +569,9 @@ public class DialogueEditor : EditorWindow
             var info10 = data[i].ParameterGameEvent;
             localDialogues[i].SetDialogue(info1, info3,info2,info4,info7,info5,info6, info8,info9,info10);
         }
+        endEventBehaviour = dialogueData.endEventBehaviour;
+        endEvent = dialogueData.CustomEndEvent;
+
         ShowData();
 
     }
@@ -609,6 +619,9 @@ public class DialogueEditor : EditorWindow
             var info10 = localDialogues[i].ParameterGameEvent;
             data[i].SetDialogue(info1, info3, info2, info4, info7, info5, info6, info8, info9, info10);
         }
+        dialogueData.CustomEndEvent = endEvent;
+        dialogueData.endEventBehaviour = endEventBehaviour;
+        
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
@@ -617,7 +630,7 @@ public class DialogueEditor : EditorWindow
     }
     private void CreateNew()
     {
-        SO_StoryDialogue newObject = ScriptableObject.CreateInstance<SO_StoryDialogue>();
+        SO_Dialogue newObject = ScriptableObject.CreateInstance<SO_Dialogue>();
         newObject.eventName = new string(eventName);
         newObject.dialogue = new List<Dialogue>(localDialogues);
         AssetDatabase.CreateAsset(newObject, $"{path}/{eventName}.asset");
@@ -793,20 +806,45 @@ public class DialogueEditor : EditorWindow
             GUILayout.Height(20),
             GUILayout.Width(150),
         };
+        GUILayoutOption[] layout2 =
+        {
+            GUILayout.Width(125),
+
+        };
         GUILayout.BeginArea(editorNameSection);
 
         EditorGUILayout.BeginHorizontal();
 
         EditorGUILayout.BeginVertical();
-        EditorGUILayout.LabelField("Name");
+        EditorGUILayout.LabelField("Name", layout);
         speakerName = EditorGUILayout.TextField(speakerName, customStyle, layout);
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical();
-        EditorGUILayout.LabelField("Auto-skip line");
-        autoSkipAtEnd = EditorGUILayout.Toggle(autoSkipAtEnd);
+        EditorGUILayout.LabelField("Auto-skip line", layout2);
+        autoSkipAtEnd = EditorGUILayout.Toggle(autoSkipAtEnd, layout2);
         EditorGUILayout.EndVertical();
 
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("End Event Behaviour", layout2);
+        endEventBehaviour = (EndEventBehaviour)EditorGUILayout.EnumPopup(endEventBehaviour, layout2);
+
+        EditorGUILayout.EndVertical();
+        switch (endEventBehaviour)
+        {
+            case EndEventBehaviour.DefaultEvent:
+                break;
+            case EndEventBehaviour.None_ToHub:
+                break;
+            case EndEventBehaviour.None_ToExterminate:
+                break;
+            case EndEventBehaviour.CustomEvent:
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField("Custom End Event", layout2);
+                endEvent = (SO_VoidGameEvent)EditorGUILayout.ObjectField(voidEvent, typeof(SO_VoidGameEvent), true, layout2);
+                EditorGUILayout.EndVertical();
+                break;
+        }
         EditorGUILayout.EndHorizontal();
         GUILayout.EndArea();
 
@@ -1067,11 +1105,11 @@ public class DialogeMaker : EditorWindow
     public string path;
 
 
-    SO_StoryDialogue obj;
+    SO_Dialogue obj;
 
     private void OnEnable()
     {
-        obj = ScriptableObject.CreateInstance<SO_StoryDialogue>();
+        obj = ScriptableObject.CreateInstance<SO_Dialogue>();
         serializedObject = new SerializedObject(obj);
         m_dialogues = serializedObject.FindProperty("dialogue");
         m_eventName = serializedObject.FindProperty("eventName");
@@ -1123,7 +1161,7 @@ public class DialogeMaker : EditorWindow
     }
     private void CreateObjects()
     {
-        SO_StoryDialogue newObject = ScriptableObject.CreateInstance<SO_StoryDialogue>();
+        SO_Dialogue newObject = ScriptableObject.CreateInstance<SO_Dialogue>();
         newObject.eventName = obj.eventName;
         newObject.dialogue = obj.dialogue;
         AssetDatabase.CreateAsset(newObject, $"{path}/{obj.eventName}.asset");

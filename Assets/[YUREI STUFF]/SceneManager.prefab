@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6359104288663251835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6502117585485763639}
+  - component: {fileID: 5960104653506528964}
+  - component: {fileID: 262474789013471617}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6502117585485763639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359104288663251835}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 345.93045, y: 217.66441, z: -1.8007079}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5960104653506528964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359104288663251835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d8acd2903283e4d89eaf70859b157c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &262474789013471617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359104288663251835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _listenersVoid: []
+  _listenersParam:
+  - gameEvent: {fileID: 11400000, guid: f361d8e8d1826194ebb5d675ae8643ed, type: 2}
+    parameterGOResponse:
+      m_PersistentCalls:
+        m_Calls: []
+    parameterSOResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5960104653506528964}
+          m_TargetAssemblyTypeName: SceneManagerComponent, Assembly-CSharp
+          m_MethodName: OnLoadSceneRequested
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 00fc22a8aa04f7d4a9791d0d76e4e286, type: 2}
+    parameterGOResponse:
+      m_PersistentCalls:
+        m_Calls: []
+    parameterSOResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5960104653506528964}
+          m_TargetAssemblyTypeName: SceneManagerComponent, Assembly-CSharp
+          m_MethodName: OnUnloadSceneRequest
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 98818ae4544a8734cbbd3cfd36bd4eae, type: 2}
+    parameterGOResponse:
+      m_PersistentCalls:
+        m_Calls: []
+    parameterSOResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5960104653506528964}
+          m_TargetAssemblyTypeName: SceneManagerComponent, Assembly-CSharp
+          m_MethodName: OnCutsceneStart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using TriInspector;
-[CreateAssetMenu(fileName = "Mission Data", menuName = "Hub/Mission Data")]
+[CreateAssetMenu(fileName = "Mission Data", menuName = "Miscellaneous/Mission/Mission Data")]
 public class SO_MissionData : ScriptableObject
 {
     [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }

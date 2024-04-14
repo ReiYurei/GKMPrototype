@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 [RequireComponent(typeof(EventListenerComponent))]
 public class SceneManagerComponent : MonoBehaviour
 {
-    public void OnCutsceneStart(ScriptableObject story)
+    [Button("Load Scene")]
+    public void LoadSingleScene(string sceneName)
     {
-        SceneManager.LoadSceneAsync("UI_Dialogue", LoadSceneMode.Additive);
-        
     }
     public void OnLoadSceneRequested(ScriptableObject sceneName)
     {

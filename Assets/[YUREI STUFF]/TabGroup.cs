@@ -15,17 +15,18 @@ public class TabGroup : MonoBehaviour
     public Color activeColor;
     [SerializeField] private InputActionAsset _actions;
     public int tabIndex;
-    private void Awake()
-    {
-        _actions.FindActionMap("Listing UI").Enable();
-        _actions.FindActionMap("Listing UI").FindAction("Next Tab").performed += NextTab;
-        _actions.FindActionMap("Listing UI").FindAction("Previous Tab").performed += PreviousTab;
+    private string inputName = "Listing";
 
+    private void OnEnable()
+    {
+        _actions.FindActionMap(inputName).FindAction("Next Tab").performed += NextTab;
+        _actions.FindActionMap(inputName).FindAction("Previous Tab").performed += PreviousTab;
     }
     private void OnDisable()
     {
-        _actions.FindActionMap("Listing UI").FindAction("Next Tab").performed -= NextTab;
-        _actions.FindActionMap("Listing UI").FindAction("Previous Tab").performed -= PreviousTab;
+
+        _actions.FindActionMap(inputName).FindAction("Next Tab").performed -= NextTab;
+        _actions.FindActionMap(inputName).FindAction("Previous Tab").performed -= PreviousTab;
     }
     private void Start()
     {

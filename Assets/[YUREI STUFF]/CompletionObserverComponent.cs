@@ -15,7 +15,7 @@ public class CompletionObserverComponent : MonoBehaviour
         Observer.MissionObserver.ClearData();
         Observer.ResetAllValue();
     }
-    public void OnEmbark()
+    public void OnEmbark() //Listen to Event
     {
         Observer.QuestObserver.ClearTemp();
         Observer.StoryObserver.ClearTemp();

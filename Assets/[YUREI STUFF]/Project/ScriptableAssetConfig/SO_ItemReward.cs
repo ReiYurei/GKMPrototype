@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item Reward Data", menuName = "Quest/Quest Reward/Item")]
+[CreateAssetMenu(fileName = "Item Reward Data", menuName = "Miscellaneous/Quest/Quest Reward/Item")]
 public class SO_ItemReward : BaseQuestReward
 {
     [field: SerializeField]public BaseItem Item { get;private set; }

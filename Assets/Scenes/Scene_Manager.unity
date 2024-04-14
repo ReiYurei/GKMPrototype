@@ -260,125 +260,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &681611284
-GameObject:
+--- !u!1001 &317854408196247911
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 681611285}
-  - component: {fileID: 681611287}
-  - component: {fileID: 681611286}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &681611285
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681611284}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 345.93045, y: 217.66441, z: -1.8007079}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &681611286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681611284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _listenersVoid: []
-  _listenersParam:
-  - gameEvent: {fileID: 11400000, guid: f361d8e8d1826194ebb5d675ae8643ed, type: 2}
-    parameterGOResponse:
-      m_PersistentCalls:
-        m_Calls: []
-    parameterSOResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 681611287}
-          m_TargetAssemblyTypeName: SceneManagerComponent, Assembly-CSharp
-          m_MethodName: OnLoadSceneRequested
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - gameEvent: {fileID: 11400000, guid: 00fc22a8aa04f7d4a9791d0d76e4e286, type: 2}
-    parameterGOResponse:
-      m_PersistentCalls:
-        m_Calls: []
-    parameterSOResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 681611287}
-          m_TargetAssemblyTypeName: SceneManagerComponent, Assembly-CSharp
-          m_MethodName: OnUnloadSceneRequest
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - gameEvent: {fileID: 11400000, guid: 98818ae4544a8734cbbd3cfd36bd4eae, type: 2}
-    parameterGOResponse:
-      m_PersistentCalls:
-        m_Calls: []
-    parameterSOResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 681611287}
-          m_TargetAssemblyTypeName: SceneManagerComponent, Assembly-CSharp
-          m_MethodName: OnCutsceneStart
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &681611287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681611284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09d8acd2903283e4d89eaf70859b157c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6359104288663251835, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_Name
+      value: SceneManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 345.93045
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 217.66441
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.8007079
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502117585485763639, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c5e03571683a96e428af85b17a622f1a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 55379963}
-  - {fileID: 681611285}
+  - {fileID: 317854408196247911}

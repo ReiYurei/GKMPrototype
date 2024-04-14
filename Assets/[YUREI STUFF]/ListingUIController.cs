@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,56 +10,66 @@ using UnityEngine.UI;
 public class ListingUIController : MonoBehaviour
 {
     [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }
-    [field: SerializeField] public GameObject ListingUICanvas { get; private set; } 
-    [field: SerializeField] public SO_ParameterGameEvent CutsceneStart { get; private set; }
-    [field: SerializeField] public SO_StoryDialogue GoodByeDialogue { get; private set; }
+    [field: Header("Event")]
+    [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent ExitListingEvent { get; private set; }
+    [field: Header("Quest")]
     [field: SerializeField] public SO_QuestListing AvailableQuests { get; private set; }
     [field: SerializeField] public QuestListingUI QuestUI { get; private set; }
+    [field: Header("Mission")]
     [field: SerializeField] public SO_MissionListing AvailableMissions { get; private set; }
     [field: SerializeField] public MissionListingUI MissionUI { get; private set; }
+    [field: Header("Page Canvas")]
+    [field: SerializeField] public GameObject ListingUICanvas { get; private set; }
     [field:SerializeField] public TabGroup TabGroup { get; private set; }
     [field: SerializeField] public CustomTabButton NextPageButton { get; private set; }
     [field: SerializeField] public CustomTabButton PrevPageButton { get; private set; }
     [field: SerializeField] public GameObject PromptTextBox { get; private set; }
     [field: SerializeField] public List<CustomTabButton> PromptButton { get; private set; }
-    [field: SerializeField] public InputActionAsset Actions { get; private set; }
     [field: SerializeField] public TextMeshProUGUI PageText { get; private set; }
+
+    [field: Header("Other")]
+    [field: SerializeField] public InputActionAsset Actions { get; private set; }
+    [SerializeField] private ListingState state;
 
     private int pageIndex;
     private int promptIndex;
+    [SerializeField]private string inputName = "Listing";
     public void Awake()
     {
-        Actions.FindActionMap("Listing UI").Enable();
-
-        Actions.FindActionMap("Listing UI").FindAction("Next Page").started += NextPage;
-        Actions.FindActionMap("Listing UI").FindAction("Previous Page").started += PreviousPage;
-
-        Actions.FindActionMap("Listing UI").FindAction("Next Page").canceled += NextPage;
-        Actions.FindActionMap("Listing UI").FindAction("Previous Page").canceled += PreviousPage;
-
-        Actions.FindActionMap("Listing UI").FindAction("Next Page").performed += NextPage;
-        Actions.FindActionMap("Listing UI").FindAction("Previous Page").performed += PreviousPage;
-
-        Actions.FindActionMap("Listing UI").FindAction("Confirm").performed += Confirm;
-        Actions.FindActionMap("Listing UI").FindAction("Return").performed += Cancel;
-
+        
+        DontDestroyOnLoad(this);   
 
     }
 
+    private void OnEnable()
+    {
+        Actions.FindActionMap(inputName).FindAction("Next Page").started += NextPage;
+        Actions.FindActionMap(inputName).FindAction("Previous Page").started += PreviousPage;
+
+        Actions.FindActionMap(inputName).FindAction("Next Page").canceled += NextPage;
+        Actions.FindActionMap(inputName).FindAction("Previous Page").canceled += PreviousPage;
+
+        Actions.FindActionMap(inputName).FindAction("Next Page").performed += NextPage;
+        Actions.FindActionMap(inputName).FindAction("Previous Page").performed += PreviousPage;
+
+        Actions.FindActionMap(inputName).FindAction("Confirm").performed += Confirm;
+        Actions.FindActionMap(inputName).FindAction("Return").performed += Cancel;
+    }
 
 
     private void OnDisable()
     {
-        Actions.FindActionMap("Listing UI").FindAction("Next Page").canceled -= NextPage;
-        Actions.FindActionMap("Listing UI").FindAction("Previous Page").canceled -= PreviousPage;
+        Actions.FindActionMap(inputName).FindAction("Next Page").canceled -= NextPage;
+        Actions.FindActionMap(inputName).FindAction("Previous Page").canceled -= PreviousPage;
 
-        Actions.FindActionMap("Listing UI").FindAction("Next Page").started -= NextPage;
-        Actions.FindActionMap("Listing UI").FindAction("Previous Page").started -= PreviousPage;
+        Actions.FindActionMap(inputName).FindAction("Next Page").started -= NextPage;
+        Actions.FindActionMap(inputName).FindAction("Previous Page").started -= PreviousPage;
 
-        Actions.FindActionMap("Listing UI").FindAction("Next Page").performed -= NextPage;
-        Actions.FindActionMap("Listing UI").FindAction("Previous Page").performed -= PreviousPage;
-        Actions.FindActionMap("Listing UI").FindAction("Confirm").performed -= Confirm;
-        Actions.FindActionMap("Listing UI").FindAction("Return").performed -= Cancel;
+        Actions.FindActionMap(inputName).FindAction("Next Page").performed -= NextPage;
+        Actions.FindActionMap(inputName).FindAction("Previous Page").performed -= PreviousPage;
+        Actions.FindActionMap(inputName).FindAction("Confirm").performed -= Confirm;
+        Actions.FindActionMap(inputName).FindAction("Return").performed -= Cancel;
     }
     private void Cancel(InputAction.CallbackContext context)
     {
@@ -73,13 +81,12 @@ public class ListingUIController : MonoBehaviour
         {
             promptIndex = 0;
             PromptTextBox.SetActive(false);
-            Actions.FindActionMap("Listing UI").FindAction("Next Tab").Enable();
-            Actions.FindActionMap("Listing UI").FindAction("Previous Tab").Enable();
+            Actions.FindActionMap(inputName).FindAction("Next Tab").Enable();
+            Actions.FindActionMap(inputName).FindAction("Previous Tab").Enable();
             return;
         }
-        Actions.FindActionMap("Listing UI").Disable();
-        CutsceneStart.Raise(GoodByeDialogue);
         ListingUICanvas.SetActive(false);
+        ExitListingEvent.Raise();
     }
 
     private void Confirm(InputAction.CallbackContext context)
@@ -88,8 +95,8 @@ public class ListingUIController : MonoBehaviour
         {
             promptIndex = 0;
             PromptTextBox.SetActive(true);
-            Actions.FindActionMap("Listing UI").FindAction("Next Tab").Disable();
-            Actions.FindActionMap("Listing UI").FindAction("Previous Tab").Disable();
+            Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
+            Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
             return;
         }
         if (promptIndex == 0)
@@ -425,6 +432,7 @@ public class ListingUIController : MonoBehaviour
     }
     public void OnListingOpen()
     {
+        ChangeStateEvent.Raise(state);
         ListingUICanvas.SetActive(true);
     }
 }

@@ -22,6 +22,7 @@ public class SO_ParameterGameEvent : ScriptableObject
     {
         if (debug)
         {
+            Debug.Log("DEBUG IS ON");
             for (int i = _gameEvent.Count - 1; i >= 0; i--)
             {
                 _gameEvent[i].OnEventRaised(ParameterType);
@@ -29,12 +30,22 @@ public class SO_ParameterGameEvent : ScriptableObject
             return;
         }
         if (parameter == null && !debug) return;
-        if (parameter.GetType() != ParameterType.GetType() && !debug) return;
-       
-        for (int i = _gameEvent.Count - 1; i >= 0; i--)
+        if (parameter.GetType() == ParameterType.GetType() && !debug)
         {
-            _gameEvent[i].OnEventRaised(parameter);
+            for (int i = _gameEvent.Count - 1; i >= 0; i--)
+            {
+                _gameEvent[i].OnEventRaised(parameter);
+            }
+            return;
         }
+        else if (ParameterType.GetType().IsAssignableFrom(parameter.GetType()) && !debug)
+        {
+            for (int i = _gameEvent.Count - 1; i >= 0; i--)
+            {
+                _gameEvent[i].OnEventRaised(parameter);
+            }
+            return;
+        } 
     }
     public void RegisterListener(PassParameterEventListener listener)
     {

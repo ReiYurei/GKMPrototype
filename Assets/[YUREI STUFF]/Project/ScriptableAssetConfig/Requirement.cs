@@ -23,13 +23,13 @@ public class Requirement //Used for event type of data (i.e mission, _quest, Sto
         switch(Type)
         {
             case RequirementType.Quest:
-                return (observer.CheckQuestCompletion(_quest));
+                return (observer.CheckQuesReqCompletion(_quest));
             case RequirementType.Mission:
-                return (observer.CheckMissionCompletion(mission));
+                return (observer.CheckMissionReqCompletion(mission));
             case RequirementType.Item:
                 return (_inventory.CheckQuestItem(_item));
             case RequirementType.Story:
-                return(observer.CheckStoryCompletion(_story));
+                return(observer.CheckStoryReqCompletion(_story));
             case RequirementType.Fact:
                 return (_factVariable.value >= _requiredAmount);
         }

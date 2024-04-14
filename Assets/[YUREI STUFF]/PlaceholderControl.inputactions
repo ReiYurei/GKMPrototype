@@ -2,7 +2,186 @@
     "name": "PlaceholderControl",
     "maps": [
         {
-            "name": "Listing UI",
+            "name": "Hub",
+            "id": "f7267ac7-4f54-4c12-b6ad-65d387e533b3",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "0180c8ee-55ec-4dfd-aae2-268380cecb58",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "089e4c4c-d030-40c2-99ba-4c9b1bdd7bf1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "3b18d052-17de-4ddb-b638-fc712a110633",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "2774c868-e9e4-4367-9f27-2ebb3113d1b4",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "5bde7127-0491-4202-932b-928423de5c57",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "eca81e6d-fb1f-48b5-ac1c-34770cd1e49d",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e44b2e9a-6687-4c5c-993f-995a61579f63",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "48343d22-1c01-4e9f-afa7-28b2bf7511cb",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Exterminate",
+            "id": "1e8e9694-41e7-46c2-95fb-1594af8df2c6",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "b6c4a7c8-d829-49ca-a69d-7fc08d684836",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1d3d75a2-4cb0-4f38-8771-592760f74335",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Cutscene",
+            "id": "1fd6ecb6-87da-4295-acf5-eec4bb2d64fc",
+            "actions": [
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "156eb159-d249-4ce4-b0e3-85cd3ce2002a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skip",
+                    "type": "Button",
+                    "id": "5e110b32-f618-4213-96c2-8bccd8b17c3a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "89ff1b79-abb3-4ee7-a3a8-563a2164219d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21583a3b-847d-4677-a3c8-1ff0df22eeab",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "efcf7747-6f80-4693-8b2d-3fe1a2360d98",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "Hold(duration=0.75)",
+                    "processors": "",
+                    "groups": "M&K",
+                    "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Listing",
             "id": "0cfc89c0-19cd-434a-9af1-66e683869ef8",
             "actions": [
                 {
@@ -135,34 +314,6 @@
                     "processors": "",
                     "groups": "M&K",
                     "action": "Previous Page",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Cutscene",
-            "id": "1fd6ecb6-87da-4295-acf5-eec4bb2d64fc",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "156eb159-d249-4ce4-b0e3-85cd3ce2002a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "e44db7b5-f23f-4dae-8d7d-29000aaa5d3a",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "M&K",
-                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

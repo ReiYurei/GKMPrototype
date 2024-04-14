@@ -158,8 +158,8 @@ MonoBehaviour:
   <AvailableQuest>k__BackingField: {fileID: 11400000, guid: cb8240ac92e9be348a2d62a7cd575bc9, type: 2}
   <AllMission>k__BackingField: {fileID: 11400000, guid: a8bfd6e2e4923a345b294b2aa06856f8, type: 2}
   <AvailableMissions>k__BackingField: {fileID: 11400000, guid: de56b341374d518469734ad0ed8fa86e, type: 2}
-  <InteractEvent>k__BackingField: {fileID: 11400000, guid: a2511f0019c61204091eadbd01efc45c, type: 2}
-  <OpenListingEvent>k__BackingField: {fileID: 0}
+  <InteractDialogue>k__BackingField: {fileID: 11400000, guid: 06402edcb4a31b841998d4476a3dec96, type: 2}
+  <CompleteQuestEvent>k__BackingField: {fileID: 11400000, guid: add11550f23c52145a7b525fce564f1d, type: 2}
 --- !u!4 &200355516
 Transform:
   m_ObjectHideFlags: 0
