@@ -14,11 +14,15 @@ public class SO_QuestData : ScriptableObject
     [Tooltip("Leave null for none Interaction after completing the quest")]
     [field: SerializeField] public SO_StoryData CompletionInteraction { get; private set; }
     [field: SerializeField] public List<BaseQuestReward> Rewards { get; private set; }
-    [SerializeField] private bool _minimumRequirement;
-    [SerializeField][ShowIf(nameof(_minimumRequirement), true)] private int _minCompleted;
+    [SerializeField] private bool _minimumRequirementToList;
+    [SerializeField][ShowIf(nameof(_minimumRequirementToList), true)] private int _minCompletedToList;
+
+
+
+
     private bool[] fulfilledRequirement;
     private int completedCount;
-    public bool RequirementFulfilled()
+    public bool RequirementToListedFulfilled()
     {
         completedCount = 0;
         if (RequirementsToBeListed.Count <= 0)
@@ -32,11 +36,46 @@ public class SO_QuestData : ScriptableObject
         }
         for (int i = 0; i < fulfilledRequirement.Length; i++)
         {
-            if (!fulfilledRequirement[i] && _minimumRequirement) continue;
-            else if (!fulfilledRequirement[i] && !_minimumRequirement) return false;
+            if (!fulfilledRequirement[i] && _minimumRequirementToList) continue;
+            else if (!fulfilledRequirement[i] && !_minimumRequirementToList) return false;
             completedCount++;
         }
-        return (completedCount >= _minCompleted && _minimumRequirement);
+        return (completedCount >= _minCompletedToList && _minimumRequirementToList);
+    }
+    public bool RequirementToClearFulfilled()
+    {
+        switch(QuestInfo.QuestType)
+        {
+            case QuestType.Elimination:
+                return (QuestInfo.EliminationCount >= QuestInfo.MinEliminationAmount);
+            case QuestType.Mission: 
+                return (QuestInfo.ClearCount >= QuestInfo.MinClearAmount);
+            case QuestType.Gathering:
+                return false;
+        }
+        return false;
+    }
+    public void OnMissionClear()
+    {
+        switch (QuestInfo.QuestType)
+        {
+            case QuestType.Elimination:
+                if (Observer.AssignedMission.AstralEntity == QuestInfo.EliminationTarget)
+                {
+                    QuestInfo.EliminationCount++;
+                }
+                break;
+
+            case QuestType.Mission:
+                if (Observer.AssignedMission == QuestInfo.ClearedMissionTarget)
+                {
+                    QuestInfo.ClearCount++;
+                }
+                break;
+
+            case QuestType.Gathering:
+                break;
+        }
     }
     public void ClaimReward()
     {

@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/UI_Listing.unity
     guid: 094856249121d1b41aa2892b1fd67c10
   - enabled: 1
-    path: Assets/Scenes/Scene_Manager.unity
+    path: Assets/Scenes/Manager.unity
     guid: cee898427e94ce94e9bc99c372eb499b
   - enabled: 1
     path: Assets/Scenes/UI_Dialogue.unity

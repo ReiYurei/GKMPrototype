@@ -55,7 +55,7 @@ public class HubCounterComponent : MonoBehaviour, IInteractable
             EnqueueEvents();
             return;
         }
-        if (!Observer.AssignedQuest.RequirementFulfilled()) 
+        if (!Observer.AssignedQuest.RequirementToClearFulfilled()) 
         {
             Debug.Log("Not Fulfilled");
             EnqueueEvents(); 
@@ -99,7 +99,7 @@ public class HubCounterComponent : MonoBehaviour, IInteractable
 
         foreach (SO_QuestData quest in AllQuest.Quests)
         {
-            if (quest.RequirementFulfilled() && !AvailableQuest.Quests.Contains(quest))
+            if (quest.RequirementToListedFulfilled() && !AvailableQuest.Quests.Contains(quest))
                 AvailableQuest.Quests.Add(quest);
         }
     }

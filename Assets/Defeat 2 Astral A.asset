@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faa2f5e7024d25443b2d8e892abcfa13, type: 3}
-  m_Name: Defeat 1 Astral
+  m_Name: Defeat 2 Astral A
   m_EditorClassIdentifier: 
   <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
   <RequirementsToBeListed>k__BackingField: []
   QuestInfo:
     <QuestType>k__BackingField: 0
-    <QuestName>k__BackingField: Defeat 1 Astral
-    <ClientName>k__BackingField: ?????
-    <QuestDesc>k__BackingField: Please exterminate this astral, I'm actually not
-      sure whether or not you are qualified to exterminate it, because as far as
-      I know, no youk- I mean... just kill it.
+    <QuestName>k__BackingField: Defeat 2 Astral
+    <ClientName>k__BackingField: Forester
+    <QuestDesc>k__BackingField: I want to forage in the forest, but I saw some Astral
+      deep in the forest, please exterminate it.
     <Repeateable>k__BackingField: 0
     EliminationTarget: {fileID: 4652478206531035968, guid: fdb1849febe9ff041868f32bcd73346b, type: 3}
-    MinEliminationAmount: 1
+    MinEliminationAmount: 2
     EliminationCount: 0
     ClearedMissionTarget: {fileID: 0}
     MinClearAmount: 0

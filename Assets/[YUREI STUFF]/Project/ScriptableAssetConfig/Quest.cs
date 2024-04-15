@@ -12,10 +12,13 @@ public class Quest
     [field: SerializeField]public bool Repeateable { get; private set; }
 
 
-    [ShowInInspector][ShowIf(nameof(QuestType), QuestType.Elimination)]public Enemy EliminationTarget { get; private set; }
-    [ShowInInspector][ShowIf(nameof(QuestType), QuestType.Elimination)]public int EliminationCount { get; private set; }
+    [ShowIf(nameof(QuestType), QuestType.Elimination)] public GameObject EliminationTarget;
+    [ShowIf(nameof(QuestType), QuestType.Elimination)] public int MinEliminationAmount;
+    [ShowIf(nameof(QuestType), QuestType.Elimination)] public int EliminationCount;
 
-    [ShowInInspector][ShowIf(nameof(QuestType), QuestType.Mission)]public SO_MissionData ClearedMissionTarget { get; private set; }
-    [ShowInInspector][ShowIf(nameof(QuestType), QuestType.Mission)]public int MinClearCount { get; private set; }
+    [ShowIf(nameof(QuestType), QuestType.Mission)] public SO_MissionData ClearedMissionTarget;
+    [ShowIf(nameof(QuestType), QuestType.Mission)] public int MinClearAmount;
+    [ShowIf(nameof(QuestType), QuestType.Mission)] public int ClearCount;
+
 
 }
