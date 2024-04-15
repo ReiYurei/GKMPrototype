@@ -9,6 +9,11 @@ public class SO_CompletionObserver : ScriptableObject
     [field: SerializeField] public SO_StoryCompletionObserver StoryObserver { get; private set; }
     [field: SerializeField] public SO_QuestData AssignedQuest { get; private set; }
     [field: SerializeField] public SO_MissionData AssignedMission { get; private set; }
+    [field: SerializeField] public SO_ParameterGameEvent AssignQuestEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent CancelQuestEvent { get; private set; }
+    [field: SerializeField] public SO_ParameterGameEvent AssignMissionEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent CancelMissionEvent { get; private set; }
+
     public bool CheckStoryReqCompletion(SO_StoryData story)//Used by Requirement
     {
         return (StoryObserver != null && StoryObserver.Completion.Contains(story));
@@ -25,10 +30,12 @@ public class SO_CompletionObserver : ScriptableObject
     public void AssignQuest(SO_QuestData quest) //Used by Mission Listing
     {
         AssignedQuest = quest;
+        AssignQuestEvent.Raise(quest);
     }
     public void AssignMission(SO_MissionData mission) //Used by Mission Listing
     {
         AssignedMission = mission;
+        AssignMissionEvent.Raise(mission);
     }
     public void AssignedQuestComplete()
     {
@@ -61,6 +68,17 @@ public class SO_CompletionObserver : ScriptableObject
         AssignedMission = null;
 
     }
+    public void ResetQuestTaken()
+    {
+        AssignedQuest = null;
+        CancelQuestEvent.Raise();
+    }
+    public void ResetMissionTaken()
+    {
+        AssignedMission = null;
+        CancelMissionEvent.Raise();
+    }
+
     public void ResetAllValue()
     {
         AssignedQuest = null;

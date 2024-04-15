@@ -22,6 +22,7 @@ MonoBehaviour:
       sure whether or not you are qualified to exterminate it, because as far as
       I know, no youk- I mean... just kill it.
     <Repeateable>k__BackingField: 0
+  <CompletionInteraction>k__BackingField: {fileID: 11400000, guid: 8125c7bfa0139c343ae108225bba494f, type: 2}
   <Rewards>k__BackingField:
   - {fileID: 11400000, guid: 81e866f40048cce429b4098bdf21d2c5, type: 2}
   _minimumRequirement: 0

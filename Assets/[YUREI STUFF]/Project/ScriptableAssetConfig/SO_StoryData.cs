@@ -9,6 +9,8 @@ public class SO_StoryData : ScriptableObject
     [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }
     [field: SerializeField] public List<Requirement> Requirements { get; private set; }
     [field: SerializeField] public Replayability Replayability { get; private set; }
+    [field: SerializeField] public PlayAt PlayAt { get; private set; } = PlayAt.Independent;
+
     [field: SerializeField] public SO_Dialogue DialogueEvent { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent RaiseCutscene { get; private set; }
     [field: SerializeField] public bool MinimumRequirement { get; private set; }
@@ -52,24 +54,26 @@ public class SO_StoryData : ScriptableObject
         switch (Replayability)
         {
             case Replayability.Once:
-                Debug.Log("Once");
                 RaiseCutscene.Raise(DialogueEvent);
-                Observer.StoryObserver.AddToCompletion(this);
+                if(!HasSeen()) Observer.StoryObserver.AddToCompletion(this);
                 return;
             case Replayability.OncePerSession:
-                Debug.Log("OncePerSession");
                 RaiseCutscene.Raise(DialogueEvent);
-                Observer.StoryObserver.AddToTemp(this);
+                if(!TempSeen()) Observer.StoryObserver.AddToTemp(this);
                 return;
             case Replayability.Repeatable:
-                Debug.Log("Repeatable");
                 RaiseCutscene.Raise(DialogueEvent);
                 return;
         }
 
     }
+    
 }
 public enum Replayability
 {
     Once, OncePerSession, Repeatable
+}
+public enum PlayAt
+{
+    EnteringHub,QuestEmbark, Independent
 }

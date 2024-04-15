@@ -10,32 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c591631a57dd0e4c9b1b29e8c1c7840, type: 3}
-  m_Name: Story 2
+  m_Name: QuestCompleteDialogue
   m_EditorClassIdentifier: 
-  eventName: Story 2
+  eventName: QuestCompleteDialogue
   dialogue:
   - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 1
+    <InitialExpressionLeft>k__BackingField: 2
     <CharacterRight>k__BackingField: 0
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: Oh<pause=0.25>, hi!<emotion=happy><pause=0.25>.
-      <emotion=neutral>I'm the <color=yellow> Hub Gal</color> in charge here.
-    <AutoSkipAtEnd>k__BackingField: 0
-    _voidGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-    _parameterGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-  - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 2
-    <CharacterRight>k__BackingField: 0
-    <InitialExpressionRight>k__BackingField: 0
-    <ActiveSpeaker>k__BackingField: 1
-    <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: 
+    <SpeechText>k__BackingField: Wow, you've cleared it. Thanks for your service!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 

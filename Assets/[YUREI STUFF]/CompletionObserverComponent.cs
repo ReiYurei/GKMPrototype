@@ -21,15 +21,15 @@ public class CompletionObserverComponent : MonoBehaviour
         Observer.StoryObserver.ClearTemp();
         Observer.MissionObserver.ClearTemp();
     }
-    public void OnAssignedQuestComplete()
+    public void OnAssignedQuestComplete() //Listen to Event
     {
         Observer.AssignedQuestComplete();
     }
-    public void OnAssignedMissionComplete()
+    public void OnAssignedMissionComplete() //Listen to Event
     {
         Observer.AssignedMissionComplete();
     }
-    public void OnAssignedMissionFailed()
+    public void OnAssignedMissionFailed()//Listen to Event
     {
         Observer.AssignedMissionFailed();
     }

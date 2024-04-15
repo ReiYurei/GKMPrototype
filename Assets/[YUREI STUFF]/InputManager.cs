@@ -8,9 +8,7 @@ public class InputManager : MonoBehaviour
 {
     public InputActionAsset input;
     public void OnStateChange(ScriptableObject data)
-    {
-        Debug.Log("CALLED");
- 
+    { 
         var state = data as BaseGameState;
         switch (state)
         {

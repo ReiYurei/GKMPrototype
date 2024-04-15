@@ -15,6 +15,10 @@ public class DialogueUIController : MonoBehaviour
     {
         _input.FindActionMap(_inputName).FindAction("Confirm").performed += OnSkipText;
         _input.FindActionMap(_inputName).FindAction("Skip").performed += ForceSkipAll;
+        _input.FindActionMap(_inputName).FindAction("Skip").started += ForceSkipAll;
+        _input.FindActionMap(_inputName).FindAction("Skip").canceled += ForceSkipAll;
+
+
 
     }
 
@@ -23,6 +27,8 @@ public class DialogueUIController : MonoBehaviour
     {
         _input.FindActionMap(_inputName).FindAction("Confirm").performed -= OnSkipText;
         _input.FindActionMap(_inputName).FindAction("Skip").performed -= ForceSkipAll;
+        _input.FindActionMap(_inputName).FindAction("Skip").started -= ForceSkipAll;
+        _input.FindActionMap(_inputName).FindAction("Skip").canceled -= ForceSkipAll;
 
     }
 
@@ -35,11 +41,16 @@ public class DialogueUIController : MonoBehaviour
 
     [field: SerializeField]public TMPro.TextMeshProUGUI SpeechText { get; private set; }
     [field: SerializeField] public TMPro.TextMeshProUGUI NameText { get; private set; }
+    [field: SerializeField] public GameObject SkipUI { get; private set; }
+    [field: SerializeField] public Slider SkipSlider { get; private set; }
     [field: SerializeField] public float TextSpeed { get; private set; }
     [SerializeField] private string _inputName = "Cutscene";
+
     [field: Header("Event")]
     [field: SerializeField] public SO_VoidGameEvent DialogueEndEvent { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
+
+
     [field: Header("Other")]
     [SerializeField] private InputActionAsset _input;
     [SerializeField] private CutsceneState _cutsceneState;
@@ -51,8 +62,8 @@ public class DialogueUIController : MonoBehaviour
 
     private float _speed = 20;
     private string _tmText;
-    private bool _skippable;
-    private bool _textRevealed;
+    [SerializeField]private bool _skippable;
+    [SerializeField]private bool _textRevealed;
     private int _dialogueIndex = 0;
     public void ReadText()
     {
@@ -282,6 +293,7 @@ public class DialogueUIController : MonoBehaviour
     }
     public void OnCutsceneStart(ScriptableObject data)
     {
+        SkipUI.SetActive(false);
         Debug.Log("Cutscene Start");
         var dialogueData = data as SO_Dialogue;
         //gameState = GameState.Cutscene;//For Debugging
@@ -345,15 +357,40 @@ public class DialogueUIController : MonoBehaviour
     }
     public void ForceSkipAll(InputAction.CallbackContext context)
     {
-        _speed = 100;
-        ConfirmIcon.gameObject.SetActive(true);
-        SpeechText.maxVisibleCharacters = SpeechText.text.Length;
-        _textRevealed = true;
+        if (context.started)
+        {
+            SkipUI.SetActive(true);
+            StartCoroutine(SkipTimer());
+            return;
+        }
+        IEnumerator SkipTimer()
+        {
+            SkipSlider.value = 0;
+            while (context.phase.IsInProgress() && SkipSlider.value <= SkipSlider.maxValue)
+            {
+                SkipSlider.value += Time.deltaTime;
+                yield return null;
+            }
+            SkipUI.SetActive(false);
+        }
+        if (context.canceled)
+        {
+            SkipUI.SetActive(false);
+            return;
+        }
+        SkipUI.SetActive(false);
+        SkipSlider.value = 0;
         _dialogueIndex = DialogueData.dialogue.Count - 1;
         ShowPotrait();
         ReadText();
         ShowName();
         ActiveSpeaker();
+        _speed = 100;
+        ConfirmIcon.gameObject.SetActive(true);
+        SpeechText.maxVisibleCharacters = SpeechText.text.Length;
+        _textRevealed = true;
+        _skippable = true;
+
         StopAllCoroutines();
     }
 }

@@ -20,7 +20,7 @@ public class FixedState
 [CreateAssetMenu(fileName = "Dynamic State", menuName = "Enemy/Enemy Behaviour/Enemy Dynamic State")]
 public class SO_DynamicState : ScriptableObject
 {
-    public GameplayType gameplayType;
+    //public GameplayType gameplayType;
     [InlineEditor] public SO_Enemy_States states;
     [ValidateInput(nameof(ValidateVariable))]
     public List<Condition<CustomVariable, CustomVariable>> conditions;

@@ -630,7 +630,8 @@ public class DialogueEditor : EditorWindow
     }
     private void CreateNew()
     {
-        SO_Dialogue newObject = ScriptableObject.CreateInstance<SO_Dialogue>();
+        SaveLocalEdit();
+        SO_Dialogue newObject = CreateInstance<SO_Dialogue>();
         newObject.eventName = new string(eventName);
         newObject.dialogue = new List<Dialogue>(localDialogues);
         AssetDatabase.CreateAsset(newObject, $"{path}/{eventName}.asset");

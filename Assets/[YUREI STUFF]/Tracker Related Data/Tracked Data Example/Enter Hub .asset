@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c591631a57dd0e4c9b1b29e8c1c7840, type: 3}
+  m_Name: 'Enter Hub '
+  m_EditorClassIdentifier: 
+  eventName: 'Enter Hub '
+  dialogue:
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 0
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 1
+    <SpeakerName>k__BackingField: You
+    <SpeechText>k__BackingField: Well, Let's just get back to work!
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+  endEventBehaviour: 1
+  CustomEndEvent: {fileID: 0}

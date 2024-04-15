@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0642e64bb72a1748bf74846d0b50b9b, type: 3}
+  m_Name: OnAssignedQuest
+  m_EditorClassIdentifier: 
+  debug: 0
+  <ParameterType>k__BackingField: {fileID: 11400000, guid: 22ef615d9dba7ee4390a968a415b102a, type: 2}
+  _gameEvent: []

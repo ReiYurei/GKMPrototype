@@ -19,14 +19,21 @@ public class ListingUIController : MonoBehaviour
     [field: Header("Mission")]
     [field: SerializeField] public SO_MissionListing AvailableMissions { get; private set; }
     [field: SerializeField] public MissionListingUI MissionUI { get; private set; }
+    [field: Header("Canvas")]
     [field: Header("Page Canvas")]
     [field: SerializeField] public GameObject ListingUICanvas { get; private set; }
     [field:SerializeField] public TabGroup TabGroup { get; private set; }
     [field: SerializeField] public CustomTabButton NextPageButton { get; private set; }
     [field: SerializeField] public CustomTabButton PrevPageButton { get; private set; }
-    [field: SerializeField] public GameObject PromptTextBox { get; private set; }
+    [field: SerializeField] public GameObject PromptConfirmSelection { get; private set; }
     [field: SerializeField] public List<CustomTabButton> PromptButton { get; private set; }
+    [field: SerializeField] public GameObject PromptRemoveSelection { get; private set; }
+    [field: SerializeField] public List<CustomTabButton> PromptRemoveSelectionButton { get; private set; }
+
+
     [field: SerializeField] public TextMeshProUGUI PageText { get; private set; }
+    [field: Header("Operator Canvas")]
+    [field: SerializeField] public TextMeshProUGUI OperatorText { get; private set; }
 
     [field: Header("Other")]
     [field: SerializeField] public InputActionAsset Actions { get; private set; }
@@ -41,7 +48,6 @@ public class ListingUIController : MonoBehaviour
         DontDestroyOnLoad(this);   
 
     }
-
     private void OnEnable()
     {
         Actions.FindActionMap(inputName).FindAction("Next Page").started += NextPage;
@@ -56,8 +62,6 @@ public class ListingUIController : MonoBehaviour
         Actions.FindActionMap(inputName).FindAction("Confirm").performed += Confirm;
         Actions.FindActionMap(inputName).FindAction("Return").performed += Cancel;
     }
-
-
     private void OnDisable()
     {
         Actions.FindActionMap(inputName).FindAction("Next Page").canceled -= NextPage;
@@ -77,10 +81,11 @@ public class ListingUIController : MonoBehaviour
     }
     public void CancelFunction()
     {
-        if (PromptTextBox.activeInHierarchy)
+        if (PromptConfirmSelection.activeInHierarchy || PromptRemoveSelection.activeInHierarchy)
         {
             promptIndex = 0;
-            PromptTextBox.SetActive(false);
+            PromptConfirmSelection.SetActive(false);
+            PromptRemoveSelection.SetActive(false);
             Actions.FindActionMap(inputName).FindAction("Next Tab").Enable();
             Actions.FindActionMap(inputName).FindAction("Previous Tab").Enable();
             return;
@@ -91,10 +96,42 @@ public class ListingUIController : MonoBehaviour
 
     private void Confirm(InputAction.CallbackContext context)
     {
-        if (!PromptTextBox.activeInHierarchy)
+        Debug.Log("<color=yellow>CONFIRM</color>");
+    
+        switch (TabGroup.SelectedTab.TabType)
         {
+            case TabType.Quest:
+                Debug.Log("Quest");
+                if (PromptRemoveSelection.activeInHierarchy || PromptConfirmSelection.activeInHierarchy) break;
+                if (Observer.AssignedQuest != null && Observer.AssignedQuest == AvailableQuests.Quests[pageIndex])
+                {
+                    promptIndex = 0;
+                    PromptRemoveSelection.SetActive(true);
+                    Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
+                    Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
+                    return;
+                }
+                break;
+
+            case TabType.Mission:
+                Debug.Log("Mission");
+
+                if (PromptRemoveSelection.activeInHierarchy || PromptConfirmSelection.activeInHierarchy) break;
+                if (Observer.AssignedMission != null && Observer.AssignedMission == AvailableMissions.Missions[pageIndex])
+                {
+                    promptIndex = 0;
+                    PromptRemoveSelection.SetActive(true);
+                    Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
+                    Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
+                    return;
+                }
+                break;
+        }
+        if (!PromptConfirmSelection.activeInHierarchy && !PromptRemoveSelection.activeInHierarchy)
+        {
+            Debug.Log("<color=yellow>2</color>");
             promptIndex = 0;
-            PromptTextBox.SetActive(true);
+            PromptConfirmSelection.SetActive(true);
             Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
             Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
             return;
@@ -112,12 +149,26 @@ public class ListingUIController : MonoBehaviour
         switch (TabGroup.SelectedTab.TabType)
         {
             case TabType.Quest:
+                if (Observer.AssignedQuest != null && Observer.AssignedQuest == AvailableQuests.Quests[pageIndex])
+                {                    
+                    Debug.Log("<color=yellow>Removed Quest</color>");
+                    Observer.ResetQuestTaken();
+                    CancelFunction();
+                    return;
+                }
                 Observer.AssignQuest(AvailableQuests.Quests[pageIndex]);
-                Debug.Log("Assign Quest");
+                Debug.Log("<color=red>Assign Quest</color>");
                 break;
             case TabType.Mission:
+                if (Observer.AssignedMission != null && Observer.AssignedMission == AvailableMissions.Missions[pageIndex])
+                {
+                    Debug.Log("<color=yellow>Removed Mission</color>");
+                    Observer.ResetMissionTaken();
+                    CancelFunction();
+                    return;
+                }
                 Observer.AssignMission(AvailableMissions.Missions[pageIndex]);
-                Debug.Log("Assign Mission");
+                Debug.Log("<color=red>Assign Mission</color>");
 
                 break;
         }
@@ -126,42 +177,55 @@ public class ListingUIController : MonoBehaviour
     }
     public void NextPage()
     {
-        StopAllCoroutines();
+        StopCoroutine(PreviousPageFunction());
+        StopCoroutine(NextPageFunction());
         StartCoroutine(NextPageFunction());
-        Debug.Log("Next");
 
     }
     private void NextPage(InputAction.CallbackContext context)
     {
 
-        if (PromptTextBox.activeInHierarchy && context.started)
+        if (context.started)
         {
-            promptIndex = PromptButton.Count - 1;
-            var button = PromptButton[promptIndex];
-            for (int i = 0; i < PromptButton.Count; i++)
+            if (PromptConfirmSelection.activeInHierarchy)
             {
-                PromptButton[i].SetColor();
+                promptIndex = PromptButton.Count - 1;
+                var button = PromptButton[promptIndex];
+                for (int i = 0; i < PromptButton.Count; i++)
+                {
+                    PromptButton[i].SetColor();
+                }
+                promptIndex = PromptButton.Count - 1;
+                button.SetColor(button.hoverColor);
+                return;
             }
-            promptIndex = PromptButton.Count - 1;
-            button.SetColor(button.hoverColor);
-            return;
+            else if (PromptRemoveSelection.activeInHierarchy)
+            {
+                promptIndex = PromptRemoveSelectionButton.Count - 1;
+                var button = PromptRemoveSelectionButton[promptIndex];
+                for (int i = 0; i < PromptRemoveSelectionButton.Count; i++)
+                {
+                    PromptRemoveSelectionButton[i].SetColor();
+                }
+                promptIndex = PromptRemoveSelectionButton.Count - 1;
+                button.SetColor(button.hoverColor);
+                return;
+            }
         }
-        if (!PromptTextBox.activeInHierarchy && context.performed)
+        if (!PromptConfirmSelection.activeInHierarchy && context.performed)
         {
             NextPageButton.SetColor(NextPageButton.hoverColor);
-            Debug.Log("Performed");
             StartCoroutine(NextPageFunction(context));
             return;
         }
         else if (context.started)
         {
-            Debug.Log("started");
             NextPageButton.SetColor(NextPageButton.hoverColor);
             StartCoroutine(NextPageFunction(context));
             return;
         }
         NextPageButton.SetColor();
-        StopAllCoroutines();
+        StopCoroutine(NextPageFunction());
 
 
     }
@@ -251,42 +315,53 @@ public class ListingUIController : MonoBehaviour
     }
     public void PreviousPage()
     {
-        StopAllCoroutines();
+        StopCoroutine(PreviousPageFunction());
+        StopCoroutine(NextPageFunction());
         StartCoroutine(PreviousPageFunction());
-        Debug.Log("Prev");
     }
     public void PreviousPage(InputAction.CallbackContext context)
     {
-        if (PromptTextBox.activeInHierarchy && context.started)
+        if (context.started)
         {
-            promptIndex = 0;
-            var button = PromptButton[promptIndex];
-            for (int i = 0; i < PromptButton.Count; i++)
+            if (PromptConfirmSelection.activeInHierarchy)
             {
-                PromptButton[i].SetColor();
+                promptIndex = 0;
+                var button = PromptButton[promptIndex];
+                for (int i = 0; i < PromptButton.Count; i++)
+                {
+                    PromptButton[i].SetColor();
+                }
+                button.SetColor(button.hoverColor);
+                return;
             }
-            button.SetColor(button.hoverColor);
-            return;
-
+            else if (PromptRemoveSelection.activeInHierarchy)
+            {
+                promptIndex = 0;
+                var button = PromptRemoveSelectionButton[promptIndex];
+                for (int i = 0; i < PromptRemoveSelectionButton.Count; i++)
+                {
+                    PromptRemoveSelectionButton[i].SetColor();
+                }
+                button.SetColor(button.hoverColor);
+                return;
+            }
         }
 
-        if (!PromptTextBox.activeInHierarchy && context.performed)
+        if (!PromptConfirmSelection.activeInHierarchy && context.performed ||
+            !PromptRemoveSelection.activeInHierarchy && context.performed)
         {
+
             PrevPageButton.SetColor(PrevPageButton.hoverColor);
-            Debug.Log("Performed");
             StartCoroutine(PreviousPageFunction(context));
             return;
         }
         else if (context.started)
         {
-            Debug.Log("started");
             PrevPageButton.SetColor(PrevPageButton.hoverColor);
             StartCoroutine(PreviousPageFunction(context));
             return;
         }
         PrevPageButton.SetColor();
-        StopAllCoroutines();
-
     }
     private IEnumerator PreviousPageFunction()
     {
@@ -432,8 +507,25 @@ public class ListingUIController : MonoBehaviour
     }
     public void OnListingOpen()
     {
+        ReadText();
         ChangeStateEvent.Raise(state);
         ListingUICanvas.SetActive(true);
+    }
+    public void ReadText()
+    {
+        string text = OperatorText.text;
+        OperatorText.maxVisibleCharacters = 0;
+        StartCoroutine(Read());
+
+        IEnumerator Read()
+        {
+            while(OperatorText.maxVisibleCharacters < OperatorText.text.Length)
+            {
+               OperatorText.maxVisibleCharacters++;
+               yield return new WaitForSeconds(1f / 30);
+
+            }
+        }
     }
 }
 [System.Serializable]

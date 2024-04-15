@@ -9643,6 +9643,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3020766109846378489, guid: fdb1849febe9ff041868f32bcd73346b, type: 3}
+      propertyPath: _dynamicStates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020766109846378489, guid: fdb1849febe9ff041868f32bcd73346b, type: 3}
+      propertyPath: _dynamicStates.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a0a0d0fccd539d6498337f0d6aa3962a, type: 2}
     - target: {fileID: 4652478206531035968, guid: fdb1849febe9ff041868f32bcd73346b, type: 3}
       propertyPath: m_Name
       value: Reimu Objects Collection
