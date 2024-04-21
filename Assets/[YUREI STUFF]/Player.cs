@@ -21,27 +21,38 @@ public class Player : MonoBehaviour
     public BoxCollider2D interactBox;
     private string inputName = "Hub";
     Vector2 max;
+    private void Awake()
+    {
+        input = inputActions.FindActionMap(inputName);
+    }
+    private void OnEnable()
+    {
+        input.FindAction("Interact").performed += Interact;
+
+    }
+    private void OnDisable()
+    {
+        input.FindAction("Interact").performed -= Interact;
+
+
+    }
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         playerInfo.StoreStaticData(_rb);
-        inputActions.FindActionMap(inputName).Enable();
-        input = inputActions.FindActionMap(inputName);
-        input.FindAction("Interact").performed += Interact;
+
         max.x = maxSpeed;
     }
     
     private void Interact(InputAction.CallbackContext context)
     {
-        if (!context.performed)
-        {
-            return;
-        }
+        if (!context.performed)return;
+        Debug.Log("<color=yellow>Interacting</color>");
         Collider2D collission = Physics2D.OverlapBox(interactBox.transform.position, interactBox.bounds.size,0);
+        Debug.Log(collission);
         if (collission == null) return;
-        if (collission.gameObject.CompareTag("Interact Box"))
+        if (collission.TryGetComponent(out IInteractable interactable))
         {
-            collission.TryGetComponent(out IInteractable interactable);
             if (interactable == null) return;
             interactable.OnInteract();
         }
@@ -49,6 +60,7 @@ public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(interactBox.transform.position, interactBox.bounds.size);
+        Gizmos.color = Color.yellow;
 
     }
     void Update()

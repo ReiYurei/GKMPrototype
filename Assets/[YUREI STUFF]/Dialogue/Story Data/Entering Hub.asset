@@ -15,7 +15,7 @@ MonoBehaviour:
   <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
   <Requirements>k__BackingField: []
   <Replayability>k__BackingField: 1
-  <PlayAt>k__BackingField: 2
+  <PlayAt>k__BackingField: 0
   <DialogueEvent>k__BackingField: {fileID: 11400000, guid: d5cf4298fe5b04942b2a2ef257f22db1, type: 2}
   <RaiseCutscene>k__BackingField: {fileID: 11400000, guid: 98818ae4544a8734cbbd3cfd36bd4eae, type: 2}
   <MinimumRequirement>k__BackingField: 0

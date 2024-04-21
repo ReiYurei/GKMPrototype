@@ -443,11 +443,18 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.625
-    functionName: GravityIncrease
+  - time: 0
+    functionName: GravitySet
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 50
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.625
+    functionName: GravitySet
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 40
     intParameter: 0
     messageOptions: 0
   - time: 0.9166667

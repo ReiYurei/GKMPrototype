@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618b7ca443446f84a967746fffa584b6, type: 3}
   m_Name: Normal Dynamic State
   m_EditorClassIdentifier: 
-  gameplayType: 0
-  states: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
+  normalStates: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
+  ragingStates: {fileID: 11400000, guid: 01dde18a6ceee0a48948abcd84d24be2, type: 2}
+  gameplayState: {fileID: 11400000, guid: 6ab5eb1d98f0b5d428b506a1dbb53f7c, type: 2}
   conditions:
   - comparatorType: 2
     variable1: {fileID: 11400000, guid: b1efe98cc10385b44b1499fe8eb2b403, type: 2}
     variable2: {fileID: 11400000, guid: 39c5935f643405a41a0a5355f3d6605f, type: 2}
+  - comparatorType: 0
+    variable1: {fileID: 11400000, guid: 0daeb1cc3ab6cd144be5d29e07d6989c, type: 2}
+    variable2: {fileID: 11400000, guid: 969a6676a7bfc764e9f5c73694886706, type: 2}
+  - comparatorType: 0
+    variable1: {fileID: 11400000, guid: 2d1234a524e720b4699a9a61495fa418, type: 2}
+    variable2: {fileID: 11400000, guid: 969a6676a7bfc764e9f5c73694886706, type: 2}

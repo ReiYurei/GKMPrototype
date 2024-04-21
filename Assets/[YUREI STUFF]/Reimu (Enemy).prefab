@@ -729,15 +729,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7408e1673e095354ab11f677c0a759a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameState>k__BackingField: 0
+  <GameState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <StatusData>k__BackingField: {fileID: 11400000, guid: 8802ab853ec4fc04093784b3c6b5dc45, type: 2}
-  <EnemyAudioCollection>k__BackingField: {fileID: 11400000, guid: 695e55bdaecd89e4dbdfece614b736e2, type: 2}
+  <AudioCollection>k__BackingField: {fileID: 0}
   <EnemyAnimatorComponent>k__BackingField: {fileID: 7118742140447723313}
   <EnemyBehaviourComponent>k__BackingField: {fileID: 7281159925308176100}
   <StatusEffectContainerComponent>k__BackingField: {fileID: 8190861503032857462}
   <EventListener>k__BackingField: {fileID: 1898887875157128388}
   <RigidbodyComponent>k__BackingField: {fileID: 8391024120467001601}
   <AnimatorComponent>k__BackingField: {fileID: 6017140472312044460}
+  <Waypoints>k__BackingField: []
   speed: 1
   acceleration: 5
 --- !u!114 &8190861503032857462
@@ -788,6 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa42e43e05989a48b73b6ba1d47be3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   _enemy: {fileID: 0}
   _status: {fileID: 0}
   _dynamicStates:

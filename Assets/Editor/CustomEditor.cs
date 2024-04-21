@@ -76,7 +76,7 @@ public class DialogueEditor : EditorWindow
 
     string keyParam;
     SO_ParameterGameEvent paramEvent;
-
+    ScriptableObject paramData;
     VoidGameEventWithKey<string> voidEventKey;
     ParameterGameEventWithKey<string> paramEventKey;
     List<Dialogue> localDialogues;
@@ -228,7 +228,9 @@ public class DialogueEditor : EditorWindow
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Key", customLayout);
         keyParam = EditorGUILayout.TextField(keyParam, customLayout2);
-        paramEvent = (SO_ParameterGameEvent)EditorGUILayout.ObjectField(paramEvent, typeof(SO_ParameterGameEvent), true, customLayout3);
+        paramEvent = (SO_ParameterGameEvent)EditorGUILayout.ObjectField(paramEvent, typeof(SO_ParameterGameEvent), true, customLayout2);
+        paramData = (ScriptableObject)EditorGUILayout.ObjectField(paramData, typeof(ScriptableObject), true, customLayout3);
+
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndVertical();
@@ -482,7 +484,7 @@ public class DialogueEditor : EditorWindow
       
         var data = localDialogues[index];       
         data.VoidGameEvent.SetValue(keyVoid, voidEvent);
-        data.ParameterGameEvent.SetValue(keyParam, paramEvent);
+        data.ParameterGameEvent.SetValue(keyParam, paramEvent, paramData);
         var info1 = characterLeft;
         var info2 = characterRight;
         var info3 = expressionLeft;
@@ -509,7 +511,6 @@ public class DialogueEditor : EditorWindow
         autoSkipAtEnd = data.AutoSkipAtEnd;
 
 
-
         voidEventKey = data.VoidGameEvent;
         keyVoid = voidEventKey.Key;
         voidEvent = voidEventKey.GameEvent;
@@ -517,6 +518,7 @@ public class DialogueEditor : EditorWindow
         paramEventKey = data.ParameterGameEvent;
         keyParam = paramEventKey.Key;
         paramEvent = paramEventKey.GameEvent;
+        paramData = paramEventKey.ParamData;
 
         InitTextureFromSprite();
         if (dialogueData == null) return;
@@ -833,7 +835,7 @@ public class DialogueEditor : EditorWindow
         EditorGUILayout.EndVertical();
         switch (endEventBehaviour)
         {
-            case EndEventBehaviour.DefaultEvent:
+            case EndEventBehaviour.DefaultHubEvent:
                 break;
             case EndEventBehaviour.None_ToHub:
                 break;

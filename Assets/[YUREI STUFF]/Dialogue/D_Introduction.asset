@@ -17,26 +17,14 @@ MonoBehaviour:
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 2
-    <ActiveSpeaker>k__BackingField: 1
-    <SpeakerName>k__BackingField: Reimu
-    <SpeechText>k__BackingField: <speed=30><emotion=Neutral>Huh, As I thought.<pause=0.75>
-      <speed=20><color="red">Yo<emotion=Happy>u</color> are really a naive one!
-    <AutoSkipAtEnd>k__BackingField: 0
-    _voidGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-    _parameterGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-  - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 2
-    <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 9
+    <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Other Reimu
-    <SpeechText>k__BackingField: The<pause=0.5><b><size=26>FU<emotion=Despised>CK</size></b>
-      <pause=0.25>did <color=yellow>you </color>say?!
+    <SpeakerName>k__BackingField: Hub Gal
+    <SpeechText>k__BackingField: 'Hmm?<pause=0.5>
+
+      . <pause=0.5>. <pause=0.5>.
+
+'
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -47,13 +35,27 @@ MonoBehaviour:
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 6
+    <InitialExpressionRight>k__BackingField: 9
+    <ActiveSpeaker>k__BackingField: 2
+    <SpeakerName>k__BackingField: Hub Gal
+    <SpeechText>k__BackingField: Oh!<pause=1>! Could it be you are the newly promoted
+      <color=yellow>Astral Hunter</color>?
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
-    <SpeakerName>k__BackingField: Reimu
-    <SpeechText>k__BackingField: Oh, nothing.<pause=0.5><speed=75> Honestly, I just
-      wanted to know whether or not you're able to handle insult from a person that's
-      clearly better than y-
-    <AutoSkipAtEnd>k__BackingField: 1
+    <SpeakerName>k__BackingField: You
+    <SpeechText>k__BackingField: That's right, <color=yellow>Astral Extermination
+      Training Center</color> has sent me here.
+    <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
@@ -63,11 +65,12 @@ MonoBehaviour:
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 9
     <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 6
+    <InitialExpressionRight>k__BackingField: 2
     <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Other Reimu
-    <SpeechText>k__BackingField: <b><size=40>SHUT UP!!</size></b>
-    <AutoSkipAtEnd>k__BackingField: 0
+    <SpeakerName>k__BackingField: Hub Gal
+    <SpeechText>k__BackingField: <size=50>W <pause=0.25>E <pause=0.25>L <pause=0.25>C
+      <pause=0.25>O <pause=0.25>M <pause=0.25>E!!!<pause=1.5></size>
+    <AutoSkipAtEnd>k__BackingField: 1
     _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
@@ -79,9 +82,11 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Other Reimu
-    <SpeechText>k__BackingField: <speed=20>Enough talking,<pause=0.4> Le<emotion=Smile>t's
-      just fight!
+    <SpeakerName>k__BackingField: Hub Gal
+    <SpeechText>k__BackingField: It's rare to see that the<color=yellow> Training
+      Center</color> sent a <color=yellow>new recruit here</color>.<pause=0.5> So,
+      I'm quite h<emotion=happy>appy we finally got someone new to help us running
+      this place
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -89,5 +94,20 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
-  endEventBehaviour: 3
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 2
+    <ActiveSpeaker>k__BackingField: 1
+    <SpeakerName>k__BackingField: You
+    <SpeechText>k__BackingField: I see,<pause=0.5> I'm lo<emotion=happy>ok forward
+      to working with you guys as well.
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+  endEventBehaviour: 4
   CustomEndEvent: {fileID: 11400000, guid: b90f576814fbb4b4fa3145b291d36559, type: 2}

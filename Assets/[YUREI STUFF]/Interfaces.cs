@@ -7,6 +7,11 @@ public interface IDamageable
     void OnDamage(float damage);
 
 }
+public interface IAudioSource
+{
+    public SO_AudioFMODEventCollection AudioCollection { get; }
+}
+
 public interface INumericVariable
 {
     public float GetValue();

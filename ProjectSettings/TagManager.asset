@@ -8,7 +8,10 @@ TagManager:
   - Hitbox
   - Hurtbox
   - Parrybox
-  - Interact Box
+  - EventSystem
+  - Interactable
+  - StageManager
+  - AstralEntity
   layers:
   - Default
   - TransparentFX

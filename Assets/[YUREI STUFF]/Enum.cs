@@ -43,3 +43,11 @@ public enum ActiveTalker
 {
     None,Left,Right,Both
 }
+public enum SceneName
+{
+    MainMenu_Scene, Hub_Scene, Stage_MistyForest, Stage_
+}
+public enum StageName
+{
+    Stage_Tutorial,Stage_MistyForest, Stage_Swamp, Stage_Forest, Stage_MountAndHills, Stage_Village
+}

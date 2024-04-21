@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: OnCutsceneStart_SODialogue
   m_EditorClassIdentifier: 
   debug: 0
-  <ParameterType>k__BackingField: {fileID: 11400000, guid: 35127e3d01ff39544b9d1929a9405a31, type: 2}
+  <ParameterType>k__BackingField: {fileID: 11400000, guid: 6e3c66d7ad5201246b4abb219748e836, type: 2}
   _gameEvent: []
