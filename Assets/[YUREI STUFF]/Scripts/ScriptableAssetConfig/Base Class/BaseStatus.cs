@@ -21,6 +21,7 @@ public abstract class BaseStatus : ScriptableObject
     {
         return currentHealth.value;
     }
+    [Button("Set Health")]
     public void SetHealth(float health)
     {
         if(HealthChange != null) HealthChange.Raise();

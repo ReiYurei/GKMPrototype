@@ -8,19 +8,24 @@ using UnityEngine.InputSystem;
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
+    [field: SerializeField] public StateObserver CurrentState { get; private set; }
+
+    [field: Header("Events")]
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ResumeEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent MissionFailedEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ReturnToTitleEvent { get; private set; }
 
-    [field: SerializeField] public StateObserver CurrentState { get; private set; }
+    [field: Header("Pause Canvas")]
     [field: SerializeField] public PauseState PauseState { get; private set; }
     [field: SerializeField] public GameObject PausePrompt { get; private set; }
     [field: SerializeField] public GameObject AbandonMissionOption { get; private set; }
 
+    [field: Header("Other")]
     [field: SerializeField] public InputActionAsset Input { get; private set; }
-    private EventSystem _eventSystem;
     [field: SerializeField] public GameObject FirstSelected { get; private set; }
+    private EventSystem _eventSystem;
+
 
     private void Awake()
     {

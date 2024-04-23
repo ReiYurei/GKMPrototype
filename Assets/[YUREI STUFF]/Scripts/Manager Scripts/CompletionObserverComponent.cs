@@ -22,7 +22,7 @@ public class CompletionObserverComponent : MonoBehaviour
             DontDestroyOnLoad(this);
         }
     }
-    private void OnDisable()
+    private void OnApplicationQuit()
     {
         Observer.QuestObserver.ClearData();
         Observer.StoryObserver.ClearData();
@@ -39,6 +39,7 @@ public class CompletionObserverComponent : MonoBehaviour
         Observer.MissionObserver.ClearTemp();
         Observer.ResetAllValue();
     }
+
     public void OnEmbark() //Listen to Event
     {
         Observer.QuestObserver.ClearTemp();

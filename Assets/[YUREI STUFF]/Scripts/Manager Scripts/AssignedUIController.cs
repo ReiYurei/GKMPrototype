@@ -5,6 +5,7 @@ using TMPro;
 [RequireComponent(typeof(EventListenerComponent))]
 public class AssignedUIController : MonoBehaviour 
 {
+    [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }
     public static AssignedUIController Instance { get; private set; }
     [field: SerializeField] public GameObject Canvas { get; private set; }
 
@@ -28,6 +29,19 @@ public class AssignedUIController : MonoBehaviour
             DontDestroyOnLoad(this);
         }
     }
+    public void OnHubEnter()
+    {
+        if (Observer.AssignedMission != null) AssignedMissionCanvas.SetActive(true);
+        if (Observer.AssignedQuest != null) AssignedQuestCanvas.SetActive(true);
+        Canvas.SetActive(true);
+
+    }
+    public void DisableCanvas()
+    {
+        AssignedMissionCanvas.SetActive(false);
+        AssignedQuestCanvas.SetActive(false);
+        Canvas.SetActive(false);
+    }
     public void OnAssignedQuest(ScriptableObject quest)
     {
         var data = quest as SO_QuestData;
@@ -42,13 +56,6 @@ public class AssignedUIController : MonoBehaviour
         MissionName.text = data.MissionName;
         AssignedMissionCanvas.SetActive(true);
         Canvas.SetActive(true);
-
-    }
-    public void OnDepartQuest(ScriptableObject data)
-    {
-        AssignedMissionCanvas.SetActive(false);
-        AssignedQuestCanvas.SetActive(false);
-        Canvas.SetActive(false);
 
     }
     public void OnAssignedQuestCancel()

@@ -51,3 +51,8 @@ public enum StageName
 {
     Stage_Tutorial,Stage_MistyForest, Stage_Swamp, Stage_Forest, Stage_MountAndHills, Stage_Village
 }
+
+public enum CompletionMark 
+{
+    Failed, Clear, None
+}

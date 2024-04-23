@@ -14,15 +14,18 @@ public class StageManagerComponent : MonoBehaviour
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent ChangeOverallStateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ExterminationStartEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent MissionCompleteEvent { get; private set; }
+
 
     [Header("Canvas")]
+    [Header("Pre-Fight Canvas")]
     [SerializeField] private GameObject _exterminateCanvas;
     [SerializeField] private GameObject _exterminateScreen;
     [SerializeField] private Image _exterminateObject;
     [SerializeField] private TextMeshProUGUI _exterminateText;
-
     [SerializeField] private AnimationCurve _speedCurve = AnimationCurve.Linear(0, 0, 1, 1);
     private float _speed;
+
 
     [Header("State")]
     [SerializeField] private ExterminateState _exterminateState;
@@ -33,6 +36,7 @@ public class StageManagerComponent : MonoBehaviour
     [Header("Spawn Point")]
     public Transform playerSpawnPoint;
     public Transform astralSpawnPoint;
+
     public void OnStageEnter() //Listen to Event
     {
         EnqueueStageEvents();

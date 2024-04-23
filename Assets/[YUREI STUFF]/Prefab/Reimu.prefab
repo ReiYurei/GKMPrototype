@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 4076581612383940636}
   m_Layer: 0
   m_Name: Reimu (Enemy)
-  m_TagString: Untagged
+  m_TagString: AstralEntity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

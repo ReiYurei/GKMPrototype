@@ -5955,7 +5955,7 @@ GameObject:
   - component: {fileID: 9130119525829308323}
   - component: {fileID: 7676698246035850777}
   m_Layer: 0
-  m_Name: UI ListingController
+  m_Name: UI Listing Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

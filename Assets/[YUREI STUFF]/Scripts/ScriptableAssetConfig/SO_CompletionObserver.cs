@@ -3,12 +3,12 @@
 [CreateAssetMenu(fileName = "Completion Observer", menuName = "Player/Completion Observer")]
 public class SO_CompletionObserver : ScriptableObject
 {
-    //Automate Initialization with Resources folder
     [field: SerializeField] public SO_QuestCompletionObserver QuestObserver { get; private set; }
     [field: SerializeField] public SO_MissionCompletionObserver MissionObserver { get; private set; }
     [field: SerializeField] public SO_StoryCompletionObserver StoryObserver { get; private set; }
     [field: SerializeField] public SO_QuestData AssignedQuest { get; private set; }
     [field: SerializeField] public SO_MissionData AssignedMission { get; private set; }
+
     [field: SerializeField] public SO_ParameterGameEvent AssignQuestEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent CancelQuestEvent { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent AssignMissionEvent { get; private set; }
@@ -56,9 +56,19 @@ public class SO_CompletionObserver : ScriptableObject
         AssignedMission = null;
         return;
     }
+
     public void AssignedMissionComplete()
     {
         if (AssignedMission == null) return;
+        AssignedMission.ClaimReward();
+        if (AssignedQuest != null)
+        {
+           if (AssignedQuest.QuestInfo.QuestType != QuestType.Elimination && 
+                AssignedQuest.QuestInfo.EliminationTarget == AssignedMission.AstralEntity) 
+           {
+                AssignedQuest.QuestInfo.EliminationCount++;
+           }
+        }
         if (MissionObserver.Completion.Contains(AssignedMission))
         {
             AssignedMission = null;

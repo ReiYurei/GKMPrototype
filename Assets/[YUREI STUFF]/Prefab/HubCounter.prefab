@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
+  <AudioCollection>k__BackingField: {fileID: 0}
   <AllQuest>k__BackingField: {fileID: 11400000, guid: d94ff93a317f3a94b9d6a4b2faf9f422, type: 2}
   <AvailableQuest>k__BackingField: {fileID: 11400000, guid: cb8240ac92e9be348a2d62a7cd575bc9, type: 2}
   <AllMission>k__BackingField: {fileID: 11400000, guid: a8bfd6e2e4923a345b294b2aa06856f8, type: 2}
@@ -58,6 +59,7 @@ MonoBehaviour:
   <ExitDialogue>k__BackingField: {fileID: 11400000, guid: ebe0a7e4d50ed414fa3bf4c44dc32e13, type: 2}
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <CompleteQuestEvent>k__BackingField: {fileID: 11400000, guid: add11550f23c52145a7b525fce564f1d, type: 2}
+  <HubEnterEvent>k__BackingField: {fileID: 11400000, guid: 5571c676c6308564986c9a6cb926340d, type: 2}
   _hubState: {fileID: 11400000, guid: b5b820ccf6f37b447a3f0edb9ab81e6a, type: 2}
 --- !u!114 &8226178889191592784
 MonoBehaviour:
@@ -72,22 +74,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _listenersVoid:
-  - gameEvent: {fileID: 11400000, guid: 5571c676c6308564986c9a6cb926340d, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2919451701084702244}
-          m_TargetAssemblyTypeName: HubCounterComponent, Assembly-CSharp
-          m_MethodName: OnHubEnter
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - gameEvent: {fileID: 11400000, guid: ce1ff50d525ae5244a162f731e9915e7, type: 2}
     voidResponse:
       m_PersistentCalls:
@@ -142,7 +128,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2919451701084702244}
           m_TargetAssemblyTypeName: HubCounterComponent, Assembly-CSharp
-          m_MethodName: OnHubEnter
+          m_MethodName: OnLoadComplete
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

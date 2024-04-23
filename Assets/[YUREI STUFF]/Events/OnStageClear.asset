@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1130577b2df7eda41bd0567c660456b6, type: 3}
-  m_Name: Test C Float
+  m_Script: {fileID: 11500000, guid: 535cf177c159f7141a2290db34ef30cb, type: 3}
+  m_Name: OnStageClear
   m_EditorClassIdentifier: 
-  value: 325
+  _gameEvent: []

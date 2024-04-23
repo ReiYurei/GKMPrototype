@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b88392bc073b6842a09b68f502a5832, type: 3}
   m_Name: Money Reward Data
   m_EditorClassIdentifier: 
-  <Amount>k__BackingField: 50
+  <Amount>k__BackingField: 1500

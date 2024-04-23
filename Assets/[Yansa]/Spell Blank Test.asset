@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 520b89a7d1427254ca5998c0570a982d, type: 3}
-  m_Name: SN_UI_Dialogue
+  m_Script: {fileID: 11500000, guid: 0e3f6daef474c394680584b801c54dea, type: 3}
+  m_Name: Spell Blank Test
   m_EditorClassIdentifier: 
-  value: UI_Dialogue
+  <Icon>k__BackingField: {fileID: 0}
+  SpellName: Rejuvenate
+  Description: Restore your Health 25+
+  Consumption: 10
+  Cooldown: 20

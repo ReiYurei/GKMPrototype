@@ -57,7 +57,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <ChangeOverallStateEvent>k__BackingField: {fileID: 11400000, guid: f2c99184e9fc4764299d1f9ae5741e48, type: 2}
   <ExterminationStartEvent>k__BackingField: {fileID: 11400000, guid: 7de445addd20ad0458d1598987311771, type: 2}
+  <MissionCompleteEvent>k__BackingField: {fileID: 0}
   _exterminateCanvas: {fileID: 924752553363120840}
   _exterminateScreen: {fileID: 5615387855209901747}
   _exterminateObject: {fileID: 4115128173061568922}
@@ -254,7 +255,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -267,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 3586585607048422576}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.77, y: -3.12, z: 0}
+  m_LocalPosition: {x: -4.77, y: 1.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -397,7 +398,7 @@ GameObject:
   m_Layer: 0
   m_Name: Astral Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -410,7 +411,7 @@ Transform:
   m_GameObject: {fileID: 6588238917563180563}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.3, y: -3.15, z: 0}
+  m_LocalPosition: {x: 7.3, y: 0.9999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
