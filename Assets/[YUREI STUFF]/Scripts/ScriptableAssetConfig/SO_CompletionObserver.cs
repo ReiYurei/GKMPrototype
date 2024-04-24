@@ -27,12 +27,12 @@ public class SO_CompletionObserver : ScriptableObject
         return(QuestObserver != null && QuestObserver.Completion.Contains(quest));
     }
 
-    public void AssignQuest(SO_QuestData quest) //Used by Mission Listing
+    public void AssignQuest(SO_QuestData quest) //Used by Mission Items
     {
         AssignedQuest = quest;
         AssignQuestEvent.Raise(quest);
     }
-    public void AssignMission(SO_MissionData mission) //Used by Mission Listing
+    public void AssignMission(SO_MissionData mission) //Used by Mission Items
     {
         AssignedMission = mission;
         AssignMissionEvent.Raise(mission);

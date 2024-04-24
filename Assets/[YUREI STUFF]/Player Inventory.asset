@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e34374061c7a04347bb283a8155a4ff6, type: 3}
-  m_Name: Blank Spell Combo
+  m_Script: {fileID: 11500000, guid: 7e5cae7bff4f10c44a34a8c10ad90d06, type: 3}
+  m_Name: Player Inventory
   m_EditorClassIdentifier: 
-  <Command>k__BackingField: 000000000100000002000000
-  <Spell>k__BackingField: {fileID: 11400000, guid: ca25d69ca69803745b81809b72df53e5, type: 2}
+  _viewQuestData: []
+  _viewLearnedSpelltData: []
+  <Gold>k__BackingField: 0
+  debug: 0

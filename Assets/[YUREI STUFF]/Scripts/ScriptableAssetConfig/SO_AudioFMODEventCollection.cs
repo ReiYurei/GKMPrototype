@@ -7,9 +7,15 @@ public class SO_AudioFMODEventCollection : ScriptableObject
 {
     [SerializeField] private List<AudioFMODEvent<string>> _audioEvents;
     public Dictionary<string, EventReference> AudioEventsDict { get; private set; }
+    private void OnEnable()
+    {
+        if(AudioEventsDict == null)
+        AudioEventsDict = new Dictionary<string, EventReference>();
+    }
     public void InitializeAwakeData()
     {
-        AudioEventsDict = new Dictionary<string, EventReference>();
+        if (AudioEventsDict == null)
+            AudioEventsDict = new Dictionary<string, EventReference>();
     }
     public void InitializeStartData()
     {

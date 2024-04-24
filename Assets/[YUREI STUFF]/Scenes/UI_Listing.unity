@@ -232,10 +232,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7676698246035850777, guid: 6d25bfbb8e7f42d4a977d41ac0711528, type: 3}
-      propertyPath: _listenersVoid.Array.data[1].gameEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 1891c7bae9caf4f4f8d5af9677588f8e, type: 2}
     - target: {fileID: 8863310082869988741, guid: 6d25bfbb8e7f42d4a977d41ac0711528, type: 3}
       propertyPath: m_Name
       value: UI Listing Controller

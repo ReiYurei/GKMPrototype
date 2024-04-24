@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/[YUREI STUFF]/Scenes/ReiScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/[YUREI STUFF]/Scenes/UI_Shop.unity
+    guid: 517a1023e0f7e8d418a1b20b201e9348
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 20c7510b408249d4bb23e67beb343c3d, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: a5765c9888abe404b9eff9b3b13a4639, type: 2}

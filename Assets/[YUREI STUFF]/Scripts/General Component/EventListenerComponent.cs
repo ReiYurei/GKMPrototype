@@ -59,8 +59,11 @@ public class EventListenerComponent : MonoBehaviour
 {
     [SerializeField]private List<VoidEventListener> _listenersVoid;
     [SerializeField]private List<PassParameterEventListener> _listenersParam;
-    
 
+    public void Test2(GameObject data)
+    {
+        Debug.Log(data.name);
+    }
     public void Test(ScriptableObject data)
     {
         Debug.Log(data.name);
