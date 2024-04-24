@@ -532,7 +532,6 @@ public class ListingUIController : MonoBehaviour, IAudioSource
     }
     public void ReadText()
     {
-        string text = OperatorText.text;
         OperatorText.maxVisibleCharacters = 0;
         StartCoroutine(Read());
 

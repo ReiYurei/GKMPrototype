@@ -83,6 +83,8 @@ public class ShopCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     [ContextMenu("Interact")]
     public void OnInteract() //Check Shop Items
     {
+        Debug.Log("Interacted");
+        OpenShopEvent.Raise();
     }
 
 }

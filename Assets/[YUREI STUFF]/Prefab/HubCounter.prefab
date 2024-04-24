@@ -60,6 +60,7 @@ MonoBehaviour:
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <CompleteQuestEvent>k__BackingField: {fileID: 11400000, guid: add11550f23c52145a7b525fce564f1d, type: 2}
   <HubEnterEvent>k__BackingField: {fileID: 11400000, guid: 5571c676c6308564986c9a6cb926340d, type: 2}
+  <OpenListingEvent>k__BackingField: {fileID: 11400000, guid: 1891c7bae9caf4f4f8d5af9677588f8e, type: 2}
   _hubState: {fileID: 11400000, guid: b5b820ccf6f37b447a3f0edb9ab81e6a, type: 2}
 --- !u!114 &8226178889191592784
 MonoBehaviour:

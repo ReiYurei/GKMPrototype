@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using TriInspector;
@@ -19,12 +20,14 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     [field: SerializeField] public GameObject ListingParent { get; private set; }
     [field: SerializeField] public GameObject SpellTemplate { get; private set; }
 
-    private ShopItemSpell[] _spells;
+    private List<ShopItemSpell> _spells;
     [field: Header("Event")]
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ExitShopEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent NotEnoughMoneyEvent { get; private set; }
+
     [field: Header("Canvas")]
-    [field:SerializeField] public GameObject ShopUI { get; private set; }
+    [field: SerializeField] public GameObject ShopUI { get; private set; }
     [field: Header("Spell Item Canvas")]
     [field: SerializeField] public Image SpellIcon { get; private set; }
     [field: SerializeField] public TextMeshProUGUI SpellName { get; private set; }
@@ -34,6 +37,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     [field: SerializeField] public TextMeshProUGUI Price { get; private set; }
     [field: Header("Buy Prompt Canvas")]
     [field: SerializeField] public GameObject BuyingPrompt { get; private set; }
+    [field: SerializeField] public GameObject YesOption { get; private set; }
 
 
     [field: Header("Operator Canvas")]
@@ -41,7 +45,8 @@ public class ShopUIController : MonoBehaviour, IAudioSource
 
     [field: Header("Other")]
     [field: SerializeField] public InputActionAsset Actions { get; private set; }
-    [SerializeField] private ListingState state;
+    [SerializeField] private GenericUIState state;
+    private ShopItemSpell _selectedItem;
     private EventSystem _eventSystem;
     private GameObject _lastSelectedObject;
     public void Start()
@@ -53,6 +58,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
             if (Item.RequirementToListedFulfilled())
             {
                 if (AvailableListing.Items.Count <= 0) AvailableListing.InitalizeListingData();
+                if (Item.Sold) continue;
                 if (!AvailableListing.Items.Contains(Item)) AvailableListing.Items.Add(Item);
             }
         }
@@ -61,7 +67,6 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     public void OnLoadComplete()
     {
         _eventSystem = EventSystem.current;
-        _eventSystem.SetSelectedGameObject(_spells[0].gameObject);
     }
     IEnumerator InitializeShopData()
     {
@@ -71,17 +76,34 @@ public class ShopUIController : MonoBehaviour, IAudioSource
             var spell = Instantiate(SpellTemplate, ListingParent.transform);
             spell.name = AvailableListing.Items[i].SpellCombo.Spell.SpellName;
         }
-        _spells = ListingParent.GetComponentsInChildren<ShopItemSpell>();
+        var spellArrays = ListingParent.GetComponentsInChildren<ShopItemSpell>();
+        if(_spells == null) _spells = new List<ShopItemSpell>();
+        foreach (var spell in spellArrays)
+        {
+            _spells.Add(spell);
+        }
         for (int i = 0; i < AvailableListing.Items.Count; i++)
         {
-            
+
             _spells[i].shopCounter = this;
             _spells[i].shopItem = AvailableListing.Items[i];
         }
         yield break;
     }
+    public void OnReturnToTitle()
+    {
+        foreach (var spell in AllListing.Items)
+        {
+            spell.Resale();
+        }
+        AvailableListing.ResetValue();
+    }
     private void OnApplicationQuit()
     {
+        foreach(var spell in AllListing.Items)
+        {
+            spell.Resale();
+        }
         AvailableListing.ResetValue();
     }
     private void OnDisable()
@@ -90,18 +112,32 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     }
     public void OnShopOpen()
     {
+        Actions.FindAction("Cancel").performed += CancelFunction;
         ChangeStateEvent.Raise(state);
+        Reselect();
         ShopUI.SetActive(true);
         ReadText();
     }
-    public void CancelFunction()
+
+    private void CancelFunction(InputAction.CallbackContext context)
     {
+        if (BuyingPrompt.activeInHierarchy)
+        {
+            BuyingPrompt.SetActive(false);
+            Reselect();
+            return;
+        }
+        CloseShop();
+    }
+
+    public void CloseShop()
+    {
+        Actions.FindAction("Cancel").performed -= CancelFunction;
         ShopUI.SetActive(false);
         ExitShopEvent.Raise();
     }
     public void ReadText()
     {
-        string text = OperatorText.text;
         OperatorText.maxVisibleCharacters = 0;
         StartCoroutine(Read());
 
@@ -115,21 +151,58 @@ public class ShopUIController : MonoBehaviour, IAudioSource
             }
         }
     }
-    public void Buy(GameObject selected)
+    public void Confirm()
     {
-        Debug.Log("BUY  :  "+selected.name);
+        if (!ShopUI.activeInHierarchy) return;
+        var spell = _selectedItem.shopItem;
+        if (BuyingPrompt.activeInHierarchy)
+        {
+            spell.SoldOut();
+            var index = _spells.IndexOf(_selectedItem);
+            Inventory.LearnSpell(spell.SpellCombo);
+            Destroy(_spells[index].gameObject);
+            BuyingPrompt.SetActive(false);
+            Inventory.ReduceGold(spell.Price);
+            return;
+        }
     }
-    public void ShowData(SO_ShopItem_Combo data, GameObject selected)
+    public void Cancel()
     {
-        if (data.SpellCombo == null) return;
-        var spell = data.SpellCombo.Spell;
-        if(spell.Icon != null) SpellIcon.sprite = data.SpellCombo.Spell.Icon; 
+        if (BuyingPrompt.activeInHierarchy)
+        {
+            BuyingPrompt.SetActive(false);
+            Reselect();
+            return;
+        }
+    }
+    public void Buy()
+    {
+        var spell = _selectedItem.shopItem;
+        if (Inventory.Gold < spell.Price)
+        {
+            NotEnoughMoneyEvent.Raise();
+            return;
+        }
+        if (!BuyingPrompt.activeInHierarchy)
+        {
+            BuyingPrompt.SetActive(true);
+            Deselect();
+            _eventSystem.SetSelectedGameObject(YesOption);
+            return;
+        }
+    }
+
+    public void ShowData(ShopItemSpell data, GameObject selected)
+    {
+        if (data.shopItem.SpellCombo == null) return;
+        var spell = data.shopItem.SpellCombo.Spell;
+        if (spell.Icon != null) SpellIcon.sprite = spell.Icon;
         SpellName.text = spell.SpellName;
         SpellDescription.text = spell.Description;
         SpellCooldown.text = spell.Cooldown.ToString();
         SpellManaConsumption.text = spell.Consumption.ToString();
-        Price.text = data.Price.ToString();
-
+        Price.text = data.shopItem.Price.ToString();
+        _selectedItem = data;
     }
     public void Select(GameObject selected)
     {
@@ -141,6 +214,11 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     }
     public void Reselect()
     {
+        if (_lastSelectedObject == null)
+        {
+            _eventSystem.SetSelectedGameObject(_spells[0].gameObject);
+            return;
+        }
         _eventSystem.SetSelectedGameObject(_lastSelectedObject);
     }
 

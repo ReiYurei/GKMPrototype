@@ -183,7 +183,6 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
             }
         }
         int count = 0;
-        AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
         while (count < moneyAmount)
         {
             count += Mathf.RoundToInt(Time.deltaTime * 500f);

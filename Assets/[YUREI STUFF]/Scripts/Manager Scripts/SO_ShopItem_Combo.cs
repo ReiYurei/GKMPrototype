@@ -35,7 +35,11 @@ public class SO_ShopItem_Combo : ScriptableObject
         }
         return (completedCount >= _minCompletedToList && _minimumRequirementToList);
     }
-    public void Buy()
+    public void Resale()
+    {
+        Sold = false;
+    }
+    public void SoldOut()
     {
         Sold = true;
     }

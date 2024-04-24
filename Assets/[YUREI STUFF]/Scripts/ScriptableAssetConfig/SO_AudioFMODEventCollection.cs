@@ -9,13 +9,11 @@ public class SO_AudioFMODEventCollection : ScriptableObject
     public Dictionary<string, EventReference> AudioEventsDict { get; private set; }
     private void OnEnable()
     {
-        if(AudioEventsDict == null)
-        AudioEventsDict = new Dictionary<string, EventReference>();
+        AudioEventsDict ??= new Dictionary<string, EventReference>();
     }
     public void InitializeAwakeData()
     {
-        if (AudioEventsDict == null)
-            AudioEventsDict = new Dictionary<string, EventReference>();
+        AudioEventsDict ??= new Dictionary<string, EventReference>();
     }
     public void InitializeStartData()
     {

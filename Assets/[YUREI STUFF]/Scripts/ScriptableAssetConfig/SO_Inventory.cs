@@ -7,7 +7,7 @@ using System.Linq;
 [CreateAssetMenu(fileName = "Inventory", menuName = "Player/Inventory Data")]
 public class SO_Inventory : ScriptableObject
 {
-    private  HashSet<SO_QuestItem> QuestItemInventory;
+    private HashSet<SO_QuestItem> QuestItemInventory;
     private HashSet<SO_Combo> LearnedSpells;
 
     [SerializeField] private List<SO_QuestItem> _viewQuestItemData;
@@ -16,12 +16,27 @@ public class SO_Inventory : ScriptableObject
     [field: SerializeField] public int Gold { get; private set; }
     public void AddGold(int amount)
     {
+        int currentGold = Gold;
         Gold += amount;
+        if (InventoryUIController.Instance == null) return;
+        InventoryUIController.Instance.AnimateGold(currentGold, Gold, ComparatorType.LessThan);
     }
-    public void RemoveGold(int amount)
+    public void ReduceGold(int amount)
     {
+        int currentGold = Gold;
         Gold -= amount;
-
+        if (InventoryUIController.Instance == null) return;
+        InventoryUIController.Instance.AnimateGold(currentGold, Gold,ComparatorType.GreaterThan);
+    }
+    public void LearnSpell(SO_Combo spell)
+    {
+        LearnedSpells ??= new();
+        LearnedSpells.Add(spell);
+    }
+    public void AddQuestItem(SO_QuestItem item)
+    {
+        QuestItemInventory ??= new();
+        QuestItemInventory.Add(item);
     }
     public bool CheckQuestItem(SO_QuestItem item)
     {
@@ -32,17 +47,21 @@ public class SO_Inventory : ScriptableObject
         return (LearnedSpells.Contains(spell));
     }
     public bool debug;
-    private void OnValidate()
+    [Button("Refresh")]
+    public void Resfresh()
     {
         if (debug)
         {
-            if(QuestItemInventory.Count > 0)
+      
+
+            if (QuestItemInventory.Count > 0)
             {
                 foreach (SO_QuestItem item in QuestItemInventory)
                 {
                     if (!_viewQuestItemData.Contains(item)) _viewQuestItemData.Add(item);
                 }
             }
+
             if(LearnedSpells.Count > 0)
             {
                 foreach (SO_Combo spell in LearnedSpells)
@@ -51,6 +70,13 @@ public class SO_Inventory : ScriptableObject
                 }
             }
         }
+    }
+    public void InitializeData()
+    {
+        _viewQuestItemData ??= new();
+        _viewLearnedSpelltData ??= new();
+        QuestItemInventory ??= new();
+        LearnedSpells ??= new();
     }
     [Button("Clear Data")]
     public void ClearData()

@@ -27,6 +27,8 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent CompleteQuestEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent HubEnterEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent OpenListingEvent { get; private set; }
+
 
     [field: Header("Other")]
     [SerializeField] private HubState _hubState;
@@ -127,6 +129,7 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
             CheckMissionListing();
             CheckQuestLising();
             if (InteractDialogue != null) InteractDialogue.StartStoryDialogue();
+            else OpenListingEvent.Raise();
             return;
         }
         foreach (SO_StoryData story in _storyQueue)
