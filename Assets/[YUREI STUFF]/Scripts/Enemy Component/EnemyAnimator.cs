@@ -103,14 +103,8 @@ public class EnemyAnimator : MonoBehaviour
     }
     public void OnPlaySound(string key)
     {
-        if (_enemy == null) return;
-        var audioBank = _enemy.AudioCollection;
-        if (audioBank.AudioEventsDict.TryGetValue(key, out EventReference eventReference))
-        {
-            RuntimeManager.PlayOneShot(eventReference);
-            return;
-        }
-        Debug.Log("not found");
+        if (_enemy == null || !(_enemy is IAudioSource)) return;
+        ((IAudioSource)_enemy).PlaySound_OneShot(key);
     }
     //Play Animation by Animation Hash
     private void PlayAnim(int animationName, float animSpeed)

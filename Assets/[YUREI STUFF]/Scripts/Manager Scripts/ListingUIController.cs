@@ -524,6 +524,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
         pageIndex = 0;
         ShowPage();
     }
+    [TriInspector.Button("Debug Raise : Open Listing")]
     public void OnListingOpen()
     {
         ReadText();

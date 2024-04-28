@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6845660522346596948}
   m_Layer: 0
   m_Name: Stage Manager
-  m_TagString: StageManager
+  m_TagString: Stage Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,6 +135,8 @@ Transform:
   m_Children:
   - {fileID: 2247229577107628444}
   - {fileID: 5008441504203161976}
+  - {fileID: 1558737324003195096}
+  - {fileID: 4534105455123514206}
   - {fileID: 3708940701740857004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -155,7 +157,6 @@ MonoBehaviour:
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <ChangeOverallStateEvent>k__BackingField: {fileID: 11400000, guid: f2c99184e9fc4764299d1f9ae5741e48, type: 2}
   <ExterminationStartEvent>k__BackingField: {fileID: 11400000, guid: 7de445addd20ad0458d1598987311771, type: 2}
-  <MissionCompleteEvent>k__BackingField: {fileID: 0}
   _exterminateCanvas: {fileID: 924752553363120840}
   _exterminateScreen: {fileID: 5615387855209901747}
   _exterminateObject: {fileID: 4115128173061568922}
@@ -197,6 +198,8 @@ MonoBehaviour:
   _loadingState: {fileID: 11400000, guid: f56221b93564c71438397bf8c5d901af, type: 2}
   playerSpawnPoint: {fileID: 2247229577107628444}
   astralSpawnPoint: {fileID: 5008441504203161976}
+  playerBulletHellPoint: {fileID: 1558737324003195096}
+  astralBulletHellPoint: {fileID: 4534105455123514206}
 --- !u!114 &6845660522346596948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +246,37 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   _listenersParam: []
+--- !u!1 &3410475543538586807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1558737324003195096}
+  m_Layer: 0
+  m_Name: Player Bullet Hell Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1558737324003195096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3410475543538586807}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 20.2, z: 1.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8140978380368766804}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3586585607048422576
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2247229577107628444}
   m_Layer: 0
-  m_Name: Player Spawn Point
+  m_Name: Player Default Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -268,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 3586585607048422576}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.77, y: 1.03, z: 0}
+  m_LocalPosition: {x: -7.18, y: 0.79, z: 1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -396,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5008441504203161976}
   m_Layer: 0
-  m_Name: Astral Spawn Point
+  m_Name: Astral  Default Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -411,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 6588238917563180563}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.3, y: 0.9999995, z: 0}
+  m_LocalPosition: {x: 7.25, y: 1.03, z: 1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -551,3 +585,34 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7172443469819879551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4534105455123514206}
+  m_Layer: 0
+  m_Name: Astral  Bullet Hell Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4534105455123514206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7172443469819879551}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 40, z: 1.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8140978380368766804}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

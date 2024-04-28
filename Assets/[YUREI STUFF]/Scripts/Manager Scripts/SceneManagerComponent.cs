@@ -30,6 +30,8 @@ public class SceneManagerComponent : MonoBehaviour
     private Color _fadeColor = new(0f,0f,0f,1.0f);
     private float _timeToFade = 1.5f;
     private float _fadeSpeed;
+
+
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -128,6 +130,8 @@ public class SceneManagerComponent : MonoBehaviour
             float totalProgress = 0;
             _loadOperation.Add(SceneManager.LoadSceneAsync(data.StageInfo.SceneName.ToString()));
             _loadOperation.Add(SceneManager.LoadSceneAsync("Manager", LoadSceneMode.Additive));
+            _loadOperation.Add(SceneManager.LoadSceneAsync("Stage_Essentials", LoadSceneMode.Additive));
+            _loadOperation.Add(SceneManager.LoadSceneAsync("UI_CutIn", LoadSceneMode.Additive));
             _loadOperation.Add(SceneManager.LoadSceneAsync("UI_Dialogue", LoadSceneMode.Additive));
             _loadingScreen.SetActive(true);
             for (int i = 0; i < _loadOperation.Count; i++)
@@ -140,7 +144,7 @@ public class SceneManagerComponent : MonoBehaviour
                 }
             }
             totalProgress = 0;
-            var stageManager = GameObject.FindGameObjectWithTag("StageManager").GetComponent<StageManagerComponent>();
+            var stageManager = GameObject.FindGameObjectWithTag("Stage Manager").GetComponent<StageManagerComponent>();
             _loadOperation.Add(InstantiateAsync(data.AstralEntity, Vector3.zero, Quaternion.identity));
             _loadOperation.Add(InstantiateAsync(_player, stageManager.playerSpawnPoint.position, Quaternion.identity));
             for (int i = 0; i < _loadOperation.Count; i++)
@@ -152,7 +156,7 @@ public class SceneManagerComponent : MonoBehaviour
                     yield return null;
                 }
             }
-            var astralEntity = GameObject.FindGameObjectWithTag("AstralEntity");
+            var astralEntity = GameObject.FindGameObjectWithTag("Astral Entity");
             astralEntity.transform.position = stageManager.astralSpawnPoint.position;
             _loadingScreen.SetActive(false);
             yield return new WaitForSeconds(0.5f);
@@ -283,6 +287,7 @@ public class SceneManagerComponent : MonoBehaviour
             if (!SceneManager.GetSceneByName("Manager").isLoaded) _loadOperation.Add(SceneManager.LoadSceneAsync("Manager", LoadSceneMode.Additive));
             _loadOperation.Add(SceneManager.LoadSceneAsync("UI_Listing", LoadSceneMode.Additive));
             _loadOperation.Add(SceneManager.LoadSceneAsync("UI_Shop", LoadSceneMode.Additive));
+            _loadOperation.Add(SceneManager.LoadSceneAsync("UI_Inventory", LoadSceneMode.Additive));
             _loadOperation.Add(SceneManager.LoadSceneAsync("UI_Dialogue", LoadSceneMode.Additive));
 
 

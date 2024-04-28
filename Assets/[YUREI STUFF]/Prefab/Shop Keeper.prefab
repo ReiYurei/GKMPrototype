@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1380622741551228518}
-  - component: {fileID: 3527349441551049901}
   - component: {fileID: 758366206047685291}
+  - component: {fileID: 3527349441551049901}
   - component: {fileID: 5490171095896929121}
   - component: {fileID: 4549549941896580492}
   m_Layer: 0
@@ -35,36 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3527349441551049901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6794840806515407959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _listenersVoid:
-  - gameEvent: {fileID: 11400000, guid: 6468086c0007ba64ea832b998cf23006, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 758366206047685291}
-          m_TargetAssemblyTypeName: ShopCounterComponent, Assembly-CSharp
-          m_MethodName: OnExitListing
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  _listenersParam: []
 --- !u!114 &758366206047685291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +54,36 @@ MonoBehaviour:
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <OpenShopEvent>k__BackingField: {fileID: 11400000, guid: feded6953b78d854384180598bbf69c9, type: 2}
   _hubState: {fileID: 11400000, guid: b5b820ccf6f37b447a3f0edb9ab81e6a, type: 2}
+--- !u!114 &3527349441551049901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6794840806515407959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _listenersVoid:
+  - gameEvent: {fileID: 11400000, guid: 6468086c0007ba64ea832b998cf23006, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 758366206047685291}
+          m_TargetAssemblyTypeName: ShopCounterComponent, Assembly-CSharp
+          m_MethodName: OnExitShop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  _listenersParam: []
 --- !u!61 &5490171095896929121
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1088
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -109,14 +109,14 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1088
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1088
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.86}
+  m_Offset: {x: -0.05227083, y: 0.96}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.56, y: 0}
@@ -127,7 +127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.16, y: 1.63}
+  m_Size: {x: 2.2679915, y: 1.9747815}
   m_EdgeRadius: 0
 --- !u!212 &4549549941896580492
 SpriteRenderer:

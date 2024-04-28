@@ -15,4 +15,4 @@ MonoBehaviour:
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <OverallState>k__BackingField: {fileID: 11400000, guid: b5b820ccf6f37b447a3f0edb9ab81e6a, type: 2}
   <State>k__BackingField: {fileID: 11400000, guid: b5b820ccf6f37b447a3f0edb9ab81e6a, type: 2}
-  <PreviousState>k__BackingField: {fileID: 11400000, guid: 6ab5eb1d98f0b5d428b506a1dbb53f7c, type: 2}
+  <PreviousState>k__BackingField: {fileID: 11400000, guid: b5b820ccf6f37b447a3f0edb9ab81e6a, type: 2}

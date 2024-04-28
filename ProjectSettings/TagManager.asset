@@ -8,10 +8,11 @@ TagManager:
   - Hitbox
   - Hurtbox
   - Parrybox
-  - EventSystem
   - Interactable
-  - StageManager
-  - AstralEntity
+  - Camera Anchor
+  - Astral Entity
+  - Stage Manager
+  - Event System
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - InteractBox
   - Hitbox
   - Hurtbox
-  - 
+  - Air Block
   - 
   - 
   - 

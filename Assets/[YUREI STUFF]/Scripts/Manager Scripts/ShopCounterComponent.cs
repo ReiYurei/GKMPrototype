@@ -38,7 +38,7 @@ public class ShopCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     {
     }
 
-    public void OnExitListing()
+    public void OnExitShop()
     {
         if (ExitDialogue == null)
         {
@@ -46,10 +46,6 @@ public class ShopCounterComponent : MonoBehaviour, IInteractable, IAudioSource
             return;
         }
         ExitDialogue.StartStoryDialogue();
-    }
-    private void CheckShopListing()
-    {
-   
     }
 
     public void EnqueueEvents()
@@ -80,7 +76,7 @@ public class ShopCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     }
 
 
-    [ContextMenu("Interact")]
+    [TriInspector.Button("Debug Raise : Interact")]
     public void OnInteract() //Check Shop Items
     {
         Debug.Log("Interacted");

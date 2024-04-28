@@ -12,6 +12,9 @@ using TriInspector;
 public class EnemyBehaviour : MonoBehaviour
 {
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent BulletHellPhaseEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent RegularPhaseEvent { get; private set; }
+
     [Header("READ ONLY PROPERTIES")]
     [SerializeField] private Enemy _enemy;
     [SerializeField] private SO_EnemyStatus _status;
@@ -44,7 +47,10 @@ public class EnemyBehaviour : MonoBehaviour
     public void OnExterminateStart()
     {
         OnHealthChange();
-
+    }
+    public void OnPhaseChanged()
+    {
+        StartCoroutine(Behave());
     }
     public void OnHealthChange() //Listen to event
     {
@@ -56,10 +62,12 @@ public class EnemyBehaviour : MonoBehaviour
                 if (_status.DynamicState == dynamicState) continue;
                 _status.SetDynamicStates(dynamicState);
                 ChangeStateEvent.Raise(dynamicState.gameplayState);
+                if (dynamicState.gameplayState is BulletHellGameplayState) BulletHellPhaseEvent.Raise();
+                else RegularPhaseEvent.Raise();
                 Interrupt();
                 _status.SetState(_status.PreviousState());
-                 StartCoroutine(Behave());
                 _subStateNum = 0;
+                //StartCoroutine(Behave());
                 return;
             }           
         }

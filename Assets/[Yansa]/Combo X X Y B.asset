@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34374061c7a04347bb283a8155a4ff6, type: 3}
+  m_Name: Combo X X Y B
+  m_EditorClassIdentifier: 
+  <Command>k__BackingField: 00000000000000000100000002000000
+  <Spell>k__BackingField: {fileID: 11400000, guid: 75337c0ca9cb6264cb7186749bdf7dac, type: 2}

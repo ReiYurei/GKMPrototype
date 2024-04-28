@@ -30,8 +30,13 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
     [SerializeField] private RankQualifier _qualifier;
     [SerializeField] private TextMeshProUGUI _clearTime;
     [SerializeField] private TextMeshProUGUI _moneyAmount;
-    [SerializeField] private GameObject _stamp;
+    [Header("Essentials Canvas")]
+    [SerializeField] private GameObject _successStamp;
+    [SerializeField] private GameObject _failedCanvas;
+    [SerializeField] private GameObject _failedStamp;
     [SerializeField] private Image _blackScreen;
+
+    [Header("Properties")]
     [SerializeField] private AnimationCurve _speedCurve = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] private InputActionAsset _input;
     private TimeRank _rankMark;
@@ -56,7 +61,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
     private void Skip(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        if (!_stamp.activeInHierarchy && _stamp.transform.localScale != Vector3.one)
+        if (!_successStamp.activeInHierarchy && _successStamp.transform.localScale != Vector3.one)
         {
             StopAllCoroutines();
             Debug.Log("SKIP");
@@ -79,17 +84,18 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
                         var moneyReward = reward as SO_MoneyReward;
                         moneyAmount = moneyReward.Amount;
                         _moneyAmount.text = moneyAmount.ToString();
-                        StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector3.one));
+                        StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector3.one, _successStamp));
                         return;
                     }
                 }            
             }
-            StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector3.one));
+            StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector3.one, _successStamp));
             MissionCompleteEvent.Raise();
             return;
         } //To Skip Animations of Rank-Money Count for the first pressed button,
-        _stamp.transform.localScale = Vector3.one;                                      //To Skip Stamp Animation and go straight to Hub
-        _stamp.SetActive(true);
+        _successStamp.transform.localScale = Vector3.one;                                      //To Skip Stamp Animation and go straight to Hub
+        _successStamp.SetActive(true);
+        MissionCompleteEvent.Raise();
         LoadHubEvent.Raise();
         _input.FindActionMap("UI").FindAction("Confirm").performed -= Skip;
     }
@@ -99,13 +105,24 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
     {
         var time = data as FloatVariable;
         
-        _stamp.transform.localScale = new Vector3(10,10, 10);
+        _successStamp.transform.localScale = new Vector3(10,10, 10);
         minutes = Mathf.Floor(time.value / 60).ToString("00");
         seconds = Mathf.Floor(time.value % 60).ToString("00");
         miliSeconds = Mathf.Floor((time.value * 1000) % 1000).ToString("000");
         _clearTime.text = $"{minutes} : {seconds}.{miliSeconds}";
         _rankMark = GetMark(time.value);
         _rank = GetRank(_rankMark);
+    }
+    public void OnMissionFailed()
+    {
+        StartCoroutine(MissionFailed());
+        IEnumerator MissionFailed()
+        {
+            _failedCanvas.SetActive(true);
+            yield return StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector2.one,_failedStamp));
+            yield return new WaitForSeconds(1.5f);
+            LoadHubEvent.Raise();
+        }
     }
     public void OnStageClear()
     {
@@ -118,7 +135,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         _input.FindActionMap("UI").FindAction("Confirm").performed += Skip; //Only Listening to Skip Input after Fading out is done
         yield return StartCoroutine(Ranking(new Vector3(10,10,10), Vector2.one));
         yield return StartCoroutine(MoneyCount());
-        yield return StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector2.one));
+        yield return StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector2.one,_successStamp));
         MissionCompleteEvent.Raise();
 
     }
@@ -147,6 +164,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         float timeToFade = 1.5f;
         float speed;
         bool executeOnce = false;
+        if (_rank == null) _rank = GetRank(TimeRank.E);
         _rank.transform.localScale = start;
         _rank.gameObject.SetActive(true);
         while (_rank.transform.localScale != target)
@@ -191,17 +209,17 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         }
         _moneyAmount.text = moneyAmount.ToString();
         yield return new WaitForSeconds(1);
-    } //Counting
-    IEnumerator Stamp(Vector3 start, Vector3 target)
+    } //Counting Animation
+    IEnumerator Stamp(Vector3 start, Vector3 target, GameObject stamp)
     {
         //VFX
         float time = 0f;
         float timeToScale = 2f;
         float speed;
         bool executeOnce = false;
-        _stamp.transform.localScale = start;
-        _stamp.gameObject.SetActive(true);
-        while (_stamp.transform.localScale != target)
+        stamp.transform.localScale = start;
+        stamp.gameObject.SetActive(true);
+        while (stamp.transform.localScale != target)
         {
             time += Time.deltaTime;
             if (!executeOnce && time > timeToScale * 0.35f)
@@ -211,7 +229,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
             }
 
             speed = _speedCurve.Evaluate(time / timeToScale);
-            _stamp.transform.localScale = Vector3.Lerp(start, target, speed);
+            stamp.transform.localScale = Vector3.Lerp(start, target, speed);
             yield return null;
         }
         yield return new WaitForSeconds(1);

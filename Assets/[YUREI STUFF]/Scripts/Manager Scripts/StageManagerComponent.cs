@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TriInspector;
 
 [RequireComponent(typeof(EventListenerComponent))]
 public class StageManagerComponent : MonoBehaviour
@@ -14,8 +15,6 @@ public class StageManagerComponent : MonoBehaviour
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent ChangeOverallStateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ExterminationStartEvent { get; private set; }
-    [field: SerializeField] public SO_VoidGameEvent MissionCompleteEvent { get; private set; }
-
 
     [Header("Canvas")]
     [Header("Pre-Fight Canvas")]
@@ -37,9 +36,27 @@ public class StageManagerComponent : MonoBehaviour
     public Transform playerSpawnPoint;
     public Transform astralSpawnPoint;
 
+    public Transform playerBulletHellPoint;
+    public Transform astralBulletHellPoint;
+    public bool SpawnPointReady()
+    {
+        if(playerSpawnPoint == null || astralSpawnPoint == null || playerBulletHellPoint == null || astralBulletHellPoint == null)
+        {
+            Debug.Log("<color=yellow>Spawn Point is not properly initialized!</color>");
+            return false;
+        }
+        return true;
+    }
+
+    [TriInspector.Button("Debug Raise : Entering Stage")]
     public void OnStageEnter() //Listen to Event
     {
         EnqueueStageEvents();
+    }
+    [TriInspector.Button("Debug Raise : Custom Event")]
+    public void OnStageClear(SO_VoidGameEvent voidEvent)
+    {
+        voidEvent.Raise();
     }
     public void ExterminationStart()
     {

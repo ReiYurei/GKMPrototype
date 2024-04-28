@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e34374061c7a04347bb283a8155a4ff6, type: 3}
-  m_Name: Curse Combo
+  m_Name: Combo X Y B
   m_EditorClassIdentifier: 
-  <Command>k__BackingField: 020000000000000000000000
-  <Spell>k__BackingField: {fileID: 11400000, guid: 70ae74ba10e5dd04e940deddee5559b0, type: 2}
+  <Command>k__BackingField: 000000000100000002000000
+  <Spell>k__BackingField: {fileID: 11400000, guid: ca25d69ca69803745b81809b72df53e5, type: 2}

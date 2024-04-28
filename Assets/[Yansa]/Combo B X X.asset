@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b88392bc073b6842a09b68f502a5832, type: 3}
-  m_Name: Money Reward Data
+  m_Script: {fileID: 11500000, guid: e34374061c7a04347bb283a8155a4ff6, type: 3}
+  m_Name: Combo B X X
   m_EditorClassIdentifier: 
-  <Amount>k__BackingField: 0
+  <Command>k__BackingField: 020000000000000000000000
+  <Spell>k__BackingField: {fileID: 11400000, guid: 70ae74ba10e5dd04e940deddee5559b0, type: 2}

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbdd74fbe280eb24bbe8d0ced757d139, type: 3}
-  m_Name: Item Reward Data
+  m_Script: {fileID: 11500000, guid: 535cf177c159f7141a2290db34ef30cb, type: 3}
+  m_Name: OnResultScreenClear
   m_EditorClassIdentifier: 
-  <Item>k__BackingField: {fileID: 0}
+  _gameEvent: []

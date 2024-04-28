@@ -12,8 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20359d12110e504db465771573cde09, type: 3}
   m_Name: Projectile
   m_EditorClassIdentifier: 
+  types: 0
+  isLooping: 0
+  loopDuration: 0
   numberOfSegments: 12
-  projectileSpeed: 2.9
   numberOfShoot: 0
+  projectileSpeed: 2.9
   delayBetweenShot: 0
   projectileLifeTime: 0
+  enableAutoRotation: 0
+  rotationDegree: 0
+  rotationSpeed: 0
+  rotationDuration: 0
+  maxRotationChange: 0
+  minRotationChange: 0
+  canReverseRotation: 0
+  enableAutoAngle: 0
+  angleDegree: 0
+  angleChangeSpeed: 0
+  angleChangeDuration: 0
+  maxAngleChange: 0
+  minAngleChange: 0
+  canReverseAngle: 0

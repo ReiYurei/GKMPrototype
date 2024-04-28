@@ -239,7 +239,7 @@ BoxCollider2D:
     m_Bits: 1088
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0

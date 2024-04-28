@@ -6,10 +6,9 @@ using TriInspector;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Moveset_Projectile_Standing", menuName = "Enemy/Moveset/Projectile/Standing")]
-public class SO_Projectile_Attack_Standing : SO_Base_Attack_Fixed
+public class SO_Projectile_Attack_Initiate : SO_Base_Attack_Fixed
 {
     [InlineEditor]public SO_Projectile_Data projectileInfo;
-    public bool triggerShot;
     public override IEnumerator Execute(Enemy enemy)
     {
         enemy.StatusData.NotifyShooting(true);

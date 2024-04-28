@@ -48,13 +48,15 @@ public class Player : MonoBehaviour
     {
         if (!context.performed)return;
         Debug.Log("<color=yellow>Interacting</color>");
-        Collider2D collission = Physics2D.OverlapBox(interactBox.transform.position, interactBox.bounds.size,0);
-        Debug.Log(collission);
+        Collider2D[] collission = Physics2D.OverlapBoxAll(interactBox.transform.position, interactBox.bounds.size,0);
         if (collission == null) return;
-        if (collission.TryGetComponent(out IInteractable interactable))
+        for(int i = 0; i < collission.Length; i++)
         {
-            if (interactable == null) return;
-            interactable.OnInteract();
+            if (collission[i].TryGetComponent(out IInteractable interactable))
+            {
+                interactable.OnInteract();
+            }
+
         }
     }
     private void OnDrawGizmos()

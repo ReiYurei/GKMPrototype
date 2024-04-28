@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 728894078450138899}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.65, z: 0}
+  m_LocalPosition: {x: -0.5999999, y: 17.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -230,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 1629253932419400080}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.09, z: 0}
+  m_LocalPosition: {x: -0.5999999, y: 13.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -553,7 +553,7 @@ Transform:
   m_GameObject: {fileID: 2806293591413516407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.98, y: 6.69, z: 0}
+  m_LocalPosition: {x: -7.58, y: 15.690001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 4076581612383940636}
   m_Layer: 0
   m_Name: Reimu (Enemy)
-  m_TagString: AstralEntity
+  m_TagString: Astral Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -816,6 +816,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
+  <BulletHellPhaseEvent>k__BackingField: {fileID: 11400000, guid: 01a4327e4cd88da46bde27cef187827b, type: 2}
+  <RegularPhaseEvent>k__BackingField: {fileID: 11400000, guid: 1e7173ebd1ff4a64aa3591a62d3eab10, type: 2}
   _enemy: {fileID: 0}
   _status: {fileID: 0}
   _dynamicStates:
@@ -923,6 +925,22 @@ MonoBehaviour:
         - m_Target: {fileID: 3020766109846378489}
           m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
           m_MethodName: OnExterminateStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 4bfddfdb7d234ed48a77235f01058d36, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3020766109846378489}
+          m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+          m_MethodName: OnPhaseChanged
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1594,7 +1612,7 @@ Transform:
   m_GameObject: {fileID: 7934398657902642158}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.98, y: 6.69, z: 0}
+  m_LocalPosition: {x: 6.38, y: 15.690001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1628,7 +1646,7 @@ Transform:
   m_GameObject: {fileID: 8115922213422611555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7, y: 4.0000005, z: 0}
+  m_LocalPosition: {x: 6.4, y: 13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1939,7 +1957,7 @@ Transform:
   m_GameObject: {fileID: 8478931777088573722}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: 4.0000005, z: 0}
+  m_LocalPosition: {x: -7.6, y: 13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2147,7 +2165,7 @@ Transform:
   m_GameObject: {fileID: 8772203636651382083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.21, z: 0}
+  m_LocalPosition: {x: -0.5999999, y: 15.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

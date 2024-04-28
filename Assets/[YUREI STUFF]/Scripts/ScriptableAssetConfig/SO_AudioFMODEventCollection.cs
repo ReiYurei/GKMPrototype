@@ -20,7 +20,7 @@ public class SO_AudioFMODEventCollection : ScriptableObject
         for (int i = 0; i < _audioEvents.Count; i++)
         {
             if (_audioEvents[i] == null) continue;
-            AudioEventsDict.Add(_audioEvents[i].Key, _audioEvents[i].AudioReference);
+            if(!AudioEventsDict.ContainsKey(_audioEvents[i].Key)) AudioEventsDict.Add(_audioEvents[i].Key, _audioEvents[i].AudioReference);
         }
     } 
 }
