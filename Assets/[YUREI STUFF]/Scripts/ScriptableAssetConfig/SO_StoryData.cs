@@ -75,5 +75,5 @@ public enum Replayability
 }
 public enum PlayAt
 {
-    EnteringHub,QuestEmbark,EnteringStage, Independent
+    EnteringHub,QuestEmbark,EnteringStage, Independent, HubCounterInteraction, Tutorial
 }

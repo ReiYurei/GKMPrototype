@@ -23,7 +23,7 @@ MonoBehaviour:
       I know, no youk- I mean... just kill it.
     <Repeateable>k__BackingField: 0
     EliminationTarget: {fileID: 4652478206531035968, guid: fdb1849febe9ff041868f32bcd73346b, type: 3}
-    MinEliminationAmount: 0
+    MinEliminationAmount: 1
     EliminationCount: 0
     ClearedMissionTarget: {fileID: 0}
     MinClearAmount: 0

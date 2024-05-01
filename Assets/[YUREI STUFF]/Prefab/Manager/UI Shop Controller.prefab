@@ -1636,7 +1636,7 @@ GameObject:
   m_Layer: 0
   m_Name: UI Shop Controller
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1689,6 +1689,7 @@ MonoBehaviour:
     buttonX: {fileID: 8773546149315692012, guid: c9bf8874b37155c4ab89310edd66e18c, type: 3}
     buttonY: {fileID: 8683468704434884655, guid: 2a0f4a8505c6e294b8dddcd6f8655fab, type: 3}
     buttonB: {fileID: 441478205739482421, guid: 7c06211ecb3bf134ca2005b950b6b15f, type: 3}
+    _spellIcons: []
   <Price>k__BackingField: {fileID: 8480360559266989385}
   <BuyingPrompt>k__BackingField: {fileID: 6371317097539489555}
   <YesOption>k__BackingField: {fileID: 8302823789649522355}

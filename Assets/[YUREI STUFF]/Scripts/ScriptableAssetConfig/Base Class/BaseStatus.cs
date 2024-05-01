@@ -5,8 +5,8 @@ using TriInspector;
 
 public abstract class BaseStatus : ScriptableObject
 {
-    [Header("General Status")]
-    [SerializeField] float _maxHealth;
+    [field: Header("General Status")]
+    [field: SerializeField] public float MaxHealth { get; private set; }
 
     [SerializeField][GUIColor(1f, 1f, 0f)] public FloatVariable currentHealth;
     [field: SerializeField] public SO_VoidGameEvent HealthChange { get; private set; }
@@ -14,7 +14,7 @@ public abstract class BaseStatus : ScriptableObject
 
     public virtual void OnSpawn()
     {
-        currentHealth.value = _maxHealth;
+        currentHealth.value = MaxHealth;
     }
     
     public float GetHealth()
@@ -24,8 +24,8 @@ public abstract class BaseStatus : ScriptableObject
     [Button("Set Health")]
     public void SetHealth(float health)
     {
-        if(HealthChange != null) HealthChange.Raise();
         currentHealth.value = health;
+        if (HealthChange != null) HealthChange.Raise();
         if (health <= 0)
         {
             OnDeathEvent.Raise(); 

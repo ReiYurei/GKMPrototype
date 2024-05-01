@@ -18,6 +18,9 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("READ ONLY PROPERTIES")]
     [SerializeField] private Enemy _enemy;
     [SerializeField] private SO_EnemyStatus _status;
+  
+    //heehee
+
     private int _subStateNum = 0;
     [SerializeField][InlineEditor] private List<SO_DynamicState> _dynamicStates;
     [SerializeField] private List<FixedState> _fixedStates;
@@ -44,29 +47,35 @@ public class EnemyBehaviour : MonoBehaviour
         //Debug.Log("Initiate Behave");
 
     }
-    public void OnExterminateStart()
+    [Button("Initialize State")]
+    public void InitializeState()
     {
         OnHealthChange();
     }
+    [Button("Start Behave")]
     public void OnPhaseChanged()
     {
         StartCoroutine(Behave());
     }
     public void OnHealthChange() //Listen to event
     {
-        _subStateNum = 0;
         foreach (SO_DynamicState dynamicState in _dynamicStates)
         {
             if (dynamicState.CheckCondition())
             {
                 if (_status.DynamicState == dynamicState) continue;
+                _subStateNum = 0;
+                Debug.Log(dynamicState.ToString());
+                Debug.Log(_status.DynamicState);
+
                 _status.SetDynamicStates(dynamicState);
                 ChangeStateEvent.Raise(dynamicState.gameplayState);
-                if (dynamicState.gameplayState is BulletHellGameplayState) BulletHellPhaseEvent.Raise();
-                else RegularPhaseEvent.Raise();
                 Interrupt();
                 _status.SetState(_status.PreviousState());
                 _subStateNum = 0;
+                if (dynamicState.gameplayState is BulletHellGameplayState) BulletHellPhaseEvent.Raise();
+                else RegularPhaseEvent.Raise();
+            
                 //StartCoroutine(Behave());
                 return;
             }           
@@ -114,6 +123,22 @@ public class EnemyBehaviour : MonoBehaviour
             }
 
         }
+    }
+    public void OnPlayerOutOfRange()
+    {
+        Interrupt();
+        _subStateNum = 0;
+        foreach (FixedState fixedState in _fixedStates)
+        {
+            if (fixedState.GetName() == EnemyStates.OutOfRange)
+            {
+                _status.SetState(fixedState.state);
+                StartCoroutine(SubstateExecution());
+                return;
+            }
+
+        }
+
     }
     public void OnEnrageInitiated()
     {
@@ -217,5 +242,5 @@ public class EnemyBehaviour : MonoBehaviour
         }
         _subStateNum++;
     }
-   
+
 }

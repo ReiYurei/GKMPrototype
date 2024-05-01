@@ -58,6 +58,7 @@ public class StageManagerComponent : MonoBehaviour
     {
         voidEvent.Raise();
     }
+    [TriInspector.Button("Debug Raise : Initialize Exterminate")]
     public void ExterminationStart()
     {
         StartCoroutine(InitializeExtermination());

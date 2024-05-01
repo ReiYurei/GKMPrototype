@@ -170,6 +170,7 @@ public class GameplayTransitionManager : MonoBehaviour
 
         for (int i = 0; i < _isDone.Length; i++)
         {
+            Debug.Log("Done :" + i);
             while (!_isDone[i])
             {
                 yield return null;
@@ -228,8 +229,8 @@ public class GameplayTransitionManager : MonoBehaviour
         var bottomCorner = collissionCorner[1];
         float wallWidth = Vector3.Distance(leftCorner, rightCorner);
         float collissionHeight = Vector3.Distance(upperCorner, bottomCorner);
-
-        Debug.Log(collissionHeight);
+        var defaultPos = _defaultPosition;
+        var camAspect = _camera.aspect;
         Vector3 initialLeftPos;
         Vector3 InitialRightPos;
         Vector3 initialUpPos;
@@ -247,23 +248,26 @@ public class GameplayTransitionManager : MonoBehaviour
                 initialUpPos = new Vector3(_collissionTop.position.x, _defaultUpperWallAnchor.y + (collissionHeight / 2));
                 InitialBottomPos = new Vector3(_collissionBottom.position.x, _defaultBottomWallAnchor.y - (collissionHeight / 2));
 
-                targetPosLeft = new Vector3(_defaultLeftWallAnchor.x - (wallWidth / 2), _wallLeft.position.y, _wallLeft.position.z);
-                targetPosRight = new Vector3(_defaultRightWallAnchor.x + (wallWidth / 2), _wallRight.position.y, _wallRight.position.z);
+                Vector3 finalPosLeftLocation = defaultPos + new Vector3(-camAspect * _defaultSize , _defaultSize);
+                Vector3 finalPosRightLocation = defaultPos + new Vector3(camAspect * _defaultSize , _defaultSize);
+                targetPosLeft = new Vector3(finalPosLeftLocation.x - (wallWidth / 2), _wallLeft.position.y, _wallLeft.position.z);
+                targetPosRight = new Vector3(finalPosRightLocation.x + (wallWidth / 2), _wallLeft.position.y, _wallLeft.position.z);
+
                 targetPosUp = new Vector3(_collissionTop.position.x, _defaultUpperWallAnchor.y + (collissionHeight / 2));
                 targetPosBottom = new Vector3(_collissionBottom.position.x, _defaultBottomWallAnchor.y - (collissionHeight / 2));
 
                 if (debug)
                 {
                     _wallLeft.transform.position = targetPosLeft;
-                    _wallRight.transform.position = targetPosRight;
+                    _wallRight.transform.position = targetPosBottom;
 
                     _collissionTop.position = targetPosUp;
                     _collissionBottom.position = targetPosBottom;
 
                     break;
                 }
-
-                    _collissionTop.position = initialUpPos * 4;
+                if (_previousState == GameplayState.RegularPhase) break;
+                _collissionTop.position = initialUpPos * 4;
                 _collissionBottom.position = InitialBottomPos * 4;
 
                 if (_wallLeft.transform.position == targetPosLeft &
@@ -277,8 +281,8 @@ public class GameplayTransitionManager : MonoBehaviour
                 {
                     time += Time.deltaTime;
                     speed = _easeIn.Evaluate(time / _timeToWallTarget);
-                    _wallLeft.transform.position = Vector3.Lerp(initialLeftPos, targetPosLeft, speed);
-                    _wallRight.transform.position = Vector3.Lerp(InitialRightPos, targetPosRight, speed);
+                    _wallLeft.transform.position = Vector3.Lerp(initialLeftPos, targetPosLeft * 2, speed);
+                    _wallRight.transform.position = Vector3.Lerp(InitialRightPos, targetPosRight * 2, speed);
                     yield return null;
                 }
                 _wallLeft.transform.position = targetPosLeft;
@@ -309,6 +313,7 @@ public class GameplayTransitionManager : MonoBehaviour
                     _collissionBottom.position = targetPosBottom;
                     break;
                 }
+                if (_previousState == GameplayState.BulletHellPhase) break;
                 _collissionTop.position = initialUpPos * 4;
                 _collissionBottom.position = InitialBottomPos * 4;
 
@@ -348,6 +353,7 @@ public class GameplayTransitionManager : MonoBehaviour
                     _camera.orthographicSize = _defaultSize;
                     break;
                 }
+                if (_previousState == GameplayState.RegularPhase) break;
                 if (_camera.orthographicSize == _defaultSize) break;
                 while (_camera.orthographicSize > _defaultSize)
                 {
@@ -365,6 +371,7 @@ public class GameplayTransitionManager : MonoBehaviour
                     _camera.orthographicSize = _zoomOutSize;
                     break;
                 }
+                if (_previousState == GameplayState.BulletHellPhase) break;
                 if (_camera.orthographicSize == _zoomOutSize) break;
 
                 while (_camera.orthographicSize < _zoomOutSize)
@@ -395,6 +402,7 @@ public class GameplayTransitionManager : MonoBehaviour
                     _camera.transform.position = _defaultPosition;
                     break;
                 }
+                if (_previousState == GameplayState.RegularPhase) break;
                 if (_camera.transform.position == _defaultPosition) break;
                 while (_camera.transform.position != _defaultPosition)
                 {
@@ -411,7 +419,7 @@ public class GameplayTransitionManager : MonoBehaviour
                     _camera.transform.position = anchorPos;
                     break;
                 }
-
+                if (_previousState == GameplayState.BulletHellPhase) break;
                 if (_camera.transform.position == anchorPos) break;
                 while (_camera.transform.position != anchorPos)
                 {

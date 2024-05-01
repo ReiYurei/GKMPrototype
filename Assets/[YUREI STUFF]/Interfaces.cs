@@ -8,6 +8,10 @@ public interface IDamageable
     void OnDamage(float damage);
 
 }
+public interface IProjectileAttack
+{
+
+}
 public interface IAudioSource
 {
     [SerializeField]public SO_AudioFMODEventCollection AudioCollection { get; }

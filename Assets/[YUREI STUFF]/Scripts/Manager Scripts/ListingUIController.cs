@@ -15,13 +15,17 @@ public class ListingUIController : MonoBehaviour, IAudioSource
     [field: SerializeField] public SO_VoidGameEvent ExitListingEvent { get; private set; }
     [field: Header("Quest")]
     [field: SerializeField] public SO_QuestListing AvailableQuests { get; private set; }
+    [field: SerializeField] public GameObject QuestUICanvas { get; private set; }
     [field: SerializeField] public QuestListingUI QuestUI { get; private set; }
     [field: Header("Mission")]
     [field: SerializeField] public SO_MissionListing AvailableMissions { get; private set; }
+    [field: SerializeField] public GameObject MissionUICanvas { get; private set; }
     [field: SerializeField] public MissionListingUI MissionUI { get; private set; }
     [field: Header("Canvas")]
     [field: Header("Page Canvas")]
     [field: SerializeField] public GameObject ListingUICanvas { get; private set; }
+    [field: SerializeField] public GameObject ClearMark { get; private set; }
+
     [field:SerializeField] public TabGroup TabGroup { get; private set; }
     [field: SerializeField] public CustomTabButton NextPageButton { get; private set; }
     [field: SerializeField] public CustomTabButton PrevPageButton { get; private set; }
@@ -137,6 +141,17 @@ public class ListingUIController : MonoBehaviour, IAudioSource
         }
         if (!PromptConfirmSelection.activeInHierarchy && !PromptRemoveSelection.activeInHierarchy)
         {
+            switch (TabGroup.SelectedTab.TabType)
+            {
+                case TabType.Quest:
+                    if (AvailableQuests.Quests.Count <= 0) return;
+                    else break;
+                case TabType.Mission:
+                    if (AvailableMissions.Missions.Count <= 0) return;
+                    else break;
+
+            }
+
             promptIndex = 0;
             PromptConfirmSelection.SetActive(true);
             for (int i = 0; i < PromptButton.Count; i++)
@@ -252,7 +267,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
         switch (TabGroup.SelectedTab.TabType)
         {
             case TabType.Quest:
-                if (pageIndex >= quest.Count - 1)
+                if (pageIndex == quest.Count - 1)
                 {
                     pageIndex = 0;
                     break;
@@ -260,7 +275,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                 pageIndex++;
                 break;
             case TabType.Mission:
-                if (pageIndex >= mission.Count - 1)
+                if (pageIndex == mission.Count - 1)
                 {
                     pageIndex = 0;
                     break;
@@ -285,7 +300,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                 switch (TabGroup.SelectedTab.TabType)
                 {
                     case TabType.Quest:
-                        if (pageIndex >= quest.Count - 1)
+                        if (pageIndex == quest.Count - 1)
                         {
                             pageIndex = 0;
                             break;
@@ -293,7 +308,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                         pageIndex++;
                         break;
                     case TabType.Mission:
-                        if (pageIndex >= mission.Count - 1)
+                        if (pageIndex == mission.Count - 1)
                         {
                             pageIndex = 0;
                             break;
@@ -468,11 +483,18 @@ public class ListingUIController : MonoBehaviour, IAudioSource
 
     public void ShowPage()
     {
+        ClearMark.SetActive(false);
         switch (TabGroup.SelectedTab.TabType)
         {
             case TabType.Quest:
                 PageText.text = $"{pageIndex+1} / {AvailableQuests.Quests.Count}";
-                if (AvailableQuests.Quests.Count <= 0) return;
+                if (AvailableQuests.Quests.Count <= 0)
+                {
+                    QuestUICanvas.SetActive(false);
+                    return;
+                }
+                QuestUICanvas.SetActive(true);
+
                 var quest = AvailableQuests.Quests[pageIndex].QuestInfo;
                 var questReward = AvailableQuests.Quests[pageIndex].Rewards;
 
@@ -496,8 +518,15 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                 break;
             case TabType.Mission:
                 PageText.text = $"{pageIndex+1} / {AvailableMissions.Missions.Count}";
-                if (AvailableMissions.Missions.Count <= 0) return;
+                if (AvailableMissions.Missions.Count <= 0)
+                {
+                    MissionUICanvas.SetActive(false);
+                    return;
+                }
+                MissionUICanvas.SetActive(true);
+
                 var mission = AvailableMissions.Missions[pageIndex];
+                if (Observer.MissionObserver.Completion.Contains(mission)) ClearMark.SetActive(true);
                 MissionUI.astralName.text = mission.AstralEntity.name;
                 MissionUI.missionName.text = mission.MissionName;
                 MissionUI.stageName.text = mission.StageInfo.Name;
@@ -530,6 +559,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
         ReadText();
         ChangeStateEvent.Raise(state);
         ListingUICanvas.SetActive(true);
+        ShowPage();
     }
     public void ReadText()
     {

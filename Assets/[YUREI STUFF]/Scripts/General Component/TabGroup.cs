@@ -19,6 +19,7 @@ public class TabGroup : MonoBehaviour
 
     private void OnEnable()
     {
+        SelectedTab = Buttons[tabIndex];
         _actions.FindActionMap(inputName).FindAction("Next Tab").performed += NextTab;
         _actions.FindActionMap(inputName).FindAction("Previous Tab").performed += PreviousTab;
     }

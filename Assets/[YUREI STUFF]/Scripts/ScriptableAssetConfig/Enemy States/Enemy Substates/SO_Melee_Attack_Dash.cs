@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Moveset_Dash", menuName = "Enemy/Moveset/Melee/Dash")]
-public class SO_Melee_Attack_Dash : SO_Base_Attack_Fixed
+public class SO_Melee_Attack_Dash : SO_Melee_Attack_Base
 {
     [SerializeField] float travelDistance;
     [SerializeField] float travelSpeed = 1;

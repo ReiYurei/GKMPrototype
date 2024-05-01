@@ -16,7 +16,8 @@ public class SO_EnemyStatus : BaseStatus
     public event OnStatusEnd EnrageEnd, BreakEnd, StunEnd, PoisonEnd;
     public delegate void OnActionEnd(bool isAnimEnd);
     public event OnActionEnd AnimEnd, AttackEnd, ShootEnd;
-
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public Sprite EnemyCutInSprite { get; private set; }
 
     [SerializeField] private bool canEnraged = true;
     [SerializeField] private bool canStunned = true;
@@ -104,11 +105,11 @@ public class SO_EnemyStatus : BaseStatus
     [SerializeField] private bool _statusBuildUp;
 #endif
 
-    [Header("Enemy Base Threshold")]
-    [SerializeField]private float baseStamina = 100f;
-    [SerializeField]private float baseRageThreshold = 100f;
-    [SerializeField]private float baseStunThreshold = 100f;
-    [SerializeField]private float basePoisonThreshold = 100f;
+    [field: Header("Enemy Base Threshold")]
+    [field: SerializeField]public float BaseStamina { get; private set; } = 100f;
+    [field: SerializeField]public float BaseRageThreshold { get; private set; } = 100f;
+    [field: SerializeField]public float BaseStunThreshold { get; private set; } = 100f;
+    [field: SerializeField] public float BasePoisonThreshold { get; private set; } = 100f;
     public void ReduceStamina(float decrement)
     {
         F_Stamina.value -= decrement;
@@ -131,9 +132,9 @@ public class SO_EnemyStatus : BaseStatus
         if (B_Enraged.value == false)
         {
             F_RageMeter.value += damage * 0.15f;
-            if (F_RageMeter.value >= baseRageThreshold && B_StatusBuildUp.value == true)
+            if (F_RageMeter.value >= BaseRageThreshold && B_StatusBuildUp.value == true)
             {
-                F_RageMeter.value = baseRageThreshold;
+                F_RageMeter.value = BaseRageThreshold;
                 B_Enraged.value = true;
                 InitiateEnrage?.Invoke();
                 
@@ -150,7 +151,7 @@ public class SO_EnemyStatus : BaseStatus
         if (B_Stunned.value == true) return;
 
         F_StunMeter.value += stunValue;
-        if (F_StunMeter.value >= baseStunThreshold)
+        if (F_StunMeter.value >= BaseStunThreshold)
         {
             InitiateStun?.Invoke();
             F_StunMeter.value = 0;
@@ -163,7 +164,7 @@ public class SO_EnemyStatus : BaseStatus
         if (B_Poisoned.value != false) return;
 
         F_PoisonMeter.value += poisonValue;
-        if (F_PoisonMeter.value >= basePoisonThreshold)
+        if (F_PoisonMeter.value >= BasePoisonThreshold)
         {
             InitiatePoison?.Invoke();
             F_PoisonMeter.value = 0;
@@ -255,7 +256,7 @@ public class SO_EnemyStatus : BaseStatus
         B_Enraged.value = false;
         B_Break.value = false;
         B_Poisoned.value = false;
-        F_Stamina.value = baseStamina;
+        F_Stamina.value = BaseStamina;
         F_RageMeter.value = 0; 
         F_StunMeter.value = 0; 
         F_PoisonMeter.value = 0;

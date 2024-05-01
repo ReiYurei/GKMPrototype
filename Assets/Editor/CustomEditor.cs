@@ -635,6 +635,8 @@ public class DialogueEditor : EditorWindow
         SaveLocalEdit();
         SO_Dialogue newObject = CreateInstance<SO_Dialogue>();
         newObject.eventName = new string(eventName);
+        newObject.endEventBehaviour = endEventBehaviour;
+        newObject.CustomEndEvent = endEvent;
         newObject.dialogue = new List<Dialogue>(localDialogues);
         AssetDatabase.CreateAsset(newObject, $"{path}/{eventName}.asset");
         AssetDatabase.SaveAssets();

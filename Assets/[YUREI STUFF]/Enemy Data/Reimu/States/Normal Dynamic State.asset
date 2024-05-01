@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalStates: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
   ragingStates: {fileID: 11400000, guid: 01dde18a6ceee0a48948abcd84d24be2, type: 2}
-  gameplayState: {fileID: 11400000, guid: 9ea103d100cfe494f9f4c2b85d84ee95, type: 2}
+  gameplayState: {fileID: 11400000, guid: 6ab5eb1d98f0b5d428b506a1dbb53f7c, type: 2}
   conditions:
   - comparatorType: 2
     variable1: {fileID: 11400000, guid: b1efe98cc10385b44b1499fe8eb2b403, type: 2}

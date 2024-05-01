@@ -47,6 +47,17 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
         _hubStoryQueue = new Queue<SO_StoryData>();
 
     }
+    public void OnReturnToTitle()
+    {
+        AvailableQuest.ResetValue();
+        AvailableMissions.ResetValue();
+
+    }
+    private void OnApplicationQuit()
+    {
+        AvailableMissions.ResetValue();
+        AvailableQuest.ResetValue();
+    }
     public void OnLoadComplete()
     {
         HubEnterEvent.Raise();
@@ -86,11 +97,16 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     }
     public void OnExitListing()
     {
+        AvailableMissions.ResetValue();
+        AvailableQuest.ResetValue();
+
         if (ExitDialogue == null) return;
         ExitDialogue.StartStoryDialogue();
+
     }
     private void CheckMissionListing()
     {
+        AvailableMissions.ResetValue();
         if (AvailableMissions.Missions == null) AvailableMissions.InitalizeListingData();
 
         foreach (SO_MissionData mission in AllMission.Missions)
@@ -103,19 +119,23 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
 
     private void CheckQuestLising()
     {
+        AvailableQuest.ResetValue();
         if (AvailableQuest.Quests == null) AvailableQuest.InitalizeListingData();
 
         foreach (SO_QuestData quest in AllQuest.Quests)
         {
-            if (quest.RequirementToListedFulfilled() && !AvailableQuest.Quests.Contains(quest))
+            if (!quest.RequirementToListedFulfilled()) continue;
+            if (AvailableQuest.Quests.Contains(quest)) continue;
+            if (Observer.QuestObserver.Completion.Contains(quest) && !quest.QuestInfo.Repeateable) continue;
                 AvailableQuest.Quests.Add(quest);
+            Debug.Log("<color=yellow>Added Quest </color> :" + quest.QuestInfo.QuestName);
         }
     }
     public void EnqueueEvents()
     {
         foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
         {
-            if (story.PlayAt == PlayAt.EnteringHub) continue;
+            if (story.PlayAt != PlayAt.HubCounterInteraction) continue;
             if (story.HasSeen() || story.TempSeen()) continue;
             _storyQueue.Enqueue(story);
         }

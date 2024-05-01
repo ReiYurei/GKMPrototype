@@ -14,5 +14,5 @@ public class SO_Dialogue : ScriptableObject
 }
 public enum EndEventBehaviour
 {
-    DefaultHubEvent,DefaultExterminateEvent, None_ToHub, None_ToExterminate, CustomEvent
+    DefaultHubEvent,DefaultEnteringHubEvent,DefaultEnteringExterminateEvent, DefaultExterminateEvent, None_ToHub, None_ToExterminate, CustomEvent
 }

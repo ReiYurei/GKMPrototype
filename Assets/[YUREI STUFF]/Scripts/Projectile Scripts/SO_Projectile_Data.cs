@@ -8,6 +8,7 @@ public class SO_Projectile_Data : ScriptableObject
     public PatternTypes types;
 
     [Tooltip("If Looping toogled on, it'll mostly use the loop duration than a total number of shoot")]
+    public int damage;
     public bool isLooping;
     [HideIf(nameof(isLooping), false)] public float loopDuration;
 

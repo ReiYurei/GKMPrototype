@@ -254,7 +254,7 @@ GameObject:
   m_Layer: 0
   m_Name: Cut In UI Controller
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -288,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AudioCollection>k__BackingField: {fileID: 0}
   <CutInCanvas>k__BackingField: {fileID: 8464136279060347124}
+  <CutInImage>k__BackingField: {fileID: 9135670453274777741}
   <CutInMask>k__BackingField: {fileID: 8566571560549924687}
   <LeftBorder>k__BackingField: {fileID: 1422841117772890040}
   <RightBorder>k__BackingField: {fileID: 144510806483544813}
@@ -373,6 +374,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: dfe53213e465b524f916608271256770, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8555740842061658673}
+          m_TargetAssemblyTypeName: CutInUIController, Assembly-CSharp
+          m_MethodName: OnLoadComplete
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   _listenersParam: []
 --- !u!1 &6326087276985611705
 GameObject:
@@ -439,7 +456,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9893d252d3b609e40b63107ef450d537, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

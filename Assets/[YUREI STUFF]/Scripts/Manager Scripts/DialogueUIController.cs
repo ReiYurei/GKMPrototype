@@ -59,6 +59,7 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
 
     [field: Header("Event")]
     [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultHubEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultEnteringHubEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultExterminateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ShakeEvent { get; private set; }
 
@@ -225,9 +226,17 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
                 DialogueEnd_DefaultHubEvent.Raise();
                 ChangeStateEvent.Raise(_hubState);
                 break;
+            case EndEventBehaviour.DefaultEnteringHubEvent:
+                DialogueEnd_DefaultEnteringHubEvent.Raise();
+                ChangeStateEvent.Raise(_hubState);
+                break;
+            case EndEventBehaviour.DefaultEnteringExterminateEvent:
+                DialogueEnd_DefaultExterminateEvent.Raise();
+                ChangeStateEvent.Raise(_exterminateState);
+                break;
             case EndEventBehaviour.DefaultExterminateEvent:
                 DialogueEnd_DefaultExterminateEvent.Raise();
-                ChangeStateEvent.Raise(_hubState);
+                ChangeStateEvent.Raise(_exterminateState);
                 break;
             case EndEventBehaviour.CustomEvent:
                 DialogueData.CustomEndEvent.Raise();

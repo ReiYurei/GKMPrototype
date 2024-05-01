@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc820466befb8484db17072a4b0a2bf9, type: 3}
   m_Name: Reimu Status
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  <MaxHealth>k__BackingField: 1000
   currentHealth: {fileID: 11400000, guid: b1efe98cc10385b44b1499fe8eb2b403, type: 2}
   <HealthChange>k__BackingField: {fileID: 11400000, guid: 8a00f8d8a5c513c4ebaf0738f16af232, type: 2}
+  <OnDeathEvent>k__BackingField: {fileID: 11400000, guid: 781b5a186f5949a4cb92abd17a23d895, type: 2}
   _rawPower: 1
   _movementSpeed: 1
-  cannotRage: 0
+  <Name>k__BackingField: Reimu
+  <EnemyCutInSprite>k__BackingField: {fileID: 21300000, guid: 9893d252d3b609e40b63107ef450d537, type: 3}
+  canEnraged: 1
+  canStunned: 1
+  canPoisoned: 1
   <IsHalved>k__BackingField: 0
   <IsAttacking>k__BackingField: 0
   <IsShooting>k__BackingField: 1
@@ -51,9 +56,8 @@ MonoBehaviour:
   _rageMeter: 0
   _stunMeter: 0
   _poisonMeter: 0
-  _animationHash: 1535168080
+  <AnimationHash>k__BackingField: 0
   <States>k__BackingField: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
   <DynamicState>k__BackingField: {fileID: 11400000, guid: a0a0d0fccd539d6498337f0d6aa3962a, type: 2}
-  <Substate>k__BackingField: {fileID: 11400000, guid: 6aace7c0e0cc8f24f92d115031595586, type: 2}
   <NormalState>k__BackingField: {fileID: 11400000, guid: bde448a1f82fc0a49af8974d53bf7bba, type: 2}
   <RageState>k__BackingField: {fileID: 11400000, guid: 01dde18a6ceee0a48948abcd84d24be2, type: 2}

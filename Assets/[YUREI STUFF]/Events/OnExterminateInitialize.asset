@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 535cf177c159f7141a2290db34ef30cb, type: 3}
-  m_Name: OnHealthChange(Reimu)
+  m_Name: OnExterminateInitialize
   m_EditorClassIdentifier: 
   _gameEvent: []

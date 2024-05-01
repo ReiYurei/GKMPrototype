@@ -116,7 +116,7 @@ GameObject:
   m_Layer: 0
   m_Name: Stage Manager
   m_TagString: Stage Manager
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -236,6 +236,22 @@ MonoBehaviour:
         - m_Target: {fileID: 350845452731367868}
           m_TargetAssemblyTypeName: StageManagerComponent, Assembly-CSharp
           m_MethodName: OnStageEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 4fd490657f61b764a826a4e025dbcc17, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 350845452731367868}
+          m_TargetAssemblyTypeName: StageManagerComponent, Assembly-CSharp
+          m_MethodName: ExterminationStart
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

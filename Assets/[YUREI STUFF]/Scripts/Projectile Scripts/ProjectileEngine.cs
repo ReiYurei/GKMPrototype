@@ -205,15 +205,24 @@ public class ProjectileEngine : MonoBehaviour
             _projectiles[i].position = (Vector3)_projectilePos[i];
             _projectiles[i].rotation = Quaternion.Euler(0f, 0f, _angle[i]);
 
-            Collider2D x = Physics2D.OverlapCircle((Vector3)_projectilePos[i], 0.15f);
-            if (x != null && (x.CompareTag("Player") || x.gameObject.layer == 7))
+            Collider2D[] x = Physics2D.OverlapCircleAll((Vector3)_projectilePos[i], 0.15f);
+            if (x != null)
+            foreach (Collider2D col in x)
             {
-                _setActiveInfo[i] = false;
-                _hitPlayer[i] = true;
-                _projectiles[i].gameObject.SetActive(false);
-                ParticlePool(i);
-                continue;
+                if (col.gameObject.layer == 7 /*ground*/| col.gameObject.layer == 6 /*player*/)
+                {
+                    _setActiveInfo[i] = false;
+                    _hitPlayer[i] = true;
+                    _projectiles[i].gameObject.SetActive(false);
+                    ParticlePool(i);
+                    if (col.TryGetComponent(out IDamageable damaging))
+                    {
+                        damaging.OnDamage(_data.damage);
+                    }
+                    continue;
+                }
             }
+;   
         }
     }
     

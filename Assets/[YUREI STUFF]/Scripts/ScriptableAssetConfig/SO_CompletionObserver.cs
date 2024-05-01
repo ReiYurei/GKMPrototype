@@ -63,7 +63,7 @@ public class SO_CompletionObserver : ScriptableObject
         AssignedMission.ClaimReward();
         if (AssignedQuest != null)
         {
-           if (AssignedQuest.QuestInfo.QuestType != QuestType.Elimination && 
+           if (AssignedQuest.QuestInfo.QuestType == QuestType.Elimination && 
                 AssignedQuest.QuestInfo.EliminationTarget == AssignedMission.AstralEntity) 
            {
                 AssignedQuest.QuestInfo.EliminationCount++;

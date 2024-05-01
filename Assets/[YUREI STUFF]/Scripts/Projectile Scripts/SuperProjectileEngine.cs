@@ -19,6 +19,7 @@ public class SuperEngine : MonoBehaviour
     [SerializeField] private bool _consecutiveShoot;
     [SerializeField] private bool _canShootWhileMoving;
     [SerializeField] private bool _returnAfterShootEnd;
+    [Tooltip("The Super Projectile Engine can damage player")]
     [SerializeField] private bool _dealingDamage;
     [Tooltip("Only Used if dealing damage is on")]
     [SerializeField] private float _damage;

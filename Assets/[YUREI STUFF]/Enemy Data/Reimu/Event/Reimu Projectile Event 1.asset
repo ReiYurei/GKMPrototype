@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535cf177c159f7141a2290db34ef30cb, type: 3}
   m_Name: Reimu Projectile Event 1
   m_EditorClassIdentifier: 
+  _gameEvent: []

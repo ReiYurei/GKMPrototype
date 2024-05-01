@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1295864099660770082}
   - component: {fileID: 1138384286489741595}
   - component: {fileID: 7566979509425297148}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 6762426090310012988}
   - component: {fileID: 2806344611207649768}
   - component: {fileID: 4479426582413618103}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 985687164887002383}
   - component: {fileID: 7703527940301568266}
   - component: {fileID: 6763346993839184608}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 3185399365034610362}
   - component: {fileID: 3407570203924473126}
   - component: {fileID: 7665123210255298141}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,12 +657,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7854049729400365044}
-  - component: {fileID: 6548898498126686571}
   - component: {fileID: 2233956336022172056}
+  - component: {fileID: 6548898498126686571}
   m_Layer: 0
   m_Name: Gameplay Transition Manager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -686,52 +686,6 @@ Transform:
   - {fileID: 8575690720326491394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6548898498126686571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7678420690269891305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _listenersVoid:
-  - gameEvent: {fileID: 11400000, guid: b5b955103dccd3642936c478d409acf9, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2233956336022172056}
-          m_TargetAssemblyTypeName: GameplayTransitionManager, Assembly-CSharp
-          m_MethodName: BulletHellPhase
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - gameEvent: {fileID: 11400000, guid: 1e7173ebd1ff4a64aa3591a62d3eab10, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2233956336022172056}
-          m_TargetAssemblyTypeName: GameplayTransitionManager, Assembly-CSharp
-          m_MethodName: RegularPhase
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  _listenersParam: []
 --- !u!114 &2233956336022172056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +793,52 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   debug: 0
+--- !u!114 &6548898498126686571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7678420690269891305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _listenersVoid:
+  - gameEvent: {fileID: 11400000, guid: b5b955103dccd3642936c478d409acf9, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2233956336022172056}
+          m_TargetAssemblyTypeName: GameplayTransitionManager, Assembly-CSharp
+          m_MethodName: BulletHellPhase
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 1e7173ebd1ff4a64aa3591a62d3eab10, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2233956336022172056}
+          m_TargetAssemblyTypeName: GameplayTransitionManager, Assembly-CSharp
+          m_MethodName: RegularPhase
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  _listenersParam: []
 --- !u!1 &9030468331091098963
 GameObject:
   m_ObjectHideFlags: 0

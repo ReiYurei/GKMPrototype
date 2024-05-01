@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 728894078450138899}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5999999, y: 17.65, z: 0}
+  m_LocalPosition: {x: -0.5999999, y: 8.789999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -230,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 1629253932419400080}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5999999, y: 13.09, z: 0}
+  m_LocalPosition: {x: -0.5999999, y: 4.2299995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -553,7 +553,7 @@ Transform:
   m_GameObject: {fileID: 2806293591413516407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.58, y: 15.690001, z: 0}
+  m_LocalPosition: {x: -7.58, y: 6.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -756,6 +756,7 @@ MonoBehaviour:
   <GameState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <StatusData>k__BackingField: {fileID: 11400000, guid: 8802ab853ec4fc04093784b3c6b5dc45, type: 2}
   <AudioCollection>k__BackingField: {fileID: 11400000, guid: 695e55bdaecd89e4dbdfece614b736e2, type: 2}
+  <EnemyCutInSprite>k__BackingField: {fileID: 21300000, guid: 9893d252d3b609e40b63107ef450d537, type: 3}
   <EnemyAnimatorComponent>k__BackingField: {fileID: 3326700904301637164}
   <EnemyBehaviourComponent>k__BackingField: {fileID: 3020766109846378489}
   <StatusEffectContainerComponent>k__BackingField: {fileID: 4416839061295149675}
@@ -763,8 +764,8 @@ MonoBehaviour:
   <RigidbodyComponent>k__BackingField: {fileID: 4076581612383940636}
   <AnimatorComponent>k__BackingField: {fileID: 2261132448079952561}
   <Waypoints>k__BackingField:
-  - {fileID: 3396194326465103894}
   - {fileID: 5236526178773871542}
+  - {fileID: 3396194326465103894}
   speed: 1
   acceleration: 5
 --- !u!114 &4416839061295149675
@@ -833,6 +834,8 @@ MonoBehaviour:
     state: {fileID: 11400000, guid: 4c9c4c2d9e05443498b903c117b93cee, type: 2}
   - name: 8
     state: {fileID: 11400000, guid: 52fbdf09a2827964a8c190c280844acc, type: 2}
+  - name: 11
+    state: {fileID: 11400000, guid: 52fbdf09a2827964a8c190c280844acc, type: 2}
 --- !u!114 &6249376618027570649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,6 +889,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 7de445addd20ad0458d1598987311771, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3020766109846378489}
+          m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+          m_MethodName: InitializeState
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - gameEvent: {fileID: 11400000, guid: 8a00f8d8a5c513c4ebaf0738f16af232, type: 2}
     voidResponse:
       m_PersistentCalls:
@@ -909,22 +928,6 @@ MonoBehaviour:
         - m_Target: {fileID: 3020766109846378489}
           m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
           m_MethodName: OnDeath
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - gameEvent: {fileID: 11400000, guid: 7de445addd20ad0458d1598987311771, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3020766109846378489}
-          m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
-          m_MethodName: OnExterminateStart
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1612,7 +1615,7 @@ Transform:
   m_GameObject: {fileID: 7934398657902642158}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.38, y: 15.690001, z: 0}
+  m_LocalPosition: {x: 6.38, y: 6.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1646,7 +1649,7 @@ Transform:
   m_GameObject: {fileID: 8115922213422611555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.4, y: 13, z: 0}
+  m_LocalPosition: {x: 6.4, y: 4.1399994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1957,7 +1960,7 @@ Transform:
   m_GameObject: {fileID: 8478931777088573722}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.6, y: 13, z: 0}
+  m_LocalPosition: {x: -7.6, y: 4.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2165,7 +2168,7 @@ Transform:
   m_GameObject: {fileID: 8772203636651382083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5999999, y: 15.21, z: 0}
+  m_LocalPosition: {x: -0.5999999, y: 6.3499994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

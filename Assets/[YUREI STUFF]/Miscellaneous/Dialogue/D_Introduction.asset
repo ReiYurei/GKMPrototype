@@ -20,9 +20,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: 'Hmm?<pause=0.5>
-
-      . <pause=0.5>. <pause=0.5>.
+    <SpeechText>k__BackingField: 'Hmm?<pause=0.5>. <pause=0.5>. <pause=0.5>.
 
 '
     <AutoSkipAtEnd>k__BackingField: 0
@@ -32,13 +30,14 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 9
     <ActiveSpeaker>k__BackingField: 2
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: Oh!<pause=1>! Could it be you are the newly promoted
+    <SpeechText>k__BackingField: Oh!!<pause=0.5> Could it be you are the newly promoted
       <color=yellow>Astral Hunter</color>?
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
@@ -47,6 +46,7 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
@@ -62,6 +62,7 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 9
     <CharacterRight>k__BackingField: 2
@@ -77,6 +78,7 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 9
     <CharacterRight>k__BackingField: 2
@@ -94,6 +96,7 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
@@ -109,5 +112,6 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
-  endEventBehaviour: 4
+      <ParamData>k__BackingField: {fileID: 0}
+  endEventBehaviour: 1
   CustomEndEvent: {fileID: 11400000, guid: b90f576814fbb4b4fa3145b291d36559, type: 2}

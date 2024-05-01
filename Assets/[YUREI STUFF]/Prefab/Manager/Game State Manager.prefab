@@ -715,7 +715,7 @@ GameObject:
   m_Layer: 0
   m_Name: Game State Manager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -769,11 +769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1799684fae9f1bb4fb598e4cc0307b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listenersVoid:
-  - gameEvent: {fileID: 11400000, guid: 7de445addd20ad0458d1598987311771, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls: []
+  _listenersVoid: []
   _listenersParam:
   - gameEvent: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
     parameterGOResponse:
