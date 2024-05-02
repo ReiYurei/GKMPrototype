@@ -32,10 +32,13 @@ public class StateObserver : ScriptableObject
             case HubState:
                 OverallState = state;
                 break;
-            case ExterminateState:
+            case RegularGameplayState:
                 OverallState = state;
                 break;
-  
+            case BulletHellGameplayState:
+                OverallState = state;
+                break;
+
         }
     }
 }

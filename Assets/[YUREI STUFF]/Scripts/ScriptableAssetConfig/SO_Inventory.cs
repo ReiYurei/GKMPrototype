@@ -7,8 +7,8 @@ using System.Linq;
 [CreateAssetMenu(fileName = "Inventory", menuName = "Player/Inventory Data")]
 public class SO_Inventory : ScriptableObject
 {
-    private HashSet<SO_QuestItem> QuestItemInventory;
-    private HashSet<SO_Combo> LearnedSpells;
+    public HashSet<SO_QuestItem> QuestItemInventory { get; private set; }
+    public HashSet<SO_Combo> LearnedSpells { get; private set; }
 
     [SerializeField] private List<SO_QuestItem> _viewQuestItemData;
     [SerializeField] private List<SO_Combo> _viewLearnedSpelltData;
@@ -28,11 +28,13 @@ public class SO_Inventory : ScriptableObject
         if (InventoryUIController.Instance == null) return;
         InventoryUIController.Instance.AnimateGold(currentGold, Gold,ComparatorType.GreaterThan);
     }
+    [Button("Debug Raise : Learn Spell ")]
     public void LearnSpell(SO_Combo spell)
     {
         LearnedSpells ??= new();
         LearnedSpells.Add(spell);
     }
+    [Button("Debug Raise : Add Quest Item ")]
     public void AddQuestItem(SO_QuestItem item)
     {
         QuestItemInventory ??= new();

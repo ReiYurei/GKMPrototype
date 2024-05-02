@@ -146,10 +146,7 @@ public class ProjectileEngine : MonoBehaviour
 
     void BulletRotation()
     {
-        if (!_data.enableAutoRotation)
-        {
-            return;
-        }
+        if (!_data.enableAutoRotation ) return;
         _jobRotation.deltaTime = Time.deltaTime;
         _jobHandleRotation = _jobRotation.Schedule();
         _jobHandleRotation.Complete();
@@ -157,10 +154,7 @@ public class ProjectileEngine : MonoBehaviour
     }
     void BulletAngle()
     {
-        if (!_data.enableAutoAngle)
-        {
-            return;
-        }
+        if (!_data.enableAutoAngle) return;
         _jobAngleRange.deltaTime = Time.deltaTime;
         _jobHandleAngleRange = _jobAngleRange.Schedule();
         _jobHandleAngleRange.Complete();

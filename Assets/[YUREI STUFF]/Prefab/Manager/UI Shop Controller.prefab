@@ -1669,15 +1669,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AudioCollection>k__BackingField: {fileID: 0}
+  <CurrentState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <Inventory>k__BackingField: {fileID: 11400000, guid: 2cc4a2c1c7282434b978165b3c1582b0, type: 2}
   <AllListing>k__BackingField: {fileID: 11400000, guid: 04c8a615870648a428652e5d04f13739, type: 2}
+  <Cursor>k__BackingField: {fileID: 85197342263991645}
   <AvailableListing>k__BackingField: {fileID: 11400000, guid: 128b1cb7d1632c2479f8010bec69de36, type: 2}
   <ListingParent>k__BackingField: {fileID: 9028379808152967887}
   <SpellTemplate>k__BackingField: {fileID: 3591689195615677659, guid: abc2d8137e03def43b8c48d2bc0bb775, type: 3}
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <ExitShopEvent>k__BackingField: {fileID: 11400000, guid: 6468086c0007ba64ea832b998cf23006, type: 2}
   <NotEnoughMoneyEvent>k__BackingField: {fileID: 11400000, guid: c1cdc1dd73d75ae46b9d534347db2c54, type: 2}
-  <ShopUI>k__BackingField: {fileID: 8942011432103237867}
+  <ShopUICanvas>k__BackingField: {fileID: 8942011432103237867}
   <SpellIcon>k__BackingField: {fileID: 1000575742173806024}
   <SpellName>k__BackingField: {fileID: 1509116864642113795}
   <SpellDescription>k__BackingField: {fileID: 2893256997543341956}
@@ -3302,6 +3304,81 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6734704125610071041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85197342263991645}
+  - component: {fileID: 7432872817327646219}
+  - component: {fileID: 3879317000381046928}
+  m_Layer: 0
+  m_Name: Cursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &85197342263991645
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6734704125610071041}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8782173818779833263}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 79.50008, y: -519}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7432872817327646219
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6734704125610071041}
+  m_CullTransparentMesh: 1
+--- !u!114 &3879317000381046928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6734704125610071041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8490566, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6734991694332442379
 GameObject:
   m_ObjectHideFlags: 0
@@ -4630,7 +4707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8782173818779833263
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4646,6 +4723,7 @@ RectTransform:
   - {fileID: 6137310063832458519}
   - {fileID: 6965886334748162818}
   - {fileID: 739613059289198766}
+  - {fileID: 85197342263991645}
   - {fileID: 9147624660589137661}
   m_Father: {fileID: 6239774380166743108}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

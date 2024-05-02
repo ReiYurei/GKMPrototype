@@ -13,7 +13,18 @@ MonoBehaviour:
   m_Name: First Encounter
   m_EditorClassIdentifier: 
   <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
-  <Requirements>k__BackingField: []
+  <Requirements>k__BackingField:
+  - <Type>k__BackingField: 7
+    _quest: {fileID: 0}
+    _assignedQuest: {fileID: 0}
+    _mission: {fileID: 0}
+    _assignedMission: {fileID: 0}
+    _enemy: {fileID: 4652478206531035968, guid: fdb1849febe9ff041868f32bcd73346b, type: 3}
+    _item: {fileID: 0}
+    _inventory: {fileID: 0}
+    _story: {fileID: 0}
+    _factVariable: {fileID: 0}
+    _requiredAmount: 0
   <Replayability>k__BackingField: 0
   <PlayAt>k__BackingField: 2
   <DialogueEvent>k__BackingField: {fileID: 11400000, guid: 6de411aeac785ef4794a8801e883ad73, type: 2}

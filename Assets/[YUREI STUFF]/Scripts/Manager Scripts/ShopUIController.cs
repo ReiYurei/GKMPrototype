@@ -14,8 +14,10 @@ using YansaFork;
 public class ShopUIController : MonoBehaviour, IAudioSource
 {
     [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
+    [field: SerializeField] public StateObserver CurrentState { get; private set; }
     [field: SerializeField] public SO_Inventory Inventory { get; private set; }
     [field: InlineEditor][field: SerializeField] public SO_ShopListing_Combo AllListing { get; private set; }
+    [field: SerializeField] public RectTransform Cursor { get; private set; }
     [field: SerializeField] public SO_ShopListing_Combo AvailableListing { get; private set; }
     [field: SerializeField] public GameObject ListingParent { get; private set; }
     [field: SerializeField] public GameObject SpellTemplate { get; private set; }
@@ -27,7 +29,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     [field: SerializeField] public SO_VoidGameEvent NotEnoughMoneyEvent { get; private set; }
 
     [field: Header("Canvas")]
-    [field: SerializeField] public GameObject ShopUI { get; private set; }
+    [field: SerializeField] public GameObject ShopUICanvas { get; private set; }
     [field: Header("Spell Item Canvas")]
     [field: SerializeField] public Image SpellIcon { get; private set; }
     [field: SerializeField] public TextMeshProUGUI SpellName { get; private set; }
@@ -46,7 +48,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
 
         [SerializeField] private Image[] _spellIcons;
 
-        public void InstantiateSpellInputShopUI(Transform parent, int amount)
+        public void InstantiateSpellInput(Transform parent, int amount)
         {
             foreach (var icon in _spellIcons)
             {
@@ -165,13 +167,14 @@ public class ShopUIController : MonoBehaviour, IAudioSource
 
             _spells[i].shopCounter = this;
             _spells[i].shopItem = AvailableListing.Items[i];
+            _spells[i].gameObject.GetComponent<Image>().sprite = _spells[i].shopItem.SpellCombo.Spell.Icon;
             var spell = _spells[i].shopItem.SpellCombo;
             if (spell.Command.Count > _maxSpellInput)
             {
                 _maxSpellInput = spell.Command.Count;
             }
         }
-        SpellInputIcon.InstantiateSpellInputShopUI(SpellInputParent.transform, _maxSpellInput);
+        SpellInputIcon.InstantiateSpellInput(SpellInputParent.transform, _maxSpellInput);
         yield break;
     }
 
@@ -196,7 +199,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
         Debug.Log("<color=yellow>OPEN SHOP</color>");
         Actions.FindAction("Cancel").performed += CancelFunction;
         ChangeStateEvent.Raise(state);
-        ShopUI.SetActive(true);
+        ShopUICanvas.SetActive(true);
         Reselect();
         ReadText();
     }
@@ -222,6 +225,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     }
     public void CloseShop()
     {
+
         foreach (var item in _spells)
         {
             Destroy(item.gameObject);
@@ -232,7 +236,8 @@ public class ShopUIController : MonoBehaviour, IAudioSource
 
         Debug.Log("<color=yellow>CLOSE SHOP</color>");
         Actions.FindAction("Cancel").performed -= CancelFunction;
-        ShopUI.SetActive(false);
+        Cursor.gameObject.SetActive(false);
+        ShopUICanvas.SetActive(false);
         ExitShopEvent.Raise();
     }
     public void ReadText()
@@ -252,7 +257,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     }
     public void Confirm()
     {
-        if (!ShopUI.activeInHierarchy) return;
+        if (!ShopUICanvas.activeInHierarchy) return;
         var spell = _selectedItem.shopItem;
         if (BuyingPrompt.activeInHierarchy)
         {
@@ -293,7 +298,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
             return;
         }
     }
-    public void ShowData(ShopItemSpell data, GameObject selected)
+    public void ShowData(ShopItemSpell data)
     {
         if (data.shopItem.SpellCombo == null) return;
         _selectedItem = data;
@@ -306,7 +311,8 @@ public class ShopUIController : MonoBehaviour, IAudioSource
         SpellManaConsumption.text = spell.Consumption.ToString();
         SpellInputIcon.ShowIcon(data.shopItem.SpellCombo);
         Price.text = data.shopItem.Price.ToString();
-        
+        Cursor.gameObject.SetActive(true);
+        Cursor.position = _eventSystem.currentSelectedGameObject.transform.position;
     }
     public void Select(GameObject selected)
     {
@@ -318,13 +324,16 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     }
     public void Reselect()
     {
+        if (!ShopUICanvas.activeInHierarchy) return;
         if(_spells.Count <= 0) return;
         if (_lastSelectedObject == null)
         {
             _eventSystem.SetSelectedGameObject(_spells[0].gameObject);
+            Cursor.position = _eventSystem.currentSelectedGameObject.transform.position;
             return;
         }
         _eventSystem.SetSelectedGameObject(_lastSelectedObject);
+        Cursor.position = _eventSystem.currentSelectedGameObject.transform.position;
 
     }
 

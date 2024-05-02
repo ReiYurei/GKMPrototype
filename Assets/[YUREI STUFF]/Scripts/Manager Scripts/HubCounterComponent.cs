@@ -111,7 +111,7 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
 
         foreach (SO_MissionData mission in AllMission.Missions)
         {
-            if (mission.CheckRequirement() && !AvailableMissions.Missions.Contains(mission))
+            if (mission.RequirementToListedFulfilled() && !AvailableMissions.Missions.Contains(mission))
                 AvailableMissions.Missions.Add(mission);
 
         }

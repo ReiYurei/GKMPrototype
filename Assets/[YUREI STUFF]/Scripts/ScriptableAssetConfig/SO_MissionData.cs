@@ -10,14 +10,15 @@ public class SO_MissionData : ScriptableObject
     [field: SerializeField] public List<Requirement> RequirementsToBeListed { get; private set; }
     [field: SerializeField] public string MissionName { get; private set; }
     [field: SerializeField] public GameObject AstralEntity { get; private set; }
+    [field: SerializeField] public bool Repeatable { get; private set; } = true;
     [field: SerializeField] public StageInfo StageInfo { get;private set; } //need a proper initialization class data
     [field: SerializeField] public List<BaseQuestReward> Rewards { get; private set; }
-    [SerializeField] private bool _minimumRequirement;
-    [SerializeField][ShowIf(nameof(_minimumRequirement), true)] private int _minCompleted;
+    [field: SerializeField] public bool MinimumRequirement { get; private set; }
+    [SerializeField][ShowIf(nameof(MinimumRequirement), true)] private int MinCompleted;
     private bool[] fulfilledRequirement;
     private int completedCount;
 
-    public bool CheckRequirement()
+    public bool RequirementToListedFulfilled()
     {
         completedCount = 0;
         if (RequirementsToBeListed.Count <= 0)
@@ -31,11 +32,17 @@ public class SO_MissionData : ScriptableObject
         }
         for (int i = 0; i < fulfilledRequirement.Length; i++)
         {
-            if (!fulfilledRequirement[i] && _minimumRequirement) continue;
-            else if (!fulfilledRequirement[i] && !_minimumRequirement) return false;
-            completedCount++;
+            if (MinimumRequirement)
+            {
+                if (!fulfilledRequirement[i]) continue;
+                completedCount++;
+
+            }
+            else if (!fulfilledRequirement[i]) return false;
         }
-        return (completedCount >= _minCompleted && _minimumRequirement);
+
+        if (MinimumRequirement) return (completedCount >= MinCompleted && MinimumRequirement);
+        return true;
     }
     public void ClaimReward()
     {

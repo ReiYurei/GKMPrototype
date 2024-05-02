@@ -31,11 +31,17 @@ public class SO_StoryData : ScriptableObject
         }
         for (int i = 0; i < fulfilledRequirement.Length; i++)
         {
-            if (!fulfilledRequirement[i] && MinimumRequirement) continue;
-            else if (!fulfilledRequirement[i] && !MinimumRequirement) return false;
-            completedCount++;
+            if (MinimumRequirement)
+            {
+                if (!fulfilledRequirement[i]) continue;
+                completedCount++;
+
+            }
+            else if (!fulfilledRequirement[i]) return false;
         }
-        return (completedCount >= MinCompleted && MinimumRequirement);
+
+        if (MinimumRequirement) return (completedCount >= MinCompleted && MinimumRequirement);
+        return true;
     }
     public bool HasSeen() //Seen for the entire progress
     {
@@ -75,5 +81,5 @@ public enum Replayability
 }
 public enum PlayAt
 {
-    EnteringHub,QuestEmbark,EnteringStage, Independent, HubCounterInteraction, Tutorial
+    EnteringHub,QuestEmbark,EnteringStage, Independent, HubCounterInteraction, EndOfStage, Tutorial
 }

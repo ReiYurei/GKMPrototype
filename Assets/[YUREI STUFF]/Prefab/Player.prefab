@@ -212,6 +212,7 @@ MonoBehaviour:
   maxSpeed: 5
   interactable: 0
   interactBox: {fileID: 3057788726665125034}
+  InventoryOpenEvent: {fileID: 11400000, guid: a0b96074dbe57e04f89d75a20592369e, type: 2}
 --- !u!95 &2180758640579070448
 Animator:
   serializedVersion: 5

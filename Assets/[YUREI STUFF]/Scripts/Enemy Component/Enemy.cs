@@ -9,7 +9,7 @@ using FMOD;
 #endif
 public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable, IAudioSource
 {
-    [field: SerializeField][InlineEditor]public StateObserver GameState { get; private set; } //NEED TO BE SEPARATED SYSTEM
+    [field: SerializeField][InlineEditor]public StateObserver GameState { get; private set; }
     [field: SerializeField][InlineEditor][Required]public SO_EnemyStatus StatusData { get; private set; }
     [field: SerializeField][InlineEditor][Required]public SO_AudioFMODEventCollection AudioCollection { get; private set; }
     [field: SerializeField] public EnemyAnimator EnemyAnimatorComponent { get; private set; }
@@ -54,6 +54,16 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable, IAudioSourc
 
     }
 
+    public void OnBulletHellPhase()
+    {
+        StatusData.B_StatusBuildUp.value = false;
+        StatusData.F_RageMeter.value = 0;
+        StatusData.HealthChange.Raise();
+    }
+    public void OnRegularPhase()
+    {
+        StatusData.B_StatusBuildUp.value = true;
+    }
     public void OnDamage(float damage)
     {
         StatusData.AffectRage(damage);

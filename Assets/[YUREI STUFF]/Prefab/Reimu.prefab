@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 297518512347031449}
   - component: {fileID: 228363908097035977}
   - component: {fileID: 3962018755140170425}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8902123983855946242}
   - component: {fileID: 4694558115775308015}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 03
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -631,7 +631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5663034379668702674}
   - component: {fileID: 8600737049990183576}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 01
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -756,7 +756,6 @@ MonoBehaviour:
   <GameState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <StatusData>k__BackingField: {fileID: 11400000, guid: 8802ab853ec4fc04093784b3c6b5dc45, type: 2}
   <AudioCollection>k__BackingField: {fileID: 11400000, guid: 695e55bdaecd89e4dbdfece614b736e2, type: 2}
-  <EnemyCutInSprite>k__BackingField: {fileID: 21300000, guid: 9893d252d3b609e40b63107ef450d537, type: 3}
   <EnemyAnimatorComponent>k__BackingField: {fileID: 3326700904301637164}
   <EnemyBehaviourComponent>k__BackingField: {fileID: 3020766109846378489}
   <StatusEffectContainerComponent>k__BackingField: {fileID: 4416839061295149675}
@@ -849,46 +848,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _listenersVoid:
-  - gameEvent: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8027682435728673304}
-          m_TargetAssemblyTypeName: SuperEngine, Assembly-CSharp
-          m_MethodName: OnProjectileInitiate
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 6780814092257904505}
-          m_TargetAssemblyTypeName: SuperEngine, Assembly-CSharp
-          m_MethodName: OnProjectileInitiate
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 6623259576986643224}
-          m_TargetAssemblyTypeName: SuperEngine, Assembly-CSharp
-          m_MethodName: OnProjectileInitiate
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - gameEvent: {fileID: 11400000, guid: 7de445addd20ad0458d1598987311771, type: 2}
     voidResponse:
       m_PersistentCalls:
@@ -944,6 +903,78 @@ MonoBehaviour:
         - m_Target: {fileID: 3020766109846378489}
           m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
           m_MethodName: OnPhaseChanged
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 1e7173ebd1ff4a64aa3591a62d3eab10, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8762632723304983498}
+          m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+          m_MethodName: OnRegularPhase
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 01a4327e4cd88da46bde27cef187827b, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8762632723304983498}
+          m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+          m_MethodName: OnBulletHellPhase
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8027682435728673304}
+          m_TargetAssemblyTypeName: SuperEngine, Assembly-CSharp
+          m_MethodName: OnProjectileInitiate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6780814092257904505}
+          m_TargetAssemblyTypeName: SuperEngine, Assembly-CSharp
+          m_MethodName: OnProjectileInitiate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6623259576986643224}
+          m_TargetAssemblyTypeName: SuperEngine, Assembly-CSharp
+          m_MethodName: OnProjectileInitiate
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1232,7 +1263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1494967608624392555}
   - component: {fileID: 1615438814561546904}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 02
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -1469,7 +1500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6897901452884150120}
   - component: {fileID: 1119333284585960133}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hurtbox
   m_TagString: Hurtbox
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -1506,7 +1537,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 14335
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

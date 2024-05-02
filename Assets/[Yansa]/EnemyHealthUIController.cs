@@ -65,6 +65,10 @@ public class EnemyHUDController : MonoBehaviour
         EnemyStatus.AffectRage(damage);
         EnemyStatus.SetHealth(EnemyStatus.GetHealth() - damage);
     }
+    public void HideCanvas()
+    {
+        HealthCanvas.SetActive(false);
+    }
     [Button("Debug Raise : Reset Health")]
     public void ResetHealth()
     {

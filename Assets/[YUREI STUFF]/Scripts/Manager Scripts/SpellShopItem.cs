@@ -11,7 +11,7 @@ public class ShopItemSpell : MonoBehaviour, ISelectHandler, ISubmitHandler, IPoi
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        shopCounter.ShowData(this, eventData.selectedObject);
+        shopCounter.ShowData(this);
         shopCounter.Buy();
     }
 
@@ -26,11 +26,11 @@ public class ShopItemSpell : MonoBehaviour, ISelectHandler, ISubmitHandler, IPoi
     }
     public void OnSelect(BaseEventData eventData)
     {
-        shopCounter.ShowData(this, eventData.selectedObject);
+        shopCounter.ShowData(this);
     }
     public void OnSubmit(BaseEventData eventData)
     {
-        shopCounter.ShowData(this, eventData.selectedObject);
+        shopCounter.ShowData(this);
         shopCounter.Buy();
     }
 

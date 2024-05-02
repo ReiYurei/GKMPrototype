@@ -14,14 +14,11 @@ public class SO_QuestData : ScriptableObject
     [Tooltip("Leave null for none Interaction after completing the quest")]
     [field: SerializeField] public SO_StoryData CompletionInteraction { get; private set; }
     [field: SerializeField] public List<BaseQuestReward> Rewards { get; private set; }
-    [SerializeField] private bool _minimumRequirementToList;
-    [SerializeField][ShowIf(nameof(_minimumRequirementToList), true)] private int _minCompletedToList;
-
-
-
-
+    [field: SerializeField] public bool MinimumRequirement { get; private set; }
+    [SerializeField][ShowIf(nameof(MinimumRequirement), true)] private int MinCompleted;
     private bool[] fulfilledRequirement;
     private int completedCount;
+
     public bool RequirementToListedFulfilled()
     {
         completedCount = 0;
@@ -36,11 +33,17 @@ public class SO_QuestData : ScriptableObject
         }
         for (int i = 0; i < fulfilledRequirement.Length; i++)
         {
-            if (!fulfilledRequirement[i] && _minimumRequirementToList) continue;
-            else if (!fulfilledRequirement[i] && !_minimumRequirementToList) return false;
-            completedCount++;
+            if (MinimumRequirement)
+            {
+                if (!fulfilledRequirement[i]) continue;
+                completedCount++;
+
+            }
+            else if (!fulfilledRequirement[i]) return false;
         }
-        return (completedCount >= _minCompletedToList && _minimumRequirementToList);
+
+        if (MinimumRequirement) return (completedCount >= MinCompleted && MinimumRequirement);
+        return true;
     }
     public bool RequirementToClearFulfilled()
     {

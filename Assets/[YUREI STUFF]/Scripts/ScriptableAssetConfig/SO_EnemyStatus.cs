@@ -120,7 +120,7 @@ public class SO_EnemyStatus : BaseStatus
         if (B_Break.value == true) return;
         if (B_Enraged.value == true)
         {
-            F_RageMeter.value -= damage * 0.2f;
+            F_RageMeter.value -= damage * 0.5f;
             if (F_RageMeter.value <= 0 && B_StatusBuildUp.value == true)
             {
                 B_Enraged.value = false;
@@ -131,7 +131,7 @@ public class SO_EnemyStatus : BaseStatus
         }
         if (B_Enraged.value == false)
         {
-            F_RageMeter.value += damage * 0.15f;
+            F_RageMeter.value += damage * 0.8f;
             if (F_RageMeter.value >= BaseRageThreshold && B_StatusBuildUp.value == true)
             {
                 F_RageMeter.value = BaseRageThreshold;

@@ -37,6 +37,7 @@ public class SO_Projectile_Data : ScriptableObject
     [ShowIf(nameof(enableAutoAngle), true)] public float minAngleChange;
     [ShowIf(nameof(enableAutoAngle), true)] public bool canReverseAngle;
 
+
 }
 
 
