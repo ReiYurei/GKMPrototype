@@ -312,7 +312,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
         SpellInputIcon.ShowIcon(data.shopItem.SpellCombo);
         Price.text = data.shopItem.Price.ToString();
         Cursor.gameObject.SetActive(true);
-        Cursor.position = _eventSystem.currentSelectedGameObject.transform.position;
+        Cursor.position = _selectedItem.transform.position;
     }
     public void Select(GameObject selected)
     {

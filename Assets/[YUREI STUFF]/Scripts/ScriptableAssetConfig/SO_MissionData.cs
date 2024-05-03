@@ -56,6 +56,7 @@ public class SO_MissionData : ScriptableObject
 [System.Serializable]
 public class StageInfo
 {
+    [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public StageName SceneName { get; private set; }
 

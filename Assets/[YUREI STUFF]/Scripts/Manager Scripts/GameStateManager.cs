@@ -70,7 +70,8 @@ public class GameStateManager : MonoBehaviour
     public void PauseGameFunction()
     {
         PausePrompt.SetActive(true);
-        if (CurrentState.OverallState is ExterminateState) AbandonMissionOption.SetActive(true);   
+        if (CurrentState.OverallState is RegularGameplayState ||
+            CurrentState.OverallState is BulletHellGameplayState) AbandonMissionOption.SetActive(true);   
         else AbandonMissionOption.SetActive(false);
  
         _eventSystem.SetSelectedGameObject(FirstSelected);
@@ -97,8 +98,8 @@ public class GameStateManager : MonoBehaviour
     public void AbandonMission()
     {
         PausePrompt.SetActive(false);
-        MissionFailedEvent.Raise();
         Time.timeScale = 1f;
+        MissionFailedEvent.Raise();
 
     }
     public void ResumeGameFunction()

@@ -40,6 +40,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
     [SerializeField] private AnimationCurve _speedCurve = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] private InputActionAsset _input;
     private TimeRank _rankMark;
+    private CompletionMark _result;
     private enum TimeRank { S,A,B,C,D,E}
     private GameObject _rank;
     private int moneyAmount;
@@ -49,6 +50,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
 
     [Header("State")]
     [SerializeField] private TitleScreenState _state;
+    [SerializeField] private LoadingScreenState _loadingState;
 
     private void OnDisable()
     {
@@ -61,6 +63,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
     private void Skip(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (_result != CompletionMark.Clear) return;
         if (!_successStamp.activeInHierarchy && _successStamp.transform.localScale != Vector3.one)
         {
             StopAllCoroutines();
@@ -115,30 +118,38 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
     }
     public void OnMissionFailed()
     {
+        _result = CompletionMark.Failed;
         StartCoroutine(MissionFailed());
         IEnumerator MissionFailed()
         {
             _failedCanvas.SetActive(true);
+            Debug.Log("<color=yellow> FAILED</color>");
+
             yield return StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector2.one,_failedStamp));
+            Debug.Log("<color=yellow> STAMP CLEAR</color>");
+
             yield return new WaitForSeconds(1.5f);
+            Debug.Log("<color=yellow> COROUTINE CLEAR</color>");
             LoadHubEvent.Raise();
         }
     }
     public void OnStageClear()
     {
+        _result = CompletionMark.Clear;
         ChangeStateEvent.Raise(_state);
         StartCoroutine(ResultInitialize());
-    }
-    IEnumerator ResultInitialize()
-    {
-        yield return StartCoroutine(FadeOut(Color.black, Color.clear));
-        _input.FindActionMap("UI").FindAction("Confirm").performed += Skip; //Only Listening to Skip Input after Fading out is done
-        yield return StartCoroutine(Ranking(new Vector3(10,10,10), Vector2.one));
-        yield return StartCoroutine(MoneyCount());
-        yield return StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector2.one,_successStamp));
-        MissionCompleteEvent.Raise();
+        IEnumerator ResultInitialize()
+        {
+            yield return StartCoroutine(FadeOut(Color.black, Color.clear));
+            _input.FindActionMap("UI").FindAction("Confirm").performed += Skip; //Only Listening to Skip Input after Fading out is done
+            yield return StartCoroutine(Ranking(new Vector3(10, 10, 10), Vector2.one));
+            yield return StartCoroutine(MoneyCount());
+            yield return StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector2.one, _successStamp));
+            MissionCompleteEvent.Raise();
 
+        }
     }
+
     IEnumerator FadeOut(Color start, Color target)
     {
         float time = 0f;

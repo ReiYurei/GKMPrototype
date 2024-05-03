@@ -20,8 +20,6 @@ public class MissionCompletionUIComponent : MonoBehaviour
     [Header("State")]
     [SerializeField] private LoadingScreenState _loadingState;
 
-    public enum CompletionMark { Failed, Clear}
-
     [Button("Debug Raise : Mission Failed")]
     public void OnMissionFailed() //Played on Abandon/Player Death
     {
@@ -31,7 +29,6 @@ public class MissionCompletionUIComponent : MonoBehaviour
         {
             yield return StartCoroutine(Fade(Color.clear, new Color(0, 0, 0, 0.75f), 1.5f));
             yield return StartCoroutine(CompletionMarking(CompletionMark.Failed));
-            LoadHubEvent.Raise();
         }
     }
     [Button("Debug Raise : Mission Clear")]

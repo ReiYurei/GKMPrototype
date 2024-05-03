@@ -14,6 +14,7 @@ public class StageManagerComponent : MonoBehaviour
     [field: Header("Events")]
     [field: SerializeField] public SO_ParameterGameEvent ChangeStateEvent { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent ChangeOverallStateEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent ExterminateInitializeEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ExterminationStartEvent { get; private set; }
 
     [Header("Canvas")]
@@ -142,12 +143,13 @@ public class StageManagerComponent : MonoBehaviour
 
             if (ExterminateDialogue == null)
             {
-                ExterminationStart();
+                ExterminateInitializeEvent.Raise();
+
                 return;
             }
             if (ExterminateDialogue.TempSeen() || ExterminateDialogue.HasSeen())
             {
-                ExterminationStart();
+                ExterminateInitializeEvent.Raise();
                 return;
             }
 

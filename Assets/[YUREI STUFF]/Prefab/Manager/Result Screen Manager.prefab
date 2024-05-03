@@ -2780,6 +2780,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _input: {fileID: -944628639613478452, guid: c536881d603ab494fafc52ec019bfe87, type: 3}
   _state: {fileID: 11400000, guid: 33099f9f72c0ae943b7ac4615be81fad, type: 2}
+  _loadingState: {fileID: 11400000, guid: f56221b93564c71438397bf8c5d901af, type: 2}
 --- !u!114 &2204478094295484190
 MonoBehaviour:
   m_ObjectHideFlags: 0

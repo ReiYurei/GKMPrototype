@@ -179,6 +179,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6135844798356937657, guid: a0d969bbf09105640935358e36c62c20, type: 3}
+      propertyPath: m_margin.x
+      value: 33.542725
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135844798356937657, guid: a0d969bbf09105640935358e36c62c20, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472524697710212401, guid: a0d969bbf09105640935358e36c62c20, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

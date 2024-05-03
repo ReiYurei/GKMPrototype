@@ -10,7 +10,7 @@ public class SO_ShopItem_Combo : ScriptableObject
     [field: SerializeField] public SO_Combo SpellCombo { get; private set; }
     [field: SerializeField] public int Price { get; private set; }
     [field: SerializeField] public List<Requirement> RequirementsToBeListed { get; private set; }
-    [field: SerializeField] public bool Sold { get; private set; } = false;
+    [field: SerializeField] public bool Sold { get; private set; }
     [SerializeField] private bool _minimumRequirementToList;
     [SerializeField][ShowIf(nameof(_minimumRequirementToList), true)] private int _minCompletedToList;
     private bool[] fulfilledRequirement;

@@ -527,9 +527,24 @@ public class ListingUIController : MonoBehaviour, IAudioSource
 
                 var mission = AvailableMissions.Missions[pageIndex];
                 if (Observer.MissionObserver.Completion.Contains(mission)) ClearMark.SetActive(true);
+                if (mission.StageInfo.Icon != null)
+                {
+                    MissionUI.Icon.sprite = mission.StageInfo.Icon;
+                    MissionUI.Icon2.sprite = mission.StageInfo.Icon;
+                    MissionUI.Icon.color = Color.white;
+                    MissionUI.Icon2.color = Color.white;
+
+                }
+                else
+                {
+                    MissionUI.Icon.color = Color.clear;
+                    MissionUI.Icon2.color = Color.clear;
+                }
                 MissionUI.astralName.text = mission.AstralEntity.name;
                 MissionUI.missionName.text = mission.MissionName;
                 MissionUI.stageName.text = mission.StageInfo.Name;
+                MissionUI.stageDescription.text = mission.StageInfo.Description;
+
                 var missionReward = AvailableMissions.Missions[pageIndex].Rewards;
                 if (missionReward.Count > 0)
                 {
@@ -542,7 +557,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                         }
                         var goldReward = missionReward[i] as SO_MoneyReward;
                         gold = goldReward.Amount;
-                        QuestUI.goldReward.text = gold.ToString();
+                        MissionUI.goldReward.text = gold.ToString();
                     }
                 }
                 break;
@@ -583,17 +598,18 @@ public class QuestListingUI
     public TextMeshProUGUI questName;
     public TextMeshProUGUI clientName;
     public TextMeshProUGUI questDescription;
-    public TextMeshProUGUI expReward;
     public TextMeshProUGUI goldReward;
 }
 [System.Serializable]
 public class MissionListingUI
 {
     public Image Icon;
+    public Image Icon2;
+
     public TextMeshProUGUI missionName;
     public TextMeshProUGUI astralName;
     public TextMeshProUGUI stageName;
-    public TextMeshProUGUI expReward;
+    public TextMeshProUGUI stageDescription;
     public TextMeshProUGUI goldReward;
 }
 [System.Serializable]
