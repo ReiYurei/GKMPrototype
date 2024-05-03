@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a06ac8e339464144d94b0643a070bed3, type: 3}
-  m_Name: Hub Interaction
+  m_Name: Exterminate Init
   m_EditorClassIdentifier: 
   <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
   <Requirements>k__BackingField: []
-  <Replayability>k__BackingField: 2
-  <PlayAt>k__BackingField: 3
-  <DialogueEvent>k__BackingField: {fileID: 11400000, guid: bb9845468eaf25f42be40bc9d7cb8b34, type: 2}
+  <Replayability>k__BackingField: 1
+  <PlayAt>k__BackingField: 2
+  <DialogueEvent>k__BackingField: {fileID: 11400000, guid: 77a63b0f4f160b94980776ac20aaa0bf, type: 2}
   <RaiseCutscene>k__BackingField: {fileID: 11400000, guid: 98818ae4544a8734cbbd3cfd36bd4eae, type: 2}
   <MinimumRequirement>k__BackingField: 0
   MinCompleted: 0

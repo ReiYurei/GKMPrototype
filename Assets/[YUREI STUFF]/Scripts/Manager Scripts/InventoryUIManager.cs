@@ -206,7 +206,6 @@ public class InventoryUIController : MonoBehaviour
         GoldCanvas.SetActive(false);
         _tabIndex = 0;
         Debug.Log("<color=yellow>open INVENTORY</color>");
-        Actions.FindAction("Inventory").performed += CancelFunction;
         Actions.FindAction("Cancel").performed += CancelFunction;
         InventoryCanvas.SetActive(true);
         HideAllTab();
@@ -230,7 +229,6 @@ public class InventoryUIController : MonoBehaviour
 
         Debug.Log("<color=yellow>CLOSE INVENTORY</color>");
         Actions.FindAction("Cancel").performed -= CancelFunction;
-        Actions.FindAction("Inventory").performed -= CancelFunction;
 
         InventoryCanvas.SetActive(false);
         ChangeStateEvent.Raise(CurrentState.OverallState);

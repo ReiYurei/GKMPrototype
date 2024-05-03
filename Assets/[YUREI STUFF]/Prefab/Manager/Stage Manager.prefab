@@ -158,6 +158,7 @@ MonoBehaviour:
   <ChangeOverallStateEvent>k__BackingField: {fileID: 11400000, guid: f2c99184e9fc4764299d1f9ae5741e48, type: 2}
   <ExterminateInitializeEvent>k__BackingField: {fileID: 11400000, guid: 4fd490657f61b764a826a4e025dbcc17, type: 2}
   <ExterminationStartEvent>k__BackingField: {fileID: 11400000, guid: 7de445addd20ad0458d1598987311771, type: 2}
+  <StageClearEvent>k__BackingField: {fileID: 11400000, guid: af125ad1681f42f44afd1c2c71c5d365, type: 2}
   _exterminateCanvas: {fileID: 924752553363120840}
   _exterminateScreen: {fileID: 5615387855209901747}
   _exterminateObject: {fileID: 4115128173061568922}
@@ -253,6 +254,22 @@ MonoBehaviour:
         - m_Target: {fileID: 350845452731367868}
           m_TargetAssemblyTypeName: StageManagerComponent, Assembly-CSharp
           m_MethodName: ExterminationStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 970ca1ffc786b524baca789f61145122, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 350845452731367868}
+          m_TargetAssemblyTypeName: StageManagerComponent, Assembly-CSharp
+          m_MethodName: OnEnemyDeathAnimEnd
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

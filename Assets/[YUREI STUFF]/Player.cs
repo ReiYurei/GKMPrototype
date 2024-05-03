@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IDamageable
     public bool interactable;
     public BoxCollider2D interactBox;
     public SO_VoidGameEvent InventoryOpenEvent;
+
     private string inputName = "Hub";
     Vector2 max;
     private void Awake()
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour, IDamageable
     private void Inventory(InputAction.CallbackContext context)
     {
         InventoryOpenEvent.Raise();
+
     }
     private void OnDrawGizmos()
     {

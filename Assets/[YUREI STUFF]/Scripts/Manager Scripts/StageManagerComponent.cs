@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using TriInspector;
+using UnityEngine.Playables;
 
 [RequireComponent(typeof(EventListenerComponent))]
 public class StageManagerComponent : MonoBehaviour
@@ -16,7 +17,9 @@ public class StageManagerComponent : MonoBehaviour
     [field: SerializeField] public SO_ParameterGameEvent ChangeOverallStateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ExterminateInitializeEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ExterminationStartEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent StageClearEvent { get; private set; }
 
+    private PlayAt _playState;
     [Header("Canvas")]
     [Header("Pre-Fight Canvas")]
     [SerializeField] private GameObject _exterminateCanvas;
@@ -52,8 +55,18 @@ public class StageManagerComponent : MonoBehaviour
     [TriInspector.Button("Debug Raise : Entering Stage")]
     public void OnStageEnter() //Listen to Event
     {
+        _playState = PlayAt.EnteringStage;
         EnqueueStageEvents();
     }
+    [TriInspector.Button("Debug Raise : End ofStage")]
+    public void OnEnemyDeathAnimEnd() //Listen to Event
+    {
+        _playState = PlayAt.EndOfStage;
+        EnqueueStageEvents();
+    }
+
+
+
     [TriInspector.Button("Debug Raise : Custom Event")]
     public void OnStageClear(SO_VoidGameEvent voidEvent)
     {
@@ -122,50 +135,86 @@ public class StageManagerComponent : MonoBehaviour
     }
     public void OnDialogueEnd() //Listen to Event
     {
-        StartCoroutine(PlayQueuedEvents());
+        StartCoroutine(PlayQueuedStageEvents());
     }
+
     private void EnqueueStageEvents()
     {
-       if(_storyQueue == null) _storyQueue = new Queue<SO_StoryData>();
-       foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
-       {
-           if (story.PlayAt != PlayAt.EnteringStage) continue;
-           if (story.HasSeen() || story.TempSeen()) continue;
-           _storyQueue.Enqueue(story);
-       }
-       PlayEvents();
+        if (_storyQueue == null) _storyQueue = new Queue<SO_StoryData>();
+        switch (_playState)
+        {
+            case PlayAt.EnteringStage:
+                foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
+                {
+                    if (story.PlayAt != PlayAt.EnteringStage) continue;
+                    if (story.HasSeen() || story.TempSeen()) continue;
+                    if (!story.CheckRequirement()) continue;
+                    _storyQueue.Enqueue(story);
+                }
+                break;
+            case PlayAt.EndOfStage:
+                foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
+                {
+                    if (story.PlayAt != PlayAt.EndOfStage) continue;
+                    if (story.HasSeen() || story.TempSeen()) continue;
+                    if (!story.CheckRequirement()) continue;
+                    _storyQueue.Enqueue(story);
+                }
+                break;
+ 
+        }
+        PlayStageEvents();
+
     }
-    private void PlayEvents()
+
+    private void PlayStageEvents()
     {
-
-        if (_storyQueue.Count <= 0)
+        switch (_playState)
         {
+            case PlayAt.EnteringStage:
+                if (_storyQueue.Count <= 0)
+                {
 
-            if (ExterminateDialogue == null)
-            {
-                ExterminateInitializeEvent.Raise();
+                    if (ExterminateDialogue == null)
+                    {
+                        ExterminateInitializeEvent.Raise();
 
-                return;
-            }
-            if (ExterminateDialogue.TempSeen() || ExterminateDialogue.HasSeen())
-            {
-                ExterminateInitializeEvent.Raise();
-                return;
-            }
+                        return;
+                    }
+                    if (ExterminateDialogue.TempSeen() || ExterminateDialogue.HasSeen())
+                    {
+                        ExterminateInitializeEvent.Raise();
+                        return;
+                    }
 
-            ExterminateDialogue.StartStoryDialogue();
-            return;
-        }
-        foreach (SO_StoryData story in _storyQueue)
-        {
-            _storyQueue.Dequeue().StartStoryDialogue();
-            return;
+                    ExterminateDialogue.StartStoryDialogue();
+                    return;
+                }
+                foreach (SO_StoryData story in _storyQueue)
+                {
+                    _storyQueue.Dequeue().StartStoryDialogue();
+                    return;
+                }
+                break;
+            case PlayAt.EndOfStage:
+                if (_storyQueue.Count <= 0)
+                {
+                    StageClearEvent.Raise();
+                    return;
+                }
+                foreach (SO_StoryData story in _storyQueue)
+                {
+                    _storyQueue.Dequeue().StartStoryDialogue();
+                    return;
+                }
+                break;
+
         }
 
     }
-    IEnumerator PlayQueuedEvents()
+    IEnumerator PlayQueuedStageEvents()
     {
         yield return new WaitForSeconds(0.25f);
-        PlayEvents();
+        PlayStageEvents();
     }
 }

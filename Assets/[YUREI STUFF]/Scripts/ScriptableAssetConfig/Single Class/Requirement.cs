@@ -10,14 +10,16 @@ using UnityEngine;
 public class Requirement //Used for event type of data (i.e _mission, _quest, Story)
 {
     [field: SerializeField] public RequirementType Type { get;private set; }
-    [SerializeField][ShowIf(nameof(Type), RequirementType.Quest)] private SO_QuestData _quest;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.ClearedQuest)] private SO_QuestData _quest;
     [SerializeField][ShowIf(nameof(Type), RequirementType.AssignedQuest)] private SO_QuestData _assignedQuest;
-    [SerializeField][ShowIf(nameof(Type), RequirementType.Mission)] private SO_MissionData _mission;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.ClearedMission)] private SO_MissionData _mission;
     [SerializeField][ShowIf(nameof(Type), RequirementType.AssignedMission)] private SO_MissionData _assignedMission;
     [SerializeField][ShowIf(nameof(Type), RequirementType.EnemyEncounter)] private GameObject _enemy;
     [SerializeField][ShowIf(nameof(Type), RequirementType.Item)] private SO_QuestItem _item;
     [SerializeField][ShowIf(nameof(Type), RequirementType.Item)] private SO_Inventory _inventory;
     [SerializeField][ShowIf(nameof(Type), RequirementType.Story)] private SO_StoryData _story;
+    [SerializeField][ShowIf(nameof(Type), RequirementType.Story)] private bool _mustSee;
+
     [SerializeField][ShowIf(nameof(Type), RequirementType.Fact)] private IntVariable _factVariable; 
     [SerializeField][ShowIf(nameof(Type), RequirementType.Fact)] private int _requiredAmount;
     
@@ -25,14 +27,15 @@ public class Requirement //Used for event type of data (i.e _mission, _quest, St
     {
         switch(Type)
         {
-            case RequirementType.Quest:
+            case RequirementType.ClearedQuest:
                 return (observer.CheckQuesReqCompletion(_quest));
-            case RequirementType.Mission:
+            case RequirementType.ClearedMission:
                 return (observer.CheckMissionReqCompletion(_mission));
             case RequirementType.Item:
                 return (_inventory.CheckQuestItem(_item));
             case RequirementType.Story:
-                return(observer.CheckStoryReqCompletion(_story));
+                if(_mustSee) return (observer.CheckStoryReqCompletion(_story));
+                else return (!observer.CheckStoryReqCompletion(_story));
             case RequirementType.Fact:
                 return (_factVariable.value >= _requiredAmount);
             case RequirementType.AssignedQuest:
@@ -52,5 +55,5 @@ public class Requirement //Used for event type of data (i.e _mission, _quest, St
 }
 public enum RequirementType
 {
-    Quest,Mission,Item,Story,Fact, AssignedMission, AssignedQuest, EnemyEncounter
+    ClearedQuest,ClearedMission,Item,Story,Fact, AssignedMission, AssignedQuest, EnemyEncounter
 }

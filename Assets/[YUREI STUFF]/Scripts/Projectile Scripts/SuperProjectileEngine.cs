@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperEngine : MonoBehaviour
+public class SuperProjectileEngine : MonoBehaviour, IAudioSource
 {
+    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
+
     [SerializeField] private List<ProjectileEngine> _engines;
     [SerializeField] private Transform _origin;
     [SerializeField] private Transform _curveHandle;
@@ -27,7 +29,6 @@ public class SuperEngine : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Collider2D _collider;
 
-
     private void Start()
     {
         _collider = TryGetComponent(out Collider2D collider) ? _collider = collider : null;
@@ -40,6 +41,13 @@ public class SuperEngine : MonoBehaviour
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
 
+    }
+    public void DeactiveAllProjectileEngine()
+    {
+        foreach (var engine in _engines)
+        {
+            engine.DeactiveAllParticle();
+        }
     }
     void CurveHandleEnd()
     {

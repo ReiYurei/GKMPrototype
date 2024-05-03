@@ -13,6 +13,7 @@ using YansaFork;
 [RequireComponent(typeof(EventListenerComponent))]
 public class ShopUIController : MonoBehaviour, IAudioSource
 {
+    public static ShopUIController Instance { get; private set; }
     [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
     [field: SerializeField] public StateObserver CurrentState { get; private set; }
     [field: SerializeField] public SO_Inventory Inventory { get; private set; }
@@ -111,6 +112,19 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     private ShopItemSpell _selectedItem;
     private EventSystem _eventSystem;
     private GameObject _lastSelectedObject;
+    private void Awake()
+    {
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
     public void Start()
     {
         _eventSystem = EventSystem.current;

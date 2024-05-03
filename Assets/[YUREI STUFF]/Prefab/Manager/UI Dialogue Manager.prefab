@@ -959,6 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AudioCollection>k__BackingField: {fileID: 0}
+  <CurrentState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <DialogueData>k__BackingField: {fileID: 0}
   <DialogueCanvas>k__BackingField: {fileID: 2580552563684696980}
   <LeftCharacter>k__BackingField: {fileID: 492983397299108007}
@@ -968,10 +969,9 @@ MonoBehaviour:
   <NameText>k__BackingField: {fileID: 7019653670104406315}
   <SkipUI>k__BackingField: {fileID: 9070850909818883905}
   <SkipSlider>k__BackingField: {fileID: 6115236950517492818}
-  <TextSpeed>k__BackingField: 30
+  <TextSpeed>k__BackingField: 40
   _inputName: Cutscene
   <DialogueEnd_DefaultHubEvent>k__BackingField: {fileID: 11400000, guid: ce1ff50d525ae5244a162f731e9915e7, type: 2}
-  <DialogueEnd_DefaultEnteringHubEvent>k__BackingField: {fileID: 11400000, guid: b90f576814fbb4b4fa3145b291d36559, type: 2}
   <DialogueEnd_DefaultExterminateEvent>k__BackingField: {fileID: 11400000, guid: b6da37c97ab12184eb345014ecc5da7b, type: 2}
   <ShakeEvent>k__BackingField: {fileID: 0}
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}

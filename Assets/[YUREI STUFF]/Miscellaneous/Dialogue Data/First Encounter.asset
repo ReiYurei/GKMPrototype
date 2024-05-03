@@ -44,5 +44,5 @@ MonoBehaviour:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
       <ParamData>k__BackingField: {fileID: 0}
-  endEventBehaviour: 6
+  endEventBehaviour: 4
   CustomEndEvent: {fileID: 11400000, guid: 4fd490657f61b764a826a4e025dbcc17, type: 2}

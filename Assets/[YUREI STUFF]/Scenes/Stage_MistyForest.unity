@@ -1403,61 +1403,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 895079858811953297, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_fontSize
-      value: 26
-      objectReference: {fileID: 0}
-    - target: {fileID: 895079858811953297, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 26
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053606208647261410, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053606208647261410, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_WholeNumbers
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1564407315591056016, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
       propertyPath: m_Name
       value: HealthUIManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2001895299072807339, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 49.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2985622361947577500, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2985622361947577500, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5471337704995455728, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5471337704995455728, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6418826031778521712, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6418826031778521712, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7752309008217496882, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -19.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8163628181681203244, guid: 03e7fa4373a37094f8d288d528ea0fae, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

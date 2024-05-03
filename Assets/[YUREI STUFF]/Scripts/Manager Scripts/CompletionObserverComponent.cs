@@ -40,7 +40,7 @@ public class CompletionObserverComponent : MonoBehaviour
         Observer.ResetAllValue();
     }
 
-    public void OnEmbark() //Listen to Event
+    public void ClearAllTempSeen() //Listen to Event
     {
         Observer.QuestObserver.ClearTemp();
         Observer.StoryObserver.ClearTemp();

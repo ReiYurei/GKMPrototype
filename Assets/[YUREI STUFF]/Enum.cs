@@ -56,3 +56,11 @@ public enum CompletionMark
 {
     Failed, Clear, None
 }
+public enum Replayability
+{
+    Once, OncePerSession, Repeatable
+}
+public enum PlayAt
+{
+    EnteringHub, QuestEmbark, EnteringStage, Independent, HubCounterInteraction, EndOfStage, Tutorial
+}

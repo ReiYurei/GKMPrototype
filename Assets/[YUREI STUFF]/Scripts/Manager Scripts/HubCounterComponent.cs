@@ -28,12 +28,11 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     [field: SerializeField] public SO_VoidGameEvent CompleteQuestEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent HubEnterEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent OpenListingEvent { get; private set; }
-
+    [SerializeField]private PlayAt _playingState;
 
     [field: Header("Other")]
     [SerializeField] private HubState _hubState;
     private Queue<SO_StoryData> _storyQueue;
-    private Queue<SO_StoryData> _hubStoryQueue;
 
 
     public void OnDisable()
@@ -44,7 +43,6 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     private void Start()
     {
         _storyQueue = new Queue<SO_StoryData>();
-        _hubStoryQueue = new Queue<SO_StoryData>();
 
     }
     public void OnReturnToTitle()
@@ -61,9 +59,10 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     public void OnLoadComplete()
     {
         HubEnterEvent.Raise();
+        _playingState = PlayAt.EnteringHub;
         CheckMissionListing();
         CheckQuestLising();
-        EnqueueHubEvents();
+        EnqueueEvents();
     }
     public void OnDepartQuest(ScriptableObject data)
     {
@@ -133,30 +132,76 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     }
     public void EnqueueEvents()
     {
-        foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
+        _storyQueue ??= new Queue<SO_StoryData>();
+        switch (_playingState)
         {
-            if (story.PlayAt != PlayAt.HubCounterInteraction) continue;
-            if (story.HasSeen() || story.TempSeen()) continue;
-            _storyQueue.Enqueue(story);
+            case PlayAt.EnteringHub:
+                foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
+                {
+                    if (story.PlayAt != PlayAt.EnteringHub) continue;
+                    if (story.HasSeen() || story.TempSeen()) continue;
+                    if (!story.CheckRequirement()) continue;
+                    _storyQueue.Enqueue(story);
+                }
+                break;
+            case PlayAt.HubCounterInteraction:
+                foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
+                {
+                    if (story.PlayAt != PlayAt.HubCounterInteraction) continue;
+                    if (story.HasSeen() || story.TempSeen()) continue;
+                    if (!story.CheckRequirement()) continue;
+                    _storyQueue.Enqueue(story);
+                }
+                break;
         }
         PlayEvents();
 
     }
     private void PlayEvents()
     {
-        if (_storyQueue.Count <= 0)
+
+        switch (_playingState)
         {
-            CheckMissionListing();
-            CheckQuestLising();
-            if (InteractDialogue != null) InteractDialogue.StartStoryDialogue();
-            else OpenListingEvent.Raise();
-            return;
+            case PlayAt.EnteringHub:
+                if (_storyQueue.Count <= 0)
+                {
+                    if (EnteringHubDialogue == null)
+                    {
+                        ChangeStateEvent.Raise(_hubState);
+                        return;
+                    }
+                    if (EnteringHubDialogue.TempSeen() || EnteringHubDialogue.HasSeen())
+                    {
+                        ChangeStateEvent.Raise(_hubState);
+                        return;
+                    }
+                    EnteringHubDialogue.StartStoryDialogue();
+                    return;
+                }
+                foreach (SO_StoryData story in _storyQueue)
+                {
+                    _storyQueue.Dequeue().StartStoryDialogue();
+                    return;
+                }
+                break;
+            case PlayAt.HubCounterInteraction:
+                if (_storyQueue.Count <= 0)
+                {
+                    CheckMissionListing();
+                    CheckQuestLising();
+                    if (InteractDialogue != null) InteractDialogue.StartStoryDialogue();
+                    else OpenListingEvent.Raise();
+
+                    return;
+                }
+                foreach (SO_StoryData story in _storyQueue)
+                {
+                    _storyQueue.Dequeue().StartStoryDialogue();
+                    return;
+                }
+                break;
         }
-        foreach (SO_StoryData story in _storyQueue)
-        {
-            _storyQueue.Dequeue().StartStoryDialogue();
-            return;
-        }
+
 
     }
     IEnumerator PlayQueuedEvents()
@@ -168,60 +213,17 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     public void OnDialogueEnd()
     {
         StartCoroutine(PlayQueuedEvents());
-    }
+        Debug.Log("OnDialogueEnd Call");
 
-
-    //HubEvents
-    public void EnqueueHubEvents()
-    {
-        foreach (SO_StoryData story in Observer.StoryObserver.AllStoryData)
-        {
-            if (story.PlayAt != PlayAt.EnteringHub) continue;
-            if (story.HasSeen() || story.TempSeen()) continue;
-            _hubStoryQueue.Enqueue(story);
-        }
-        PlayHubEvents();
     }
-
-    private void PlayHubEvents()
-    {
-        if (_hubStoryQueue.Count <= 0)
-        {
-            if (EnteringHubDialogue == null) 
-            {
-                ChangeStateEvent.Raise(_hubState);
-                return;
-            }
-            if(EnteringHubDialogue.TempSeen() || EnteringHubDialogue.HasSeen())
-            {
-                ChangeStateEvent.Raise(_hubState);
-                return;
-            }
-            EnteringHubDialogue.StartStoryDialogue();
-            return;
-        }
-        foreach (SO_StoryData story in _hubStoryQueue)
-        {
-            _hubStoryQueue.Dequeue().StartStoryDialogue();
-            return;
-        }
-    }
-    IEnumerator PlayQueuedHubEvents()
-    {
-        yield return new WaitForSeconds(0.15f);
-
-        PlayHubEvents();
-    }
-    public void OnHubDialogueEnd()
-    {
-        StartCoroutine(PlayQueuedHubEvents());
-    }
-
 
     [ContextMenu("Interact")]
     public void OnInteract() //Check _quest
     {
-       CheckQuestCompletion();
+        _playingState = PlayAt.HubCounterInteraction;
+
+        CheckQuestCompletion();
+
     }
 
 }

@@ -183,9 +183,6 @@ MonoBehaviour:
   <HealthUI>k__BackingField: {fileID: 8120258759922499504}
   <LeftBorder>k__BackingField: {fileID: 3200379584290676432}
   <RightBorder>k__BackingField: {fileID: 2015294977927849439}
-  <EnemyStatus>k__BackingField: {fileID: 0}
-  _currentHealthValue: 0
-  _healthPreviousValue: 0
   _speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -211,6 +208,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _animationDuration: 2
+  debug: 0
+  _enemyStatus: {fileID: 0}
 --- !u!114 &4251087443559198908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,12 +276,28 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 7954819555623559723}
-          m_TargetAssemblyTypeName: EnemyHealthUIController, Assembly-CSharp
-          m_MethodName: 
+          m_TargetAssemblyTypeName: EnemyHUDController, Assembly-CSharp
+          m_MethodName: HideCanvas
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: cf715618af4585743b2d81e04d7db788, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7954819555623559723}
+          m_TargetAssemblyTypeName: EnemyHUDController, Assembly-CSharp
+          m_MethodName: HideCanvas
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -399,7 +414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -19.2}
+  m_AnchoredPosition: {x: 0, y: -19.5}
   m_SizeDelta: {x: 1250, y: 24.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1053606208647261410
@@ -486,7 +501,7 @@ RectTransform:
   m_Father: {fileID: 2693353759328866936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1005,7 +1020,7 @@ RectTransform:
   m_Father: {fileID: 1217418871678171049}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1085,7 +1100,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -99.4}
-  m_SizeDelta: {x: 175.39, y: 52.3}
+  m_SizeDelta: {x: 175.39, y: 49.7}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2820048652800907106
 MonoBehaviour:
@@ -1371,7 +1386,7 @@ RectTransform:
   m_Father: {fileID: 7705705773460085821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1431,7 +1446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6550157656415073183
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1610,8 +1625,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

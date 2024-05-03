@@ -11,6 +11,7 @@ public abstract class BaseStatus : ScriptableObject
     [SerializeField][GUIColor(1f, 1f, 0f)] public FloatVariable currentHealth;
     [field: SerializeField] public SO_VoidGameEvent HealthChange { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent OnDeathEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent OnDeathAnimEndEvent { get; private set; }
 
     public virtual void OnSpawn()
     {

@@ -73,6 +73,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
         Actions.FindActionMap(inputName).FindAction("Previous Page").performed -= PreviousPage;
         Actions.FindActionMap(inputName).FindAction("Confirm").performed -= Confirm;
         Actions.FindActionMap(inputName).FindAction("Return").performed -= Cancel;
+
     }
     private void Cancel(InputAction.CallbackContext context)
     {
@@ -92,6 +93,8 @@ public class ListingUIController : MonoBehaviour, IAudioSource
         }
         ListingUICanvas.SetActive(false);
         ExitListingEvent.Raise();
+        Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
+        Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
     }
 
     private void Confirm(InputAction.CallbackContext context)
@@ -112,7 +115,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                         PromptRemoveSelectionButton[i].SetColor();
                     }
                     var button = PromptButton[promptIndex];
-                    button.SetColor(button.hoverColor);
+                    //button.SetColor(button.hoverColor);
                     Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
                     Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
                     return;
@@ -132,7 +135,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                         PromptRemoveSelectionButton[i].SetColor();
                     }
                     var button = PromptRemoveSelectionButton[promptIndex];
-                    button.SetColor(button.hoverColor);
+                   // button.SetColor(button.hoverColor);
                     Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
                     Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
                     return;
@@ -572,8 +575,11 @@ public class ListingUIController : MonoBehaviour, IAudioSource
     public void OnListingOpen()
     {
         ReadText();
+
         ChangeStateEvent.Raise(state);
         ListingUICanvas.SetActive(true);
+        Actions.FindActionMap(inputName).FindAction("Next Tab").Enable();
+        Actions.FindActionMap(inputName).FindAction("Previous Tab").Enable();
         ShowPage();
     }
     public void ReadText()

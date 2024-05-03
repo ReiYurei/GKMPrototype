@@ -17,7 +17,7 @@ public class SO_StoryData : ScriptableObject
     [SerializeField][ShowIf(nameof(MinimumRequirement), true)] private int MinCompleted;
     private bool[] fulfilledRequirement;
     private int completedCount;
-    private bool CheckRequirement()
+    public bool CheckRequirement()
     {
         completedCount = 0;
         if(Requirements.Count <=0) 
@@ -55,7 +55,6 @@ public class SO_StoryData : ScriptableObject
     }
     public void StartStoryDialogue()
     {
-        if (!CheckRequirement()) return;
         Debug.Log(DialogueEvent.eventName);
         switch (Replayability)
         {
@@ -74,12 +73,4 @@ public class SO_StoryData : ScriptableObject
 
     }
     
-}
-public enum Replayability
-{
-    Once, OncePerSession, Repeatable
-}
-public enum PlayAt
-{
-    EnteringHub,QuestEmbark,EnteringStage, Independent, HubCounterInteraction, EndOfStage, Tutorial
 }

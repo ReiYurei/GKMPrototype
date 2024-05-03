@@ -5,6 +5,7 @@ using Unity.Jobs;
 using Unity.Collections;
 using TriInspector;
 using System.Collections;
+using System;
 #if UNITY_EDITOR
 #endif
 
@@ -13,8 +14,9 @@ public enum PatternTypes
     Spread,
 }
 
-public class ProjectileEngine : MonoBehaviour
+public class ProjectileEngine : MonoBehaviour, IAudioSource
 {
+    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
 
     [SerializeField][InlineEditor] private SO_Projectile_Data _data;
     private float _minAngle = -90f;
@@ -219,7 +221,21 @@ public class ProjectileEngine : MonoBehaviour
 ;   
         }
     }
-    
+    public void DeactiveAllParticle()
+    {
+        _loopDuration = 0;
+        _totalLifeTime = 0;
+        JobEnd();
+        EndOfJob = true;
+        _isShooting = false;
+        StopAllCoroutines();
+        for (int i = 0; i < _projectiles.Count; i++)
+        {
+            if (!_projectiles[i].gameObject.activeInHierarchy) continue;
+            _projectiles[i].gameObject.SetActive(false);
+
+        }
+    }
     void ParticlePool(int index)
     {
         foreach (GameObject obj in _particles)

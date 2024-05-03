@@ -16,6 +16,7 @@ MonoBehaviour:
   currentHealth: {fileID: 11400000, guid: b1efe98cc10385b44b1499fe8eb2b403, type: 2}
   <HealthChange>k__BackingField: {fileID: 11400000, guid: 8a00f8d8a5c513c4ebaf0738f16af232, type: 2}
   <OnDeathEvent>k__BackingField: {fileID: 11400000, guid: 781b5a186f5949a4cb92abd17a23d895, type: 2}
+  <OnDeathAnimEndEvent>k__BackingField: {fileID: 11400000, guid: 970ca1ffc786b524baca789f61145122, type: 2}
   _rawPower: 1
   _movementSpeed: 1
   <Name>k__BackingField: Reimu
@@ -38,10 +39,10 @@ MonoBehaviour:
   _stunned: 0
   _break: 0
   _statusBuildUp: 1
-  baseStamina: 100
-  baseRageThreshold: 100
-  baseStunThreshold: 100
-  basePoisonThreshold: 100
+  <BaseStamina>k__BackingField: 100
+  <BaseRageThreshold>k__BackingField: 100
+  <BaseStunThreshold>k__BackingField: 100
+  <BasePoisonThreshold>k__BackingField: 100
   <BaseDamageModifier>k__BackingField: 1
   <BaseWeakpointModifier>k__BackingField: 1
   <BaseAnimationSpeed>k__BackingField: 1

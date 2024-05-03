@@ -569,6 +569,7 @@ public class DialogueEditor : EditorWindow
             var info8 = data[i].AutoSkipAtEnd;
             var info9 = data[i].VoidGameEvent;
             var info10 = data[i].ParameterGameEvent;
+
             localDialogues[i].SetDialogue(info1, info3,info2,info4,info7,info5,info6, info8,info9,info10);
         }
         endEventBehaviour = dialogueData.endEventBehaviour;
@@ -837,8 +838,6 @@ public class DialogueEditor : EditorWindow
         EditorGUILayout.EndVertical();
         switch (endEventBehaviour)
         {
-            case EndEventBehaviour.DefaultHubEvent:
-                break;
             case EndEventBehaviour.None_ToHub:
                 break;
             case EndEventBehaviour.None_ToExterminate:
@@ -846,7 +845,7 @@ public class DialogueEditor : EditorWindow
             case EndEventBehaviour.CustomEvent:
                 EditorGUILayout.BeginVertical();
                 EditorGUILayout.LabelField("Custom End Event", layout2);
-                endEvent = (SO_VoidGameEvent)EditorGUILayout.ObjectField(voidEvent, typeof(SO_VoidGameEvent), true, layout2);
+                endEvent = (SO_VoidGameEvent)EditorGUILayout.ObjectField(endEvent, typeof(SO_VoidGameEvent), true, layout2);
                 EditorGUILayout.EndVertical();
                 break;
         }

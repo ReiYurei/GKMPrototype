@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06ac8e339464144d94b0643a070bed3, type: 3}
+  m_Name: What was That
+  m_EditorClassIdentifier: 
+  <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
+  <Requirements>k__BackingField:
+  - <Type>k__BackingField: 1
+    _quest: {fileID: 0}
+    _assignedQuest: {fileID: 0}
+    _mission: {fileID: 11400000, guid: 86d0656c957040c4b890b75a08ab41b8, type: 2}
+    _assignedMission: {fileID: 0}
+    _enemy: {fileID: 0}
+    _item: {fileID: 0}
+    _inventory: {fileID: 0}
+    _story: {fileID: 0}
+    _mustSee: 0
+    _factVariable: {fileID: 0}
+    _requiredAmount: 0
+  - <Type>k__BackingField: 3
+    _quest: {fileID: 0}
+    _assignedQuest: {fileID: 0}
+    _mission: {fileID: 11400000, guid: 86d0656c957040c4b890b75a08ab41b8, type: 2}
+    _assignedMission: {fileID: 0}
+    _enemy: {fileID: 0}
+    _item: {fileID: 0}
+    _inventory: {fileID: 0}
+    _story: {fileID: 11400000, guid: 3a80a893fa1c8c94bac9bcc8b7855fa5, type: 2}
+    _mustSee: 1
+    _factVariable: {fileID: 0}
+    _requiredAmount: 0
+  <Replayability>k__BackingField: 0
+  <PlayAt>k__BackingField: 4
+  <DialogueEvent>k__BackingField: {fileID: 11400000, guid: c9c0b3b8305b98f46a11a8bbbbbf38ff, type: 2}
+  <RaiseCutscene>k__BackingField: {fileID: 11400000, guid: 98818ae4544a8734cbbd3cfd36bd4eae, type: 2}
+  <MinimumRequirement>k__BackingField: 0
+  MinCompleted: 2

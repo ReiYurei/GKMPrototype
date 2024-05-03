@@ -10,35 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c591631a57dd0e4c9b1b29e8c1c7840, type: 3}
-  m_Name: D_Introduction
+  m_Name: First Encounter Clear
   m_EditorClassIdentifier: 
-  eventName: Introduction
+  eventName: First Encounter
   dialogue:
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: 'Hmm?<pause=0.5>. <pause=0.5>. <pause=0.5>.
-
-'
-    <AutoSkipAtEnd>k__BackingField: 0
-    _voidGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-    _parameterGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-      <ParamData>k__BackingField: {fileID: 0}
-  - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 1
-    <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 9
-    <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: Oh!!<pause=0.5> Could it be you are the newly promoted
-      <color=yellow>Astral Hunter</color>?
+    <SpeakerName>k__BackingField: ???
+    <SpeechText>k__BackingField: ...
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -51,27 +33,10 @@ MonoBehaviour:
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
-    <ActiveSpeaker>k__BackingField: 1
-    <SpeakerName>k__BackingField: You
-    <SpeechText>k__BackingField: That's right, <color=yellow>Astral Extermination
-      Training Center</color> has sent me here.
-    <AutoSkipAtEnd>k__BackingField: 0
-    _voidGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-    _parameterGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-      <ParamData>k__BackingField: {fileID: 0}
-  - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 9
-    <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 2
     <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: <size=50>W <pause=0.25>E <pause=0.25>L <pause=0.25>C
-      <pause=0.25>O <pause=0.25>M <pause=0.25>E!!!<pause=1.5></size>
-    <AutoSkipAtEnd>k__BackingField: 1
+    <SpeakerName>k__BackingField: ???
+    <SpeechText>k__BackingField: Not bad.<pause=0.25> I acknowledge your skill
+    <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
@@ -84,11 +49,9 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: It's rare to see that the<color=yellow> Training
-      Center</color> sent a <color=yellow>new recruit here</color>.<pause=0.5> So,
-      I'm quite h<emotion=happy>appy we finally got someone new to help us running
-      this place
+    <SpeakerName>k__BackingField: ???
+    <SpeechText>k__BackingField: But, next time I will make sure, it will be your
+      last time.
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -98,13 +61,12 @@ MonoBehaviour:
       <GameEvent>k__BackingField: {fileID: 0}
       <ParamData>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 1
+    <InitialExpressionLeft>k__BackingField: 9
     <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
-    <SpeakerName>k__BackingField: You
-    <SpeechText>k__BackingField: I see,<pause=0.5> I'm lo<emotion=happy>ok forward
-      to working with you guys as well.
+    <SpeakerName>k__BackingField: ???
+    <SpeechText>k__BackingField: Now, if you'll excuse me...
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -113,5 +75,20 @@ MonoBehaviour:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
       <ParamData>k__BackingField: {fileID: 0}
-  endEventBehaviour: 0
-  CustomEndEvent: {fileID: 11400000, guid: b90f576814fbb4b4fa3145b291d36559, type: 2}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 9
+    <CharacterRight>k__BackingField: 0
+    <InitialExpressionRight>k__BackingField: 0
+    <ActiveSpeaker>k__BackingField: 1
+    <SpeakerName>k__BackingField: You
+    <SpeechText>k__BackingField: '!!!!!'
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  endEventBehaviour: 1
+  CustomEndEvent: {fileID: 11400000, guid: 4fd490657f61b764a826a4e025dbcc17, type: 2}

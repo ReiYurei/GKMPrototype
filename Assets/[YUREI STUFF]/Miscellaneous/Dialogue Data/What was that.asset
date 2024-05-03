@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c591631a57dd0e4c9b1b29e8c1c7840, type: 3}
-  m_Name: D_Introduction
+  m_Name: What was that
   m_EditorClassIdentifier: 
-  eventName: Introduction
+  eventName: What was that
   dialogue:
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
-    <ActiveSpeaker>k__BackingField: 2
-    <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: 'Hmm?<pause=0.5>. <pause=0.5>. <pause=0.5>.
-
-'
+    <ActiveSpeaker>k__BackingField: 1
+    <SpeakerName>k__BackingField: You
+    <SpeechText>k__BackingField: I just met a strange girl, is it the part of a mission?
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -37,24 +35,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 9
     <ActiveSpeaker>k__BackingField: 2
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: Oh!!<pause=0.5> Could it be you are the newly promoted
-      <color=yellow>Astral Hunter</color>?
-    <AutoSkipAtEnd>k__BackingField: 0
-    _voidGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-    _parameterGameEvent:
-      <Key>k__BackingField: 
-      <GameEvent>k__BackingField: {fileID: 0}
-      <ParamData>k__BackingField: {fileID: 0}
-  - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 1
-    <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 1
-    <ActiveSpeaker>k__BackingField: 1
-    <SpeakerName>k__BackingField: You
-    <SpeechText>k__BackingField: That's right, <color=yellow>Astral Extermination
-      Training Center</color> has sent me here.
+    <SpeechText>k__BackingField: What?!<pause=0.5> Is<emotion=happy> she <color=yellow>cute</color>?!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -69,8 +50,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 2
     <ActiveSpeaker>k__BackingField: 2
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: <size=50>W <pause=0.25>E <pause=0.25>L <pause=0.25>C
-      <pause=0.25>O <pause=0.25>M <pause=0.25>E!!!<pause=1.5></size>
+    <SpeechText>k__BackingField: I wanna see, I wanna-
     <AutoSkipAtEnd>k__BackingField: 1
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -80,15 +60,44 @@ MonoBehaviour:
       <GameEvent>k__BackingField: {fileID: 0}
       <ParamData>k__BackingField: {fileID: 0}
   - <CharacterLeft>k__BackingField: 2
-    <InitialExpressionLeft>k__BackingField: 9
+    <InitialExpressionLeft>k__BackingField: 6
     <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 1
+    <InitialExpressionRight>k__BackingField: 9
+    <ActiveSpeaker>k__BackingField: 1
+    <SpeakerName>k__BackingField: You
+    <SpeechText>k__BackingField: <size=24><speed=50>THAT'S NOT THE POINT!!</size><pause=1.25>
+    <AutoSkipAtEnd>k__BackingField: 1
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 9
+    <ActiveSpeaker>k__BackingField: 1
+    <SpeakerName>k__BackingField: Hub Gal
+    <SpeechText>k__BackingField: I suspect she has a link with<color=yellow> Ritual
+      Society</color>.
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 9
     <ActiveSpeaker>k__BackingField: 2
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: It's rare to see that the<color=yellow> Training
-      Center</color> sent a <color=yellow>new recruit here</color>.<pause=0.5> So,
-      I'm quite h<emotion=happy>appy we finally got someone new to help us running
-      this place
+    <SpeechText>k__BackingField: <color=yellow>Ritual Society</color>?! <pause=1>But,
+      they are supposed to be exiled during the <color=red>incident</color>!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -103,8 +112,8 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 2
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: You
-    <SpeechText>k__BackingField: I see,<pause=0.5> I'm lo<emotion=happy>ok forward
-      to working with you guys as well.
+    <SpeechText>k__BackingField: ' She has the abilities to control <color=yellow>dark
+      mana</color> as her main weapon.'
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 

@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class DialogueUIController : MonoBehaviour, IAudioSource 
 {
     [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
+    [field: SerializeField] public StateObserver CurrentState { get; private set; }
+
     public static DialogueUIController Instance { get; private set; }
     private void Awake()
     {
@@ -59,7 +61,6 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
 
     [field: Header("Event")]
     [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultHubEvent { get; private set; }
-    [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultEnteringHubEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultExterminateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ShakeEvent { get; private set; }
 
@@ -94,9 +95,14 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
     {
         StopAllCoroutines();
         _skipping = false;
+
         _speed = TextSpeed;
         _tmText = "";
         var data = DialogueData.dialogue[_dialogueIndex];
+        if (data.AutoSkipAtEnd) _skippable = false;
+        else _skippable = true;
+
+
         string[] subText = data.SpeechText.Split('<', '>');
         
         for (int i = 0; i < subText.Length; i++)
@@ -126,11 +132,6 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
 
             while (subCounter < subText.Length)
             {
-                if (!data.AutoSkipAtEnd)
-                {
-                    _skippable = true;
-                }
-
                 if (subCounter % 2 == 1)
                 {
                     yield return EvaluateTag(subText[subCounter].Replace(" ", ""));
@@ -224,28 +225,18 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         {
             case EndEventBehaviour.DefaultHubEvent:
                 DialogueEnd_DefaultHubEvent.Raise();
-                ChangeStateEvent.Raise(_hubState);
-                break;
-            case EndEventBehaviour.DefaultEnteringHubEvent:
-                DialogueEnd_DefaultEnteringHubEvent.Raise();
-                ChangeStateEvent.Raise(_hubState);
-                break;
-            case EndEventBehaviour.DefaultEnteringExterminateEvent:
-                DialogueEnd_DefaultExterminateEvent.Raise();
-                ChangeStateEvent.Raise(_exterminateState);
                 break;
             case EndEventBehaviour.DefaultExterminateEvent:
                 DialogueEnd_DefaultExterminateEvent.Raise();
-                ChangeStateEvent.Raise(_exterminateState);
                 break;
             case EndEventBehaviour.CustomEvent:
                 DialogueData.CustomEndEvent.Raise();
                 break;
             case EndEventBehaviour.None_ToExterminate:
-                ChangeStateEvent.Raise(_exterminateState);
+                ChangeStateEvent.Raise(CurrentState.OverallState);
                 break;
             case EndEventBehaviour.None_ToHub:
-                ChangeStateEvent.Raise(_hubState);
+                ChangeStateEvent.Raise(CurrentState.OverallState);
                 break;
         }
     }
@@ -362,7 +353,6 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         {
             CheckIndex();
             ConfirmIcon.gameObject.SetActive(false);
-            _skippable = false;
             _textRevealed = false;
             //Next Line
             return;
@@ -383,7 +373,6 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         {
             CheckIndex();
             ConfirmIcon.gameObject.SetActive(false);
-            _skippable = false;
             _textRevealed = false;
             //Next Line
             return;
@@ -400,7 +389,6 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
     {
         CheckIndex();
         ConfirmIcon.gameObject.SetActive(false);
-        _skippable = false;
         _textRevealed = false;
         //Next Line
 

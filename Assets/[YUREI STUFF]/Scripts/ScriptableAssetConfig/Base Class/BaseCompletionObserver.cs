@@ -10,7 +10,7 @@ public abstract class BaseCompletionObserver<T> : ScriptableObject
 
     public void AddToCompletion(T item)
     {
-        Debug.Log("Added" + item);
+        Debug.Log("Added : " + item);
         Completion.Add(item);
         _viewData.Add(item);
     }

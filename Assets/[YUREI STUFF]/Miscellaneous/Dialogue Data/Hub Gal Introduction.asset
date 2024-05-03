@@ -20,7 +20,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: Hub Gal
-    <SpeechText>k__BackingField: Oh<pause=1>, h<emotion=happy>i!<pause=1>. <emotion=neutral>I'm
+    <SpeechText>k__BackingField: Oh<pause=0.5>, h<emotion=happy>i!<pause=0.75>. <emotion=neutral>I'm
       the <color=yellow> Hub Gal</color> in charge here.
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
@@ -29,5 +29,6 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
   endEventBehaviour: 0
   CustomEndEvent: {fileID: 0}

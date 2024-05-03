@@ -106,6 +106,12 @@ public class EnemyAnimator : MonoBehaviour
         if (_enemy == null || !(_enemy is IAudioSource)) return;
         ((IAudioSource)_enemy).PlaySound_OneShot(key);
     }
+
+    public void OnDeathAnimEnd()
+    {
+        _status.OnDeathAnimEndEvent.Raise();
+    }
+
     //Play Animation by Animation Hash
     private void PlayAnim(int animationName, float animSpeed)
     {

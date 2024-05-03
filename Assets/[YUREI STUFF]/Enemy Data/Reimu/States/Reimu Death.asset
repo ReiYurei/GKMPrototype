@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c591631a57dd0e4c9b1b29e8c1c7840, type: 3}
-  m_Name: Dialogue
+  m_Script: {fileID: 11500000, guid: 65517a54509389a42a0509671f47fb6b, type: 3}
+  m_Name: Reimu Death
   m_EditorClassIdentifier: 
-  eventName: 
-  dialogue: []
-  endEventBehaviour: 0
-  CustomEndEvent: {fileID: 0}
+  _subStates:
+  - {fileID: 11400000, guid: 0e5c3a45e7fbc9941bf67c6ea257d6e9, type: 2}
