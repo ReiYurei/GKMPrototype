@@ -7,7 +7,7 @@ using FMOD;
 
 #if UNITY_EDITOR
 #endif
-public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable, IAudioSource
+public class Enemy : MonoBehaviour, IStatusInflictable, IAudioSource
 {
     [field: SerializeField][InlineEditor]public StateObserver GameState { get; private set; }
     [field: SerializeField][InlineEditor][Required]public SO_EnemyStatus StatusData { get; private set; }
@@ -28,8 +28,6 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable, IAudioSourc
             StatusData.AttackEnd += OnAttackEnd;
             StatusData.ShootEnd += OnShootEnd;
         }
-        AudioCollection.InitializeAwakeData();
-
     }
     private void OnDisable()
     {
@@ -53,18 +51,27 @@ public class Enemy : MonoBehaviour, IDamageable, IStatusInflictable, IAudioSourc
         //RigidbodyComponent.gravityScale = 10;
 
     }
+    public void PlayTheme()
+    {
+        AudioCollection.Play("Music Theme");
+    }
+    public void StopTheme()
+    {
+        AudioCollection.StopInstance("Music Theme","Volume",0,1,2f);
 
+    }
     public void OnBulletHellPhase()
     {
         StatusData.B_StatusBuildUp.value = false;
         StatusData.F_RageMeter.value = 0;
-        StatusData.HealthChange.Raise();
+        GravitySet(0);
     }
     public void OnRegularPhase()
     {
         StatusData.B_StatusBuildUp.value = true;
+        GravitySet(50);
     }
-    public void OnDamage(float damage)
+    public void OnDamage(float damage, bool isGuardable = true)
     {
         StatusData.AffectRage(damage);
         StatusData.SetHealth(StatusData.GetHealth() - damage);

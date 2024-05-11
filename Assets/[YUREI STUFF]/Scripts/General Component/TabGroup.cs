@@ -5,12 +5,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class TabGroup : MonoBehaviour
+public class TabGroup : MonoBehaviour, IAudioSource
 {
+    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
     [field: SerializeField]public List<CustomTabButton> Buttons { get; private set; }
     [field: SerializeField] public List<GameObject> Tabs { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ChangeTabEvent { get; private set; }
     [field: SerializeField] public CustomTabButton SelectedTab { get; private set; }
+
+
     public Color hoverColor;
     public Color activeColor;
     [SerializeField] private InputActionAsset _actions;
@@ -34,10 +37,12 @@ public class TabGroup : MonoBehaviour
         tabIndex = 0;
         SelectedTab = Buttons[tabIndex];
         OnTabSelected(Buttons[tabIndex]);
+        AudioCollection.InitializeStartData();
     }
     public void NextTab(InputAction.CallbackContext context)
     {
-        if(tabIndex >= Tabs.Count - 1)
+        AudioCollection.Play_OneShot("Change Tab");
+        if (tabIndex >= Tabs.Count - 1)
         {
             tabIndex = 0;
             OnTabSelected(Buttons[tabIndex]);
@@ -49,6 +54,7 @@ public class TabGroup : MonoBehaviour
     }
     public void PreviousTab(InputAction.CallbackContext context)
     {
+        AudioCollection.Play_OneShot("Change Tab");
         if (tabIndex <= 0)
         {
             tabIndex = Tabs.Count - 1;
@@ -79,7 +85,7 @@ public class TabGroup : MonoBehaviour
 
     private void ChangeTab()
     {
-
+        AudioCollection.Play_OneShot("Change Tab");
         foreach (GameObject obj in Tabs)
         {
             obj.SetActive(false);

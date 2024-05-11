@@ -50,7 +50,7 @@ public class SO_Inventory : ScriptableObject
     }
     public bool debug;
     [Button("Refresh")]
-    public void Resfresh()
+    public void Refresh()
     {
         if (debug)
         {

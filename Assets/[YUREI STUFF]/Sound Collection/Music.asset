@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d4ad7d60d9df440a8104b292536415, type: 3}
+  m_Name: Music
+  m_EditorClassIdentifier: 
+  _audioEvents:
+  - <Key>k__BackingField: Hub
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: -523979698
+        Data2: 1140450834
+        Data3: 361168559
+        Data4: 820944622
+      Path: event:/General/Music/Hub
+  - <Key>k__BackingField: Title Screen
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 801187479
+        Data2: 1313033335
+        Data3: -2097840751
+        Data4: -471802776
+      Path: event:/General/Music/Title Screen
+  - <Key>k__BackingField: Fun
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: -1551381777
+        Data2: 1254063177
+        Data3: 859051921
+        Data4: 2068008651
+      Path: event:/General/Music/Fun
+  - <Key>k__BackingField: Astra Theme
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1009870164
+        Data2: 1084366507
+        Data3: -519413882
+        Data4: 1979126087
+      Path: event:/General/Music/Astra Theme
+  - <Key>k__BackingField: Mystery
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 480599422
+        Data2: 1334593740
+        Data3: -1676515137
+        Data4: 1466932285
+      Path: event:/General/Music/Mystery

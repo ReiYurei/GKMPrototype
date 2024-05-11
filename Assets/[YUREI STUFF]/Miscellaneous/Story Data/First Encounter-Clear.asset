@@ -41,6 +41,8 @@ MonoBehaviour:
   <Replayability>k__BackingField: 0
   <PlayAt>k__BackingField: 5
   <DialogueEvent>k__BackingField: {fileID: 11400000, guid: 73cdd0c8bca94524196dff213f0dd92f, type: 2}
+  <DialogueRewards>k__BackingField: []
   <RaiseCutscene>k__BackingField: {fileID: 11400000, guid: 98818ae4544a8734cbbd3cfd36bd4eae, type: 2}
+  <PassStoryDataEvent>k__BackingField: {fileID: 11400000, guid: 898e3e00ae4192440b9d8b8a7e4312a4, type: 2}
   <MinimumRequirement>k__BackingField: 0
   MinCompleted: 0

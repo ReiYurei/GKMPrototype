@@ -10,9 +10,11 @@ public class SO_StoryData : ScriptableObject
     [field: SerializeField] public List<Requirement> Requirements { get; private set; }
     [field: SerializeField] public Replayability Replayability { get; private set; }
     [field: SerializeField] public PlayAt PlayAt { get; private set; } = PlayAt.Independent;
-
     [field: SerializeField] public SO_Dialogue DialogueEvent { get; private set; }
+    [field: SerializeField] public List<BaseQuestReward> DialogueRewards { get; private set; }
     [field: SerializeField] public SO_ParameterGameEvent RaiseCutscene { get; private set; }
+    [field: SerializeField] public SO_ParameterGameEvent PassStoryDataEvent { get; private set; }
+
     [field: SerializeField] public bool MinimumRequirement { get; private set; }
     [SerializeField][ShowIf(nameof(MinimumRequirement), true)] private int MinCompleted;
     private bool[] fulfilledRequirement;
@@ -60,13 +62,16 @@ public class SO_StoryData : ScriptableObject
         {
             case Replayability.Once:
                 RaiseCutscene.Raise(DialogueEvent);
-                if(!HasSeen()) Observer.StoryObserver.AddToCompletion(this);
+                PassStoryDataEvent.Raise(this);
+                if (!HasSeen()) Observer.StoryObserver.AddToCompletion(this);
                 return;
             case Replayability.OncePerSession:
                 RaiseCutscene.Raise(DialogueEvent);
-                if(!TempSeen()) Observer.StoryObserver.AddToTemp(this);
+                PassStoryDataEvent.Raise(this);
+                if (!TempSeen()) Observer.StoryObserver.AddToTemp(this);
                 return;
             case Replayability.Repeatable:
+                PassStoryDataEvent.Raise(this);
                 RaiseCutscene.Raise(DialogueEvent);
                 return;
         }

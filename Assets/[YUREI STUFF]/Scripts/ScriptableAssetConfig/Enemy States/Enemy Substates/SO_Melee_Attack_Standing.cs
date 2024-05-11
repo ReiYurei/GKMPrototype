@@ -9,6 +9,7 @@ public class SO_Melee_Attack_Base : SO_Base_Attack_Fixed
 {
     public AttackPowerType power;
     public AttackRangeType range;
+    public bool isGuardable;
 #if UNITY_EDITOR
 
     [Header("Overridden Clip Info")]

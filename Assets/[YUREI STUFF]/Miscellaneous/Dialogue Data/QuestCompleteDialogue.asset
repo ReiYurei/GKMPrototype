@@ -20,6 +20,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: Hub Gal
+    <SpeechPitch>k__BackingField: 0.75
     <SpeechText>k__BackingField: Wow, you've cleared it. Thanks for your service!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
@@ -28,5 +29,6 @@ MonoBehaviour:
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
   endEventBehaviour: 0
   CustomEndEvent: {fileID: 0}

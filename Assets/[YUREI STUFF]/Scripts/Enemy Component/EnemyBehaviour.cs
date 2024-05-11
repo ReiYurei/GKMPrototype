@@ -166,6 +166,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (state.GetName() == EnemyStates.Stunned)
             {
+                _enemy.GravitySet(50);
                 _status.SetState(state.state);
                 StartCoroutine(SubstateExecution());
                 return;
@@ -181,7 +182,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (fixedState.GetName() == EnemyStates.Break)
             {
-
+                _enemy.GravitySet(50);
                 _status.SetState(fixedState.state);
                 StartCoroutine(SubstateExecution());
                 StartCoroutine(TimedExecution(2f));

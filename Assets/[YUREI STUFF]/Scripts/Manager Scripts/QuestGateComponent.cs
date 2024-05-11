@@ -6,8 +6,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 [RequireComponent(typeof(EventListenerComponent))]
-public class QuestGateComponent : MonoBehaviour, IInteractable
+public class QuestGateComponent : MonoBehaviour, IInteractable, IAudioSource
 {
+    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
     [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }
     [field: SerializeField] public StateObserver StateObserver { get; private set; }
     [field: SerializeField] public SO_StoryData NoMissionTakenDialogue { get; private set; }
@@ -27,6 +28,7 @@ public class QuestGateComponent : MonoBehaviour, IInteractable
     private void Start()
     {
         _eventSystem = EventSystem.current;
+        AudioCollection.InitializeStartData();
     }
     private void OnEnable()
     {
@@ -39,6 +41,7 @@ public class QuestGateComponent : MonoBehaviour, IInteractable
     public void ConfirmFunction()
     {
         if (!DepartPrompt.activeInHierarchy) return;
+        AudioCollection.Play_OneShot("Start");
         DepartEvent.Raise(Observer.AssignedMission);
         DepartPrompt.SetActive(false);
 
@@ -50,6 +53,7 @@ public class QuestGateComponent : MonoBehaviour, IInteractable
     public void CancelFunction()
     {
         if (!DepartPrompt.activeInHierarchy) return;
+        AudioCollection.Play_OneShot("Cancel");
         DepartPrompt.SetActive(false);
         ChangeStateEvent.Raise(_hubState);
     }
@@ -72,6 +76,8 @@ public class QuestGateComponent : MonoBehaviour, IInteractable
             ChangeStateEvent.Raise(_uiState);
             DepartPrompt.SetActive(true);
             _eventSystem.SetSelectedGameObject(FirstSelected);
+            AudioCollection.Play_OneShot("Confirm");
+
         }
 
     }

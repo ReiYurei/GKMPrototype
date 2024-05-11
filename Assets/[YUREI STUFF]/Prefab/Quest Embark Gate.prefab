@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac655879e0a4ed84fb5612a78a3d6879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: a1fe707e5d1fc4e418c9b61f98791013, type: 2}
   <Observer>k__BackingField: {fileID: 11400000, guid: ebd6439f7a8e38c479c0b862f8d454d4, type: 2}
   <StateObserver>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <NoMissionTakenDialogue>k__BackingField: {fileID: 11400000, guid: 4846b26fe0d4b5a4097d792db29cf89f, type: 2}
@@ -782,6 +783,7 @@ GameObject:
   - component: {fileID: 6937667758583677459}
   - component: {fileID: 5722608255605512964}
   - component: {fileID: 6120014845266732679}
+  - component: {fileID: 5695195729010745690}
   m_Layer: 5
   m_Name: Yes
   m_TagString: Untagged
@@ -903,6 +905,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5695195729010745690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5128388477243099648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799670d07a5a94e488bc66df024e605e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: cc188420f61a6bb48ada43476e8c3f2c, type: 2}
 --- !u!1 &5925126888925478746
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +930,7 @@ GameObject:
   - component: {fileID: 4555002871273916457}
   - component: {fileID: 7393828386827914605}
   - component: {fileID: 6077969693576788057}
+  - component: {fileID: 8181439505309962862}
   m_Layer: 5
   m_Name: No
   m_TagString: Untagged
@@ -1036,6 +1052,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8181439505309962862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925126888925478746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799670d07a5a94e488bc66df024e605e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: cc188420f61a6bb48ada43476e8c3f2c, type: 2}
 --- !u!1 &6526740393352427032
 GameObject:
   m_ObjectHideFlags: 0

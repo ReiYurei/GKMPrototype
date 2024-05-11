@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperProjectileEngine : MonoBehaviour, IAudioSource
+public class SuperProjectileEngine : MonoBehaviour
 {
-    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
 
     [SerializeField] private List<ProjectileEngine> _engines;
     [SerializeField] private Transform _origin;
@@ -47,6 +46,13 @@ public class SuperProjectileEngine : MonoBehaviour, IAudioSource
         foreach (var engine in _engines)
         {
             engine.DeactiveAllParticle();
+        }
+    }
+    public void DeactiveTempProjectileEngine()
+    {
+        foreach (var engine in _engines)
+        {
+            engine.DeactiveTemporary();
         }
     }
     void CurveHandleEnd()

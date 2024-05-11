@@ -17,7 +17,7 @@ public class SO_Projectile_Data : ScriptableObject
     public float projectileSpeed;
     public float delayBetweenShot;
     public float projectileLifeTime;
-
+    public bool isGuardable;
     [Header("Rotation Properties")]
     public bool enableAutoRotation;
     [ShowIf(nameof(enableAutoRotation), true)] public float rotationDegree;

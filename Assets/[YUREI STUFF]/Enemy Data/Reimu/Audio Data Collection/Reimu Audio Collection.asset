@@ -29,3 +29,11 @@ MonoBehaviour:
         Data3: 1590445470
         Data4: 1638068435
       Path: event:/SFX_Reimu_Event/ReimuHurt
+  - <Key>k__BackingField: Music Theme
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1009870164
+        Data2: 1084366507
+        Data3: -519413882
+        Data4: 1979126087
+      Path: event:/General/Music/Astra Theme

@@ -19,7 +19,9 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: 
     <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
     <SpeechText>k__BackingField: ...
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
@@ -34,7 +36,9 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: 
     <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
     <SpeechText>k__BackingField: Not bad.<pause=0.25> I acknowledge your skill
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
@@ -49,7 +53,9 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: 
     <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
     <SpeechText>k__BackingField: But, next time I will make sure, it will be your
       last time.
     <AutoSkipAtEnd>k__BackingField: 0
@@ -64,8 +70,10 @@ MonoBehaviour:
     <InitialExpressionLeft>k__BackingField: 9
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
-    <ActiveSpeaker>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: 
     <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
     <SpeechText>k__BackingField: Now, if you'll excuse me...
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
@@ -80,7 +88,9 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 0
     <InitialExpressionRight>k__BackingField: 0
     <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: 
     <SpeakerName>k__BackingField: You
+    <SpeechPitch>k__BackingField: 0.5
     <SpeechText>k__BackingField: '!!!!!'
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:

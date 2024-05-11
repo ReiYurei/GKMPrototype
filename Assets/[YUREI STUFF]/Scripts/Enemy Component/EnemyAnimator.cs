@@ -104,7 +104,7 @@ public class EnemyAnimator : MonoBehaviour
     public void OnPlaySound(string key)
     {
         if (_enemy == null || !(_enemy is IAudioSource)) return;
-        ((IAudioSource)_enemy).PlaySound_OneShot(key);
+        _enemy.AudioCollection.Play_OneShot(key);
     }
 
     public void OnDeathAnimEnd()

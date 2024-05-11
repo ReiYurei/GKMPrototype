@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d4ad7d60d9df440a8104b292536415, type: 3}
+  m_Name: Cut In
+  m_EditorClassIdentifier: 
+  _audioEvents:
+  - <Key>k__BackingField: Navigate
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 210267424
+        Data2: 1282815221
+        Data3: 75677369
+        Data4: -531872571
+      Path: event:/General/UI/Navigate
+  - <Key>k__BackingField: Cut In
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1769649096
+        Data2: 1220757578
+        Data3: 1212396170
+        Data4: -2027440902
+      Path: event:/General/Stage/Cut In

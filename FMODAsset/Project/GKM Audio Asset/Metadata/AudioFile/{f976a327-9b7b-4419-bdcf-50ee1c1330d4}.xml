@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f976a327-9b7b-4419-bdcf-50ee1c1330d4}">
+		<property name="assetPath">
+			<value>odd_coin.flac</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4.0047619047619047</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{b273d099-f3c2-4959-b6df-667d251368d2}</destination>
+		</relationship>
+	</object>
+</objects>

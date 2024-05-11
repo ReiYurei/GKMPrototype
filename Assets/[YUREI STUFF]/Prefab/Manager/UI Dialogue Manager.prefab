@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2780707594470015705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -625,7 +625,7 @@ RectTransform:
   m_Father: {fileID: 2825886711499504373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -958,7 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8a00838f3cd4b4a9d9316bf89b02ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: eff06256160d72c4f938efb24369d170, type: 2}
   <CurrentState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <DialogueData>k__BackingField: {fileID: 0}
   <DialogueCanvas>k__BackingField: {fileID: 2580552563684696980}
@@ -969,8 +969,10 @@ MonoBehaviour:
   <NameText>k__BackingField: {fileID: 7019653670104406315}
   <SkipUI>k__BackingField: {fileID: 9070850909818883905}
   <SkipSlider>k__BackingField: {fileID: 6115236950517492818}
-  <TextSpeed>k__BackingField: 40
+  <TextSpeed>k__BackingField: 50
   _inputName: Cutscene
+  <SkipTextEvent>k__BackingField: {fileID: 11400000, guid: a7a83dea736a18e42b630e524de2288d, type: 2}
+  <SkipAllEvent>k__BackingField: {fileID: 11400000, guid: 0eff245b5bb39924d975cb8f7177d8a7, type: 2}
   <DialogueEnd_DefaultHubEvent>k__BackingField: {fileID: 11400000, guid: ce1ff50d525ae5244a162f731e9915e7, type: 2}
   <DialogueEnd_DefaultExterminateEvent>k__BackingField: {fileID: 11400000, guid: b6da37c97ab12184eb345014ecc5da7b, type: 2}
   <ShakeEvent>k__BackingField: {fileID: 0}
@@ -994,22 +996,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _listenersVoid:
-  - gameEvent: {fileID: 11400000, guid: a7a83dea736a18e42b630e524de2288d, type: 2}
-    voidResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3492260009362921766}
-          m_TargetAssemblyTypeName: DialogueUIController, Assembly-CSharp
-          m_MethodName: OnSkipText
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - gameEvent: {fileID: 11400000, guid: a391ed028614904468f89df41844e87e, type: 2}
     voidResponse:
       m_PersistentCalls:

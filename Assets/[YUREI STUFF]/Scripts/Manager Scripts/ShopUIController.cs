@@ -128,7 +128,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
     public void Start()
     {
         _eventSystem = EventSystem.current;
-
+        AudioCollection.InitializeStartData();
      }
     private void OnApplicationQuit()
     {
@@ -225,7 +225,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
             spell.Resale();
         }
         AvailableListing.ResetValue();
-        _spells.Clear();
+        _spells?.Clear();
     }
     private void CancelFunction(InputAction.CallbackContext context)
     {
@@ -250,9 +250,14 @@ public class ShopUIController : MonoBehaviour, IAudioSource
 
         Debug.Log("<color=yellow>CLOSE SHOP</color>");
         Actions.FindAction("Cancel").performed -= CancelFunction;
+        AudioCollection.Play_OneShot("Cancel");
+
         Cursor.gameObject.SetActive(false);
         ShopUICanvas.SetActive(false);
         ExitShopEvent.Raise();
+        StopAllCoroutines();
+        AudioCollection.StopAllInstance();
+
     }
     public void ReadText()
     {
@@ -264,7 +269,8 @@ public class ShopUIController : MonoBehaviour, IAudioSource
             while (OperatorText.maxVisibleCharacters < OperatorText.text.Length)
             {
                 OperatorText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(1f / 30);
+                AudioCollection.Play_OneShot("Blip", "Pitch", 0.15f);
+                yield return new WaitForSeconds(1f / 50);
 
             }
         }
@@ -293,6 +299,7 @@ public class ShopUIController : MonoBehaviour, IAudioSource
         {
             BuyingPrompt.SetActive(false);
             Reselect();
+            AudioCollection.Play_OneShot("Cancel");
             return;
         }
     }
@@ -309,12 +316,14 @@ public class ShopUIController : MonoBehaviour, IAudioSource
             BuyingPrompt.SetActive(true);
             Deselect();
             _eventSystem.SetSelectedGameObject(YesOption);
+            AudioCollection.Play_OneShot("Confirm");
             return;
         }
     }
     public void ShowData(ShopItemSpell data)
     {
         if (data.shopItem.SpellCombo == null) return;
+        AudioCollection.Play_OneShot("Navigate");
         _selectedItem = data;
         var spell = data.shopItem.SpellCombo.Spell;
         SpellIcon.color = Color.white;

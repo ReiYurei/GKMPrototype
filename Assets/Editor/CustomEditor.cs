@@ -83,6 +83,8 @@ public class DialogueEditor : EditorWindow
     string eventName;
     string speakerName;
     string speechText;
+    string music;
+    float pitch;
     bool autoSkipAtEnd;
     EndEventBehaviour endEventBehaviour;
     SO_VoidGameEvent endEvent;
@@ -119,7 +121,10 @@ public class DialogueEditor : EditorWindow
         InitTexture();
         InitProperty();
     }
-
+    private void OnDisable()
+    {
+        ClearAll();
+    }
     private void OnGUI()
     {
         InitTextureFromSprite();      
@@ -310,6 +315,8 @@ public class DialogueEditor : EditorWindow
         dialogueData = null;
         eventName = "";
         speechText = "";
+        pitch = 0.5f;
+        music = "";
         if (localDialogues.Count <= 0) return;
         for (int i = localDialogues.Count - 1; i > 0 ; i--)
         {
@@ -419,7 +426,8 @@ public class DialogueEditor : EditorWindow
         }
         bool isCustomTag(string tag)
         {
-            return tag.StartsWith("speed=") || tag.StartsWith("pause=") || tag.StartsWith("emotion=") || tag.StartsWith("concurrent");
+            return tag.StartsWith("speed=") || tag.StartsWith("pause=") || tag.StartsWith("emotion=") 
+                || tag.StartsWith("event=");
         }
         return tmText;
     }
@@ -495,7 +503,9 @@ public class DialogueEditor : EditorWindow
         var info8 = autoSkipAtEnd;
         var info9 = voidEventKey;
         var info10 = paramEventKey;
-        data.SetDialogue(info1, info3, info2, info4, info7, info5, info6,info8,info9,info10);
+        var info11 = pitch;
+        var info12 = music;
+        data.SetDialogue(info1, info3, info2, info4, info7, info5, info6, info8, info9, info10, info11, info12);
     }
     private void ShowData()
     {
@@ -509,7 +519,8 @@ public class DialogueEditor : EditorWindow
         speakerName = data.SpeakerName;
         speechText = data.SpeechText;
         autoSkipAtEnd = data.AutoSkipAtEnd;
-
+        pitch = data.SpeechPitch;
+        music = data.Music;
 
         voidEventKey = data.VoidGameEvent;
         keyVoid = voidEventKey.Key;
@@ -569,8 +580,10 @@ public class DialogueEditor : EditorWindow
             var info8 = data[i].AutoSkipAtEnd;
             var info9 = data[i].VoidGameEvent;
             var info10 = data[i].ParameterGameEvent;
+            var info11 = data[i].SpeechPitch;
+            var info12 = data[i].Music;
 
-            localDialogues[i].SetDialogue(info1, info3,info2,info4,info7,info5,info6, info8,info9,info10);
+            localDialogues[i].SetDialogue(info1, info3,info2,info4,info7,info5,info6, info8,info9,info10,info11,info12);
         }
         endEventBehaviour = dialogueData.endEventBehaviour;
         endEvent = dialogueData.CustomEndEvent;
@@ -620,7 +633,10 @@ public class DialogueEditor : EditorWindow
             var info8 = localDialogues[i].AutoSkipAtEnd;
             var info9 = localDialogues[i].VoidGameEvent;
             var info10 = localDialogues[i].ParameterGameEvent;
-            data[i].SetDialogue(info1, info3, info2, info4, info7, info5, info6, info8, info9, info10);
+            var info11 = localDialogues[i].SpeechPitch;
+            var info12 = localDialogues[i].Music;
+
+            data[i].SetDialogue(info1, info3, info2, info4, info7, info5, info6, info8, info9, info10, info11, info12);
         }
         dialogueData.CustomEndEvent = endEvent;
         dialogueData.endEventBehaviour = endEventBehaviour;
@@ -812,6 +828,11 @@ public class DialogueEditor : EditorWindow
             GUILayout.Height(20),
             GUILayout.Width(150),
         };
+        GUILayoutOption[] layout3 =
+ {
+            GUILayout.Height(20),
+            GUILayout.Width(75),
+        };
         GUILayoutOption[] layout2 =
         {
             GUILayout.Width(125),
@@ -821,10 +842,23 @@ public class DialogueEditor : EditorWindow
 
         EditorGUILayout.BeginHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("Name", layout);
         speakerName = EditorGUILayout.TextField(speakerName, customStyle, layout);
         EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("Pitch", layout2);
+        pitch = EditorGUILayout.FloatField(pitch, customStyle, layout3);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("Music", layout2);
+        music = EditorGUILayout.TextField(music, customStyle, layout3);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("Auto-skip line", layout2);

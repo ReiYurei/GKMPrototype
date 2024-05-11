@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewQuestItemData: []
   _viewLearnedSpelltData: []
-  <Gold>k__BackingField: 10400
-  debug: 1
+  <Gold>k__BackingField: 4650
+  debug: 0

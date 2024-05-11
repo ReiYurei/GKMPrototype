@@ -9,10 +9,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Moveset_Projectile_Standing", menuName = "Enemy/Moveset/Projectile/Standing")]
 public class SO_Projectile_Attack_Base : SO_Base_Attack_Fixed
 {
-    public ProjectileSlot projectile;
+
     [InlineEditor]public List<SO_VoidGameEvent> projectileEvents;
     public float delay;
-    public bool waitUntilShootingDone = true;
+    public bool waitUntilShootingDone;
+    public bool hasAnimation;
+    [ShowIf(nameof(hasAnimation), true)]public ProjectileSlot projectile;
+
+
     public override IEnumerator Execute(Enemy enemy)
     {
         if (waitUntilShootingDone)
@@ -41,7 +45,8 @@ public class SO_Projectile_Attack_Base : SO_Base_Attack_Fixed
     }
     public override int GetAnimation()
     {
-        return AnimationHash.Enemy_Projectile((int)projectile);
+        if(hasAnimation) return AnimationHash.Enemy_Projectile((int)projectile);
+        return AnimationHash.Enemy_Idle;
     }
 
 }

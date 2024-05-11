@@ -19,8 +19,10 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 2
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: Mystery
     <SpeakerName>k__BackingField: ???
-    <SpeechText>k__BackingField: ...
+    <SpeechPitch>k__BackingField: 1
+    <SpeechText>k__BackingField: . . .
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
@@ -32,10 +34,116 @@ MonoBehaviour:
   - <CharacterLeft>k__BackingField: 2
     <InitialExpressionLeft>k__BackingField: 1
     <CharacterRight>k__BackingField: 2
-    <InitialExpressionRight>k__BackingField: 6
+    <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: 
     <SpeakerName>k__BackingField: You
-    <SpeechText>k__BackingField: Who are-
+    <SpeechPitch>k__BackingField: 0.5
+    <SpeechText>k__BackingField: Oh, I didn't see you there, what are you doing here,
+      Missy?
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: 
+    <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
+    <SpeechText>k__BackingField: . . .
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: 
+    <SpeakerName>k__BackingField: You
+    <SpeechPitch>k__BackingField: 0.5
+    <SpeechText>k__BackingField: Are you having trouble talking?
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: Stop
+    <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
+    <SpeechText>k__BackingField: . . .
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 1
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: 
+    <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
+    <SpeechText>k__BackingField: <size=10>Perish... </size>
+    <AutoSkipAtEnd>k__BackingField: 1
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 10
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: 
+    <SpeakerName>k__BackingField: You
+    <SpeechPitch>k__BackingField: 0.5
+    <SpeechText>k__BackingField: What did you just say?
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 9
+    <CharacterRight>k__BackingField: 2
+    <InitialExpressionRight>k__BackingField: 6
+    <ActiveSpeaker>k__BackingField: 2
+    <Music>k__BackingField: 
+    <SpeakerName>k__BackingField: ???
+    <SpeechPitch>k__BackingField: 1
+    <SpeechText>k__BackingField: <size=35> <color=red>P <pause=0.5>E <pause=0.5>R
+      <pause=0.5>I <pause=0.5>S <pause=0.5>H<pause=0.75></color></size>
     <AutoSkipAtEnd>k__BackingField: 1
     _voidGameEvent:
       <Key>k__BackingField: 

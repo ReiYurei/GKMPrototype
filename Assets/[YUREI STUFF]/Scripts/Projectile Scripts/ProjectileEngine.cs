@@ -14,9 +14,9 @@ public enum PatternTypes
     Spread,
 }
 
-public class ProjectileEngine : MonoBehaviour, IAudioSource
+public class ProjectileEngine : MonoBehaviour
 {
-    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
+    [SerializeField] private string _projectileSound;
 
     [SerializeField][InlineEditor] private SO_Projectile_Data _data;
     private float _minAngle = -90f;
@@ -32,6 +32,7 @@ public class ProjectileEngine : MonoBehaviour, IAudioSource
     private float _totalLifeTime;
     private float _loopDuration;
     private bool _isShooting;
+    private bool _produceBullet;
 
     [SerializeField] private bool _canAim;
     [ShowIf(nameof(_canAim), true)] private SO_PlayerInfo _playerInfo;
@@ -114,10 +115,12 @@ public class ProjectileEngine : MonoBehaviour, IAudioSource
 
     IEnumerator JobCoroutine()
     {
+        _produceBullet = true;
         while (_isShooting == true)
         {
             if (_totalLifeTime <= 0 && _data.isLooping == false) break;
             if (_loopDuration <= 0 && _data.isLooping == true) break;
+            if (_produceBullet) AudioManager.Instance.ProjectileCollection.Play_OneShot(_projectileSound);
             _loopDuration -= Time.deltaTime;
             _jobProjectile.duration = _loopDuration;
             _totalLifeTime -= Time.deltaTime;
@@ -191,12 +194,19 @@ public class ProjectileEngine : MonoBehaviour, IAudioSource
         {
             if (_setActiveInfo[i] == false) continue;               
             if (_hitPlayer[i] == true) continue;                    
-            if (_lifeTime[i] <= 0 || _lifeTime[i] > _loopDuration)                                  
+            if (_lifeTime[i] <= 0)                                  
             {                                                       
                 _setActiveInfo[i] = false;                          
                 _projectiles[i].gameObject.SetActive(false);
                 continue;                                           
-            }                                                       
+            }
+            if (_lifeTime[i] > _loopDuration)
+            {
+                _produceBullet = false;
+                _setActiveInfo[i] = false;
+                _projectiles[i].gameObject.SetActive(false);
+                continue;
+            }
             _projectiles[i].gameObject.SetActive(_setActiveInfo[i]);
             _projectiles[i].position = (Vector3)_projectilePos[i];
             _projectiles[i].rotation = Quaternion.Euler(0f, 0f, _angle[i]);
@@ -213,7 +223,7 @@ public class ProjectileEngine : MonoBehaviour, IAudioSource
                     ParticlePool(i);
                     if (col.TryGetComponent(out IDamageable damaging))
                     {
-                        damaging.OnDamage(_data.damage);
+                        damaging.OnDamage(_data.damage, _data.isGuardable);
                     }
                     continue;
                 }
@@ -223,18 +233,34 @@ public class ProjectileEngine : MonoBehaviour, IAudioSource
     }
     public void DeactiveAllParticle()
     {
+        for (int i = 0; i < _projectiles.Count; i++)
+        {
+            if (!_projectiles[i].gameObject.activeInHierarchy) continue;
+            ParticlePool(i);
+            _projectiles[i].gameObject.SetActive(false);
+
+        }
         _loopDuration = 0;
         _totalLifeTime = 0;
         JobEnd();
         EndOfJob = true;
         _isShooting = false;
         StopAllCoroutines();
+   
+    }
+    public void DeactiveTemporary()
+    {
         for (int i = 0; i < _projectiles.Count; i++)
         {
             if (!_projectiles[i].gameObject.activeInHierarchy) continue;
+            if (_setActiveInfo[i] == false) continue;
+            if (_hitPlayer[i] == true) continue;
+            _setActiveInfo[i] = false;
+            _hitPlayer[i] = true;
             _projectiles[i].gameObject.SetActive(false);
-
+            ParticlePool(i);
         }
+
     }
     void ParticlePool(int index)
     {

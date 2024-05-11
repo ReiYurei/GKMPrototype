@@ -27,4 +27,11 @@ public class SpellCardEngineController : MonoBehaviour
             superEngine.DeactiveAllProjectileEngine();
         }
     }
+    public void DeactivateAllTemp()
+    {
+        foreach (var superEngine in _superEngines)
+        {
+            superEngine.DeactiveTempProjectileEngine();
+        }
+    }
 }

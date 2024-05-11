@@ -20,6 +20,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 0
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: Hub Gal
+    <SpeechPitch>k__BackingField: 0.75
     <SpeechText>k__BackingField: Take a look at the mission!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:

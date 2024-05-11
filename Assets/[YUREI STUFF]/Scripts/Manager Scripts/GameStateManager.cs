@@ -5,8 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(EventListenerComponent))]
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : MonoBehaviour, IAudioSource
 {
+    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
     public static GameStateManager Instance { get; private set; }
     [field: SerializeField] public StateObserver CurrentState { get; private set; }
 
@@ -24,6 +25,8 @@ public class GameStateManager : MonoBehaviour
     [field: Header("Other")]
     [field: SerializeField] public InputActionAsset Input { get; private set; }
     [field: SerializeField] public GameObject FirstSelected { get; private set; }
+
+
     private EventSystem _eventSystem;
 
 
@@ -56,6 +59,7 @@ public class GameStateManager : MonoBehaviour
     }
     private void Start()
     {
+        AudioCollection.InitializeStartData();
     }
     public void OnStateChange(ScriptableObject data) //Listen to Event
     {
@@ -73,7 +77,7 @@ public class GameStateManager : MonoBehaviour
         if (CurrentState.OverallState is RegularGameplayState ||
             CurrentState.OverallState is BulletHellGameplayState) AbandonMissionOption.SetActive(true);   
         else AbandonMissionOption.SetActive(false);
- 
+        AudioCollection.Play_OneShot("Title");
         _eventSystem.SetSelectedGameObject(FirstSelected);
         CurrentState.SetPreviousState(CurrentState.State);
         ChangeStateEvent.Raise(PauseState);
@@ -105,6 +109,7 @@ public class GameStateManager : MonoBehaviour
     public void ResumeGameFunction()
     {
         if (!PausePrompt.activeInHierarchy) return;
+        AudioCollection.Play_OneShot("Cancel");
         PausePrompt.SetActive(false);
         ResumeEvent.Raise();
         ChangeStateEvent.Raise(CurrentState.PreviousState);

@@ -51,7 +51,10 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
     [Header("State")]
     [SerializeField] private TitleScreenState _state;
     [SerializeField] private LoadingScreenState _loadingState;
-
+    private void Start()
+    {
+        AudioCollection.InitializeStartData();
+    }
     private void OnDisable()
     {
         _input.FindActionMap("UI").FindAction("Confirm").performed -= Skip;
@@ -67,6 +70,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         if (!_successStamp.activeInHierarchy && _successStamp.transform.localScale != Vector3.one)
         {
             StopAllCoroutines();
+            AudioCollection.Play_OneShot("Confirm");
             Debug.Log("SKIP");
             _rank.SetActive(true);
             _rank.transform.localScale = Vector3.one;
@@ -123,13 +127,8 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         IEnumerator MissionFailed()
         {
             _failedCanvas.SetActive(true);
-            Debug.Log("<color=yellow> FAILED</color>");
-
             yield return StartCoroutine(Stamp(new Vector3(10, 10, 10), Vector2.one,_failedStamp));
-            Debug.Log("<color=yellow> STAMP CLEAR</color>");
-
             yield return new WaitForSeconds(1.5f);
-            Debug.Log("<color=yellow> COROUTINE CLEAR</color>");
             LoadHubEvent.Raise();
         }
     }
@@ -140,6 +139,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         StartCoroutine(ResultInitialize());
         IEnumerator ResultInitialize()
         {
+            AudioCollection.Play_OneShot("Receipt");
             yield return StartCoroutine(FadeOut(Color.black, Color.clear));
             _input.FindActionMap("UI").FindAction("Confirm").performed += Skip; //Only Listening to Skip Input after Fading out is done
             yield return StartCoroutine(Ranking(new Vector3(10, 10, 10), Vector2.one));
@@ -178,6 +178,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         if (_rank == null) _rank = GetRank(TimeRank.E);
         _rank.transform.localScale = start;
         _rank.gameObject.SetActive(true);
+        AudioCollection.Play_OneShot("Stamp");
         while (_rank.transform.localScale != target)
         {
             time += Time.deltaTime;
@@ -230,19 +231,23 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         bool executeOnce = false;
         stamp.transform.localScale = start;
         stamp.gameObject.SetActive(true);
+        AudioCollection.Play_OneShot("Stamp");
+        if (_result == CompletionMark.Failed) AudioCollection.Play_OneShot("Failed");
+        else AudioCollection.Play_OneShot("Success");
         while (stamp.transform.localScale != target)
         {
             time += Time.deltaTime;
             if (!executeOnce && time > timeToScale * 0.35f)
             {
                 executeOnce = true;
-                //playsound
+    
             }
 
             speed = _speedCurve.Evaluate(time / timeToScale);
             stamp.transform.localScale = Vector3.Lerp(start, target, speed);
             yield return null;
         }
+
         yield return new WaitForSeconds(1);
     } //Stamp Animation
 

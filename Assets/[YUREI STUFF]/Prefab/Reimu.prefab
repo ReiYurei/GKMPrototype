@@ -250,7 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5901154d23cc3a444aad24a275545e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
   _engines: []
   _origin: {fileID: 69114789931433956}
   _curveHandle: {fileID: 0}
@@ -835,7 +834,7 @@ MonoBehaviour:
   - name: 8
     state: {fileID: 11400000, guid: a6f82590bba3c214f99ec770abaded80, type: 2}
   - name: 11
-    state: {fileID: 11400000, guid: 52fbdf09a2827964a8c190c280844acc, type: 2}
+    state: {fileID: 11400000, guid: ba65d59018fa9b14eaef6310d1495c25, type: 2}
 --- !u!114 &6249376618027570649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,6 +896,34 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 8762632723304983498}
+          m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+          m_MethodName: StopTheme
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 77710813eae32ac4cb382f84347fbe67, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8762632723304983498}
+          m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+          m_MethodName: StopTheme
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - gameEvent: {fileID: 11400000, guid: 4bfddfdb7d234ed48a77235f01058d36, type: 2}
     voidResponse:
       m_PersistentCalls:
@@ -945,13 +972,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - gameEvent: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
+  - gameEvent: {fileID: 11400000, guid: 4fd490657f61b764a826a4e025dbcc17, type: 2}
     voidResponse:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1763171217989818783}
-          m_TargetAssemblyTypeName: SpellCardEngineController, Assembly-CSharp
-          m_MethodName: OnProjectileInitiate
+        - m_Target: {fileID: 8762632723304983498}
+          m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+          m_MethodName: PlayTheme
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1151,7 +1178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b7c044ea3c8c94d951612c5514af85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
+  _projectileSound: Sound1
   _data: {fileID: 11400000, guid: deb9a10fa53544f40ae8427db14f2222, type: 2}
   _targetAngle: 0
   _angleRange: 360
@@ -1259,6 +1286,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _listenersVoid:
+  - gameEvent: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1763171217989818783}
+          m_TargetAssemblyTypeName: SpellCardEngineController, Assembly-CSharp
+          m_MethodName: OnProjectileInitiate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - gameEvent: {fileID: 11400000, guid: 781b5a186f5949a4cb92abd17a23d895, type: 2}
     voidResponse:
       m_PersistentCalls:
@@ -1266,6 +1309,54 @@ MonoBehaviour:
         - m_Target: {fileID: 1763171217989818783}
           m_TargetAssemblyTypeName: SpellCardEngineController, Assembly-CSharp
           m_MethodName: DeactivateAll
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 01a4327e4cd88da46bde27cef187827b, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1763171217989818783}
+          m_TargetAssemblyTypeName: SpellCardEngineController, Assembly-CSharp
+          m_MethodName: DeactivateAll
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: 1e7173ebd1ff4a64aa3591a62d3eab10, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1763171217989818783}
+          m_TargetAssemblyTypeName: SpellCardEngineController, Assembly-CSharp
+          m_MethodName: DeactivateAll
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - gameEvent: {fileID: 11400000, guid: ff1b130ab6133fd4fafdaaa02434ccbb, type: 2}
+    voidResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1763171217989818783}
+          m_TargetAssemblyTypeName: SpellCardEngineController, Assembly-CSharp
+          m_MethodName: DeactivateAllTemp
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1397,7 +1488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b7c044ea3c8c94d951612c5514af85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
+  _projectileSound: Sound2
   _data: {fileID: 11400000, guid: a5dca9176bcaf8a468e139e7db40c599, type: 2}
   _targetAngle: 0
   _angleRange: 360
@@ -1635,7 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b7c044ea3c8c94d951612c5514af85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
+  _projectileSound: Sound1
   _data: {fileID: 11400000, guid: a5dca9176bcaf8a468e139e7db40c599, type: 2}
   _targetAngle: 0
   _angleRange: 360
@@ -1724,7 +1815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5901154d23cc3a444aad24a275545e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
   _engines: []
   _origin: {fileID: 69114789931433956}
   _curveHandle: {fileID: 0}
@@ -1902,7 +1992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b7c044ea3c8c94d951612c5514af85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
+  _projectileSound: Sound2
   _data: {fileID: 11400000, guid: deb9a10fa53544f40ae8427db14f2222, type: 2}
   _targetAngle: 0
   _angleRange: 360
@@ -2037,7 +2127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5901154d23cc3a444aad24a275545e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
   _engines: []
   _origin: {fileID: 69114789931433956}
   _curveHandle: {fileID: 0}

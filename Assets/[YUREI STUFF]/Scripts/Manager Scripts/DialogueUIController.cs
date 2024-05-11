@@ -9,7 +9,7 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
 {
     [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
     [field: SerializeField] public StateObserver CurrentState { get; private set; }
-
+    private string _previousMusic = "";
     public static DialogueUIController Instance { get; private set; }
     private void Awake()
     {
@@ -23,6 +23,12 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
             Instance = this;
             DontDestroyOnLoad(this);
         }
+    }
+    private void Start()
+    {
+        AudioCollection.InitializeStartData();
+        AudioManager.Instance.MusicCollection.InitializeStartData();
+        _previousMusic = "";
     }
     private void OnEnable()
     {
@@ -60,6 +66,9 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
     [SerializeField] private string _inputName = "Cutscene";
 
     [field: Header("Event")]
+    [field: SerializeField] public SO_VoidGameEvent SkipTextEvent { get; private set; }
+    [field: SerializeField] public SO_VoidGameEvent SkipAllEvent { get; private set; }
+
     [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultHubEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent DialogueEnd_DefaultExterminateEvent { get; private set; }
     [field: SerializeField] public SO_VoidGameEvent ShakeEvent { get; private set; }
@@ -129,7 +138,7 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         {
             int subCounter = 0;
             int visibleCounter = 0;
-
+            yield return new WaitForSeconds(0.15f);
             while (subCounter < subText.Length)
             {
                 if (subCounter % 2 == 1)
@@ -139,13 +148,14 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
                 }
                 else
                 {
-
                     while (visibleCounter < subText[subCounter].Length)
                     {
                         visibleCounter++;
                         SpeechText.maxVisibleCharacters++;
+                        AudioCollection.Play_OneShot("Blip", "Pitch", data.SpeechPitch);
                         yield return new WaitForSeconds(1f / _speed);
-                        
+
+
                     }
                     visibleCounter = 0;
                 }
@@ -237,6 +247,7 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
                 break;
             case EndEventBehaviour.None_ToHub:
                 ChangeStateEvent.Raise(CurrentState.OverallState);
+                AudioManager.Instance.MusicCollection.Play("Hub");
                 break;
         }
     }
@@ -258,7 +269,24 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         ShowPotrait();
         ReadText();
         ShowName();
+        PlayMusic();
         ActiveSpeaker();
+    }
+    private void PlayMusic()
+    {
+        var data = DialogueData.dialogue[_dialogueIndex];
+        if (data.Music == "" | data.Music == null) return;
+        if (data.Music == _previousMusic) return;
+        if (data.Music == "Stop")
+        {
+            if (AudioManager.Instance.MusicCollection.AudioEventsDict.Count == 0) return;
+            AudioManager.Instance.MusicCollection.StopAllInstance("Volume", 0, 1, 2f);
+            _previousMusic = "";
+            return;
+        }
+        AudioManager.Instance.MusicCollection.StopInstance(_previousMusic);
+        _previousMusic = data.Music;
+        AudioManager.Instance.MusicCollection.Play(data.Music);
     }
     private void ShowName()
     {
@@ -342,6 +370,7 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         _dialogueIndex = 0;
         ReadText();
         ShowName();
+        PlayMusic();
         ShowPotrait();
         ActiveSpeaker();
     }
@@ -351,7 +380,9 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         if (!_skippable) return;
         if (_textRevealed)
         {
+            AudioCollection.Play_OneShot("Skip Tap");
             CheckIndex();
+            SkipTextEvent.Raise();
             ConfirmIcon.gameObject.SetActive(false);
             _textRevealed = false;
             //Next Line
@@ -368,21 +399,7 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
     }
     private void OnSkipText(InputAction.CallbackContext context)
     {
-        if (!_skippable) return;
-        if (_textRevealed)
-        {
-            CheckIndex();
-            ConfirmIcon.gameObject.SetActive(false);
-            _textRevealed = false;
-            //Next Line
-            return;
-        }
-        _speed = 500;
-        ConfirmIcon.gameObject.SetActive(true);
-        _skipping = true;
-        //SpeechText.maxVisibleCharacters = SpeechText.text.Length;
-        //_textRevealed = true;
-        //StopAllCoroutines();
+        OnSkipText();
     }
 
     public void AutoSkip()
@@ -403,10 +420,20 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         }
         IEnumerator SkipTimer()
         {
+            AudioCollection.Play("Skip Hold");
             SkipSlider.value = 0;
+            float speed;
+            float paramValue;
+            float time = 0f;
+            AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
             while (context.phase.IsInProgress() && SkipSlider.value <= SkipSlider.maxValue)
             {
+
                 SkipSlider.value += Time.deltaTime;
+                time += Time.deltaTime;
+                speed = curve.Evaluate(time / SkipSlider.maxValue);
+                paramValue = Mathf.Lerp(0.5f,1, speed);
+                AudioCollection.SetEventParameter("Skip Hold", "Volume", paramValue);
                 yield return null;
             }
             SkipUI.SetActive(false);
@@ -414,13 +441,29 @@ public class DialogueUIController : MonoBehaviour, IAudioSource
         if (context.canceled)
         {
             SkipUI.SetActive(false);
+            AudioCollection.StopInstance("Skip Hold");
             return;
         }
+        AudioCollection.StopInstance("Skip Hold");
+        AudioCollection.Play_OneShot("Skip All");
+        SkipAllEvent.Raise();
         SkipUI.SetActive(false);
         SkipSlider.value = 0;
         _dialogueIndex = DialogueData.dialogue.Count - 1;
         ShowPotrait();
         ReadText();
+        var data = DialogueData.dialogue;
+        for (int i = DialogueData.dialogue.Count -1; i >= 0; i--)
+        {
+            if (data[i].Music == "") continue;
+            if (data[i].Music == "Stop")
+            {
+                AudioManager.Instance.MusicCollection.StopAllInstance();
+                break; 
+            }
+            AudioManager.Instance.MusicCollection.Play(data[i].Music);   
+            
+        }
         ShowName();
         ActiveSpeaker();
         _speed = 100;

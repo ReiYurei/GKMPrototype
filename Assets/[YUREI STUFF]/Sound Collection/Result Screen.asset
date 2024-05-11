@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d4ad7d60d9df440a8104b292536415, type: 3}
+  m_Name: Result Screen
+  m_EditorClassIdentifier: 
+  _audioEvents:
+  - <Key>k__BackingField: Stamp
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: -1894908809
+        Data2: 1150859285
+        Data3: -1804893533
+        Data4: -1191771491
+      Path: event:/General/Result Screen/Stamp
+  - <Key>k__BackingField: Failed
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1376033791
+        Data2: 1323431890
+        Data3: 35030970
+        Data4: 2117107595
+      Path: event:/General/Result Screen/Failed
+  - <Key>k__BackingField: Success
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: -1731580647
+        Data2: 1297079347
+        Data3: -319109964
+        Data4: -1975602278
+      Path: event:/General/Result Screen/Success
+  - <Key>k__BackingField: Receipt
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: -543661822
+        Data2: 1092143971
+        Data3: -371018343
+        Data4: 2000425471
+      Path: event:/General/Result Screen/Receipt Sound
+  - <Key>k__BackingField: Confirm
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1406652056
+        Data2: 1286501059
+        Data3: 1170679703
+        Data4: -864815718
+      Path: event:/General/UI/Confirm

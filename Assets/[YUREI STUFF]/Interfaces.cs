@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void OnDamage(float damage);
+    void OnDamage(float damage, bool isGuardable = true);
 
 }
 public interface IProjectileAttack
@@ -15,13 +16,6 @@ public interface IProjectileAttack
 public interface IAudioSource
 {
     [SerializeField]public SO_AudioFMODEventCollection AudioCollection { get; }
-    public void PlaySound_OneShot(string key)
-    {
-        if (AudioCollection.AudioEventsDict.TryGetValue(key, out EventReference eventReference))
-        {
-            RuntimeManager.PlayOneShot(eventReference);
-        }
-    }
     public void Pause()
     {
         RuntimeManager.PauseAllEvents(true);

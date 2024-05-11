@@ -9,9 +9,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(EventListenerComponent))]
-public class InventoryUIController : MonoBehaviour
+public class InventoryUIController : MonoBehaviour, IAudioSource
 {
-    [field: SerializeField] public static InventoryUIController Instance { get; private set; }
+    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection  { get; private set; }
+    public static InventoryUIController Instance { get; private set; }
     [field: SerializeField] public StateObserver CurrentState { get; private set; }
     [field: SerializeField] public SO_Inventory Inventory { get; private set; }
     [field: SerializeField] public RectTransform Cursor { get; private set; }
@@ -28,7 +29,7 @@ public class InventoryUIController : MonoBehaviour
 
     private EventSystem _eventSystem;
     private GameObject _lastSelectedObject;
-
+    private bool _isShopOpen;
 
     [field: Header("Inventory Canvas")]
     [field: SerializeField] public GameObject InventoryCanvas { get; private set; }
@@ -77,6 +78,7 @@ public class InventoryUIController : MonoBehaviour
     [field: SerializeField] public Image GoldBar { get; private set; }
     [field: SerializeField] public TextMeshProUGUI GoldAmountText { get; private set; }
 
+
     public void Awake()
     {
 
@@ -89,6 +91,10 @@ public class InventoryUIController : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
+    }
+    private void Start()
+    {
+        AudioCollection.InitializeStartData();
     }
     [Button("Debug Raise :On Load Complete")]
     public void OnLoadComplete()
@@ -178,10 +184,12 @@ public class InventoryUIController : MonoBehaviour
     {
         GoldCanvas.SetActive(true);
         GoldAmountText.text = Inventory.Gold.ToString();
+        _isShopOpen = true;
     }
     public void OnExitShop()
     {
         GoldCanvas.SetActive(false);
+        _isShopOpen = false;
     }
     public void OnNotEnoughMoney()
     {
@@ -191,7 +199,6 @@ public class InventoryUIController : MonoBehaviour
     }
     public void AnimateGold(int start, int target, ComparatorType compare)
     {
-        if (!GoldCanvas.activeInHierarchy) return;
         StopCoroutine(AnimateGoldFunction(start, target, compare));
         StartCoroutine(AnimateGoldFunction(start, target, compare));
 
@@ -203,6 +210,8 @@ public class InventoryUIController : MonoBehaviour
         StartCoroutine(InitializeSpellData());
         StartCoroutine(InitializeQuestItemData());
         StartCoroutine(InventoryInitializationAnimation());
+        AudioCollection.Play_OneShot("Open Inventory");
+
         GoldCanvas.SetActive(false);
         _tabIndex = 0;
         Debug.Log("<color=yellow>open INVENTORY</color>");
@@ -226,7 +235,7 @@ public class InventoryUIController : MonoBehaviour
 
         _spells.Clear();
         _questItems.Clear();
-
+        AudioCollection.Play_OneShot("Cancel");
         Debug.Log("<color=yellow>CLOSE INVENTORY</color>");
         Actions.FindAction("Cancel").performed -= CancelFunction;
 
@@ -253,7 +262,7 @@ public class InventoryUIController : MonoBehaviour
     {
         TabAreaContentObjects[_tabIndex].gameObject.SetActive(true);
         ViewAreaContentObjects[_tabIndex].gameObject.SetActive(true);
-
+        AudioCollection.Play_OneShot("Confirm");
         Reselect();
     }
     private void CancelFunction(InputAction.CallbackContext context)
@@ -264,8 +273,8 @@ public class InventoryUIController : MonoBehaviour
 
     public void ShowQuestData(InventoryItemQuest data)
     {
-        Reselect();
         if (data.questItem == null) return;
+        AudioCollection.Play_OneShot("Navigate");
         var item = data.questItem;
         if (item.Icon != null) QuestItemIcon.sprite = item.Icon;
         QuestItemIcon.color = Color.white;
@@ -279,6 +288,7 @@ public class InventoryUIController : MonoBehaviour
     public void ShowSpellData(InventoryItemSpell data)
     {
         if (data.combo == null) return;
+        AudioCollection.Play_OneShot("Navigate");
         var spell = data.combo.Spell;
         SpellIcon.color = Color.white;
         if (spell.Icon != null) SpellIcon.sprite = spell.Icon;
@@ -415,6 +425,7 @@ public class InventoryUIController : MonoBehaviour
             time += Time.unscaledDeltaTime;
             yield return Delay;
             GoldBar.color = Color.red;
+            AudioCollection.Play_OneShot("Not Enough Gold");
             yield return Delay;
             GoldBar.color = Color.white;
             time += delay * 2;
@@ -425,29 +436,36 @@ public class InventoryUIController : MonoBehaviour
     }
     IEnumerator AnimateGoldFunction(int start, int target, ComparatorType compare)
     {
+        GoldCanvas.SetActive(true);
         int count = start;
         switch (compare)
         {
             case ComparatorType.LessThan:
                 while (count < target)
                 {
-                    count += Mathf.RoundToInt(Time.unscaledDeltaTime * 500f);
+                    count += Mathf.RoundToInt(Time.unscaledDeltaTime * 1000f);
                     GoldAmountText.text = count.ToString();
+                    AudioCollection.Play_OneShot("Add Gold");
+
                     yield return null;
                 }
                 break;
             case ComparatorType.GreaterThan:
+                AudioCollection.Play_OneShot("Reduce Gold"); 
                 while (count > target)
                 {
-                    count -= Mathf.RoundToInt(Time.unscaledDeltaTime * 500f);
+                    count -= Mathf.RoundToInt(Time.unscaledDeltaTime * 1500f);
                     GoldAmountText.text = count.ToString();
+
                     yield return null;
                 }
                 break;
         }
 
         GoldAmountText.text = Inventory.Gold.ToString();
-        //yield return new WaitForSeconds(3f);
+        if (_isShopOpen) yield break;
+        yield return new WaitForSeconds(2.5f);
+        GoldCanvas.gameObject.SetActive(false);
 
     }
 }

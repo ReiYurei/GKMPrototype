@@ -15,8 +15,12 @@ public class Dialogue
     [field: SerializeField] public ExpressionID InitialExpressionRight { get; private set; }
     [field: Header("Active Talker")]
     [field: SerializeField] public ActiveTalker ActiveSpeaker { get; private set; }
+    [field: SerializeField] public string Music { get; private set; }
     [field: SerializeField][field: Space(15)] public string SpeakerName { get; private set; }
+    [field: SerializeField] public float SpeechPitch { get; private set; }
+
     [field: SerializeField][field: TextArea(3, 15)] public string SpeechText { get; private set; }
+
     [field: SerializeField] public bool AutoSkipAtEnd { get; private set; }
     [field: Space(10)]
     [field: Header("Event")]
@@ -29,7 +33,7 @@ public class Dialogue
 
 
     public void SetDialogue(CharacterID charLeft, ExpressionID expressionLeft, CharacterID charRight, ExpressionID expressionRight,
-        ActiveTalker activeSpeaker, string name, string speech, bool cannotSkip,VoidGameEventWithKey<string> voidEvent, ParameterGameEventWithKey<string> parameterEvent)
+        ActiveTalker activeSpeaker, string name, string speech, bool cannotSkip,VoidGameEventWithKey<string> voidEvent, ParameterGameEventWithKey<string> parameterEvent, float pitch,string music)
     {
         CharacterLeft = charLeft; 
         CharacterRight = charRight;
@@ -41,6 +45,8 @@ public class Dialogue
         AutoSkipAtEnd = cannotSkip;
         VoidGameEvent = voidEvent;
         ParameterGameEvent = parameterEvent;
+        SpeechPitch = pitch;
+        Music = music;
     }
 }
 

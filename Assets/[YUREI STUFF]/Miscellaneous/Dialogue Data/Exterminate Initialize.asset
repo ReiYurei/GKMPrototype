@@ -20,6 +20,7 @@ MonoBehaviour:
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
     <SpeakerName>k__BackingField: You
+    <SpeechPitch>k__BackingField: 0.5
     <SpeechText>k__BackingField: Time to banish your living sin!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:

@@ -8,7 +8,7 @@ public class CutInUIController : MonoBehaviour,IAudioSource
     [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
     [field: SerializeField] public GameObject CutInCanvas { get; private set; }
     [field: SerializeField] public Image CutInImage { get; private set; }
-    [field: SerializeField]public RectTransform CutInMask {  get; private set; }
+    [field: SerializeField] public RectTransform CutInMask {  get; private set; }
     [field: SerializeField] public RectTransform LeftBorder { get; private set; }
     [field: SerializeField] public RectTransform RightBorder { get; private set; }
 
@@ -24,6 +24,10 @@ public class CutInUIController : MonoBehaviour,IAudioSource
     public float targetWidth;
     [Header("State")]
     [SerializeField] private LoadingScreenState _loadingState;
+    private void Start()
+    {
+        AudioCollection.InitializeStartData();
+    }
     public void OnLoadComplete()
     {
         CutInImage.sprite = GameObject.FindGameObjectWithTag("Astral Entity")?.GetComponent<Enemy>().StatusData.EnemyCutInSprite;
@@ -66,7 +70,7 @@ public class CutInUIController : MonoBehaviour,IAudioSource
         float time = 0f;
         float speed;
         float width;
-
+        AudioCollection.Play_OneShot("Cut In");
         while (CutInMask.rect.width < targetWidth)
         {
             time += Time.deltaTime;

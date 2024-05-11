@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3ae7afeb1cb454895a2cd49604b2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AudioCollection>k__BackingField: {fileID: 0}
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: dbcff33b583dee144ab0f97da9f2157d, type: 2}
   <CutInCanvas>k__BackingField: {fileID: 8464136279060347124}
   <CutInImage>k__BackingField: {fileID: 9135670453274777741}
   <CutInMask>k__BackingField: {fileID: 8566571560549924687}

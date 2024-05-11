@@ -612,7 +612,7 @@ MonoBehaviour:
   sourceProjectPath: FMODAsset/Project/GKM Audio Asset/GKM Audio Asset.fspro
   sourceBankPath: FMODAsset/Project/GKM Audio Asset/Build
   sourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
+  BankRefreshCooldown: 1
   ShowBankRefreshWindow: 1
   AutomaticEventLoading: 1
   BankLoadType: 0
@@ -634,7 +634,16 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Depart
+  - Dialogue
+  - Generic UI
+  - Hub Listing
+  - Inventory
+  - Music
+  - Result Screen
   - SFX
+  - Shop
+  - Stage
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

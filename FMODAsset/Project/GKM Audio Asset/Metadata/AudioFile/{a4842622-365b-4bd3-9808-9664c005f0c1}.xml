@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a4842622-365b-4bd3-9808-9664c005f0c1}">
+		<property name="assetPath">
+			<value>General/Music/(Astra Theme)PerituneMaterial_Thunderclap_loop.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>94.999958333333339</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{b273d099-f3c2-4959-b6df-667d251368d2}</destination>
+		</relationship>
+	</object>
+</objects>

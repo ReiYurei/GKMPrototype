@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d4ad7d60d9df440a8104b292536415, type: 3}
+  m_Name: Hub Listing
+  m_EditorClassIdentifier: 
+  _audioEvents:
+  - <Key>k__BackingField: Blip
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1630722473
+        Data2: 1100141079
+        Data3: 1905106365
+        Data4: -22891223
+      Path: event:/General/Dialogue/Dialogue Blip
+  - <Key>k__BackingField: Next Page
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1902998617
+        Data2: 1244443809
+        Data3: 559856784
+        Data4: 1742340703
+      Path: event:/General/Hub/Next Page
+  - <Key>k__BackingField: Prev Page
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: -1679554608
+        Data2: 1245727042
+        Data3: 1001211276
+        Data4: -1964220232
+      Path: event:/General/Hub/Prev Page
+  - <Key>k__BackingField: Change Tab
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 2024674551
+        Data2: 1323893073
+        Data3: -146462589
+        Data4: -607211649
+      Path: event:/General/Hub/Change Tab
+  - <Key>k__BackingField: Cancel
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: -78009542
+        Data2: 1132910998
+        Data3: -1513064031
+        Data4: 606935815
+      Path: event:/General/UI/Cancel
+  - <Key>k__BackingField: Confirm
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 1406652056
+        Data2: 1286501059
+        Data3: 1170679703
+        Data4: -864815718
+      Path: event:/General/UI/Confirm
+  - <Key>k__BackingField: Navigate
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 210267424
+        Data2: 1282815221
+        Data3: 75677369
+        Data4: -531872571
+      Path: event:/General/UI/Navigate

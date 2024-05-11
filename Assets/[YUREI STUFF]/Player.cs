@@ -8,7 +8,7 @@ using UnityEditor;
 
 #if UNITY_EDITOR
 #endif
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour
 {
     [SerializeField,Required]SO_PlayerInfo playerInfo;
     public Rigidbody2D _rb;

@@ -10740,6 +10740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb08fbc51934024a9f4f1e9ed71a847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: 4cabc92117c63744188f374c2e481001, type: 2}
   <CurrentState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <Inventory>k__BackingField: {fileID: 11400000, guid: 2cc4a2c1c7282434b978165b3c1582b0, type: 2}
   <Cursor>k__BackingField: {fileID: 2840339765397321814}

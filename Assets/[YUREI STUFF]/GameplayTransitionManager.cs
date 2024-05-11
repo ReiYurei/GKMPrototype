@@ -259,7 +259,7 @@ public class GameplayTransitionManager : MonoBehaviour
                 if (debug)
                 {
                     _wallLeft.transform.position = targetPosLeft;
-                    _wallRight.transform.position = targetPosBottom;
+                    _wallRight.transform.position = targetPosRight;
 
                     _collissionTop.position = targetPosUp;
                     _collissionBottom.position = targetPosBottom;

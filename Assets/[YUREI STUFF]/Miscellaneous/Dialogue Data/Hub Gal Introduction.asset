@@ -19,13 +19,50 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 0
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: 
     <SpeakerName>k__BackingField: Hub Gal
+    <SpeechPitch>k__BackingField: 0.75
     <SpeechText>k__BackingField: Oh<pause=0.5>, h<emotion=happy>i!<pause=0.75>. <emotion=neutral>I'm
       the <color=yellow> Hub Gal</color> in charge here.
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 2
+    <CharacterRight>k__BackingField: 0
+    <InitialExpressionRight>k__BackingField: 1
+    <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: 
+    <SpeakerName>k__BackingField: Hub Gal
+    <SpeechPitch>k__BackingField: 0.75
+    <SpeechText>k__BackingField: Since this is your first time here,<pause=0.35>
+      I'll give you some pocket money! <event=Money>
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: Money
+      <GameEvent>k__BackingField: {fileID: 11400000, guid: 68d33ca8cdcac0c45a1557de3a93930c, type: 2}
+    _parameterGameEvent:
+      <Key>k__BackingField: 
+      <GameEvent>k__BackingField: {fileID: 0}
+      <ParamData>k__BackingField: {fileID: 0}
+  - <CharacterLeft>k__BackingField: 2
+    <InitialExpressionLeft>k__BackingField: 2
+    <CharacterRight>k__BackingField: 0
+    <InitialExpressionRight>k__BackingField: 2
+    <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: 
+    <SpeakerName>k__BackingField: Hub Gal
+    <SpeechPitch>k__BackingField: 0.75
+    <SpeechText>k__BackingField: Oh,<pause=0.5> and also please take this!<event=Badge>
+    <AutoSkipAtEnd>k__BackingField: 0
+    _voidGameEvent:
+      <Key>k__BackingField: Badge
+      <GameEvent>k__BackingField: {fileID: 11400000, guid: 80448a66e479a344a9a585b54a77d7f8, type: 2}
     _parameterGameEvent:
       <Key>k__BackingField: 
       <GameEvent>k__BackingField: {fileID: 0}

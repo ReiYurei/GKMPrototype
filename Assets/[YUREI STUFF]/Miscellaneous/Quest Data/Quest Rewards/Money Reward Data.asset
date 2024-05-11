@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Money Reward Data
   m_EditorClassIdentifier: 
   <Inventory>k__BackingField: {fileID: 11400000, guid: 2cc4a2c1c7282434b978165b3c1582b0, type: 2}
-  <Amount>k__BackingField: 0
+  <Amount>k__BackingField: 1500

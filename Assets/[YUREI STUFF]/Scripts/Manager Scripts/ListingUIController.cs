@@ -47,6 +47,10 @@ public class ListingUIController : MonoBehaviour, IAudioSource
     private int promptIndex;
     [SerializeField]private string inputName = "Listing";
 
+    private void Start()
+    {
+        AudioCollection.InitializeStartData();
+    }
     private void OnEnable()
     {
         Actions.FindActionMap(inputName).FindAction("Next Page").started += NextPage;
@@ -91,16 +95,19 @@ public class ListingUIController : MonoBehaviour, IAudioSource
             Actions.FindActionMap(inputName).FindAction("Previous Tab").Enable();
             return;
         }
+        AudioCollection.Play_OneShot("Cancel");
         ListingUICanvas.SetActive(false);
         ExitListingEvent.Raise();
         Actions.FindActionMap(inputName).FindAction("Next Tab").Disable();
         Actions.FindActionMap(inputName).FindAction("Previous Tab").Disable();
+        StopAllCoroutines();
+        AudioCollection.StopAllInstance();
     }
 
     private void Confirm(InputAction.CallbackContext context)
     {
         Debug.Log("<color=yellow>CONFIRM</color>");
-    
+        AudioCollection.Play_OneShot("Confirm");
         switch (TabGroup.SelectedTab.TabType)
         {
             case TabType.Quest:
@@ -185,6 +192,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                     Debug.Log("<color=yellow>Removed Quest</color>");
                     Observer.ResetQuestTaken();
                     CancelFunction();
+                    AudioCollection.Play_OneShot("Cancel");
                     return;
                 }
                 Observer.AssignQuest(AvailableQuests.Quests[pageIndex]);
@@ -196,6 +204,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                     Debug.Log("<color=yellow>Removed Mission</color>");
                     Observer.ResetMissionTaken();
                     CancelFunction();
+                    AudioCollection.Play_OneShot("Cancel");
                     return;
                 }
                 Observer.AssignMission(AvailableMissions.Missions[pageIndex]);
@@ -203,6 +212,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
 
                 break;
         }
+        AudioCollection.Play_OneShot("Confirm");
         CancelFunction();
 
     }
@@ -228,6 +238,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                 }
                 promptIndex = PromptButton.Count - 1;
                 button.SetColor(button.hoverColor);
+                AudioCollection.Play_OneShot("Navigate");
                 return;
             }
             else if (PromptRemoveSelection.activeInHierarchy)
@@ -240,6 +251,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                 }
                 promptIndex = PromptRemoveSelectionButton.Count - 1;
                 button.SetColor(button.hoverColor);
+                AudioCollection.Play_OneShot("Navigate");
                 return;
             }
         }
@@ -287,6 +299,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                 break;
         }
         ShowPage();
+        AudioCollection.Play_OneShot("Next Page");
         yield break;
 
     }
@@ -366,6 +379,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                     PromptButton[i].SetColor();
                 }
                 button.SetColor(button.hoverColor);
+                AudioCollection.Play_OneShot("Navigate");
                 return;
             }
             else if (PromptRemoveSelection.activeInHierarchy)
@@ -377,6 +391,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                     PromptRemoveSelectionButton[i].SetColor();
                 }
                 button.SetColor(button.hoverColor);
+                AudioCollection.Play_OneShot("Navigate");
                 return;
             }
         }
@@ -424,6 +439,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                 break;
         }
         ShowPage();
+        AudioCollection.Play_OneShot("Prev Page");
         yield break;
 
     }
@@ -509,7 +525,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                     int gold;
                     for (int i = 0; i < questReward.Count; i++)
                     {
-                        if (questReward.GetType() != typeof(SO_MoneyReward))
+                        if (questReward[i] is not SO_MoneyReward)
                         {
                             continue;
                         }
@@ -554,7 +570,7 @@ public class ListingUIController : MonoBehaviour, IAudioSource
                     int gold;
                     for (int i = 0; i < missionReward.Count; i++)
                     {
-                        if (missionReward.GetType() != typeof(SO_MoneyReward))
+                        if (missionReward[i] is not SO_MoneyReward)
                         {
                             continue;
                         }
@@ -592,7 +608,8 @@ public class ListingUIController : MonoBehaviour, IAudioSource
             while(OperatorText.maxVisibleCharacters < OperatorText.text.Length)
             {
                OperatorText.maxVisibleCharacters++;
-               yield return new WaitForSeconds(1f / 30);
+                AudioCollection.Play_OneShot("Blip", "Pitch", 0.75f);
+                yield return new WaitForSeconds(1f / 50);
 
             }
         }

@@ -19,7 +19,9 @@ MonoBehaviour:
     <CharacterRight>k__BackingField: 0
     <InitialExpressionRight>k__BackingField: 1
     <ActiveSpeaker>k__BackingField: 1
+    <Music>k__BackingField: Stop
     <SpeakerName>k__BackingField: You
+    <SpeechPitch>k__BackingField: 0.5
     <SpeechText>k__BackingField: Well, Let's just get back to work!
     <AutoSkipAtEnd>k__BackingField: 0
     _voidGameEvent:
