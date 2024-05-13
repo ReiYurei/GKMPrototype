@@ -101,6 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
     public IEnumerator Behave()
     {
         //Debug.Log("Behave");
+        Debug.Log("SUBSTATE INDEX:  "+_subStateNum);
         StartCoroutine(SubstateExecution());
         StartCoroutine(ChangeState());
         //Debug.Log("Now Wait");
@@ -222,7 +223,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public IEnumerator SubstateExecution()
     {
-        var currentState = _status.States;
+        var currentState = _status.States; 
         yield return StartCoroutine(currentState.Execute(_enemy, _subStateNum));
 
     }

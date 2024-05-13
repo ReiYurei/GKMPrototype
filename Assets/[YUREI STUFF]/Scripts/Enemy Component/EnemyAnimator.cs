@@ -6,8 +6,8 @@ using System;
 using FMODUnity;
 
 // Summary:
-// Manages the animation behavior of an _enemy character in the game.
-// It controls the _enemy's animation normalStates, flipping animations based on player position,
+// Manages the bulletHellanimation behavior of an _enemy character in the game.
+// It controls the _enemy's bulletHellanimation normalStates, flipping animations based on player position,
 // and triggering _projectileObj-related events.
 public class EnemyAnimator : MonoBehaviour
 {
@@ -21,15 +21,15 @@ public class EnemyAnimator : MonoBehaviour
     [SerializeField]private SO_PlayerInfo _playerInfo;
 
     [Tooltip("Key and Event to store Game Event in dictionary")]
-    [SerializeField]private List<VoidGameEventWithKey<string>> _projectileEvent;
-    private Dictionary<string, SO_VoidGameEvent> _projectileDict;
+    //[SerializeField]private List<VoidGameEventWithKey<string>> _projectileEvent;
+    //private Dictionary<string, SO_VoidGameEvent> _projectileDict;
 
     private Animator _animator;
 
     //Initialize the _projectileObj dictionary
     private void Awake()
     {
-        _projectileDict = new Dictionary<string, SO_VoidGameEvent>();
+        //_projectileDict = new Dictionary<string, SO_VoidGameEvent>();
     }
 
     // Subscribes to events and populates the _projectileObj dictionary and initialize the required component
@@ -47,11 +47,11 @@ public class EnemyAnimator : MonoBehaviour
             _status = _enemy.StatusData;
             _status.NotifyAnimChange += OnAnimChange;
         }
-        for (int i = 0; i < _projectileEvent.Count; i++)
-        {
-            if (_projectileEvent[i] == null) continue;
-            _projectileDict.Add(_projectileEvent[i].Key, _projectileEvent[i].GameEvent);
-        }
+        //for (int i = 0; i < _projectileEvent.Count; i++)
+        //{
+        //    if (_projectileEvent[i] == null) continue;
+        //    _projectileDict.Add(_projectileEvent[i].Key, _projectileEvent[i].GameEvent);
+        //}
    
         _animator = GetComponent<Animator>();
         
@@ -64,7 +64,7 @@ public class EnemyAnimator : MonoBehaviour
             _status.NotifyAnimChange -= OnAnimChange;
     }
 
-    //Flip the animation and then play the animation
+    //Flip the bulletHellanimation and then play the bulletHellanimation
     private void OnAnimChange()
     {
         if (_enemy == null) return;
@@ -92,14 +92,12 @@ public class EnemyAnimator : MonoBehaviour
     }
 
     //Used for Animation Event function to notify _projectileObj engine, supposedly to start the engine
-    public void OnProjectile(string key)
+    public void OnProjectile(SO_VoidGameEvent projectileEvent)
     {
         if (_enemy == null) return;
-        if (_enemy.GameState.State is CutsceneState) return;
-        _projectileDict.TryGetValue(key, out SO_VoidGameEvent gameEvent);
-        if (gameEvent == null) return;
-        gameEvent.Raise();
-        Debug.Log("Raising Projectile Event");
+        if (projectileEvent == null) return;
+        if (_enemy.GameState.State is RegularGameplayState || _enemy.GameState.State is BulletHellGameplayState)
+            projectileEvent.Raise();
     }
     public void OnPlaySound(string key)
     {

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e8615309ab3f834494f7524d4c734c3, type: 3}
   m_Name: Seeker Badge
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: c900ae1a8d4306f42a2b792e5a49c130, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: f26391f8f3edf7a448a2c9edd1f3fa28, type: 3}
   <Name>k__BackingField: Badge
   <Description>k__BackingField: A badge to mark your role as a Seeker

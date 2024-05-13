@@ -59,11 +59,12 @@ public class GameplayTransitionManager : MonoBehaviour
     private GameplayState _previousState;
     private enum GameplayState
     {
-        RegularPhase, BulletHellPhase
+        RegularPhase, BulletHellPhase, Default
     }
 
     public void Start()
     {
+        _previousState = GameplayState.Default;
         _camera = Camera.main;
         _player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>();
         _astral = GameObject.FindGameObjectWithTag("Astral Entity")?.GetComponent<Transform>();
@@ -145,7 +146,6 @@ public class GameplayTransitionManager : MonoBehaviour
         StartCoroutine(MoveEntitiesToPoint(GameplayState.BulletHellPhase));
 
         StartCoroutine(CoroutineProgress(GameplayState.BulletHellPhase));
-        _previousState = GameplayState.BulletHellPhase;
 
     }
     [Button("Debug Raise : Regular phase")]
@@ -162,7 +162,6 @@ public class GameplayTransitionManager : MonoBehaviour
         StartCoroutine(MoveEntitiesToPoint(GameplayState.RegularPhase));
 
         StartCoroutine(CoroutineProgress(GameplayState.RegularPhase));
-        _previousState = GameplayState.RegularPhase;
 
     }
     IEnumerator CoroutineProgress(GameplayState phase)
@@ -187,7 +186,8 @@ public class GameplayTransitionManager : MonoBehaviour
                 ChangeStateEvent.Raise(_bulletHellPhase);
                 break;
         }
- 
+        _previousState = phase;
+
         PhaseEndEvent.Raise();
         Debug.Log("Phase Done");
 
@@ -256,7 +256,7 @@ public class GameplayTransitionManager : MonoBehaviour
                 targetPosUp = new Vector3(_collissionTop.position.x, _defaultUpperWallAnchor.y + (collissionHeight / 2));
                 targetPosBottom = new Vector3(_collissionBottom.position.x, _defaultBottomWallAnchor.y - (collissionHeight / 2));
 
-                if (debug)
+                if (debug  | _previousState == GameplayState.Default)
                 {
                     _wallLeft.transform.position = targetPosLeft;
                     _wallRight.transform.position = targetPosRight;
@@ -267,6 +267,7 @@ public class GameplayTransitionManager : MonoBehaviour
                     break;
                 }
                 if (_previousState == GameplayState.RegularPhase) break;
+
                 _collissionTop.position = initialUpPos * 4;
                 _collissionBottom.position = InitialBottomPos * 4;
 
@@ -277,6 +278,7 @@ public class GameplayTransitionManager : MonoBehaviour
                     _collissionBottom.position = targetPosBottom;
                     break;
                 }
+
                 while (time < _timeToWallTarget)
                 {
                     time += Time.deltaTime;
@@ -464,7 +466,7 @@ public class GameplayTransitionManager : MonoBehaviour
                 offset2 = Vector3.Distance(_stageManager.astralSpawnPoint.position, _astral.position);
                 arcPoint1 = new Vector3(Random.Range(-10, 0), offset1 / 2, _player.position.z);
                 arcPoint2 = new Vector3(Random.Range(0, 10), offset2 / 2, _astral.position.z);
-                if (_previousState == GameplayState.RegularPhase) break;
+                if (_previousState == GameplayState.RegularPhase | _previousState == GameplayState.Default) break;
                 if (_player.position == targetPlayerPos) break;
                 while (time < _timeToEntityTarget)
                 {

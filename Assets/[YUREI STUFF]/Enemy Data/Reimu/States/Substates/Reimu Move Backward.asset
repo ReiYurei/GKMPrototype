@@ -15,5 +15,6 @@ MonoBehaviour:
   enemyStates: 9
   playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
   isBackward: 1
-  travelDistance: 1
-  travelSpeed: 1
+  moveDuration: 1
+  travelDistance: 10
+  travelSpeed: 2

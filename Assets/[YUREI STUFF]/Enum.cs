@@ -2,6 +2,10 @@ public enum EnemyStates
 {
     Default, Normal, Enraged ,Raging, Break, Stunned, Taunt,Flinched,Death, Moving, Idle, OutOfRange, InRange
 }
+public enum EnemyBulletHellAnimation
+{
+    Center,Left,Right
+}
 public enum ComparatorType
 {
     Equal, Inequal, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual

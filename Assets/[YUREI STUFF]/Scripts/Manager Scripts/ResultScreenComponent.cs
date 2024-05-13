@@ -215,7 +215,7 @@ public class ResultScreenComponent : MonoBehaviour, IAudioSource
         int count = 0;
         while (count < moneyAmount)
         {
-            count += Mathf.RoundToInt(Time.deltaTime * 500f);
+            count += Mathf.RoundToInt(Time.deltaTime * 1500f);
             _moneyAmount.text = count.ToString();
             yield return null;
         }

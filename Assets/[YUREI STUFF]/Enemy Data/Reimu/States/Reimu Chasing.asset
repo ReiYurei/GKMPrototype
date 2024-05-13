@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65517a54509389a42a0509671f47fb6b, type: 3}
   m_Name: Reimu Chasing
   m_EditorClassIdentifier: 
-  _subStates: []
+  _subStates:
+  - {fileID: 11400000, guid: ddd48b6dea95b0b46be138d042be8cb3, type: 2}

@@ -8,6 +8,7 @@ public class SO_Walking : SO_Enemy_Substate
     [SerializeField] EnemyStates enemyStates = EnemyStates.Moving;
     [SerializeField] SO_PlayerInfo playerInfo;
     [SerializeField] bool isBackward;
+    [SerializeField] float moveDuration;
     [SerializeField] float travelDistance;
     [SerializeField] float travelSpeed;
     int moveEndHash;
@@ -31,12 +32,13 @@ public class SO_Walking : SO_Enemy_Substate
             travelDistance = Mathf.Abs(travelDistance); //Reverted Towards
         }
         MoveDirection(enemy, isBackward);
-
-        while  (enemy.StatusData.IsMoving == true) 
+        float time = 0f;
+        while  (time < moveDuration) 
         {
+            time += Time.deltaTime;
             distance = Vector3.Distance(enemy.transform.position,targetPosition );
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, targetPosition, travelSpeed * Time.deltaTime );
-            if (distance / travelSpeed <= 0.25f && hasExecutedOnce == false)
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position,targetPosition, travelSpeed * Time.deltaTime);
+            if (time / moveDuration >= 0.85f && hasExecutedOnce == false)
             {
                 enemy.StatusData.SetNoFlip(true);
                 enemy.StatusData.SetIsMoving(false);

@@ -110,7 +110,7 @@ AnimationClip:
   - time: 0.6666667
     functionName: OnProjectile
     data: Seal Spread
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

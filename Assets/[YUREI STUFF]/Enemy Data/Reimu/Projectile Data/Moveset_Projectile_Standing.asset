@@ -16,6 +16,6 @@ MonoBehaviour:
   playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
   projectileEvents: []
   delay: 0
-  waitUntilShootingDone: 0
+  waitUntilShootingDone: 1
   hasAnimation: 1
   projectile: 1

@@ -97,6 +97,7 @@ public class SO_EnemyStatus : BaseStatus
     [field: SerializeField][Required]public BooleanVariable B_Poisoned { get; private set; }
     [field: SerializeField][Required]public BooleanVariable B_Break { get; private set; }
     [field: SerializeField][Required]public BooleanVariable B_StatusBuildUp { get; private set; }
+
 #if UNITY_EDITOR //Editor Variable
     [SerializeField] private bool _enraged;
     [SerializeField] private bool _poisoned;
@@ -192,8 +193,9 @@ public class SO_EnemyStatus : BaseStatus
     [field: SerializeField][Required] public FloatVariable F_RageMeter { get; private set; }
     [field: SerializeField][Required] public FloatVariable F_StunMeter { get; private set; }
     [field: SerializeField][Required] public FloatVariable F_PoisonMeter { get; private set; }
+
 #if UNITY_EDITOR //Editor Variable
-  
+
     [SerializeField] private float _staminaMeter;
     [SerializeField] private float _rageMeter;
     [SerializeField] private float _stunMeter;

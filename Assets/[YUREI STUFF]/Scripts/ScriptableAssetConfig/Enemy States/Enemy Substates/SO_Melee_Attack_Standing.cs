@@ -47,6 +47,8 @@ public class SO_Melee_Attack_Base : SO_Base_Attack_Fixed
     public override IEnumerator Execute(Enemy enemy)
     {
         enemy.StatusData.NotifyAttacking(true);
+        enemy.StatusData.SetMotionValue(motionValue);
+        enemy.StatusData.isGuardable = isGuardable;
         yield return new WaitUntil(() => enemy.StatusData.IsNextAttackReady == true);
         enemy.StatusData.NotifyAttacking(false);
 

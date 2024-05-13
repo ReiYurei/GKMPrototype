@@ -327,7 +327,13 @@ public class ShopUIController : MonoBehaviour, IAudioSource
         _selectedItem = data;
         var spell = data.shopItem.SpellCombo.Spell;
         SpellIcon.color = Color.white;
-        if (spell.Icon != null) SpellIcon.sprite = spell.Icon;
+        if (spell.Icon != null)
+        {
+            SpellIcon.sprite = spell.Icon;
+            SpellIcon.type = Image.Type.Simple;
+        }
+        
+
         SpellName.text = spell.SpellName;
         SpellDescription.text = spell.Description;
         SpellCooldown.text = spell.Cooldown.ToString();

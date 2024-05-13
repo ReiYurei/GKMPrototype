@@ -9,7 +9,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Moveset_Projectile_Standing", menuName = "Enemy/Moveset/Projectile/Standing")]
 public class SO_Projectile_Attack_Base : SO_Base_Attack_Fixed
 {
-
     [InlineEditor]public List<SO_VoidGameEvent> projectileEvents;
     public float delay;
     public bool waitUntilShootingDone;

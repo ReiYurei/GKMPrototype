@@ -77,8 +77,8 @@ MonoBehaviour:
     <Music>k__BackingField: Fun
     <SpeakerName>k__BackingField: Hub Gal
     <SpeechPitch>k__BackingField: 0.75
-    <SpeechText>k__BackingField: <size=50>W <pause=0.25>E <pause=0.25>L <pause=0.25>C
-      <pause=0.25>O <pause=0.25>M <pause=0.25>E!!!<pause=1.5></size>
+    <SpeechText>k__BackingField: <size=50>W <pause=0.15>E <pause=0.15>L <pause=0.15>C
+      <pause=0.15>O <pause=0.15>M <pause=0.15>E!!!<pause=1.5></size>
     <AutoSkipAtEnd>k__BackingField: 1
     _voidGameEvent:
       <Key>k__BackingField: 

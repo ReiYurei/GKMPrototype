@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b107a8958db152f47baa3da33eacbd65, type: 3}
+  m_Name: Substates_Move_Point - Copy
+  m_EditorClassIdentifier: 
+  <Observer>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
+  _isBulletHellPhaseAnimation: 1
+  bulletHellanimation: 0
+  enemyStates: 9
+  _playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
+  _toPlayer: 0
+  _distance: 0
+  _waypointIndex: 0
+  _offset: {x: 0, y: 0, z: 0}
+  _constantSpeed: 0
+  _moveSpeed: 0
+  _speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _timeToReachPoint: 2

@@ -38,7 +38,7 @@ public class MissionCompletionUIComponent : MonoBehaviour
         StartCoroutine(MissionClear());
         IEnumerator MissionClear()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             yield return StartCoroutine(Fade(Color.clear,Color.black,2.5f));
             yield return new WaitForSeconds(1f);
             yield return StartCoroutine(CompletionMarking(CompletionMark.Clear));

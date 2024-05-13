@@ -42,13 +42,18 @@ public class AnimationHash
     public static readonly int Enemy_P_Projectile_4 = Animator.StringToHash("Enemy_P_Projectile_4");
     public static readonly int Enemy_P_Projectile_5 = Animator.StringToHash("Enemy_P_Projectile_5");
 
-   // public static readonly int Enemy_P_Projectile_1_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_1_Loop");
-   // public static readonly int Enemy_P_Projectile_2_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_2_Loop");
-   // public static readonly int Enemy_P_Projectile_3_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_3_Loop");
-   // public static readonly int Enemy_P_Projectile_4_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_4_Loop");
-   // public static readonly int Enemy_P_Projectile_5_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_5_Loop");
+    public static readonly int Enemy_BH_Center = Animator.StringToHash("Enemy_P_Projectile_5");
+    public static readonly int Enemy_BH_Left = Animator.StringToHash("Enemy_BH_Left");
+    public static readonly int Enemy_BH_Right = Animator.StringToHash("Enemy_BH_Right");
 
-    public static Dictionary<int, int> enemyProjectileDict = new Dictionary<int, int>()
+
+    // public static readonly int Enemy_P_Projectile_1_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_1_Loop");
+    // public static readonly int Enemy_P_Projectile_2_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_2_Loop");
+    // public static readonly int Enemy_P_Projectile_3_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_3_Loop");
+    // public static readonly int Enemy_P_Projectile_4_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_4_Loop");
+    // public static readonly int Enemy_P_Projectile_5_Loop = AnimatorComponent.StringToHash("Enemy_P_Projectile_5_Loop");
+
+    private static Dictionary<int, int> enemyProjectileDict = new Dictionary<int, int>()
     {
         {(int)ProjectileSlot.Projectile_1, Enemy_P_Projectile_1},
         {(int)ProjectileSlot.Projectile_2, Enemy_P_Projectile_2},
@@ -57,7 +62,7 @@ public class AnimationHash
         {(int)ProjectileSlot.Projectile_5, Enemy_P_Projectile_5},
     };
 
-    public static Dictionary<int, int> enemyGeneralDict = new Dictionary<int, int>()
+    private static Dictionary<int, int> enemyGeneralDict = new Dictionary<int, int>()
     {
         {(int)EnemyStates.Idle, Enemy_Idle},
         {(int)EnemyStates.Default, Enemy_Idle},
@@ -69,7 +74,7 @@ public class AnimationHash
         {(int)EnemyStates.Death, Enemy_Death },
 
     };
-    public static Dictionary<(int,int), int> attackDict = new Dictionary<(int, int), int>()
+    private static Dictionary<(int,int), int> attackDict = new Dictionary<(int, int), int>()
     {
         {( (int)AttackPowerType.Weak,(int)AttackRangeType.Close )       ,Enemy_Weak_Close_Attack},
         {( (int)AttackPowerType.Weak,(int)AttackRangeType.Midrange)     ,Enemy_Weak_Midrange_Attack},
@@ -81,9 +86,22 @@ public class AnimationHash
         {( (int)AttackPowerType.Strong, (int)AttackRangeType.Midrange)  ,Enemy_Strong_Midrange_Attack},
         {( (int)AttackPowerType.Strong,(int)AttackRangeType.Long)       ,Enemy_Strong_Long_Attack},
 
+    };
+    private static Dictionary<int, int> enemyBulletHellMovement = new Dictionary<int, int>()
+    {
+        {(int)EnemyBulletHellAnimation.Center, Enemy_BH_Center},
+        {(int)EnemyBulletHellAnimation.Left, Enemy_BH_Left},
+        {(int)EnemyBulletHellAnimation.Right, Enemy_BH_Right},
 
     };
-
+    public static int Enemy_BulletHellPhase_Animation(int type)
+    {
+        if (enemyBulletHellMovement.ContainsKey(type))
+        {
+            return enemyBulletHellMovement[type];
+        }
+        else return Enemy_Idle;
+    }
     public static int Enemy_Projectile(int type)
     {
         if (enemyProjectileDict.ContainsKey(type))

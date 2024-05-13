@@ -7,7 +7,7 @@ using FMOD;
 
 #if UNITY_EDITOR
 #endif
-public class Enemy : MonoBehaviour, IStatusInflictable, IAudioSource
+public class Enemy : MonoBehaviour, IAudioSource
 {
     [field: SerializeField][InlineEditor]public StateObserver GameState { get; private set; }
     [field: SerializeField][InlineEditor][Required]public SO_EnemyStatus StatusData { get; private set; }
@@ -71,28 +71,10 @@ public class Enemy : MonoBehaviour, IStatusInflictable, IAudioSource
         StatusData.B_StatusBuildUp.value = true;
         GravitySet(50);
     }
-    public void OnDamage(float damage, bool isGuardable = true)
-    {
-        StatusData.AffectRage(damage);
-        StatusData.SetHealth(StatusData.GetHealth() - damage);
-    }
 
 
-    public void OnStatusInflicted(float value, BaseStatusEffect effect)
-    {
-        switch(effect)
-        {
-            case SO_Stun:
-                StatusData.AffectStun(value);
-                return;
-            case SO_Poison:
-                StatusData.AffectPoison(value);
-                return;
-            default:
-                StatusEffectContainerComponent.Inflict(effect);
-                return;
-        }
-    }
+
+
     public float speed;
     public float acceleration;
     void OnAnimatorMove()

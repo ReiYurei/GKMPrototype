@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 4190857727849524212}
   - component: {fileID: 6951769955058707489}
   - component: {fileID: 6233910341136611586}
+  - component: {fileID: 8621403589266046370}
   m_Layer: 5
   m_Name: Abandon Mission
   m_TagString: Untagged
@@ -568,6 +569,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8621403589266046370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829232463682937812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799670d07a5a94e488bc66df024e605e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: cc188420f61a6bb48ada43476e8c3f2c, type: 2}
 --- !u!1 &5302063158609207779
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +594,7 @@ GameObject:
   - component: {fileID: 928800975003595414}
   - component: {fileID: 4895274986351561057}
   - component: {fileID: 9023709902158795243}
+  - component: {fileID: 1534009272531283068}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -701,6 +716,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1534009272531283068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5302063158609207779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799670d07a5a94e488bc66df024e605e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: cc188420f61a6bb48ada43476e8c3f2c, type: 2}
 --- !u!1 &6084904618741683896
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b51ec4b24f5f440895740d3539260f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: a1fe707e5d1fc4e418c9b61f98791013, type: 2}
   <CurrentState>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   <ChangeStateEvent>k__BackingField: {fileID: 11400000, guid: dbf6815ba32421b469fdddd493622372, type: 2}
   <ResumeEvent>k__BackingField: {fileID: 11400000, guid: ce366284564e48f4eb1cfc537c45d3bf, type: 2}
@@ -821,6 +850,7 @@ GameObject:
   - component: {fileID: 1120976206223228356}
   - component: {fileID: 6096187666983132844}
   - component: {fileID: 3305585273973781416}
+  - component: {fileID: 4162195865983065694}
   m_Layer: 5
   m_Name: Return to Title
   m_TagString: Untagged
@@ -942,6 +972,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4162195865983065694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6133068266345765110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799670d07a5a94e488bc66df024e605e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: cc188420f61a6bb48ada43476e8c3f2c, type: 2}
 --- !u!1 &8752103106077984283
 GameObject:
   m_ObjectHideFlags: 0

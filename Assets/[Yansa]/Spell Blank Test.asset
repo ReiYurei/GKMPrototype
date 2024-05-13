@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3f6daef474c394680584b801c54dea, type: 3}
   m_Name: Spell Blank Test
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: c900ae1a8d4306f42a2b792e5a49c130, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 288e2b3f11f692d4ca27849ceb05ad65, type: 3}
   SpellName: Rejuvenate
   Description: Restore your Health 25+
   Consumption: 10

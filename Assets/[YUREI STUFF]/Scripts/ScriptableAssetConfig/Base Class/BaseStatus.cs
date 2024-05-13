@@ -33,14 +33,13 @@ public abstract class BaseStatus : ScriptableObject
         }
     }
 
-    public float _rawPower;
-    public float _movementSpeed;
-    public float Power(float modifier)
+    [field:SerializeField]public float RawPower { get; private set; }
+    [field:SerializeField]public float MovementSpeed { get; private set; }
+    [field: SerializeField][Required] public int MotionValue { get; private set; }
+    public bool isGuardable;
+    public void SetMotionValue(int value)
     {
-        return _rawPower * modifier;
+        MotionValue = value;
     }
-
-    
-
 
 }

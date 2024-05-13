@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b107a8958db152f47baa3da33eacbd65, type: 3}
   m_Name: Substates_Move_Point
   m_EditorClassIdentifier: 
+  <Observer>k__BackingField: {fileID: 11400000, guid: 32ef7b8c8dc3e49429b7d1fea96dfe42, type: 2}
   enemyStates: 9
-  playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
-  waypointIndex: 0
+  _playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
+  _toPlayer: 1
+  _distance: 3
+  _waypointIndex: 0
   _speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -50,3 +53,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   _timeToReachPoint: 2
   _offset: {x: 0, y: 0, z: 0}
+  _constantSpeed: 0
+  _moveSpeed: 0

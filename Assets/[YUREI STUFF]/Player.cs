@@ -8,7 +8,7 @@ using UnityEditor;
 
 #if UNITY_EDITOR
 #endif
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField,Required]SO_PlayerInfo playerInfo;
     public Rigidbody2D _rb;
@@ -114,6 +114,10 @@ public class Player : MonoBehaviour
 
     public void OnDamage(float damage)
     {
-        Debug.Log("Damaged!");
+    }
+
+    public void OnDamage(float damage, bool isGuardable = true)
+    {
+        Debug.Log("<color=yellow>Damaged!</color>");
     }
 }
