@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Projectile Data
   m_EditorClassIdentifier: 
   types: 0
+  damage: 0
   isLooping: 1
   loopDuration: 10
-  numberOfSegments: 10
+  numberOfSegments: 12
   numberOfShoot: 20
   projectileSpeed: 10
   delayBetweenShot: 0.15
+  spawnRadius: 1.5
   projectileLifeTime: 3
+  isGuardable: 1
   enableAutoRotation: 1
   rotationDegree: 2
   rotationSpeed: 20

@@ -19,10 +19,20 @@ public class DEBUGGING : MonoBehaviour
     public SO_EnemyStatus enemyStatus;
     public Enemy enemy;
     public bool limitFramerate;
+    public bool vsync;
+    public SO_VoidGameEvent projectileEvent;
     public int FrameRate;
 
     private void Awake()
     {
+        if (vsync)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+        else
+        {
+            QualitySettings.vSyncCount = 0;
+        }
         if(limitFramerate)
         {
             Application.targetFrameRate = FrameRate;
@@ -33,6 +43,10 @@ public class DEBUGGING : MonoBehaviour
         }
     }
 
+    public void Shoot()
+    {
+        projectileEvent.Raise();
+    }
     private void Start()
     {
        rageIcon.SetActive(false);
@@ -58,10 +72,10 @@ public class DEBUGGING : MonoBehaviour
         }
 
        
-       OnStun();
-       OnPoison();
-       OnRage();
-       OnBreak();
+      // OnStun();
+      // OnPoison();
+      // OnRage();
+      // OnBreak();
     }
     void OnStun()
     {

@@ -47,7 +47,7 @@ public struct RotationJob : IJob
             }
 
         }
-        if (targetAngleResult[0] > 360f)
+        if (targetAngleResult[0] >= 360f)
         {
             targetAngleResult[0] = 0;
         }
@@ -97,7 +97,7 @@ public struct ChangeAngleRangeJob : IJob
             }
 
         }    
-       if (angleRangeResult[0] > maxAngleChange)
+       if (angleRangeResult[0] >= maxAngleChange)
        {
            angleRangeResult[0] = 0;
        }
@@ -109,6 +109,10 @@ public struct ProjectileJobSingle : IJobParallelFor
 {
     [ReadOnly] public float3 originPos;
     [ReadOnly] public NativeArray <float3> direction;
+    [ReadOnly] public float3 playerPos;
+
+    public NativeArray<float> distanceToPlayer;
+    public NativeArray<float3> originRadius;
     public NativeArray<float3> position;
     public NativeArray<float3> directionPos;
     public NativeArray<float> delayTime;
@@ -116,17 +120,20 @@ public struct ProjectileJobSingle : IJobParallelFor
     public NativeArray<bool> setActive;
     public NativeArray<bool> hitPlayer;
 
+    public float spawnRadius;
     public float duration;
     public float defaultDelayTime;
     public float defaultLifeTime;
     public bool isLooping;
-    public float speed;
+    [ReadOnly] public float speed;
     public int segment;
     [ReadOnly]public float deltaTime;
     [ReadOnly]public float fixedDeltaTime;
 
     public void Execute(int index)
     {
+        originRadius[index] = originPos + (directionPos[index] * spawnRadius);
+        distanceToPlayer[index] = math.distance(position[index], playerPos);
         if (isLooping)
         {
             if (lifeTime[index] >= duration)
@@ -134,11 +141,11 @@ public struct ProjectileJobSingle : IJobParallelFor
                 setActive[index] = false;
                 return;
             }
-            if (delayTime[index] > 0)
+            if (delayTime[index] >= 0)
             {
                 delayTime[index] -= deltaTime;
                 setActive[index] = false;
-                position[index] = originPos;
+                position[index] = originRadius[index];
                 directionPos[index] = direction[index % segment];
                 return;
             }
@@ -157,23 +164,22 @@ public struct ProjectileJobSingle : IJobParallelFor
                 return;
             }
           
-            position[index] = originPos;
+            position[index] = originRadius[index];
             delayTime[index] = 0;
             lifeTime[index] = defaultLifeTime;
             directionPos[index] = direction[index % segment];
             hitPlayer[index] = false;
-            setActive[index] = true;
             return;
         }
-        if (delayTime[index] > 0)
+        if (delayTime[index] >= 0)
         {
             delayTime[index] -= deltaTime;
             setActive[index] = false;
-            position[index] = originPos;
+            position[index] = originRadius[index];
             directionPos[index] = direction[index % segment];
             return;
         }
-        else if (lifeTime[index] >= 0 && hitPlayer[index] == false)
+        else if (lifeTime[index] >= 0 && hitPlayer[index] == false )
         {
             setActive[index] = true;
             lifeTime[index] -= deltaTime;

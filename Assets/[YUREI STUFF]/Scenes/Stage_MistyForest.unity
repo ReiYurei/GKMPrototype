@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 480757654}
   - component: {fileID: 480757655}
   - component: {fileID: 480757657}
+  - component: {fileID: 480757658}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -598,6 +599,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _listenersVoid: []
   _listenersParam: []
+--- !u!114 &480757658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480757650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba56ae4a43a31f54bbe0d9b97ebab84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _margin: 1.25
+  defaultLeftWallAnchor: {x: 0, y: 0, z: 0}
+  defaultRightWallAnchor: {x: 0, y: 0, z: 0}
+  defaultBottomWallAnchor: {x: 0, y: 0, z: 0}
+  defaultUpperWallAnchor: {x: 0, y: 0, z: 0}
+  debug: 1
 --- !u!1 &986954188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1488,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1359682837990579236, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -27.178282
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233956336022172056, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2233956336022172056, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
       propertyPath: _camera
       value: 
@@ -1477,6 +1504,14 @@ PrefabInstance:
       propertyPath: _targetCamAnchor
       value: 
       objectReference: {fileID: 1370313601}
+    - target: {fileID: 5554619227621612475, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -13.369808
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170444479434145137, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 23.630192
+      objectReference: {fileID: 0}
     - target: {fileID: 7678420690269891305, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
       propertyPath: m_Name
       value: Gameplay Transition Manager
@@ -1520,6 +1555,10 @@ PrefabInstance:
     - target: {fileID: 7854049729400365044, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8575690720326491394, guid: de6fcf3aa856fea4792e4493b283fa48, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 39.14604
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

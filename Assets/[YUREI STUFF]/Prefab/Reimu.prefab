@@ -1618,17 +1618,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b7c044ea3c8c94d951612c5514af85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSound: Sound1
+  _projectileSound: Sound2
   _data: {fileID: 11400000, guid: deb9a10fa53544f40ae8427db14f2222, type: 2}
   _targetAngle: 0
   _angleRange: 360
   _canAim: 0
+  _playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
+  _offset: {x: 0, y: 0}
   _projectileObj: {fileID: 14080505516170527, guid: 5e623149bd0d2aa498017b3ccf4e680c, type: 3}
   _projectiles: []
   _origin: {fileID: 239704697395713498}
-  _particle: {fileID: 3061623175963133106, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
+  _particle: {fileID: 4168061595867377726, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
   particlePoolCount: 20
   _particles: []
+  _collissionDistance: 3
 --- !u!1 &4652478206531035968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,13 +2144,16 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: a5dca9176bcaf8a468e139e7db40c599, type: 2}
   _targetAngle: 0
   _angleRange: 360
-  _canAim: 0
+  _canAim: 1
+  _playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
+  _offset: {x: 0, y: 0}
   _projectileObj: {fileID: 14080505516170527, guid: 5e623149bd0d2aa498017b3ccf4e680c, type: 3}
   _projectiles: []
   _origin: {fileID: 5425010894296878212}
-  _particle: {fileID: 3061623175963133106, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
+  _particle: {fileID: 4168061595867377726, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
   particlePoolCount: 20
   _particles: []
+  _collissionDistance: 3
 --- !u!1 &7639965935048258514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,10 +2351,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ade8dcc7525c9a4fbd13c9e4dfac147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AudioCollection>k__BackingField: {fileID: 11400000, guid: 74d614a4fe043394898297208db27510, type: 2}
   <Collider>k__BackingField: {fileID: 1119333284585960133}
   <Enemy>k__BackingField: {fileID: 8762632723304983498}
+  particle: {fileID: 1073551963731633811, guid: 686ab25747c9ddf479274191a0a9fdaa, type: 3}
+  particleContainer: {fileID: 7478996030401099573, guid: 69775bc64ba2e884ba2c761dbe8c3734, type: 3}
+  poolCount: 10
   hitEffectDuration: 0.25
+  offset: {x: 0, y: 0.5, z: 0}
   hitColor: {r: 0.6431373, g: 0.10588236, b: 0.039215688, a: 1}
+  stunColor: {r: 1, g: 0.8937694, b: 0, a: 1}
+  poisonColor: {r: 1, g: 0, b: 0.95441294, a: 1}
   _parentRenderer: {fileID: 4764845509873443006}
 --- !u!212 &1282014813024035412
 SpriteRenderer:
@@ -2446,17 +2459,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b7c044ea3c8c94d951612c5514af85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSound: Sound1
+  _projectileSound: Sound2
   _data: {fileID: 11400000, guid: a5dca9176bcaf8a468e139e7db40c599, type: 2}
   _targetAngle: 0
   _angleRange: 360
   _canAim: 0
+  _playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
+  _offset: {x: 0, y: 0}
   _projectileObj: {fileID: 14080505516170527, guid: 5e623149bd0d2aa498017b3ccf4e680c, type: 3}
   _projectiles: []
   _origin: {fileID: 765354185740870978}
-  _particle: {fileID: 3061623175963133106, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
+  _particle: {fileID: 4168061595867377726, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
   particlePoolCount: 20
   _particles: []
+  _collissionDistance: 3
 --- !u!1 &7934398657902642158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,13 +2732,16 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: deb9a10fa53544f40ae8427db14f2222, type: 2}
   _targetAngle: 0
   _angleRange: 360
-  _canAim: 0
+  _canAim: 1
+  _playerInfo: {fileID: 11400000, guid: c5ca726ace86d804d852fc79d7ee7457, type: 2}
+  _offset: {x: 0, y: 0}
   _projectileObj: {fileID: 14080505516170527, guid: 5e623149bd0d2aa498017b3ccf4e680c, type: 3}
   _projectiles: []
   _origin: {fileID: 580560099775301495}
-  _particle: {fileID: 3061623175963133106, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
+  _particle: {fileID: 4168061595867377726, guid: dc78bbd9decd80748ac4da86fb7bfcdc, type: 3}
   particlePoolCount: 20
   _particles: []
+  _collissionDistance: 3
 --- !u!1 &8255284490933193082
 GameObject:
   m_ObjectHideFlags: 0

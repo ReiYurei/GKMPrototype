@@ -1448,8 +1448,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ProjectileLauncherTest, PackageAssembly
+      - m_Target: {fileID: 1041765624}
+        m_TargetAssemblyTypeName: DEBUGGING, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 1
         m_Arguments:
@@ -2051,8 +2051,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba56ae4a43a31f54bbe0d9b97ebab84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 519420031}
-  camBox: {fileID: 182348814}
+  _margin: 1.2
+  defaultLeftWallAnchor: {x: 0, y: 0, z: 0}
+  defaultRightWallAnchor: {x: 0, y: 0, z: 0}
+  defaultBottomWallAnchor: {x: 0, y: 0, z: 0}
+  defaultUpperWallAnchor: {x: 0, y: 0, z: 0}
+  debug: 0
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8427,6 +8431,8 @@ MonoBehaviour:
   enemyStatus: {fileID: 11400000, guid: 8802ab853ec4fc04093784b3c6b5dc45, type: 2}
   enemy: {fileID: 1823556888058896231}
   limitFramerate: 1
+  vsync: 1
+  projectileEvent: {fileID: 11400000, guid: 5f19f85fc55662e40ac1527b529599fe, type: 2}
   FrameRate: 60
 --- !u!1001 &1059124289
 PrefabInstance:

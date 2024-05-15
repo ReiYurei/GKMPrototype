@@ -9,12 +9,14 @@ public class AudioManager : MonoBehaviour
 {
     [field: SerializeField] public SO_AudioFMODEventCollection MusicCollection { get; private set; }
     [field: SerializeField] public SO_AudioFMODEventCollection ProjectileCollection { get; private set; }
+    [field: SerializeField] public SO_AudioFMODEventCollection GenericSoundCollection { get; private set; }
 
     public static AudioManager Instance { get; private set; }
     public void Start()
     {
-        MusicCollection.InitializeStartData();
-        ProjectileCollection.InitializeStartData();
+        if (MusicCollection != null) MusicCollection.InitializeStartData();
+        if (ProjectileCollection != null) ProjectileCollection.InitializeStartData();
+        if (GenericSoundCollection != null) GenericSoundCollection.InitializeStartData();
     }
     public void Awake()
     {
@@ -30,7 +32,8 @@ public class AudioManager : MonoBehaviour
     }
     public void Stop()
     {
-        MusicCollection.StopAllInstance("Volume", 0,1,2f);
-        ProjectileCollection.StopAllInstance();
+        if (MusicCollection != null) MusicCollection.StopAllInstance("Volume", 0, 1, 2f);
+        if (ProjectileCollection != null) ProjectileCollection.StopAllInstance();
+        if (GenericSoundCollection != null) GenericSoundCollection.StopAllInstance();
     }
 }

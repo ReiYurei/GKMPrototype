@@ -16,6 +16,8 @@ public class SO_Projectile_Data : ScriptableObject
     public int numberOfShoot;
     public float projectileSpeed;
     public float delayBetweenShot;
+    public float spawnRadius;
+
     public float projectileLifeTime;
     public bool isGuardable;
     [Header("Rotation Properties")]

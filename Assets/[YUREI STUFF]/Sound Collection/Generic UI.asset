@@ -21,3 +21,11 @@ MonoBehaviour:
         Data3: 75677369
         Data4: -531872571
       Path: event:/General/UI/Navigate
+  - <Key>k__BackingField: Selectable
+    <AudioReference>k__BackingField:
+      Guid:
+        Data1: 210267424
+        Data2: 1282815221
+        Data3: 75677369
+        Data4: -531872571
+      Path: event:/General/UI/Navigate

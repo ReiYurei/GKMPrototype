@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EventListenerComponent))]
-public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
+public class HubCounterComponent : MonoBehaviour, IInteractable
 {
     [field: SerializeField] public SO_CompletionObserver Observer { get; private set; }
-    [field: SerializeField] public SO_AudioFMODEventCollection AudioCollection { get; private set; }
 
     [field: Header("Quest")]
     [field: SerializeField] public SO_QuestListing AllQuest { get; private set; }
@@ -33,7 +32,6 @@ public class HubCounterComponent : MonoBehaviour, IInteractable, IAudioSource
     [field: Header("Other")]
     [SerializeField] private HubState _hubState;
     private Queue<SO_StoryData> _storyQueue;
-
 
     public void OnDisable()
     {
