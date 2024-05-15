@@ -21,6 +21,7 @@ MonoBehaviour:
   projectileSpeed: 10
   delayBetweenShot: 0.15
   spawnRadius: 1.5
+  hitboxSize: 0.15
   projectileLifeTime: 3
   isGuardable: 1
   enableAutoRotation: 1
