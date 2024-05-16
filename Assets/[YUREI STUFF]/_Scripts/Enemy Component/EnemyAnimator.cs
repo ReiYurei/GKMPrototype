@@ -72,7 +72,7 @@ public class EnemyAnimator : MonoBehaviour
         PlayAnim(_status.AnimationHash, _status.AnimationSpeed);
     }
 
-    //Used for Animation Event function to notify the current attack reached its last frame within halved duration
+    //Used for Animation Event function to notify the current moveset reached its last frame within halved duration
     protected void OnHalved()
     {
         if (_enemy == null) return;
@@ -83,7 +83,7 @@ public class EnemyAnimator : MonoBehaviour
 
     }
 
-    //Used for Animation Event function to notify the current attack reached its last frame
+    //Used for Animation Event function to notify the current moveset reached its last frame
     protected void OnEnded()
     {
         if (_enemy == null) return;

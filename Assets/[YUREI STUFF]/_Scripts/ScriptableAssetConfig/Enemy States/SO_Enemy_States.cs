@@ -13,8 +13,6 @@ public class SO_Enemy_States : ScriptableObject
 {
     [InlineEditor]
     public List<SO_Enemy_Substate> _subStates;
-    int[] priority;
-
     public IEnumerator Execute(Enemy enemy ,int subState)
     {       
         SetAnimation(enemy.StatusData, subState);

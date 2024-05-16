@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 618b7ca443446f84a967746fffa584b6, type: 3}
-  m_Name: Stun Dynamic State
+  m_Script: {fileID: 11500000, guid: 6310b393073db2e4abd4384bc17467a7, type: 3}
+  m_Name: False
   m_EditorClassIdentifier: 
-  normalStates: {fileID: 0}
-  ragingStates: {fileID: 0}
-  gameplayState: {fileID: 0}
-  conditions: []
+  value: 0

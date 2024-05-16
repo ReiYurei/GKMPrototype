@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e2349e84a24d941b92c71afbcf0116, type: 3}
+  m_Name: Condition Substate
+  m_EditorClassIdentifier: 
+  potentialMove:
+  - moveset: {fileID: 11400000, guid: 0eab5f6b85715e7439bdf11583ea434b, type: 2}
+    conditions:
+    - useConstant: 1
+      conditionType: 1
+      comparatorType: 0
+      variable1: {fileID: 0}
+      intValue: 0
+      floatValue: 0
+      boolValue: 0
+      variable2: {fileID: 0}
+  - moveset: {fileID: 11400000, guid: ddd48b6dea95b0b46be138d042be8cb3, type: 2}
+    conditions:
+    - useConstant: 1
+      conditionType: 1
+      comparatorType: 0
+      variable1: {fileID: 11400000, guid: 5b8c17d55a6e6ed42a4e954e819a84f4, type: 2}
+      intValue: 0
+      floatValue: 0
+      boolValue: 0
+      variable2: {fileID: 0}

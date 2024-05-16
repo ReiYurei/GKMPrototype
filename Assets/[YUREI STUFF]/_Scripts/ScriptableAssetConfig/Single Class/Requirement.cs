@@ -19,7 +19,6 @@ public class Requirement //Used for event type of data (i.e _mission, _quest, St
     [SerializeField][ShowIf(nameof(Type), RequirementType.Item)] private SO_Inventory _inventory;
     [SerializeField][ShowIf(nameof(Type), RequirementType.Story)] private SO_StoryData _story;
     [SerializeField][ShowIf(nameof(Type), RequirementType.Story)] private bool _mustSee;
-
     [SerializeField][ShowIf(nameof(Type), RequirementType.Fact)] private IntVariable _factVariable; 
     [SerializeField][ShowIf(nameof(Type), RequirementType.Fact)] private int _requiredAmount;
     
@@ -48,7 +47,7 @@ public class Requirement //Used for event type of data (i.e _mission, _quest, St
         return false;
     }
     //Required for Observer to Contain a Certain Data
-    //Data can be a _quest, _mission, BaseItem, or Integer of certain stuff as been met
+    //Data can be a _quest, _mission, BaseItem, or Integer of certain stuff has been met
     //_quest and _mission access Observer Completion data, and check whether or not it's contain this quest/_mission
     //BaseItem access Inventory and check whether or not it contain this BaseItem
     //Integer check between 2 value whether or not the condition has been met, such as 3 times of doing x
